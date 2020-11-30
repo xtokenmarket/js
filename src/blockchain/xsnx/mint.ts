@@ -3,25 +3,27 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 
 import ADDRESSES from '../../addresses'
-import {
-  DEC_18,
-  ETH,
-  KYBER_PROXY,
-  SNX,
-  TRADE_ACCOUNTING,
-  X_SNX_A,
-} from '../../constants'
-import { KyberProxy, TradeAccounting, XSNX } from '../../types'
-import {
-  estimateGas,
-  getContract,
-  getExpectedRate,
-  getTokenSymbol,
-} from '../utils'
+import { DEC_18, ETH, SNX } from '../../constants'
+import { XSNX } from '../../types'
+import { estimateGas, getExpectedRate } from '../utils'
+
+import { getXSnxContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
 
 const MINT_FEE = parseEther('0.998') // 0.2%
+
+export const approveXSnx = async (
+  amount: string,
+  provider: JsonRpcProvider
+): Promise<ContractTransaction> => {
+  const { tokenContract, xsnxContract } = await getXSnxContracts(provider)
+  const gasPrice = await estimateGas()
+
+  return tokenContract.approve(xsnxContract.address, amount, {
+    gasPrice,
+  })
+}
 
 export const getExpectedQuantityOnMintXSnx = async (
   tradeWithEth: boolean,
@@ -29,24 +31,13 @@ export const getExpectedQuantityOnMintXSnx = async (
   provider: JsonRpcProvider
 ) => {
   const inputAmount = parseEther(amount)
-  const network = await provider.getNetwork()
+  const {
+    kyberProxyContract,
+    network,
+    tradeAccountingContract,
+    xsnxContract,
+  } = await getXSnxContracts(provider)
   const { chainId } = network
-
-  const kyberProxyContract = getContract(
-    KYBER_PROXY,
-    provider,
-    network
-  ) as KyberProxy
-  const tradeAccountingContract = getContract(
-    TRADE_ACCOUNTING,
-    provider,
-    network
-  ) as TradeAccounting
-  const xsnxContract = getContract(X_SNX_A, provider, network) as XSNX
-
-  // Return error if required contracts are missing
-  if (!kyberProxyContract || !tradeAccountingContract || !xsnxContract)
-    return '0'
 
   const [snxBalanceBefore, totalSupply] = await Promise.all([
     tradeAccountingContract.getSnxBalance(),
@@ -90,29 +81,16 @@ export const getExpectedQuantityOnMintXSnx = async (
   }
 }
 
-export const minkXSnx = async (
+export const mintXSnx = async (
   tradeWithEth: boolean,
   amount: string,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
-  const network = await provider.getNetwork()
-
-  const xsnxContract = getContract(X_SNX_A, provider, network) as XSNX
-  const kyberProxyContract = getContract(
-    KYBER_PROXY,
-    provider,
-    network
-  ) as KyberProxy
-  const tokenContract = getContract(
-    getTokenSymbol(X_SNX_A),
-    provider,
-    network
-  ) as Contract
-
-  if (!xsnxContract || !kyberProxyContract || !tokenContract) {
-    return Promise.reject(new Error('Unknown error'))
-  }
-
+  const {
+    kyberProxyContract,
+    tokenContract,
+    xsnxContract,
+  } = await getXSnxContracts(provider)
   const gasPrice = await estimateGas()
 
   if (tradeWithEth) {
@@ -127,8 +105,27 @@ export const minkXSnx = async (
       gasPrice,
     })
   } else {
+    const approvedAmount = await _getApprovedAmount(
+      tokenContract,
+      xsnxContract,
+      provider.getSigner()._address
+    )
+    if (approvedAmount.gt(amount)) {
+      return Promise.reject(
+        new Error('Please approve the tokens before minting')
+      )
+    }
+
     return xsnxContract.mintWithSnx(amount, {
       gasPrice,
     })
   }
+}
+
+const _getApprovedAmount = async (
+  tokenContract: Contract,
+  xsnxContract: XSNX,
+  address: string
+) => {
+  return tokenContract.allowance(address, xsnxContract.address)
 }

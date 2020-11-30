@@ -64,7 +64,7 @@ export const getContract = (
   return new ethers.Contract(
     address,
     getAbi(contractName),
-    process.env.NODE_ENV !== 'production' ? provider : provider.getSigner()
+    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 }
 
