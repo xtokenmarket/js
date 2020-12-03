@@ -4,17 +4,17 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 
 import ADDRESSES from '../../addresses'
-import { DEC_18, ETH, KNC } from '../../constants'
+import { AAVE, DEC_18, ETH } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
 import { estimateGas, getExpectedRate } from '../utils'
 
-import { getXKncContracts } from './helper'
+import { getXAaveContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
 
 const BURN_FEE = parseEther('0.998') // 0.20%
 
-export const burnXKnc = async (
+export const burnXAave = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: string,
@@ -23,8 +23,8 @@ export const burnXKnc = async (
   const {
     kyberProxyContract,
     tokenContract,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
   const gasPrice = await estimateGas()
   const minRate = await getExpectedRate(
     kyberProxyContract,
@@ -33,47 +33,48 @@ export const burnXKnc = async (
     amount
   )
 
-  return xkncContract.burn(amount, sellForEth, minRate.toString(), {
+  return xaaveContract.burn(amount, sellForEth, minRate.toString(), {
     gasPrice,
   })
 }
 
-export const getExpectedQuantityOnBurnXKnc = async (
+export const getExpectedQuantityOnBurnXAave = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: string,
   provider: JsonRpcProvider
 ) => {
   const inputAmount = parseEther(amount)
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    symbol,
-    provider
-  )
+  const {
+    kyberProxyContract,
+    network,
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const [kncFundBal, totalSupply] = await Promise.all([
-    xkncContract.getFundKncBalanceTwei(),
-    xkncContract.totalSupply(),
+  const [aaveHoldings, xaaveSupply] = await Promise.all([
+    xaaveContract.getFundHoldings(),
+    xaaveContract.totalSupply(),
   ])
 
-  const proRataKnc = kncFundBal.mul(inputAmount).div(totalSupply)
+  const proRataAave = aaveHoldings.mul(inputAmount).div(xaaveSupply)
   let expectedQty: BigNumber
 
   if (!sellForEth) {
-    expectedQty = proRataKnc
+    expectedQty = proRataAave
   } else {
     const ethAddress = ADDRESSES[ETH]
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const kncAddress = ADDRESSES[KNC][chainId]
+    const aaveAddress = ADDRESSES[AAVE][chainId]
 
     const { expectedRate } = await kyberProxyContract.getExpectedRate(
-      kncAddress,
+      aaveAddress,
       ethAddress,
-      proRataKnc
+      proRataAave
     )
 
-    expectedQty = proRataKnc.mul(expectedRate).div(DEC_18)
+    expectedQty = proRataAave.mul(expectedRate).div(DEC_18)
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))

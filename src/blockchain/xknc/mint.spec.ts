@@ -1,7 +1,8 @@
 import test from 'ava'
 import { ethers } from 'ethers'
 
-// XToken
+import { X_KNC_A } from '../../constants'
+
 import { getExpectedQuantityOnMintXKnc } from './mint'
 
 const provider = new ethers.providers.InfuraProvider(
@@ -10,13 +11,23 @@ const provider = new ethers.providers.InfuraProvider(
 )
 
 test('Calculate xKNCa expected quantity on mint with ETH', async (t) => {
-  const expectedQty = await getExpectedQuantityOnMintXKnc(true, '1', provider)
+  const expectedQty = await getExpectedQuantityOnMintXKnc(
+    X_KNC_A,
+    true,
+    '1',
+    provider
+  )
   console.log('Expected xKNCa qty for 1 ETH:', expectedQty)
   t.is(typeof expectedQty, 'string')
 })
 
 test('Calculate xKNCa expected quantity on mint with KNC', async (t) => {
-  const expectedQty = await getExpectedQuantityOnMintXKnc(false, '1', provider)
+  const expectedQty = await getExpectedQuantityOnMintXKnc(
+    X_KNC_A,
+    false,
+    '1',
+    provider
+  )
   console.log('Expected xKNCa qty for 1 KNC:', expectedQty)
   t.is(typeof expectedQty, 'string')
 })
