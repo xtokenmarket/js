@@ -4,49 +4,50 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 
 import ADDRESSES from '../../addresses'
-import { DEC_18, ETH, KNC } from '../../constants'
-import { XKNC } from '../../types'
+import { AAVE, DEC_18, ETH } from '../../constants'
+import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { estimateGas, getExpectedRate } from '../utils'
 
-import { getXKncContracts } from './helper'
+import { getXAaveContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
 
-const MINT_FEE = 1 // 0.000%
+const MINT_FEE = parseEther('0.998') // 0.2%
 
-export const approveXKnc = async (
+export const approveXAave = async (
   symbol: ITokenSymbols,
   amount: string,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
-  const { tokenContract, xkncContract } = await getXKncContracts(
+  const { tokenContract, xaaveContract } = await getXAaveContracts(
     symbol,
     provider
   )
   const gasPrice = await estimateGas()
 
-  return tokenContract.approve(xkncContract.address, amount, {
+  return tokenContract.approve(xaaveContract.address, amount, {
     gasPrice,
   })
 }
 
-export const getExpectedQuantityOnMintXKnc = async (
+export const getExpectedQuantityOnMintXAave = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: string,
   provider: JsonRpcProvider
 ): Promise<string> => {
   const inputAmount = parseEther(amount)
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    symbol,
-    provider
-  )
+  const {
+    kyberProxyContract,
+    network,
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const [kncBalBefore, currentSupply] = await Promise.all([
-    xkncContract.getFundKncBalanceTwei(),
-    xkncContract.totalSupply(),
+  const [aaveHoldings, xaaveSupply] = await Promise.all([
+    xaaveContract.getFundHoldings(),
+    xaaveContract.totalSupply(),
   ])
 
   const ethToTrade = inputAmount.mul(MINT_FEE)
@@ -54,30 +55,26 @@ export const getExpectedQuantityOnMintXKnc = async (
   const ethAddress = ADDRESSES[ETH]
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const kncAddress = ADDRESSES[KNC][chainId]
+  const aaveAddress = ADDRESSES[AAVE][chainId]
 
-  let kncBalanceAfter: BigNumber
+  let aaveExpected: BigNumber
 
   if (tradeWithEth) {
     const { expectedRate } = await kyberProxyContract.getExpectedRate(
       ethAddress,
-      kncAddress,
+      aaveAddress,
       inputAmount
     )
-    const kncExpected = ethToTrade.mul(expectedRate)
-    kncBalanceAfter = kncExpected.add(kncBalBefore)
+    aaveExpected = ethToTrade.mul(expectedRate).div(DEC_18)
   } else {
-    kncBalanceAfter = ethToTrade.add(kncBalBefore)
+    aaveExpected = ethToTrade
   }
 
-  const mintAmount = kncBalanceAfter
-    .sub(kncBalBefore)
-    .mul(currentSupply)
-    .div(kncBalBefore)
-  return formatEther(tradeWithEth ? mintAmount.div(DEC_18) : mintAmount)
+  const xaaveExpected = aaveExpected.mul(xaaveSupply).div(aaveHoldings)
+  return formatEther(xaaveExpected)
 }
 
-export const mintXKnc = async (
+export const mintXAave = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: string,
@@ -86,8 +83,8 @@ export const mintXKnc = async (
   const {
     kyberProxyContract,
     tokenContract,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
   const gasPrice = await estimateGas()
 
   if (tradeWithEth) {
@@ -97,14 +94,14 @@ export const mintXKnc = async (
       tokenContract.address,
       amount
     )
-    return xkncContract.mint(minRate.toString(), {
+    return xaaveContract.mint(minRate.toString(), {
       gasPrice,
       value: amount,
     })
   } else {
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
-      xkncContract,
+      xaaveContract,
       provider.getSigner()._address
     )
     if (approvedAmount.gt(amount)) {
@@ -113,7 +110,7 @@ export const mintXKnc = async (
       )
     }
 
-    return xkncContract.mintWithKnc(amount, {
+    return xaaveContract.mintWithToken(amount, {
       gasPrice,
     })
   }
@@ -121,8 +118,8 @@ export const mintXKnc = async (
 
 const _getApprovedAmount = async (
   tokenContract: Contract,
-  xkncContract: XKNC,
+  xaaveContract: XAAVE,
   address: string
 ) => {
-  return tokenContract.allowance(address, xkncContract.address)
+  return tokenContract.allowance(address, xaaveContract.address)
 }

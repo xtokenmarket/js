@@ -3,18 +3,24 @@ import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import axios from 'axios'
 import { ethers } from 'ethers'
 
+import AaveProtoGovernanceAbi from '../abi/AaveProtoGovernance.json'
 import ERC20Abi from '../abi/ERC20.json'
 import KyberProxyAbi from '../abi/KyberProxy.json'
 import SynthetixAbi from '../abi/Synthetix.json'
 import TradeAccountingAbi from '../abi/TradeAccounting.json'
+import xAAVEAbi from '../abi/xAAVE.json'
 import xKNCAbi from '../abi/xKNC.json'
 import xSNXAbi from '../abi/xSNX.json'
 import ADDRESSES from '../addresses'
 import {
+  AAVE,
+  AAVE_PROTO_GOVERNANCE,
   KNC,
   KYBER_PROXY,
   SNX,
   TRADE_ACCOUNTING,
+  X_AAVE_A,
+  X_AAVE_B,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
@@ -33,14 +39,20 @@ export const estimateGas = async () => {
 
 const getAbi = (contractName: IContracts) => {
   switch (contractName) {
+    case AAVE:
     case KNC:
       return ERC20Abi as ContractInterface
+    case AAVE_PROTO_GOVERNANCE:
+      return AaveProtoGovernanceAbi as ContractInterface
     case KYBER_PROXY:
       return KyberProxyAbi as ContractInterface
     case SNX:
       return SynthetixAbi as ContractInterface
     case TRADE_ACCOUNTING:
       return TradeAccountingAbi as ContractInterface
+    case X_AAVE_A:
+    case X_AAVE_B:
+      return xAAVEAbi as ContractInterface
     case X_KNC_A:
     case X_KNC_B:
       return (xKNCAbi as unknown) as ContractInterface
@@ -84,6 +96,9 @@ export const getExpectedRate = async (
 
 export const getTokenSymbol = (symbol: ITokenSymbols) => {
   switch (symbol) {
+    case X_AAVE_A:
+    case X_AAVE_B:
+      return AAVE
     case X_KNC_A:
     case X_KNC_B:
       return KNC

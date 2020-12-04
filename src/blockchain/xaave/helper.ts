@@ -2,17 +2,17 @@ import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 
 import { KYBER_PROXY } from '../../constants'
-import { KyberProxy, XKNC } from '../../types'
+import { KyberProxy, XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getContract, getTokenSymbol } from '../utils'
 
-export const getXKncContracts = async (
+export const getXAaveContracts = async (
   symbol: ITokenSymbols,
   provider: JsonRpcProvider
 ) => {
   const network = await provider.getNetwork()
 
-  const xkncContract = getContract(symbol, provider, network) as XKNC
+  const xaaveContract = getContract(symbol, provider, network) as XAAVE
   const kyberProxyContract = getContract(
     KYBER_PROXY,
     provider,
@@ -24,7 +24,7 @@ export const getXKncContracts = async (
     network
   ) as Contract
 
-  if (!xkncContract || !kyberProxyContract || !tokenContract) {
+  if (!xaaveContract || !kyberProxyContract || !tokenContract) {
     return Promise.reject(new Error('Unknown error'))
   }
 
@@ -32,6 +32,6 @@ export const getXKncContracts = async (
     kyberProxyContract,
     network,
     tokenContract,
-    xkncContract,
+    xaaveContract,
   }
 }
