@@ -6,13 +6,11 @@ import { ethers } from 'ethers'
 import ADDRESSES from '../../addresses'
 import { AAVE, DEC_18, ETH } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate } from '../utils'
+import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
 import { getXAaveContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
-
-const BURN_FEE = parseEther('0.998') // 0.20%
 
 export const burnXAave = async (
   symbol: ITokenSymbols,
@@ -52,11 +50,13 @@ export const getExpectedQuantityOnBurnXAave = async (
   } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const [aaveHoldings, xaaveSupply] = await Promise.all([
+  const [aaveHoldings, xaaveSupply, { burnFee }] = await Promise.all([
     xaaveContract.getFundHoldings(),
     xaaveContract.totalSupply(),
+    xaaveContract.feeDivisors(),
   ])
 
+  const BURN_FEE = parseFees(burnFee)
   const proRataAave = aaveHoldings.mul(inputAmount).div(xaaveSupply)
   let expectedQty: BigNumber
 

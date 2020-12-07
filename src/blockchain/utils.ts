@@ -1,7 +1,7 @@
 import { ContractInterface } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import axios from 'axios'
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 
 import AaveProtoGovernanceAbi from '../abi/AaveProtoGovernance.json'
 import ERC20Abi from '../abi/ERC20.json'
@@ -27,6 +27,8 @@ import {
 } from '../constants'
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
+
+const { parseEther } = ethers.utils
 
 export const estimateGas = async () => {
   const response = await axios.get(
@@ -105,4 +107,8 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_SNX_A:
       return SNX
   }
+}
+
+export const parseFees = (fee: BigNumber) => {
+  return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
 }

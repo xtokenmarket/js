@@ -5,13 +5,11 @@ import { ethers } from 'ethers'
 import ADDRESSES from '../../addresses'
 import { DEC_18, ETH, SNX } from '../../constants'
 import { XSNX } from '../../types'
-import { estimateGas, getExpectedRate } from '../utils'
+import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
 import { getXSnxContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
-
-const MINT_FEE = parseEther('0.998') // 0.2%
 
 export const approveXSnx = async (
   amount: string,
@@ -39,10 +37,13 @@ export const getExpectedQuantityOnMintXSnx = async (
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
-  const [snxBalanceBefore, totalSupply] = await Promise.all([
+  const [snxBalanceBefore, totalSupply, { mintFee }] = await Promise.all([
     tradeAccountingContract.getSnxBalance(),
     xsnxContract.totalSupply(),
+    xsnxContract.feeDivisors(),
   ])
+
+  const MINT_FEE = parseFees(mintFee)
 
   if (tradeWithEth) {
     const ethContributed = inputAmount.mul(MINT_FEE).div(DEC_18)
