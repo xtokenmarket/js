@@ -7,13 +7,11 @@ import ADDRESSES from '../../addresses'
 import { DEC_18, ETH, KNC } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate } from '../utils'
+import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
 import { getXKncContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
-
-const MINT_FEE = 1 // 0.000%
 
 export const approveXKnc = async (
   symbol: ITokenSymbols,
@@ -44,11 +42,13 @@ export const getExpectedQuantityOnMintXKnc = async (
   )
   const { chainId } = network
 
-  const [kncBalBefore, currentSupply] = await Promise.all([
+  const [kncBalBefore, currentSupply, { mintFee }] = await Promise.all([
     xkncContract.getFundKncBalanceTwei(),
     xkncContract.totalSupply(),
+    xkncContract.feeStructure(),
   ])
 
+  const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
   const ethAddress = ADDRESSES[ETH]
@@ -74,6 +74,7 @@ export const getExpectedQuantityOnMintXKnc = async (
     .sub(kncBalBefore)
     .mul(currentSupply)
     .div(kncBalBefore)
+    .div(DEC_18)
   return formatEther(tradeWithEth ? mintAmount.div(DEC_18) : mintAmount)
 }
 

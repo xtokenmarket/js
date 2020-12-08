@@ -6,13 +6,11 @@ import { ethers } from 'ethers'
 import ADDRESSES from '../../addresses'
 import { DEC_18, ETH, KNC } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate } from '../utils'
+import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
 import { getXKncContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
-
-const BURN_FEE = parseEther('0.998') // 0.20%
 
 export const burnXKnc = async (
   symbol: ITokenSymbols,
@@ -51,11 +49,13 @@ export const getExpectedQuantityOnBurnXKnc = async (
   )
   const { chainId } = network
 
-  const [kncFundBal, totalSupply] = await Promise.all([
+  const [kncFundBal, totalSupply, { burnFee }] = await Promise.all([
     xkncContract.getFundKncBalanceTwei(),
     xkncContract.totalSupply(),
+    xkncContract.feeStructure(),
   ])
 
+  const BURN_FEE = parseFees(burnFee)
   const proRataKnc = kncFundBal.mul(inputAmount).div(totalSupply)
   let expectedQty: BigNumber
 

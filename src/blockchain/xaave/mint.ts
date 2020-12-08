@@ -7,13 +7,11 @@ import ADDRESSES from '../../addresses'
 import { AAVE, DEC_18, ETH } from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate } from '../utils'
+import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
 import { getXAaveContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
-
-const MINT_FEE = parseEther('0.998') // 0.2%
 
 export const approveXAave = async (
   symbol: ITokenSymbols,
@@ -45,11 +43,13 @@ export const getExpectedQuantityOnMintXAave = async (
   } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const [aaveHoldings, xaaveSupply] = await Promise.all([
+  const [aaveHoldings, xaaveSupply, { mintFee }] = await Promise.all([
     xaaveContract.getFundHoldings(),
     xaaveContract.totalSupply(),
+    xaaveContract.feeDivisors(),
   ])
 
+  const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
   const ethAddress = ADDRESSES[ETH]
@@ -70,7 +70,10 @@ export const getExpectedQuantityOnMintXAave = async (
     aaveExpected = ethToTrade
   }
 
-  const xaaveExpected = aaveExpected.mul(xaaveSupply).div(aaveHoldings)
+  const xaaveExpected = aaveExpected
+    .mul(xaaveSupply)
+    .div(aaveHoldings)
+    .div(DEC_18)
   return formatEther(xaaveExpected)
 }
 
