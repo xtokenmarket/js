@@ -15,7 +15,7 @@ const { formatEther, parseEther } = ethers.utils
 export const burnXAave = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -26,12 +26,12 @@ export const burnXAave = async (
   const gasPrice = await estimateGas()
   const minRate = await getExpectedRate(
     kyberProxyContract,
-    ADDRESSES[ETH],
     tokenContract.address,
+    ADDRESSES[ETH],
     amount
   )
 
-  return xaaveContract.burn(amount, sellForEth, minRate.toString(), {
+  return xaaveContract.burn(amount, sellForEth, minRate, {
     gasPrice,
   })
 }

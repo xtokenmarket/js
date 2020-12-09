@@ -15,7 +15,7 @@ const { formatEther, parseEther } = ethers.utils
 export const burnXKnc = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -26,12 +26,12 @@ export const burnXKnc = async (
   const gasPrice = await estimateGas()
   const minRate = await getExpectedRate(
     kyberProxyContract,
-    ADDRESSES[ETH],
     tokenContract.address,
+    ADDRESSES[ETH],
     amount
   )
 
-  return xkncContract.burn(amount, sellForEth, minRate.toString(), {
+  return xkncContract.burn(amount, sellForEth, minRate, {
     gasPrice,
   })
 }

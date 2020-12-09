@@ -1,6 +1,6 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 
 import { estimateGas } from '../utils'
 
@@ -9,7 +9,7 @@ import { getXSnxContracts } from './helper'
 const { formatEther, parseEther } = ethers.utils
 
 export const burnXSnx = async (
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { xsnxContract } = await getXSnxContracts(provider)
