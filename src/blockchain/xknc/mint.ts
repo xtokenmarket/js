@@ -15,7 +15,7 @@ const { formatEther, parseEther } = ethers.utils
 
 export const approveXKnc = async (
   symbol: ITokenSymbols,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xkncContract } = await getXKncContracts(
@@ -81,7 +81,7 @@ export const getExpectedQuantityOnMintXKnc = async (
 export const mintXKnc = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -103,12 +103,14 @@ export const mintXKnc = async (
       value: amount,
     })
   } else {
+    const signer = provider.getSigner()
+    const address = await signer.getAddress()
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xkncContract,
-      provider.getSigner()._address
+      address
     )
-    if (approvedAmount.gt(amount)) {
+    if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )

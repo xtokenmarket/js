@@ -1,5 +1,6 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { parseEther } from 'ethers/lib/utils'
 
 import {
   burnXAave,
@@ -44,17 +45,19 @@ export class XToken {
 
   public async approve(
     symbol: ITokenSymbols,
-    amount: string = MAX_UINT.toString()
+    amount: string
   ): Promise<ContractTransaction> {
+    const value = amount ? parseEther(amount) : MAX_UINT
+
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return approveXAave(symbol, amount, this.provider)
+        return approveXAave(symbol, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
-        return approveXKnc(symbol, amount, this.provider)
+        return approveXKnc(symbol, value, this.provider)
       case X_SNX_A:
-        return approveXSnx(amount, this.provider)
+        return approveXSnx(value, this.provider)
     }
   }
 
@@ -66,16 +69,17 @@ export class XToken {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
+    const value = parseEther(amount)
 
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return burnXAave(symbol, sellForEth, amount, this.provider)
+        return burnXAave(symbol, sellForEth, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
-        return burnXKnc(symbol, sellForEth, amount, this.provider)
+        return burnXKnc(symbol, sellForEth, value, this.provider)
       case X_SNX_A:
-        return burnXSnx(amount, this.provider)
+        return burnXSnx(value, this.provider)
     }
   }
 
@@ -153,16 +157,17 @@ export class XToken {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
+    const value = parseEther(amount)
 
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return mintXAave(symbol, tradeWithEth, amount, this.provider)
+        return mintXAave(symbol, tradeWithEth, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
-        return mintXKnc(symbol, tradeWithEth, amount, this.provider)
+        return mintXKnc(symbol, tradeWithEth, value, this.provider)
       case X_SNX_A:
-        return mintXSnx(tradeWithEth, amount, this.provider)
+        return mintXSnx(tradeWithEth, value, this.provider)
     }
   }
 }

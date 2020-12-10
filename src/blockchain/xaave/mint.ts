@@ -15,7 +15,7 @@ const { formatEther, parseEther } = ethers.utils
 
 export const approveXAave = async (
   symbol: ITokenSymbols,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xaaveContract } = await getXAaveContracts(
@@ -80,7 +80,7 @@ export const getExpectedQuantityOnMintXAave = async (
 export const mintXAave = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -102,12 +102,15 @@ export const mintXAave = async (
       value: amount,
     })
   } else {
+    const signer = provider.getSigner()
+    const address = await signer.getAddress()
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xaaveContract,
-      provider.getSigner()._address
+      address
     )
-    if (approvedAmount.gt(amount)) {
+
+    if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )

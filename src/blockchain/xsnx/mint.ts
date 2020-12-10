@@ -1,6 +1,6 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 
 import ADDRESSES from '../../addresses'
 import { DEC_18, ETH, SNX } from '../../constants'
@@ -12,7 +12,7 @@ import { getXSnxContracts } from './helper'
 const { formatEther, parseEther } = ethers.utils
 
 export const approveXSnx = async (
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xsnxContract } = await getXSnxContracts(provider)
@@ -84,7 +84,7 @@ export const getExpectedQuantityOnMintXSnx = async (
 
 export const mintXSnx = async (
   tradeWithEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -106,12 +106,14 @@ export const mintXSnx = async (
       gasPrice,
     })
   } else {
+    const signer = provider.getSigner()
+    const address = await signer.getAddress()
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xsnxContract,
-      provider.getSigner()._address
+      address
     )
-    if (approvedAmount.gt(amount)) {
+    if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )

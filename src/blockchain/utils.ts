@@ -86,7 +86,7 @@ export const getExpectedRate = async (
   kyberProxyContract: KyberProxy,
   inputAsset: string,
   outputAsset: string,
-  amount: string
+  amount: BigNumber
 ) => {
   const rates = await kyberProxyContract.getExpectedRate(
     inputAsset,
