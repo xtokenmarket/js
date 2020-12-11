@@ -39,7 +39,6 @@
     "reset-hard": "git clean -dfx && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
     "typechain": "typechain --target=ethers-v5 --outDir ./src/types './src/abi/*.json'",
-    "postinstall": "yarn typechain && yarn fix",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/"
   },
   "engines": {

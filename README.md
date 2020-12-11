@@ -17,7 +17,7 @@ yarn add ethers
 
 ## Documentation
 
-// TODO: Publish docs and link here
+GitHub pages: [https://xtokenmarket.github.io/xtoken-js](https://xtokenmarket.github.io/xtoken-js/)
 
 ## Examples
 ```sh
