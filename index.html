@@ -1,0 +1,328 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>xtoken-js</title>
+	<meta name="description" content="Documentation for xtoken-js">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">xtoken-js</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>xtoken-js</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#xtoken-js" id="xtoken-js" style="color: inherit; text-decoration: none;">
+					<h1>xtoken-js</h1>
+				</a>
+				<p>Helper library to interact with xToken contracts written in Typescript with full typing support. It allows access to the low level API to directly interact with the contracts.</p>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<pre><code class="language-sh">yarn add xtoken-js</code></pre>
+				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
+					<h2>Dependencies</h2>
+				</a>
+				<p>At the moment, xtoken-js requires to use <a href="https://www.npmjs.com/package/ethers">Ether.js</a> V5. In the future will add support for web3.js</p>
+				<pre><code class="language-sh">yarn add ethers</code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>// TODO: Publish docs and link here</p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<pre><code class="language-sh">import { ethers } from <span class="hljs-string">&#x27;ethers&#x27;</span>
+import { XToken } from <span class="hljs-string">&#x27;xtoken-js&#x27;</span>
+
+// Setup provider
+const provider = new ethers.providers.InfuraProvider(<span class="hljs-string">&#x27;homestead&#x27;</span>, <span class="hljs-string">&#x27;&lt;API KEY&gt;&#x27;</span>)
+
+// Initialize XToken
+const xToken = new XToken(provider)
+
+// Calculate expected mint quantity <span class="hljs-keyword">for</span> tokens
+const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-string">&#x27;xKNCa&#x27;</span>, <span class="hljs-literal">true</span>, <span class="hljs-string">&#x27;1&#x27;</span>) // args: `symbol`, `tradeWithEth` &amp; `amount`</code></pre>
+				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+					<h2>Development</h2>
+				</a>
+				<ul>
+					<li>Generate API documentation (HTML or JSON) <a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/">without a mess of JSDoc tags</a> to maintain</li>
+					<li>Collocated, atomic, concurrent unit tests with <a href="https://github.com/avajs/ava">AVA</a></li>
+					<li>Source-mapped code coverage reports with <a href="https://github.com/istanbuljs/nyc">nyc</a></li>
+					<li>Configurable code coverage testing (for continuous integration)</li>
+					<li>Automatic linting and formatting using <a href="https://github.com/typescript-eslint/typescript-eslint"><code>typescript-eslint</code></a> and <a href="https://prettier.io/">Prettier</a></li>
+				</ul>
+				<a href="#build" id="build" style="color: inherit; text-decoration: none;">
+					<h3>Build</h3>
+				</a>
+				<pre><code class="language-sh">yarn watch:build</code></pre>
+				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+					<h3>Tests</h3>
+				</a>
+				<pre><code class="language-sh">yarn watch:<span class="hljs-built_in">test</span></code></pre>
+				<a href="#linting" id="linting" style="color: inherit; text-decoration: none;">
+					<h3>Linting</h3>
+				</a>
+				<p>To automatically fix <code>eslint</code> and <code>prettier</code> formatting issues, run:</p>
+				<pre><code class="language-sh">yarn fix</code></pre>
+				<a href="#coverage" id="coverage" style="color: inherit; text-decoration: none;">
+					<h3>Coverage</h3>
+				</a>
+				<p>To generate and view test coverage, run:</p>
+				<pre><code class="language-sh">yarn cov</code></pre>
+				<p>This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.</p>
+				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
+					<h2>Docs</h2>
+				</a>
+				<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">TypeDoc</a>.</p>
+				<pre><code class="language-sh">yarn doc</code></pre>
+				<p>This command generates API documentation in HTML format and opens it in a browser.</p>
+				<p>Since types are tracked by Typescript, there&#39;s no need to indicate types in JSDoc format. For more information, see the <a href="http://typedoc.org/guides/doccomments/">TypeDoc documentation</a>.</p>
+				<p>To generate and publish documentation to <a href="https://pages.github.com/">GitHub Pages</a> use the following command:</p>
+				<pre><code class="language-sh">yarn doc:publish</code></pre>
+				<p>Once published, documentation should be available at the proper GitHub Pages URL for your repo.</p>
+				<p>Created using <a href="https://github.com/bitjson/typescript-starter">typescript-starter</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/xtoken.html" class="tsd-kind-icon">XToken</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#aave" class="tsd-kind-icon">AAVE</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#aave_proto_governance" class="tsd-kind-icon">AAVE_<wbr>PROTO_<wbr>GOVERNANCE</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#dai" class="tsd-kind-icon">DAI</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#dec_18" class="tsd-kind-icon">DEC_<wbr>18</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#eth" class="tsd-kind-icon">ETH</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#eth_rsi_60_40" class="tsd-kind-icon">ETH_<wbr>RSI_<wbr>60_<wbr>40</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#fee_pool" class="tsd-kind-icon">FEE_<wbr>POOL</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#knc" class="tsd-kind-icon">KNC</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#kyber_dao" class="tsd-kind-icon">KYBER_<wbr>DAO</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#kyber_proxy" class="tsd-kind-icon">KYBER_<wbr>PROXY</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#max_uint" class="tsd-kind-icon">MAX_<wbr>UINT</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#snx" class="tsd-kind-icon">SNX</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#synthetix_address_resolver" class="tsd-kind-icon">SYNTHETIX_<wbr>ADDRESS_<wbr>RESOLVER</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#trade_accounting" class="tsd-kind-icon">TRADE_<wbr>ACCOUNTING</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_aave_a" class="tsd-kind-icon">X_<wbr>AAVE_<wbr>A</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_aave_b" class="tsd-kind-icon">X_<wbr>AAVE_<wbr>B</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_knc_a" class="tsd-kind-icon">X_<wbr>KNC_<wbr>A</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_knc_b" class="tsd-kind-icon">X_<wbr>KNC_<wbr>B</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_snx_a" class="tsd-kind-icon">X_<wbr>SNX_<wbr>A</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#x_snx_a_admin" class="tsd-kind-icon">X_<wbr>SNX_<wbr><wbr>A_ADMIN</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#formatether" class="tsd-kind-icon">format<wbr>Ether</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#parseether" class="tsd-kind-icon">parse<wbr>Ether</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#provider" class="tsd-kind-icon">provider</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#_getapprovedamount" class="tsd-kind-icon">_get<wbr>Approved<wbr>Amount</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#approvexaave" class="tsd-kind-icon">approveXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#approvexknc" class="tsd-kind-icon">approveXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#approvexsnx" class="tsd-kind-icon">approveXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#burnxaave" class="tsd-kind-icon">burnXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#burnxknc" class="tsd-kind-icon">burnXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#burnxsnx" class="tsd-kind-icon">burnXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#estimategas" class="tsd-kind-icon">estimate<wbr>Gas</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getabi" class="tsd-kind-icon">get<wbr>Abi</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getcontract" class="tsd-kind-icon">get<wbr>Contract</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonburnxaave" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurnXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonburnxknc" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurnXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonburnxsnx" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurnXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonmintxaave" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMintXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonmintxknc" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMintXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedquantityonmintxsnx" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMintXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexpectedrate" class="tsd-kind-icon">get<wbr>Expected<wbr>Rate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#gettokensymbol" class="tsd-kind-icon">get<wbr>Token<wbr>Symbol</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getxaavecontracts" class="tsd-kind-icon">getXAave<wbr>Contracts</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getxknccontracts" class="tsd-kind-icon">getXKnc<wbr>Contracts</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getxsnxcontracts" class="tsd-kind-icon">getXSnx<wbr>Contracts</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mintxaave" class="tsd-kind-icon">mintXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mintxknc" class="tsd-kind-icon">mintXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mintxsnx" class="tsd-kind-icon">mintXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parsefees" class="tsd-kind-icon">parse<wbr>Fees</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#addresses" class="tsd-kind-icon">ADDRESSES</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
