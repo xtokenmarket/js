@@ -96,7 +96,8 @@ export const mintXKnc = async (
       kyberProxyContract,
       ADDRESSES[ETH],
       tokenContract.address,
-      amount
+      amount,
+      true
     )
     return xkncContract.mint(minRate.toString(), {
       gasPrice,

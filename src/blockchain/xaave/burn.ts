@@ -28,7 +28,8 @@ export const burnXAave = async (
     kyberProxyContract,
     tokenContract.address,
     ADDRESSES[ETH],
-    amount
+    amount,
+    true
   )
 
   return xaaveContract.burn(amount, sellForEth, minRate, {

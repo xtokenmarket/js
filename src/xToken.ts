@@ -11,18 +11,21 @@ import {
   getExpectedQuantityOnMintXAave,
   mintXAave,
 } from './blockchain/xaave/mint'
+import { getPortfolioItemXAave } from './blockchain/xaave/portfolio'
 import { burnXKnc, getExpectedQuantityOnBurnXKnc } from './blockchain/xknc/burn'
 import {
   approveXKnc,
   getExpectedQuantityOnMintXKnc,
   mintXKnc,
 } from './blockchain/xknc/mint'
+import { getPortfolioItemXKnc } from './blockchain/xknc/portfolio'
 import { burnXSnx, getExpectedQuantityOnBurnXSnx } from './blockchain/xsnx/burn'
 import {
   approveXSnx,
   getExpectedQuantityOnMintXSnx,
   mintXSnx,
 } from './blockchain/xsnx/mint'
+import { getPortfolioItemXSnx } from './blockchain/xsnx/portfolio'
 import {
   MAX_UINT,
   X_AAVE_A,
@@ -147,6 +150,19 @@ export class XToken {
           this.provider
         )
     }
+  }
+
+  public async getPortfolioItems() {
+    const signer = this.provider.getSigner()
+    const address = await signer.getAddress()
+
+    return Promise.all([
+      getPortfolioItemXKnc(X_KNC_A, address, this.provider),
+      getPortfolioItemXKnc(X_KNC_B, address, this.provider),
+      getPortfolioItemXSnx(X_SNX_A, address, this.provider),
+      getPortfolioItemXAave(X_AAVE_A, address, this.provider),
+      getPortfolioItemXAave(X_AAVE_B, address, this.provider),
+    ])
   }
 
   public async mint(

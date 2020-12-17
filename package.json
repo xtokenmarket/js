@@ -37,7 +37,7 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && yarn",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
+    "prepare-release": "run-s reset-hard test doc:html version doc:publish",
     "typechain": "typechain --target=ethers-v5 --outDir ./src/types './src/abi/*.json'",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/"
   },

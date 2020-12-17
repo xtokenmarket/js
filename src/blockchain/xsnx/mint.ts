@@ -99,7 +99,8 @@ export const mintXSnx = async (
       kyberProxyContract,
       ADDRESSES[ETH],
       tokenContract.address,
-      amount
+      amount,
+      true
     )
     return xsnxContract.mint(minRate.toString(), {
       value: amount,

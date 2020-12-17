@@ -1,10 +1,13 @@
-import { ContractInterface } from '@ethersproject/contracts'
+import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import axios from 'axios'
 import { BigNumber, ethers } from 'ethers'
+import { ContractInterface } from 'ethers/lib/ethers'
 
 import AaveProtoGovernanceAbi from '../abi/AaveProtoGovernance.json'
+import AddressResolverAbi from '../abi/AddressResolver.json'
 import ERC20Abi from '../abi/ERC20.json'
+import ExchangeRatesAbi from '../abi/ExchangeRates.json'
 import KyberProxyAbi from '../abi/KyberProxy.json'
 import SynthetixAbi from '../abi/Synthetix.json'
 import TradeAccountingAbi from '../abi/TradeAccounting.json'
@@ -15,9 +18,11 @@ import ADDRESSES from '../addresses'
 import {
   AAVE,
   AAVE_PROTO_GOVERNANCE,
+  EXCHANGE_RATES,
   KNC,
   KYBER_PROXY,
   SNX,
+  SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
   X_AAVE_A,
   X_AAVE_B,
@@ -28,7 +33,7 @@ import {
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
-const { parseEther } = ethers.utils
+const { formatEther, parseEther } = ethers.utils
 
 export const estimateGas = async () => {
   const response = await axios.get(
@@ -46,6 +51,8 @@ const getAbi = (contractName: IContracts) => {
       return ERC20Abi as ContractInterface
     case AAVE_PROTO_GOVERNANCE:
       return AaveProtoGovernanceAbi as ContractInterface
+    case EXCHANGE_RATES:
+      return ExchangeRatesAbi as ContractInterface
     case KYBER_PROXY:
       return KyberProxyAbi as ContractInterface
     case SNX:
@@ -86,14 +93,17 @@ export const getExpectedRate = async (
   kyberProxyContract: KyberProxy,
   inputAsset: string,
   outputAsset: string,
-  amount: BigNumber
+  amount: BigNumber,
+  isMinRate = false
 ) => {
-  const rates = await kyberProxyContract.getExpectedRate(
+  const { expectedRate } = await kyberProxyContract.getExpectedRate(
     inputAsset,
     outputAsset,
     amount
   )
-  return Math.round(Number(rates[0].toString()) * 0.98)
+  return isMinRate
+    ? Math.round(Number(expectedRate.toString()) * 0.98)
+    : expectedRate
 }
 
 export const getTokenSymbol = (symbol: ITokenSymbols) => {
@@ -111,4 +121,49 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
 
 export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
+}
+
+export const getTokenBalance = async (
+  tokenAddress: string,
+  userAddress: string,
+  provider: JsonRpcProvider
+) => {
+  const contract = new ethers.Contract(tokenAddress, ERC20Abi, provider)
+  return contract.balanceOf(userAddress)
+}
+
+export const getUserAvailableTokenBalance = async (
+  contract: Contract,
+  address: string
+) => {
+  let bal
+
+  // TODO: Update the check to not be dependent upon `chainId`
+  if (contract.address === ADDRESSES[SNX][1]) {
+    bal = await contract.transferableSynthetix(address)
+  } else {
+    bal = await contract.balanceOf(address)
+  }
+  return Math.floor(Number(formatEther(bal.toString())) * 1000) / 1000
+}
+
+export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
+  if (!provider) return null
+
+  const resolver = new ethers.Contract(
+    ADDRESSES[SYNTHETIX_ADDRESS_RESOLVER][1],
+    AddressResolverAbi,
+    provider
+  )
+  const address = resolver.getAddress(
+    ethers.utils.formatBytes32String('ExchangeRates')
+  )
+
+  if (!address) return null
+
+  return new ethers.Contract(
+    address,
+    ExchangeRatesAbi,
+    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+  )
 }

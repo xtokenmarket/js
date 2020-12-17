@@ -28,7 +28,8 @@ export const burnXKnc = async (
     kyberProxyContract,
     tokenContract.address,
     ADDRESSES[ETH],
-    amount
+    amount,
+    true
   )
 
   return xkncContract.burn(amount, sellForEth, minRate, {
