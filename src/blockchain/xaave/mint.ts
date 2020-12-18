@@ -95,7 +95,8 @@ export const mintXAave = async (
       kyberProxyContract,
       ADDRESSES[ETH],
       tokenContract.address,
-      amount
+      amount,
+      true
     )
     return xaaveContract.mint(minRate.toString(), {
       gasPrice,

@@ -1,7 +1,6 @@
 import {
   AAVE,
   AAVE_PROTO_GOVERNANCE,
-  DAI,
   ETH,
   ETH_RSI_60_40,
   FEE_POOL,
@@ -11,6 +10,7 @@ import {
   SNX,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
+  USDC,
   X_AAVE_A,
   X_AAVE_B,
   X_KNC_A,
@@ -64,8 +64,8 @@ const ADDRESSES = {
     3: '0x2Be7dC494362e4FCa2c228522047663B17aE17F9',
   },
   [ETH]: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-  [DAI]: {
-    1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // using USDC now
+  [USDC]: {
+    1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     3: '0xaD6D458402F60fD3Bd25163575031ACDce07538D',
   },
   [ETH_RSI_60_40]: {
