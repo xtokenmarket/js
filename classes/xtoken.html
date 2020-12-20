@@ -97,6 +97,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken.html#burn" class="tsd-kind-icon">burn</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken.html#getexpectedquantityonburn" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurn</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken.html#getexpectedquantityonmint" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMint</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken.html#getportfolioitems" class="tsd-kind-icon">get<wbr>Portfolio<wbr>Items</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken.html#mint" class="tsd-kind-icon">mint</a></li>
 							</ul>
 						</section>
@@ -115,7 +116,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L37">xToken.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L40">xToken.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">JsonRpcProvider</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L37">xToken.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L40">xToken.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +162,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L46">xToken.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L49">xToken.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -187,7 +188,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L64">xToken.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L67">xToken.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -216,7 +217,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L86">xToken.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L89">xToken.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -245,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L117">xToken.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L120">xToken.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -265,6 +266,23 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getportfolioitems" class="tsd-anchor"></a>
+					<h3>get<wbr>Portfolio<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Portfolio<wbr>Items<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L155">xToken.ts:155</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span>price<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>quantity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITokenSymbols</span><span class="tsd-signature-symbol">; </span>tokenEquivalent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="mint" class="tsd-anchor"></a>
 					<h3>mint</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -274,7 +292,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/0f2db9f/src/xToken.ts#L152">xToken.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/8254c68/src/xToken.ts#L168">xToken.ts:168</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -327,6 +345,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="xtoken.html#getexpectedquantityonmint" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMint</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="xtoken.html#getportfolioitems" class="tsd-kind-icon">get<wbr>Portfolio<wbr>Items</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="xtoken.html#mint" class="tsd-kind-icon">mint</a>

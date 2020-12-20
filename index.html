@@ -157,9 +157,6 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 						<a href="globals.html#aave_proto_governance" class="tsd-kind-icon">AAVE_<wbr>PROTO_<wbr>GOVERNANCE</a>
 					</li>
 					<li class=" tsd-kind-variable">
-						<a href="globals.html#dai" class="tsd-kind-icon">DAI</a>
-					</li>
-					<li class=" tsd-kind-variable">
 						<a href="globals.html#dec_18" class="tsd-kind-icon">DEC_<wbr>18</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -167,6 +164,9 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#eth_rsi_60_40" class="tsd-kind-icon">ETH_<wbr>RSI_<wbr>60_<wbr>40</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#exchange_rates" class="tsd-kind-icon">EXCHANGE_<wbr>RATES</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#fee_pool" class="tsd-kind-icon">FEE_<wbr>POOL</a>
@@ -191,6 +191,9 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#trade_accounting" class="tsd-kind-icon">TRADE_<wbr>ACCOUNTING</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#usdc" class="tsd-kind-icon">USDC</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#x_aave_a" class="tsd-kind-icon">X_<wbr>AAVE_<wbr>A</a>
@@ -244,10 +247,19 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 						<a href="globals.html#estimategas" class="tsd-kind-icon">estimate<wbr>Gas</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#formatnumber" class="tsd-kind-icon">format<wbr>Number</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#formatnumberwithcommas" class="tsd-kind-icon">format<wbr>Number<wbr>With<wbr>Commas</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getabi" class="tsd-kind-icon">get<wbr>Abi</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getcontract" class="tsd-kind-icon">get<wbr>Contract</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getexchangeratecontract" class="tsd-kind-icon">get<wbr>Exchange<wbr>Rate<wbr>Contract</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getexpectedquantityonburnxaave" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurnXAave</a>
@@ -271,16 +283,43 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 						<a href="globals.html#getexpectedrate" class="tsd-kind-icon">get<wbr>Expected<wbr>Rate</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#getportfolioitemxaave" class="tsd-kind-icon">get<wbr>Portfolio<wbr>ItemXAave</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getportfolioitemxknc" class="tsd-kind-icon">get<wbr>Portfolio<wbr>ItemXKnc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getportfolioitemxsnx" class="tsd-kind-icon">get<wbr>Portfolio<wbr>ItemXSnx</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#gettokenbalance" class="tsd-kind-icon">get<wbr>Token<wbr>Balance</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#gettokensymbol" class="tsd-kind-icon">get<wbr>Token<wbr>Symbol</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getunderlyingtokenequivalent" class="tsd-kind-icon">get<wbr>Underlying<wbr>Token<wbr>Equivalent</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getuseravailabletokenbalance" class="tsd-kind-icon">get<wbr>User<wbr>Available<wbr>Token<wbr>Balance</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getxaavecontracts" class="tsd-kind-icon">getXAave<wbr>Contracts</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#getxaaveprices" class="tsd-kind-icon">getXAave<wbr>Prices</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getxknccontracts" class="tsd-kind-icon">getXKnc<wbr>Contracts</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#getxkncprices" class="tsd-kind-icon">getXKnc<wbr>Prices</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getxsnxcontracts" class="tsd-kind-icon">getXSnx<wbr>Contracts</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getxsnxprices" class="tsd-kind-icon">getXSnx<wbr>Prices</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#mintxaave" class="tsd-kind-icon">mintXAave</a>
@@ -293,9 +332,6 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(<span class="hljs-str
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#parsefees" class="tsd-kind-icon">parse<wbr>Fees</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#tonumber" class="tsd-kind-icon">to<wbr>Number</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#addresses" class="tsd-kind-icon">ADDRESSES</a>
