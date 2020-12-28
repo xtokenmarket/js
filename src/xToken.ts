@@ -12,6 +12,7 @@ import {
   mintXAave,
 } from './blockchain/xaave/mint'
 import { getPortfolioItemXAave } from './blockchain/xaave/portfolio'
+import { getMaximumRedeemableXAave } from './blockchain/xaave/redeem'
 import { burnXKnc, getExpectedQuantityOnBurnXKnc } from './blockchain/xknc/burn'
 import {
   approveXKnc,
@@ -26,6 +27,7 @@ import {
   mintXSnx,
 } from './blockchain/xsnx/mint'
 import { getPortfolioItemXSnx } from './blockchain/xsnx/portfolio'
+import { getMaximumRedeemableXSnx } from './blockchain/xsnx/redeem'
 import {
   MAX_UINT,
   X_AAVE_A,
@@ -149,6 +151,18 @@ export class XToken {
           amount,
           this.provider
         )
+    }
+  }
+
+  public async getMaxRedeemable(
+    symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A
+  ): Promise<string> {
+    switch (symbol) {
+      case X_AAVE_A:
+      case X_AAVE_B:
+        return getMaximumRedeemableXAave(symbol, this.provider)
+      case X_SNX_A:
+        return getMaximumRedeemableXSnx(this.provider)
     }
   }
 
