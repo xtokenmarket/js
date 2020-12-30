@@ -12,7 +12,8 @@ import { getXAavePrices } from './prices'
 export const getPortfolioItemXAave = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: JsonRpcProvider,
+  loggedIn: boolean
 ) => {
   const {
     kyberProxyContract,
@@ -21,7 +22,12 @@ export const getPortfolioItemXAave = async (
   } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const xaaveBal = await getUserAvailableTokenBalance(xaaveContract, address)
+  let xaaveBal
+  if (loggedIn) {
+    xaaveBal = await getUserAvailableTokenBalance(xaaveContract, address)
+  } else {
+    xaaveBal = 0
+  }
 
   const { priceUsd } = await getXAavePrices(
     xaaveContract,

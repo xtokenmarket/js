@@ -13,7 +13,8 @@ import { getXKncPrices } from './prices'
 export const getPortfolioItemXKnc = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: JsonRpcProvider,
+  loggedIn: boolean
 ) => {
   const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
     symbol,
@@ -21,7 +22,12 @@ export const getPortfolioItemXKnc = async (
   )
   const { chainId } = network
 
-  const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
+  let xkncBal: number
+  if (loggedIn) {
+    xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
+  } else {
+    xkncBal = 0
+  }
   const kncContract = getContract(KNC, provider, network)
 
   const { priceUsd } = await getXKncPrices(

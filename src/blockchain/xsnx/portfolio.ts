@@ -20,7 +20,8 @@ import { getXSnxPrices } from './prices'
 export const getPortfolioItemXSnx = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: JsonRpcProvider,
+  loggedIn: boolean
 ) => {
   const {
     network,
@@ -35,7 +36,14 @@ export const getPortfolioItemXSnx = async (
 
   const exchangeRatesContract = await getExchangeRateContract(provider)
   const snxContract = getContract(SNX, provider, network)
-  const xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
+
+  let xsnxBal: number
+  if (loggedIn) {
+    xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
+  } else {
+    xsnxBal = 0
+  }
+
   const xsnxBalRaw = await getTokenBalance(
     xsnxContract.address,
     address,
