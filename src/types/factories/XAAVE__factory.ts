@@ -696,12 +696,38 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'contract IAaveGovernanceV2',
+        name: '_governanceV2',
+        type: 'address',
+      },
+    ],
+    name: 'setGovernanceV2Address',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: '_manager',
         type: 'address',
       },
     ],
     name: 'setManager',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IERC20',
+        name: '_votingAave',
+        type: 'address',
+      },
+    ],
+    name: 'setVotingAaveAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -825,6 +851,24 @@ const _abi = [
       },
     ],
     name: 'vote',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'proposalId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'support',
+        type: 'bool',
+      },
+    ],
+    name: 'voteV2',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

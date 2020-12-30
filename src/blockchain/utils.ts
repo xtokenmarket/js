@@ -3,21 +3,9 @@ import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import axios from 'axios'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
-
-import AaveProtoGovernanceAbi from '../abi/AaveProtoGovernance.json'
-import AddressResolverAbi from '../abi/AddressResolver.json'
-import ERC20Abi from '../abi/ERC20.json'
-import ExchangeRatesAbi from '../abi/ExchangeRates.json'
-import KyberProxyAbi from '../abi/KyberProxy.json'
-import SynthetixAbi from '../abi/Synthetix.json'
-import TradeAccountingAbi from '../abi/TradeAccounting.json'
-import xAAVEAbi from '../abi/xAAVE.json'
-import xKNCAbi from '../abi/xKNC.json'
-import xSNXAbi from '../abi/xSNX.json'
-import ADDRESSES from '../addresses'
 import {
   AAVE,
-  AAVE_PROTO_GOVERNANCE,
+  ADDRESSES,
   EXCHANGE_RATES,
   KNC,
   KYBER_PROXY,
@@ -29,7 +17,17 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
-} from '../constants'
+} from 'xtoken-abis'
+import AddressResolverAbi from 'xtoken-abis/build/main/abi/AddressResolver.json'
+import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
+import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
+import KyberProxyAbi from 'xtoken-abis/build/main/abi/KyberProxy.json'
+import SynthetixAbi from 'xtoken-abis/build/main/abi/Synthetix.json'
+import TradeAccountingAbi from 'xtoken-abis/build/main/abi/TradeAccounting.json'
+import xAAVEAbi from 'xtoken-abis/build/main/abi/xAAVE.json'
+import xKNCAbi from 'xtoken-abis/build/main/abi/xKNC.json'
+import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
+
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
@@ -49,8 +47,6 @@ const getAbi = (contractName: IContracts) => {
     case AAVE:
     case KNC:
       return ERC20Abi as ContractInterface
-    case AAVE_PROTO_GOVERNANCE:
-      return AaveProtoGovernanceAbi as ContractInterface
     case EXCHANGE_RATES:
       return ExchangeRatesAbi as ContractInterface
     case KYBER_PROXY:

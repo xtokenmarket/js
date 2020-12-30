@@ -1,9 +1,9 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
+import { ADDRESSES, ETH, SNX } from 'xtoken-abis'
 
-import ADDRESSES from '../../addresses'
-import { DEC_18, ETH, SNX } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { XSNX } from '../../types'
 import { estimateGas, getExpectedRate, parseFees } from '../utils'
 

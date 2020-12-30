@@ -1,7 +1,6 @@
 import test from 'ava'
 import { ethers } from 'ethers'
 
-// XToken
 import { getExpectedQuantityOnMintXSnx } from './mint'
 
 const provider = new ethers.providers.InfuraProvider(

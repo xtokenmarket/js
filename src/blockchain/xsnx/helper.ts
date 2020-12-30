@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { KYBER_PROXY, TRADE_ACCOUNTING, X_SNX_A } from 'xtoken-abis'
 
-import { KYBER_PROXY, TRADE_ACCOUNTING, X_SNX_A } from '../../constants'
 import { KyberProxy, TradeAccounting, XSNX } from '../../types'
 import { getContract, getTokenSymbol } from '../utils'
 

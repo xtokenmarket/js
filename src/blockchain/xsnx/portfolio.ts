@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
-import ADDRESSES from '../../addresses'
-import { DEC_18, SNX, X_SNX_A_ADMIN } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { ExchangeRates } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumber, formatNumberWithCommas } from '../../utils'

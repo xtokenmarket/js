@@ -1,6 +1,7 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { parseEther } from 'ethers/lib/utils'
+import { X_AAVE_A, X_AAVE_B, X_KNC_A, X_KNC_B, X_SNX_A } from 'xtoken-abis'
 
 import {
   burnXAave,
@@ -28,14 +29,7 @@ import {
 } from './blockchain/xsnx/mint'
 import { getPortfolioItemXSnx } from './blockchain/xsnx/portfolio'
 import { getMaximumRedeemableXSnx } from './blockchain/xsnx/redeem'
-import {
-  MAX_UINT,
-  X_AAVE_A,
-  X_AAVE_B,
-  X_KNC_A,
-  X_KNC_B,
-  X_SNX_A,
-} from './constants'
+import { MAX_UINT } from './constants'
 import { ITokenSymbols } from './types/xToken'
 
 export class XToken {

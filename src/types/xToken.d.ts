@@ -1,6 +1,5 @@
 import {
   AAVE,
-  AAVE_PROTO_GOVERNANCE,
   EXCHANGE_RATES,
   KNC,
   KYBER_PROXY,
@@ -11,11 +10,10 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
-} from '../constants'
+} from 'xtoken-abis'
 
 export type IContracts =
   | typeof AAVE
-  | typeof AAVE_PROTO_GOVERNANCE
   | typeof EXCHANGE_RATES
   | typeof KNC
   | typeof KYBER_PROXY

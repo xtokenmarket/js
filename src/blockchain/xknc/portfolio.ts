@@ -1,7 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { KNC } from 'xtoken-abis'
 
-import { DEC_18, KNC } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
