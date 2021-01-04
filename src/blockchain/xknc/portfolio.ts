@@ -1,7 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { KNC } from 'xtoken-abis'
 
-import { DEC_18, KNC } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
@@ -14,7 +15,7 @@ export const getPortfolioItemXKnc = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider,
-  loggedIn: boolean
+  isLoggedIn: boolean
 ) => {
   const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
     symbol,
@@ -22,12 +23,9 @@ export const getPortfolioItemXKnc = async (
   )
   const { chainId } = network
 
-  let xkncBal: number
-  if (loggedIn) {
-    xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
-  } else {
-    xkncBal = 0
-  }
+  const xkncBal = isLoggedIn
+    ? await getUserAvailableTokenBalance(xkncContract, address)
+    : 0
   const kncContract = getContract(KNC, provider, network)
 
   const { priceUsd } = await getXKncPrices(

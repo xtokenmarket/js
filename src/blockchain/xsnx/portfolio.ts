@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
-import ADDRESSES from '../../addresses'
-import { DEC_18, SNX, X_SNX_A_ADMIN } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { ExchangeRates } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumber, formatNumberWithCommas } from '../../utils'
@@ -21,7 +21,7 @@ export const getPortfolioItemXSnx = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider,
-  loggedIn: boolean
+  isLoggedIn: boolean
 ) => {
   const {
     network,
@@ -36,14 +36,9 @@ export const getPortfolioItemXSnx = async (
 
   const exchangeRatesContract = await getExchangeRateContract(provider)
   const snxContract = getContract(SNX, provider, network)
-
-  let xsnxBal: number
-  if (loggedIn) {
-    xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
-  } else {
-    xsnxBal = 0
-  }
-
+  const xsnxBal = isLoggedIn
+    ? await getUserAvailableTokenBalance(xsnxContract, address)
+    : 0
   const xsnxBalRaw = await getTokenBalance(
     xsnxContract.address,
     address,

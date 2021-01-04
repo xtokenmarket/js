@@ -152,16 +152,16 @@ export class XToken {
     }
   }
 
-  public async getPortfolioItems(loggedIn: boolean) {
+  public async getPortfolioItems(isLoggedIn: boolean) {
     const signer = this.provider.getSigner()
     const address = await signer.getAddress()
 
     return Promise.all([
-      getPortfolioItemXKnc(X_KNC_A, address, this.provider, loggedIn),
-      getPortfolioItemXKnc(X_KNC_B, address, this.provider, loggedIn),
-      getPortfolioItemXSnx(X_SNX_A, address, this.provider, loggedIn),
-      getPortfolioItemXAave(X_AAVE_A, address, this.provider, loggedIn),
-      getPortfolioItemXAave(X_AAVE_B, address, this.provider, loggedIn),
+      getPortfolioItemXKnc(X_KNC_A, address, this.provider, isLoggedIn),
+      getPortfolioItemXKnc(X_KNC_B, address, this.provider, isLoggedIn),
+      getPortfolioItemXSnx(X_SNX_A, address, this.provider, isLoggedIn),
+      getPortfolioItemXAave(X_AAVE_A, address, this.provider, isLoggedIn),
+      getPortfolioItemXAave(X_AAVE_B, address, this.provider, isLoggedIn),
     ])
   }
 
