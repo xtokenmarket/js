@@ -1,7 +1,6 @@
 import test from 'ava'
 import { ethers } from 'ethers'
-
-import { X_AAVE_A } from '../../constants'
+import { X_AAVE_A } from 'xtoken-abis'
 
 import { getExpectedQuantityOnBurnXAave } from './burn'
 

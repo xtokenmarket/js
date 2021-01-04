@@ -1,8 +1,6 @@
 import test from 'ava'
 import { ethers } from 'ethers'
-
-// XToken
-import { X_AAVE_A } from '../../constants'
+import { X_AAVE_A } from 'xtoken-abis'
 
 import { getExpectedQuantityOnMintXAave } from './mint'
 

@@ -1,7 +1,7 @@
 import test from 'ava'
 import { ethers } from 'ethers'
+import { X_AAVE_A } from 'xtoken-abis'
 
-import { X_AAVE_A } from './constants'
 import { XToken } from './xToken'
 
 const provider = new ethers.providers.InfuraProvider(

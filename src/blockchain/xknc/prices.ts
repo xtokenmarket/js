@@ -1,8 +1,8 @@
 import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
+import { ADDRESSES, ETH, USDC } from 'xtoken-abis'
 
-import ADDRESSES from '../../addresses'
-import { DEC_18, ETH, USDC } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
 import { formatNumber } from '../../utils'
 import { getExpectedRate } from '../utils'

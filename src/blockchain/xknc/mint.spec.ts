@@ -1,7 +1,6 @@
 import test from 'ava'
 import { ethers } from 'ethers'
-
-import { X_KNC_A } from '../../constants'
+import { X_KNC_A } from 'xtoken-abis'
 
 import { getExpectedQuantityOnMintXKnc } from './mint'
 

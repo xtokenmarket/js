@@ -60,7 +60,9 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'redeem(uint256)': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
+    'setGovernanceV2Address(address)': FunctionFragment
     'setManager(address)': FunctionFragment
+    'setVotingAaveAddress(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
@@ -68,6 +70,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'transferOwnership(address)': FunctionFragment
     'unpauseContract()': FunctionFragment
     'vote(uint256,uint256)': FunctionFragment
+    'voteV2(uint256,bool)': FunctionFragment
     'withdrawFees()': FunctionFragment
     'withdrawNativeToken()': FunctionFragment
     'withdrawableAaveFees()': FunctionFragment
@@ -202,7 +205,15 @@ interface XAAVEInterface extends ethers.utils.Interface {
     functionFragment: 'setFeeDivisors',
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(
+    functionFragment: 'setGovernanceV2Address',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'setManager', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'setVotingAaveAddress',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'totalSupply',
@@ -227,6 +238,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'vote',
     values: [BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'voteV2',
+    values: [BigNumberish, boolean]
   ): string
   encodeFunctionData(
     functionFragment: 'withdrawFees',
@@ -344,7 +359,15 @@ interface XAAVEInterface extends ethers.utils.Interface {
     functionFragment: 'setFeeDivisors',
     data: BytesLike
   ): Result
+  decodeFunctionResult(
+    functionFragment: 'setGovernanceV2Address',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'setVotingAaveAddress',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
@@ -361,6 +384,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'vote', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'voteV2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'withdrawFees',
     data: BytesLike
@@ -813,6 +837,16 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    setGovernanceV2Address(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setGovernanceV2Address(address)'(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     setManager(
       _manager: string,
       overrides?: Overrides
@@ -820,6 +854,16 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setVotingAaveAddress(
+      _votingAave: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setVotingAaveAddress(address)'(
+      _votingAave: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -896,6 +940,18 @@ export class XAAVE extends Contract {
     'vote(uint256,uint256)'(
       _proposalId: BigNumberish,
       _vote: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    voteV2(
+      proposalId: BigNumberish,
+      support: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'voteV2(uint256,bool)'(
+      proposalId: BigNumberish,
+      support: boolean,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1225,6 +1281,16 @@ export class XAAVE extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  setGovernanceV2Address(
+    _governanceV2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setGovernanceV2Address(address)'(
+    _governanceV2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   setManager(
     _manager: string,
     overrides?: Overrides
@@ -1232,6 +1298,16 @@ export class XAAVE extends Contract {
 
   'setManager(address)'(
     _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setVotingAaveAddress(
+    _votingAave: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setVotingAaveAddress(address)'(
+    _votingAave: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1292,6 +1368,18 @@ export class XAAVE extends Contract {
   'vote(uint256,uint256)'(
     _proposalId: BigNumberish,
     _vote: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  voteV2(
+    proposalId: BigNumberish,
+    support: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'voteV2(uint256,bool)'(
+    proposalId: BigNumberish,
+    support: boolean,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1605,10 +1693,30 @@ export class XAAVE extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    setGovernanceV2Address(
+      _governanceV2: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setGovernanceV2Address(address)'(
+      _governanceV2: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     setManager(_manager: string, overrides?: CallOverrides): Promise<void>
 
     'setManager(address)'(
       _manager: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setVotingAaveAddress(
+      _votingAave: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setVotingAaveAddress(address)'(
+      _votingAave: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1669,6 +1777,18 @@ export class XAAVE extends Contract {
     'vote(uint256,uint256)'(
       _proposalId: BigNumberish,
       _vote: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    voteV2(
+      proposalId: BigNumberish,
+      support: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'voteV2(uint256,bool)'(
+      proposalId: BigNumberish,
+      support: boolean,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1977,10 +2097,30 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    setGovernanceV2Address(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setGovernanceV2Address(address)'(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     setManager(_manager: string, overrides?: Overrides): Promise<BigNumber>
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setVotingAaveAddress(
+      _votingAave: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setVotingAaveAddress(address)'(
+      _votingAave: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2041,6 +2181,18 @@ export class XAAVE extends Contract {
     'vote(uint256,uint256)'(
       _proposalId: BigNumberish,
       _vote: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    voteV2(
+      proposalId: BigNumberish,
+      support: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'voteV2(uint256,bool)'(
+      proposalId: BigNumberish,
+      support: boolean,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2356,6 +2508,16 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    setGovernanceV2Address(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setGovernanceV2Address(address)'(
+      _governanceV2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     setManager(
       _manager: string,
       overrides?: Overrides
@@ -2363,6 +2525,16 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setVotingAaveAddress(
+      _votingAave: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setVotingAaveAddress(address)'(
+      _votingAave: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -2423,6 +2595,18 @@ export class XAAVE extends Contract {
     'vote(uint256,uint256)'(
       _proposalId: BigNumberish,
       _vote: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    voteV2(
+      proposalId: BigNumberish,
+      support: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'voteV2(uint256,bool)'(
+      proposalId: BigNumberish,
+      support: boolean,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

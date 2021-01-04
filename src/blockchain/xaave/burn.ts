@@ -2,9 +2,9 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
+import { AAVE, ADDRESSES, ETH } from 'xtoken-abis'
 
-import ADDRESSES from '../../addresses'
-import { AAVE, DEC_18, ETH } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
 import { estimateGas, getExpectedRate, parseFees } from '../utils'
 
