@@ -10,6 +10,8 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
+  BUY,
+  SELL,
 } from 'xtoken-abis'
 
 export type IContracts =
@@ -27,3 +29,5 @@ export type ITokenSymbols =
   | typeof X_KNC_A
   | typeof X_KNC_B
   | typeof X_SNX_A
+
+export type ITradeType = typeof BUY | typeof SELL

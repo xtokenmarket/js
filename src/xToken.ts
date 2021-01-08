@@ -1,8 +1,9 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { parseEther } from 'ethers/lib/utils'
-import { X_AAVE_A, X_AAVE_B, X_KNC_A, X_KNC_B, X_SNX_A } from 'xtoken-abis'
+import { ETH, X_AAVE_A, X_AAVE_B, X_KNC_A, X_KNC_B, X_SNX_A } from 'xtoken-abis'
 
+import { getBalancerEstimatedQuantity } from './blockchain/balancer'
 import {
   burnXAave,
   getExpectedQuantityOnBurnXAave,
@@ -30,7 +31,7 @@ import {
 import { getPortfolioItemXSnx } from './blockchain/xsnx/portfolio'
 import { getMaximumRedeemableXSnx } from './blockchain/xsnx/redeem'
 import { MAX_UINT } from './constants'
-import { ITokenSymbols } from './types/xToken'
+import { ITokenSymbols, ITradeType } from './types/xToken'
 
 export class XToken {
   protected readonly provider: JsonRpcProvider
@@ -80,6 +81,25 @@ export class XToken {
       case X_SNX_A:
         return burnXSnx(value, this.provider)
     }
+  }
+
+  public async getExpectedQuantityOnBalancer(
+    tokenIn: typeof ETH | ITokenSymbols,
+    symbol: ITokenSymbols,
+    amount: string,
+    tradeType: ITradeType
+  ): Promise<string> {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+
+    return getBalancerEstimatedQuantity(
+      tokenIn,
+      symbol,
+      amount,
+      tradeType,
+      this.provider
+    )
   }
 
   public async getExpectedQuantityOnBurn(
