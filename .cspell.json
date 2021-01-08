@@ -11,6 +11,7 @@
     "circleci",
     "codecov",
     "commitlint",
+    "denormalized",
     "dependabot",
     "editorconfig",
     "esnext",

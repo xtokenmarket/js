@@ -13,12 +13,16 @@ import {
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
   X_AAVE_A,
+  X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
+  X_AAVE_B_BALANCER_POOL,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
+  X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
 import AddressResolverAbi from 'xtoken-abis/build/main/abi/AddressResolver.json'
+import BalancerPoolAbi from 'xtoken-abis/build/main/abi/BalancerPool.json'
 import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
 import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
 import KyberProxyAbi from 'xtoken-abis/build/main/abi/KyberProxy.json'
@@ -64,6 +68,41 @@ const getAbi = (contractName: IContracts) => {
     case X_SNX_A:
       return xSNXAbi as ContractInterface
   }
+}
+
+export const getBalancerContract = (
+  symbol: ITokenSymbols,
+  provider: JsonRpcProvider,
+  network: Network
+) => {
+  if (!provider || !symbol) return null
+
+  let poolSymbol
+  switch (symbol) {
+    case X_AAVE_A:
+      poolSymbol = X_AAVE_A_BALANCER_POOL
+      break
+    case X_AAVE_B:
+      poolSymbol = X_AAVE_B_BALANCER_POOL
+      break
+    case X_SNX_A:
+      poolSymbol = X_SNX_A_BALANCER_POOL
+      break
+    default:
+      poolSymbol = null
+  }
+
+  if (!poolSymbol) return null
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const address = ADDRESSES[poolSymbol][network.chainId]
+
+  return new ethers.Contract(
+    address,
+    BalancerPoolAbi,
+    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+  )
 }
 
 export const getContract = (
