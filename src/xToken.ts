@@ -5,34 +5,47 @@ import { ETH, X_AAVE_A, X_AAVE_B, X_KNC_A, X_KNC_B, X_SNX_A } from 'xtoken-abis'
 
 import { getBalancerEstimatedQuantity } from './blockchain/balancer'
 import {
+  approveXAave,
   burnXAave,
   getExpectedQuantityOnBurnXAave,
-} from './blockchain/xaave/burn'
-import {
-  approveXAave,
   getExpectedQuantityOnMintXAave,
+  getMaximumRedeemableXAave,
+  getPortfolioItemXAave,
   mintXAave,
-} from './blockchain/xaave/mint'
-import { getPortfolioItemXAave } from './blockchain/xaave/portfolio'
-import { getMaximumRedeemableXAave } from './blockchain/xaave/redeem'
-import { burnXKnc, getExpectedQuantityOnBurnXKnc } from './blockchain/xknc/burn'
+} from './blockchain/xaave'
 import {
   approveXKnc,
+  burnXKnc,
+  getExpectedQuantityOnBurnXKnc,
   getExpectedQuantityOnMintXKnc,
+  getPortfolioItemXKnc,
   mintXKnc,
-} from './blockchain/xknc/mint'
-import { getPortfolioItemXKnc } from './blockchain/xknc/portfolio'
-import { burnXSnx, getExpectedQuantityOnBurnXSnx } from './blockchain/xsnx/burn'
+} from './blockchain/xknc'
 import {
   approveXSnx,
+  burnXSnx,
+  getExpectedQuantityOnBurnXSnx,
   getExpectedQuantityOnMintXSnx,
+  getMaximumRedeemableXSnx,
+  getPortfolioItemXSnx,
   mintXSnx,
-} from './blockchain/xsnx/mint'
-import { getPortfolioItemXSnx } from './blockchain/xsnx/portfolio'
-import { getMaximumRedeemableXSnx } from './blockchain/xsnx/redeem'
+} from './blockchain/xsnx'
 import { MAX_UINT } from './constants'
-import { ITokenSymbols, ITradeType } from './types/xToken'
+import { IPortfolioItem, ITokenSymbols, ITradeType } from './types/xToken'
 
+/**
+ * Helper class providing the wrapper around the methods to interact with the xToken contracts.
+ * Depends on ethers.js v5
+ * @example
+ * ```typescript
+ * import { ethers } from 'ethers'
+ * import { XToken } from 'xtoken-js'
+ *
+ * // Metamask provider
+ * const provider = new ethers.providers.Web3Provider(window.ethereum)
+ * const xToken = new XToken(provider)
+ * ```
+ */
 export class XToken {
   protected readonly provider: JsonRpcProvider
 
@@ -43,9 +56,22 @@ export class XToken {
     this.provider = provider
   }
 
+  /**
+   * Approve specified amount of xToken by contract before minting
+   *
+   * @example
+   * ```typescript
+   * const tx = await xToken.approve('xAAVEa', '100') // Approve 100 xAAVEa tokens
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the token to be approved
+   * @param {string} amount Amount of the token to be approved, [[MAX_UINT]] will be used by default
+   * @returns A promise of the transaction response
+   */
   public async approve(
     symbol: ITokenSymbols,
-    amount: string
+    amount?: string
   ): Promise<ContractTransaction> {
     const value = amount ? parseEther(amount) : MAX_UINT
 
@@ -61,6 +87,22 @@ export class XToken {
     }
   }
 
+  /**
+   * Sell specified amount of xToken, either for ETH or Token
+   *
+   * @example
+   * ```typescript
+   * // Sell 1000 xAAVEa for ETH
+   * const tx = await xToken.burn('xAAVEa', true, '1000')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to be sold
+   * @param {boolean} sellForEth Sell for ETH/Token
+   * @param {string} amount Amount of xTokens to be sold,
+   *                        cannot exceed max redeemable for xAAVEa/xAAVEb/xSNXa tokens
+   * @returns A promise of the transaction response
+   */
   public async burn(
     symbol: ITokenSymbols,
     sellForEth: boolean,
@@ -70,6 +112,16 @@ export class XToken {
       return Promise.reject(new Error('Invalid value for amount'))
     }
     const value = parseEther(amount)
+
+    if (symbol !== X_KNC_A && symbol !== X_KNC_B) {
+      const maxRedeemable = await this.getMaxRedeemable(symbol)
+
+      if (value.gt(maxRedeemable)) {
+        return Promise.reject(
+          new Error('Specified amount exceeds maximum redeemable tokens')
+        )
+      }
+    }
 
     switch (symbol) {
       case X_AAVE_A:
@@ -83,6 +135,19 @@ export class XToken {
     }
   }
 
+  /**
+   * @example
+   * ```typescript
+   * // Get expected quantity of xAAVEa when minting for 1 ETH
+   * const expectedQty = await xToken.getExpectedQuantityOnBalancer('eth', 'xAAVEa', '1', 'buy')
+   * ```
+   *
+   * @param {'eth' | ITokenSymbols} tokenIn 'eth' in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint
+   * @param {ITokenSymbols} symbol Symbol of the xToken to burn/mint
+   * @param {string} amount Quantity of the xToken to be traded
+   * @param {ITradeType} tradeType Buy/sell type of the trade
+   * @returns Expected quantity for the particular trade to be made on Balancer
+   */
   public async getExpectedQuantityOnBalancer(
     tokenIn: typeof ETH | ITokenSymbols,
     symbol: ITokenSymbols,
@@ -102,6 +167,18 @@ export class XToken {
     )
   }
 
+  /**
+   * @example
+   * ```typescript
+   * // Get expected quantity of ETH when selling 100 xAAVEa
+   * const expectedQty = await xToken.getExpectedQuantityOnBurn('xAAVEa', true, '100')
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to burn
+   * @param {boolean} sellForEth True, if selling the xToken for ETH
+   * @param {string} amount Quantity of the xToken to be traded
+   * @returns Expected quantity for selling the given xToken
+   */
   public async getExpectedQuantityOnBurn(
     symbol: ITokenSymbols,
     sellForEth: boolean,
@@ -133,6 +210,18 @@ export class XToken {
     }
   }
 
+  /**
+   * @example
+   * ```typescript
+   * // Get expected quantity of xAAVEa for minting 1 ETH
+   * const expectedQty = await xToken.getExpectedQuantityOnMint('xAAVEa', true, '1')
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to be minted
+   * @param {boolean} tradeWithEth True, if buying the xToken with ETH
+   * @param {string} amount Quantity of the token to be traded
+   * @returns Expected quantity of xToken upon minting
+   */
   public async getExpectedQuantityOnMint(
     symbol: ITokenSymbols,
     tradeWithEth: boolean,
@@ -168,6 +257,16 @@ export class XToken {
     }
   }
 
+  /**
+   * @example
+   * ```typescript
+   * // Get maximum redeemable tokens for xAAVEa
+   * const maxRedeemable = await xToken.getMaxRedeemable('xAAVEa')
+   * ```
+   *
+   * @param {'xAAVEa' | 'xAAVEb' | 'xSNXa'} symbol Symbol of the xToken
+   * @returns Maximum redeemable tokens for the given xToken
+   */
   public async getMaxRedeemable(
     symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A
   ): Promise<string> {
@@ -180,7 +279,20 @@ export class XToken {
     }
   }
 
-  public async getPortfolioItems() {
+  /**
+   * Returns balances along with prices for all the xTokens
+   * owned by an address
+   *
+   * @example
+   * ```typescript
+   * // Get portfolio items for the logged in address
+   * const portfolio = await xToken.getPortfolioItems()
+   * ```
+   *
+   * @returns Array of each xToken in the portfolio
+   *          with their corresponding balance and price
+   */
+  public async getPortfolioItems(): Promise<readonly IPortfolioItem[]> {
     const signer = this.provider.getSigner()
     const address = await signer.getAddress()
 
@@ -193,6 +305,22 @@ export class XToken {
     ])
   }
 
+  /**
+   * Mint xToken for specified amount of ETH/Token
+   *
+   * @example
+   * ```typescript
+   * // Buy xAAVEa for 1 ETH
+   * const tx = await xToken.mint('xAAVEa', true, '1')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to be minted
+   * @param {boolean} tradeWithEth Mint with ETH/Token
+   * @param {string} amount Quantity of token to be minted,
+   *                        tokens need to be approved before minting using [[approve]] method
+   * @returns A promise of the transaction response
+   */
   public async mint(
     symbol: ITokenSymbols,
     tradeWithEth: boolean,

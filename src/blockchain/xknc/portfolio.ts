@@ -4,7 +4,7 @@ import { formatEther } from 'ethers/lib/utils'
 import { KNC } from 'xtoken-abis'
 
 import { XKNC } from '../../types'
-import { ITokenSymbols } from '../../types/xToken'
+import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
 import { getContract, getUserAvailableTokenBalance } from '../utils'
 
@@ -15,7 +15,7 @@ export const getPortfolioItemXKnc = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<IPortfolioItem> => {
   const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
     symbol,
     provider

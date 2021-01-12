@@ -152,6 +152,7 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
   }
 }
 
+/** @ignore */
 export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
 }
