@@ -43,7 +43,7 @@ export const getXAavePrices = async (
 
   const xaavePerToken = xaaveAaveBal.mul(DEC_18).div(xaaveTotalSupply)
   const priceUsd = xaavePerToken.mul(aaveUsdRate).div(DEC_18)
-  const priceEth = priceUsd.div(ethUsdRate)
+  const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
   const aum = priceUsd.mul(xaaveTotalSupply).div(DEC_18)
 
   return {
