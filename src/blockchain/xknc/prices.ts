@@ -45,7 +45,7 @@ export const getXKncPrices = async (
   ])
 
   const priceUsd = xkncKncBal.mul(kncUsdRate).div(xkncTotalSupply)
-  const priceEth = priceUsd.div(ethUsdRate)
+  const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
   const aum = priceUsd.mul(xkncTotalSupply).div(DEC_18)
 
   return {
