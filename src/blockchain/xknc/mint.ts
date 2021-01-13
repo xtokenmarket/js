@@ -7,7 +7,7 @@ import { ADDRESSES, ETH, KNC } from 'xtoken-abis'
 import { DEC_18 } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate, parseFees } from '../utils'
+import { getExpectedRate, parseFees } from '../utils'
 
 import { getXKncContracts } from './helper'
 
@@ -22,11 +22,7 @@ export const approveXKnc = async (
     symbol,
     provider
   )
-  const gasPrice = await estimateGas()
-
-  return tokenContract.approve(xkncContract.address, amount, {
-    gasPrice,
-  })
+  return tokenContract.approve(xkncContract.address, amount)
 }
 
 export const getExpectedQuantityOnMintXKnc = async (
@@ -89,7 +85,6 @@ export const mintXKnc = async (
     tokenContract,
     xkncContract,
   } = await getXKncContracts(symbol, provider)
-  const gasPrice = await estimateGas()
 
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
@@ -100,7 +95,6 @@ export const mintXKnc = async (
       true
     )
     return xkncContract.mint(minRate.toString(), {
-      gasPrice,
       value: amount,
     })
   } else {
@@ -117,9 +111,7 @@ export const mintXKnc = async (
       )
     }
 
-    return xkncContract.mintWithKnc(amount, {
-      gasPrice,
-    })
+    return xkncContract.mintWithKnc(amount)
   }
 }
 

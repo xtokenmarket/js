@@ -5,7 +5,7 @@ import { ADDRESSES, ETH, SNX } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { XSNX } from '../../types'
-import { estimateGas, getExpectedRate, parseFees } from '../utils'
+import { getExpectedRate, parseFees } from '../utils'
 
 import { getXSnxContracts } from './helper'
 
@@ -16,11 +16,7 @@ export const approveXSnx = async (
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xsnxContract } = await getXSnxContracts(provider)
-  const gasPrice = await estimateGas()
-
-  return tokenContract.approve(xsnxContract.address, amount, {
-    gasPrice,
-  })
+  return tokenContract.approve(xsnxContract.address, amount)
 }
 
 export const getExpectedQuantityOnMintXSnx = async (
@@ -92,7 +88,6 @@ export const mintXSnx = async (
     tokenContract,
     xsnxContract,
   } = await getXSnxContracts(provider)
-  const gasPrice = await estimateGas()
 
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
@@ -104,7 +99,6 @@ export const mintXSnx = async (
     )
     return xsnxContract.mint(minRate.toString(), {
       value: amount,
-      gasPrice,
     })
   } else {
     const signer = provider.getSigner()
@@ -120,9 +114,7 @@ export const mintXSnx = async (
       )
     }
 
-    return xsnxContract.mintWithSnx(amount, {
-      gasPrice,
-    })
+    return xsnxContract.mintWithSnx(amount)
   }
 }
 

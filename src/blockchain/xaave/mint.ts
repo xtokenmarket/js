@@ -7,7 +7,7 @@ import { AAVE, ADDRESSES, ETH } from 'xtoken-abis'
 import { DEC_18 } from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate, parseFees } from '../utils'
+import { getExpectedRate, parseFees } from '../utils'
 
 import { getXAaveContracts } from './helper'
 
@@ -22,11 +22,7 @@ export const approveXAave = async (
     symbol,
     provider
   )
-  const gasPrice = await estimateGas()
-
-  return tokenContract.approve(xaaveContract.address, amount, {
-    gasPrice,
-  })
+  return tokenContract.approve(xaaveContract.address, amount)
 }
 
 export const getExpectedQuantityOnMintXAave = async (
@@ -88,7 +84,6 @@ export const mintXAave = async (
     tokenContract,
     xaaveContract,
   } = await getXAaveContracts(symbol, provider)
-  const gasPrice = await estimateGas()
 
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
@@ -99,7 +94,6 @@ export const mintXAave = async (
       true
     )
     return xaaveContract.mint(minRate.toString(), {
-      gasPrice,
       value: amount,
     })
   } else {
@@ -117,9 +111,7 @@ export const mintXAave = async (
       )
     }
 
-    return xaaveContract.mintWithToken(amount, {
-      gasPrice,
-    })
+    return xaaveContract.mintWithToken(amount)
   }
 }
 

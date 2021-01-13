@@ -136,9 +136,7 @@ export const getExpectedRate = async (
     outputAsset,
     amount
   )
-  return isMinRate
-    ? Math.round(Number(expectedRate.toString()) * 0.98)
-    : expectedRate
+  return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
 }
 
 export const getTokenSymbol = (symbol: ITokenSymbols) => {
