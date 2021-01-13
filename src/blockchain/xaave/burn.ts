@@ -6,7 +6,7 @@ import { AAVE, ADDRESSES, ETH } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
-import { estimateGas, getExpectedRate, parseFees } from '../utils'
+import { getExpectedRate, parseFees } from '../utils'
 
 import { getXAaveContracts } from './helper'
 
@@ -23,7 +23,7 @@ export const burnXAave = async (
     tokenContract,
     xaaveContract,
   } = await getXAaveContracts(symbol, provider)
-  const gasPrice = await estimateGas()
+
   const minRate = await getExpectedRate(
     kyberProxyContract,
     tokenContract.address,
@@ -32,9 +32,7 @@ export const burnXAave = async (
     true
   )
 
-  return xaaveContract.burn(amount, sellForEth, minRate, {
-    gasPrice,
-  })
+  return xaaveContract.burn(amount, sellForEth, minRate)
 }
 
 export const getExpectedQuantityOnBurnXAave = async (
