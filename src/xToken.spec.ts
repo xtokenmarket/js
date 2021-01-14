@@ -43,3 +43,9 @@ test('Initialize xToken with wrong network', async (t) => {
     t.is(e.message, 'Unknown error')
   }
 })
+
+// test('Get portfolio items', async (t) => {
+//   const portfolio = await xToken.getPortfolioItems()
+//   console.log(JSON.stringify(portfolio))
+//   t.is(typeof portfolio, 'object')
+// })

@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { formatEther } from 'ethers/lib/utils'
 
-import { DEC_18 } from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
@@ -54,11 +54,9 @@ const getUnderlyingTokenEquivalent = async (
     xaaveContract.totalSupply(),
   ])
 
-  const userTokenEquivalent = contractAaveBal
-    .mul(userXaaveBal)
-    .div(xaaveSupply)
-    .div(DEC_18)
-  if (Number(userTokenEquivalent) < 1000)
-    return Number(userTokenEquivalent).toFixed(4)
-  return formatNumberWithCommas(userTokenEquivalent.toString())
+  const userTokenEquivalent = contractAaveBal.mul(userXaaveBal).div(xaaveSupply)
+  const tokenEquivalent = formatEther(userTokenEquivalent)
+
+  if (Number(tokenEquivalent) < 1000) return Number(tokenEquivalent).toFixed(4)
+  return formatNumberWithCommas(tokenEquivalent)
 }

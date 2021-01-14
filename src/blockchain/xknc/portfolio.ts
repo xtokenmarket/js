@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { formatEther } from 'ethers/lib/utils'
 import { KNC } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
@@ -56,11 +56,9 @@ const getUnderlyingTokenEquivalent = async (
     xkncContract.totalSupply(),
   ])
 
-  const userTokenEquivalent = contractKncBal
-    .mul(userXkncBal)
-    .div(xkncSupply)
-    .div(DEC_18)
-  if (Number(userTokenEquivalent) < 1000)
-    return Number(userTokenEquivalent).toFixed(2)
-  return formatNumberWithCommas(userTokenEquivalent.toString())
+  const userTokenEquivalent = contractKncBal.mul(userXkncBal).div(xkncSupply)
+  const tokenEquivalent = formatEther(userTokenEquivalent)
+
+  if (Number(tokenEquivalent) < 1000) return Number(tokenEquivalent).toFixed(2)
+  return formatNumberWithCommas(tokenEquivalent)
 }
