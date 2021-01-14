@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
+import { formatEther } from 'ethers/lib/utils'
 import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
 import { ExchangeRates } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { formatNumber, formatNumberWithCommas } from '../../utils'
@@ -49,20 +49,19 @@ export const getPortfolioItemXSnx = async (
     snxContract as Contract,
     provider
   )
-  const xsnxValue = (xsnxBal * priceUsd).toFixed(2).toString()
+  const xsnxValue = (xsnxBal * priceUsd).toFixed(2)
 
   const xsnxTotalSupply = await xsnxContract.totalSupply()
   const contractSnxBalance = await tradeAccountingContract.getSnxBalance()
   const tokenEquivalent = contractSnxBalance
     .mul(xsnxBalRaw)
     .div(xsnxTotalSupply)
-    .div(DEC_18)
 
   return {
     symbol,
     quantity: formatNumberWithCommas(xsnxBal.toString()),
     price: `$${priceUsd}`,
     value: `$${xsnxValue}`,
-    tokenEquivalent: formatNumber(tokenEquivalent.toString(), 2),
+    tokenEquivalent: formatNumber(formatEther(tokenEquivalent), 2),
   }
 }
