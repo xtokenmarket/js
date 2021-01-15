@@ -1,3 +1,8 @@
+/**
+ * @packageDocumentation
+ * @module XToken JS
+ */
+
 export { XToken } from './xToken'
 
 // Helper methods

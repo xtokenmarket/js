@@ -2,7 +2,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
 import { XAAVE } from '../../types'
-import { ITokenSymbols } from '../../types/xToken'
+import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
 import { formatNumberWithCommas } from '../../utils'
 import { getUserAvailableTokenBalance } from '../utils'
 
@@ -13,7 +13,7 @@ export const getPortfolioItemXAave = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<IPortfolioItem> => {
   const {
     kyberProxyContract,
     network,

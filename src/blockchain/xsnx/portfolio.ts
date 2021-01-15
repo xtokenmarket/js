@@ -4,8 +4,8 @@ import { formatEther } from 'ethers/lib/utils'
 import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
-import { ITokenSymbols } from '../../types/xToken'
-import { formatNumber, formatNumberWithCommas } from '../../utils'
+import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
+import { formatNumberWithCommas } from '../../utils'
 import {
   getContract,
   getExchangeRateContract,
@@ -21,7 +21,7 @@ export const getPortfolioItemXSnx = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<IPortfolioItem> => {
   const {
     network,
     tradeAccountingContract,
@@ -62,6 +62,6 @@ export const getPortfolioItemXSnx = async (
     quantity: formatNumberWithCommas(xsnxBal.toString()),
     price: `$${priceUsd}`,
     value: `$${xsnxValue}`,
-    tokenEquivalent: formatNumber(formatEther(tokenEquivalent), 2),
+    tokenEquivalent: formatNumberWithCommas(formatEther(tokenEquivalent)),
   }
 }

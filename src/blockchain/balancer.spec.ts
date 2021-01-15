@@ -1,6 +1,6 @@
 import test from 'ava'
 import { ethers } from 'ethers'
-import { BUY, ETH, X_AAVE_A } from 'xtoken-abis'
+import { BUY, ETH, SELL, X_AAVE_A } from 'xtoken-abis'
 
 import { getBalancerEstimatedQuantity } from './balancer'
 
@@ -17,6 +17,18 @@ test('Calculate expected quantity on mint of xAAVEa on Balancer', async (t) => {
     BUY,
     provider
   )
-  console.log('Expected xAAVEa qty for 1 ETH:', expectedQty)
+  console.log('[Balancer] Expected xAAVEa qty for 1 ETH:', expectedQty)
+  t.is(typeof expectedQty, 'string')
+})
+
+test('Calculate expected quantity on burn of xAAVEa on Balancer', async (t) => {
+  const expectedQty = await getBalancerEstimatedQuantity(
+    X_AAVE_A,
+    X_AAVE_A,
+    '1000',
+    SELL,
+    provider
+  )
+  console.log('[Balancer] Expected AAVE qty for 1000 xAAVEa:', expectedQty)
   t.is(typeof expectedQty, 'string')
 })

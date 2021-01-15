@@ -1,3 +1,8 @@
+/**
+ * @packageDocumentation
+ * @module XToken Types
+ */
+
 import {
   AAVE,
   EXCHANGE_RATES,
@@ -31,3 +36,18 @@ export type ITokenSymbols =
   | typeof X_SNX_A
 
 export type ITradeType = typeof BUY | typeof SELL
+
+export interface IPortfolioItem {
+  price: string
+  quantity: string
+  symbol: ITokenSymbols
+  tokenEquivalent: string
+  value: string
+}
+
+export interface ITokenPrices {
+  aum: number
+  priceEth: number
+  priceUsd: number
+  sellPriceEth?: number
+}

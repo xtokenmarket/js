@@ -4,9 +4,48 @@ import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
 import { DEC_18 } from '../../constants'
 import { ExchangeRates, TradeAccounting, XSNX } from '../../types'
+import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import { getTokenBalance } from '../utils'
 
+/**
+ * @example
+ * ```typescript
+ * import { ethers } from 'ethers'
+ * import { ADDRESSES, EXCHANGE_RATES, TRADE_ACCOUNTING, SNX, X_SNX_A, X_SNX_A_ADMIN } from 'xtoken-abis'
+ * import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
+ * import SynthetixAbi from 'xtoken-abis/build/main/abi/Synthetix.json'
+ * import TradeAccountingAbi from 'xtoken-abis/build/main/abi/TradeAccounting.json'
+ * import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
+ * import { getXSnxPrices } from 'xtoken-js'
+ *
+ * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
+ * const network = await provider.getNetwork()
+ * const { chainId } = network
+ *
+ * const xsnxContract = new ethers.Contract(ADDRESSES[X_SNX_A][chainId], xSNXAbi, provider)
+ * const snxContract = new ethers.Contract(ADDRESSES[SNX][chainId], SynthetixAbi, provider)
+ * const exchangeRatesContract = new ethers.Contract(ADDRESSES[EXCHANGE_RATES][chainId], ExchangeRatesAbi, provider)
+ * const tradeAccountingContract = new ethers.Contract(ADDRESSES[TRADE_ACCOUNTING][chainId], TradeAccountingAbi, provider)
+ *
+ * const { priceEth, priceUsd } = await getXSnxPrices(
+ *   xsnxContract,
+ *   ADDRESSES[X_SNX_A_ADMIN][chainId],
+ *   tradeAccountingContract,
+ *   exchangeRatesContract,
+ *   snxContract,
+ *   provider
+ * )
+ * ```
+ *
+ * @param {XSNX} xsnxContract xSNXa token contract
+ * @param {string} xsnxAdminAddress XSNX contract admin address
+ * @param {TradeAccounting} tradeAccountingContract Trade accounting contract
+ * @param {ExchangeRates} exchangeRatesContract Exchange rates contract
+ * @param {Contract} snxContract SNX contract
+ * @param {JsonRpcProvider} provider Ether.js Provider
+ * @returns A promise of the token prices in ETH/USD along with AUM
+ */
 export const getXSnxPrices = async (
   xsnxContract: XSNX,
   xsnxAdminAddress: string,
@@ -14,12 +53,13 @@ export const getXSnxPrices = async (
   exchangeRatesContract: ExchangeRates,
   snxContract: Contract,
   provider: JsonRpcProvider
-) => {
+): Promise<ITokenPrices> => {
   if (!tradeAccountingContract || !exchangeRatesContract) {
     return {
-      priceUsd: 0,
-      priceEth: 0,
       aum: 0,
+      priceEth: 0,
+      priceUsd: 0,
+      sellPriceEth: 0,
     }
   }
 
@@ -67,9 +107,9 @@ export const getXSnxPrices = async (
   const aum = totalSupply.mul(priceUsd).div(DEC_18)
 
   return {
-    priceEth: formatNumber(formatEther(issueTokenPriceInEth)),
-    sellPriceEth: formatNumber(formatEther(redeemTokenPriceEth)),
-    priceUsd: formatNumber(formatEther(priceUsd)),
     aum: formatNumber(formatEther(aum), 0),
+    priceEth: formatNumber(formatEther(issueTokenPriceInEth)),
+    priceUsd: formatNumber(formatEther(priceUsd)),
+    sellPriceEth: formatNumber(formatEther(redeemTokenPriceEth)),
   }
 }
