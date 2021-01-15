@@ -1,0 +1,370 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>XToken JS | xtoken-js</title>
+	<meta name="description" content="Documentation for xtoken-js">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">xtoken-js</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">xtoken-js</a>
+				</li>
+				<li>
+					<a href="xtoken_js.html">XToken JS</a>
+				</li>
+			</ul>
+			<h1>Module XToken JS</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/xtoken_js.xtoken.html" class="tsd-kind-icon">XToken</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxaaveprices" class="tsd-kind-icon">getXAave<wbr>Prices</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxkncprices" class="tsd-kind-icon">getXKnc<wbr>Prices</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxsnxprices" class="tsd-kind-icon">getXSnx<wbr>Prices</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getxaaveprices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> getXAave<wbr>Prices</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">getXAave<wbr>Prices<span class="tsd-signature-symbol">(</span>xaaveContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XAAVE</span>, kyberProxyContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KyberProxy</span>, chainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/bdf6ab0/src/blockchain/xaave/prices.ts#L38">blockchain/xaave/prices.ts:38</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ethers</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;ethers&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ADDRESSES</span><span style="color: #000000">, </span><span style="color: #001080">KYBER_PROXY</span><span style="color: #000000">, </span><span style="color: #001080">X_AAVE_A</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">KyberProxyAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/KyberProxy.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">xAAVEAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/xAAVE.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">getXAavePrices</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-js&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">providers</span><span style="color: #000000">.</span><span style="color: #267F99">InfuraProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;homestead&#039;</span><span style="color: #000000">, &lt;</span><span style="color: #267F99">INFURA_API_KEY</span><span style="color: #000000">&gt;)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">network</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">getNetwork</span><span style="color: #000000">()</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">chainId</span><span style="color: #000000"> } = </span><span style="color: #001080">network</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xaaveContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">X_AAVE_A</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">xAAVEAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">kyberProxyContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">KYBER_PROXY</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">KyberProxyAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">priceEth</span><span style="color: #000000">, </span><span style="color: #0070C1">priceUsd</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">getXAavePrices</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #001080">xaaveContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">kyberProxyContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">chainId</span>
+<span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>xaaveContract: <span class="tsd-signature-type">XAAVE</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>xAAVEa/xAAVEb token contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>kyberProxyContract: <span class="tsd-signature-type">KyberProxy</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Kyber Proxy contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>chainId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Connected network&#39;s ID, 1 for Mainnet</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise of the token prices in ETH/USD along with AUM</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getxkncprices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> getXKnc<wbr>Prices</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">getXKnc<wbr>Prices<span class="tsd-signature-symbol">(</span>xkncContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XKNC</span>, kncContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Contract</span>, kyberProxyContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KyberProxy</span>, chainId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/bdf6ab0/src/blockchain/xknc/prices.ts#L43">blockchain/xknc/prices.ts:43</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ethers</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;ethers&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ADDRESSES</span><span style="color: #000000">, </span><span style="color: #001080">KNC</span><span style="color: #000000">, </span><span style="color: #001080">KYBER_PROXY</span><span style="color: #000000">, </span><span style="color: #001080">X_KNC_A</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ERC20Abi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/ERC20.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">KyberProxyAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/KyberProxy.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">xKNCAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/xKNC.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">getXKncPrices</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-js&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">providers</span><span style="color: #000000">.</span><span style="color: #267F99">InfuraProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;homestead&#039;</span><span style="color: #000000">, &lt;</span><span style="color: #267F99">INFURA_API_KEY</span><span style="color: #000000">&gt;)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">network</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">getNetwork</span><span style="color: #000000">()</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">chainId</span><span style="color: #000000"> } = </span><span style="color: #001080">network</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xkncContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">X_KNC_A</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">xKNCAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">kncContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">KNC</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">ERC20Abi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">kyberProxyContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">KYBER_PROXY</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">KyberProxyAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">priceEth</span><span style="color: #000000">, </span><span style="color: #0070C1">priceUsd</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">getXKncPrices</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #001080">xkncContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">kncContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">kyberProxyContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">chainId</span>
+<span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>xkncContract: <span class="tsd-signature-type">XKNC</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>xKNCa/xKNCb token contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>kncContract: <span class="tsd-signature-type">Contract</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>KNC token contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>kyberProxyContract: <span class="tsd-signature-type">KyberProxy</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Kyber Proxy contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>chainId: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Connected network&#39;s ID, 1 for Mainnet</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise of the token prices in ETH/USD along with AUM</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getxsnxprices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> getXSnx<wbr>Prices</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">getXSnx<wbr>Prices<span class="tsd-signature-symbol">(</span>xsnxContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XSNX</span>, xsnxAdminAddress<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tradeAccountingContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TradeAccounting</span>, exchangeRatesContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ExchangeRates</span>, snxContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Contract</span>, provider<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JsonRpcProvider</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/bdf6ab0/src/blockchain/xsnx/prices.ts#L49">blockchain/xsnx/prices.ts:49</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ethers</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;ethers&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ADDRESSES</span><span style="color: #000000">, </span><span style="color: #001080">EXCHANGE_RATES</span><span style="color: #000000">, </span><span style="color: #001080">TRADE_ACCOUNTING</span><span style="color: #000000">, </span><span style="color: #001080">SNX</span><span style="color: #000000">, </span><span style="color: #001080">X_SNX_A</span><span style="color: #000000">, </span><span style="color: #001080">X_SNX_A_ADMIN</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ExchangeRatesAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/ExchangeRates.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">SynthetixAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/Synthetix.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">TradeAccountingAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/TradeAccounting.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">xSNXAbi</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-abis/build/main/abi/xSNX.json&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">getXSnxPrices</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xtoken-js&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">providers</span><span style="color: #000000">.</span><span style="color: #267F99">InfuraProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;homestead&#039;</span><span style="color: #000000">, &lt;</span><span style="color: #267F99">INFURA_API_KEY</span><span style="color: #000000">&gt;)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">network</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">getNetwork</span><span style="color: #000000">()</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">chainId</span><span style="color: #000000"> } = </span><span style="color: #001080">network</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xsnxContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">X_SNX_A</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">xSNXAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">snxContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">SNX</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">SynthetixAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">exchangeRatesContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">EXCHANGE_RATES</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">ExchangeRatesAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">tradeAccountingContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">ethers</span><span style="color: #000000">.</span><span style="color: #267F99">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">TRADE_ACCOUNTING</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">TradeAccountingAbi</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">priceEth</span><span style="color: #000000">, </span><span style="color: #0070C1">priceUsd</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">getXSnxPrices</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #001080">xsnxContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">X_SNX_A_ADMIN</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">],</span>
+<span style="color: #000000">  </span><span style="color: #001080">tradeAccountingContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">exchangeRatesContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">snxContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">provider</span>
+<span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>xsnxContract: <span class="tsd-signature-type">XSNX</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>xSNXa token contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>xsnxAdminAddress: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>XSNX contract admin address</p>
+									</div>
+								</li>
+								<li>
+									<h5>tradeAccountingContract: <span class="tsd-signature-type">TradeAccounting</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Trade accounting contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>exchangeRatesContract: <span class="tsd-signature-type">ExchangeRates</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Exchange rates contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>snxContract: <span class="tsd-signature-type">Contract</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>SNX contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>provider: <span class="tsd-signature-type">JsonRpcProvider</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Ether.js Provider</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise of the token prices in ETH/USD along with AUM</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="xtoken_js.html">XToken JS</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="xtoken_types.html">XToken <wbr>Types</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/xtoken_js.xtoken.html" class="tsd-kind-icon">XToken</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="xtoken_js.html#getxaaveprices" class="tsd-kind-icon">getXAave<wbr>Prices</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="xtoken_js.html#getxkncprices" class="tsd-kind-icon">getXKnc<wbr>Prices</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="xtoken_js.html#getxsnxprices" class="tsd-kind-icon">getXSnx<wbr>Prices</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
