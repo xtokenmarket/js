@@ -430,17 +430,13 @@ export class XKNC extends Contract {
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'allowance(address,address)'(
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     approve(
       spender: string,
@@ -476,19 +472,12 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     burn(
       tokensToRedeemTwei: BigNumberish,
@@ -520,17 +509,9 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    decimals(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    decimals(overrides?: CallOverrides): Promise<[number]>
 
-    'decimals()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
 
     decreaseAllowance(
       spender: string,
@@ -547,88 +528,56 @@ export class XKNC extends Contract {
     feeDivisors(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'feeDivisors(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     feeStructure(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     'feeStructure()'(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
-    getAvailableKncBalanceTwei(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getAvailableKncBalanceTwei(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getAvailableKncBalanceTwei()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getFeeRate(
       _type: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getFeeRate(uint8)'(
       _type: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    getFundEthBalanceWei(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getFundEthBalanceWei(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getFundEthBalanceWei()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getFundEthBalanceWei()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getFundKncBalanceTwei(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getFundKncBalanceTwei(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getFundKncBalanceTwei()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getFundKncBalanceTwei()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     increaseAllowance(
       spender: string,
@@ -642,119 +591,56 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    isOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isOwner(overrides?: CallOverrides): Promise<[boolean]>
 
-    'isOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    isPauser(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isPauser(account: string, overrides?: CallOverrides): Promise<[boolean]>
 
     'isPauser(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     isWhitelisted(
       _address: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'isWhitelisted(address)'(
       _address: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    knc(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    knc(overrides?: CallOverrides): Promise<[string]>
 
-    'knc()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'knc()'(overrides?: CallOverrides): Promise<[string]>
 
-    kyberDao(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    kyberDao(overrides?: CallOverrides): Promise<[string]>
 
-    'kyberDao()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'kyberDao()'(overrides?: CallOverrides): Promise<[string]>
 
     kyberFeeHandlers(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'kyberFeeHandlers(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
-    kyberProxy(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    kyberProxy(overrides?: CallOverrides): Promise<[string]>
 
-    'kyberProxy()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'kyberProxy()'(overrides?: CallOverrides): Promise<[string]>
 
-    kyberStaking(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    kyberStaking(overrides?: CallOverrides): Promise<[string]>
 
-    'kyberStaking()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'kyberStaking()'(overrides?: CallOverrides): Promise<[string]>
 
-    mandate(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    mandate(overrides?: CallOverrides): Promise<[string]>
 
-    'mandate()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'mandate()'(overrides?: CallOverrides): Promise<[string]>
 
     mint(
       minRate: BigNumberish,
@@ -776,45 +662,21 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    name(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    name(overrides?: CallOverrides): Promise<[string]>
 
-    'name()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'name()'(overrides?: CallOverrides): Promise<[string]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
     pause(overrides?: Overrides): Promise<ContractTransaction>
 
     'pause()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    paused(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
-    'paused()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
     removefromWhitelist(
       _address: string,
@@ -848,29 +710,13 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
-    'symbol()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
 
-    totalSupply(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'totalSupply()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transfer(
       recipient: string,
@@ -1093,25 +939,23 @@ export class XKNC extends Contract {
 
   feeStructure(
     overrides?: CallOverrides
-  ): Promise<{
-    mintFee: BigNumber
-    burnFee: BigNumber
-    claimFee: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
 
   'feeStructure()'(
     overrides?: CallOverrides
-  ): Promise<{
-    mintFee: BigNumber
-    burnFee: BigNumber
-    claimFee: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
 
   getAvailableKncBalanceTwei(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1486,25 +1330,23 @@ export class XKNC extends Contract {
 
     feeStructure(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     'feeStructure()'(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     getAvailableKncBalanceTwei(overrides?: CallOverrides): Promise<BigNumber>
 

@@ -588,65 +588,27 @@ export class Synthetix extends Contract {
   interface: SynthetixInterface
 
   functions: {
-    DECIMALS(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    DECIMALS(overrides?: CallOverrides): Promise<[number]>
 
-    'DECIMALS()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    'DECIMALS()'(overrides?: CallOverrides): Promise<[number]>
 
-    MAX_ADDRESSES_FROM_RESOLVER(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_ADDRESSES_FROM_RESOLVER(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'MAX_ADDRESSES_FROM_RESOLVER()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    SELFDESTRUCT_DELAY(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    SELFDESTRUCT_DELAY(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'SELFDESTRUCT_DELAY()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'SELFDESTRUCT_DELAY()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    TOKEN_NAME(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    TOKEN_NAME(overrides?: CallOverrides): Promise<[string]>
 
-    'TOKEN_NAME()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'TOKEN_NAME()'(overrides?: CallOverrides): Promise<[string]>
 
-    TOKEN_SYMBOL(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    TOKEN_SYMBOL(overrides?: CallOverrides): Promise<[string]>
 
-    'TOKEN_SYMBOL()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'TOKEN_SYMBOL()'(overrides?: CallOverrides): Promise<[string]>
 
     acceptOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -656,31 +618,21 @@ export class Synthetix extends Contract {
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'allowance(address,address)'(
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     anySynthOrSNXRateIsStale(
       overrides?: CallOverrides
-    ): Promise<{
-      anyRateStale: boolean
-      0: boolean
-    }>
+    ): Promise<[boolean] & { anyRateStale: boolean }>
 
     'anySynthOrSNXRateIsStale()'(
       overrides?: CallOverrides
-    ): Promise<{
-      anyRateStale: boolean
-      0: boolean
-    }>
+    ): Promise<[boolean] & { anyRateStale: boolean }>
 
     approve(
       spender: string,
@@ -694,57 +646,30 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    availableCurrencyKeys(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    availableCurrencyKeys(overrides?: CallOverrides): Promise<[string[]]>
 
-    'availableCurrencyKeys()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    'availableCurrencyKeys()'(overrides?: CallOverrides): Promise<[string[]]>
 
-    availableSynthCount(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    availableSynthCount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'availableSynthCount()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'availableSynthCount()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     availableSynths(
       index: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'availableSynths(uint256)'(
       index: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     burnSynths(
       amount: BigNumberish,
@@ -782,61 +707,38 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    collateral(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    collateral(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'collateral(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     collateralisationRatio(
       _issuer: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'collateralisationRatio(address)'(
       _issuer: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     debtBalanceOf(
       account: string,
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'debtBalanceOf(address,bytes32)'(
       account: string,
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    decimals(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    decimals(overrides?: CallOverrides): Promise<[number]>
 
-    'decimals()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
 
     emitExchangeRebate(
       account: string,
@@ -918,117 +820,123 @@ export class Synthetix extends Contract {
 
     getResolverAddressesRequired(
       overrides?: CallOverrides
-    ): Promise<{
-      addressesRequired: [
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string
-      ]
-      0: [
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string
-      ]
-    }>
+    ): Promise<
+      [
+        [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ]
+      ] & {
+        addressesRequired: [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ]
+      }
+    >
 
     'getResolverAddressesRequired()'(
       overrides?: CallOverrides
-    ): Promise<{
-      addressesRequired: [
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string
-      ]
-      0: [
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string
-      ]
-    }>
+    ): Promise<
+      [
+        [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ]
+      ] & {
+        addressesRequired: [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ]
+      }
+    >
 
     initiateSelfDestruct(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1036,57 +944,33 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    initiationTime(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    initiationTime(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'initiationTime()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'initiationTime()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    integrationProxy(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    integrationProxy(overrides?: CallOverrides): Promise<[string]>
 
-    'integrationProxy()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'integrationProxy()'(overrides?: CallOverrides): Promise<[string]>
 
     isResolverCached(
       _resolver: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'isResolverCached(address)'(
       _resolver: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     isWaitingPeriod(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'isWaitingPeriod(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     issueMaxSynths(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1139,46 +1023,24 @@ export class Synthetix extends Contract {
     maxIssuableSynths(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { maxIssuable: BigNumber }>
 
     'maxIssuableSynths(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { maxIssuable: BigNumber }>
 
-    messageSender(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    messageSender(overrides?: CallOverrides): Promise<[string]>
 
-    'messageSender()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'messageSender()'(overrides?: CallOverrides): Promise<[string]>
 
     mint(overrides?: Overrides): Promise<ContractTransaction>
 
     'mint()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    name(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    name(overrides?: CallOverrides): Promise<[string]>
 
-    'name()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'name()'(overrides?: CallOverrides): Promise<[string]>
 
     nominateNewOwner(
       _owner: string,
@@ -1190,131 +1052,69 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    nominatedOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    nominatedOwner(overrides?: CallOverrides): Promise<[string]>
 
-    'nominatedOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'nominatedOwner()'(overrides?: CallOverrides): Promise<[string]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
-    proxy(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    proxy(overrides?: CallOverrides): Promise<[string]>
 
-    'proxy()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'proxy()'(overrides?: CallOverrides): Promise<[string]>
 
     remainingIssuableSynths(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      alreadyIssued: BigNumber
-      totalSystemDebt: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        maxIssuable: BigNumber
+        alreadyIssued: BigNumber
+        totalSystemDebt: BigNumber
+      }
+    >
 
     'remainingIssuableSynths(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      alreadyIssued: BigNumber
-      totalSystemDebt: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        maxIssuable: BigNumber
+        alreadyIssued: BigNumber
+        totalSystemDebt: BigNumber
+      }
+    >
 
-    resolver(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    resolver(overrides?: CallOverrides): Promise<[string]>
 
-    'resolver()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'resolver()'(overrides?: CallOverrides): Promise<[string]>
 
     resolverAddressesRequired(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'resolverAddressesRequired(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
-    sUSD(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    sUSD(overrides?: CallOverrides): Promise<[string]>
 
-    'sUSD()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'sUSD()'(overrides?: CallOverrides): Promise<[string]>
 
     selfDestruct(overrides?: Overrides): Promise<ContractTransaction>
 
     'selfDestruct()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    selfDestructBeneficiary(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    selfDestructBeneficiary(overrides?: CallOverrides): Promise<[string]>
 
-    'selfDestructBeneficiary()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'selfDestructBeneficiary()'(overrides?: CallOverrides): Promise<[string]>
 
-    selfDestructInitiated(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    selfDestructInitiated(overrides?: CallOverrides): Promise<[boolean]>
 
-    'selfDestructInitiated()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'selfDestructInitiated()'(overrides?: CallOverrides): Promise<[boolean]>
 
     setIntegrationProxy(
       _integrationProxy: string,
@@ -1386,45 +1186,26 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
-    'symbol()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
 
-    synths(
-      currencyKey: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    synths(currencyKey: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     'synths(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     synthsByAddress(
       synthAddress: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'synthsByAddress(address)'(
       synthAddress: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     terminateSelfDestruct(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1432,57 +1213,33 @@ export class Synthetix extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    tokenState(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    tokenState(overrides?: CallOverrides): Promise<[string]>
 
-    'tokenState()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'tokenState()'(overrides?: CallOverrides): Promise<[string]>
 
     totalIssuedSynths(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'totalIssuedSynths(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     totalIssuedSynthsExcludeEtherCollateral(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'totalIssuedSynthsExcludeEtherCollateral(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    totalSupply(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'totalSupply()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transfer(
       to: string,
@@ -1513,18 +1270,12 @@ export class Synthetix extends Contract {
     transferableSynthetix(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      transferable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { transferable: BigNumber }>
 
     'transferableSynthetix(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      transferable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { transferable: BigNumber }>
   }
 
   DECIMALS(overrides?: CallOverrides): Promise<number>
@@ -1940,26 +1691,24 @@ export class Synthetix extends Contract {
   remainingIssuableSynths(
     account: string,
     overrides?: CallOverrides
-  ): Promise<{
-    maxIssuable: BigNumber
-    alreadyIssued: BigNumber
-    totalSystemDebt: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      maxIssuable: BigNumber
+      alreadyIssued: BigNumber
+      totalSystemDebt: BigNumber
+    }
+  >
 
   'remainingIssuableSynths(address)'(
     account: string,
     overrides?: CallOverrides
-  ): Promise<{
-    maxIssuable: BigNumber
-    alreadyIssued: BigNumber
-    totalSystemDebt: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      maxIssuable: BigNumber
+      alreadyIssued: BigNumber
+      totalSystemDebt: BigNumber
+    }
+  >
 
   resolver(overrides?: CallOverrides): Promise<string>
 
@@ -2554,26 +2303,24 @@ export class Synthetix extends Contract {
     remainingIssuableSynths(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      alreadyIssued: BigNumber
-      totalSystemDebt: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        maxIssuable: BigNumber
+        alreadyIssued: BigNumber
+        totalSystemDebt: BigNumber
+      }
+    >
 
     'remainingIssuableSynths(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      maxIssuable: BigNumber
-      alreadyIssued: BigNumber
-      totalSystemDebt: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        maxIssuable: BigNumber
+        alreadyIssued: BigNumber
+        totalSystemDebt: BigNumber
+      }
+    >
 
     resolver(overrides?: CallOverrides): Promise<string>
 
@@ -2659,26 +2406,24 @@ export class Synthetix extends Contract {
     settle(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      reclaimed: BigNumber
-      refunded: BigNumber
-      numEntriesSettled: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        reclaimed: BigNumber
+        refunded: BigNumber
+        numEntriesSettled: BigNumber
+      }
+    >
 
     'settle(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      reclaimed: BigNumber
-      refunded: BigNumber
-      numEntriesSettled: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        reclaimed: BigNumber
+        refunded: BigNumber
+        numEntriesSettled: BigNumber
+      }
+    >
 
     symbol(overrides?: CallOverrides): Promise<string>
 

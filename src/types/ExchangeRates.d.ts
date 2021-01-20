@@ -439,17 +439,9 @@ export class ExchangeRates extends Contract {
   interface: ExchangeRatesInterface
 
   functions: {
-    SELFDESTRUCT_DELAY(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    SELFDESTRUCT_DELAY(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'SELFDESTRUCT_DELAY()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'SELFDESTRUCT_DELAY()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     acceptOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -470,58 +462,39 @@ export class ExchangeRates extends Contract {
     aggregatorKeys(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'aggregatorKeys(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
-    aggregators(
-      arg0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    aggregators(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     'aggregators(bytes32)'(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     anyRateIsStale(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'anyRateIsStale(bytes32[])'(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     currentRoundForRate(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'currentRoundForRate(bytes32)'(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     deleteRate(
       currencyKey: BytesLike,
@@ -538,48 +511,40 @@ export class ExchangeRates extends Contract {
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { value: BigNumber }>
 
     'effectiveValue(bytes32,uint256,bytes32)'(
       sourceCurrencyKey: BytesLike,
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { value: BigNumber }>
 
     effectiveValueAndRates(
       sourceCurrencyKey: BytesLike,
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      sourceRate: BigNumber
-      destinationRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        value: BigNumber
+        sourceRate: BigNumber
+        destinationRate: BigNumber
+      }
+    >
 
     'effectiveValueAndRates(bytes32,uint256,bytes32)'(
       sourceCurrencyKey: BytesLike,
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      sourceRate: BigNumber
-      destinationRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        value: BigNumber
+        sourceRate: BigNumber
+        destinationRate: BigNumber
+      }
+    >
 
     effectiveValueAtRound(
       sourceCurrencyKey: BytesLike,
@@ -588,10 +553,7 @@ export class ExchangeRates extends Contract {
       roundIdForSrc: BigNumberish,
       roundIdForDest: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { value: BigNumber }>
 
     'effectiveValueAtRound(bytes32,uint256,bytes32,uint256,uint256)'(
       sourceCurrencyKey: BytesLike,
@@ -600,24 +562,17 @@ export class ExchangeRates extends Contract {
       roundIdForSrc: BigNumberish,
       roundIdForDest: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { value: BigNumber }>
 
     getCurrentRoundId(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getCurrentRoundId(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getLastRoundIdBeforeElapsedSecs(
       currencyKey: BytesLike,
@@ -625,9 +580,7 @@ export class ExchangeRates extends Contract {
       startingTimestamp: BigNumberish,
       timediff: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getLastRoundIdBeforeElapsedSecs(bytes32,uint256,uint256,uint256)'(
       currencyKey: BytesLike,
@@ -635,9 +588,7 @@ export class ExchangeRates extends Contract {
       startingTimestamp: BigNumberish,
       timediff: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     initiateSelfDestruct(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -645,87 +596,63 @@ export class ExchangeRates extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    initiationTime(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    initiationTime(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'initiationTime()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'initiationTime()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     inversePricing(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      entryPoint: BigNumber
-      upperLimit: BigNumber
-      lowerLimit: BigNumber
-      frozen: boolean
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: boolean
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, boolean] & {
+        entryPoint: BigNumber
+        upperLimit: BigNumber
+        lowerLimit: BigNumber
+        frozen: boolean
+      }
+    >
 
     'inversePricing(bytes32)'(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      entryPoint: BigNumber
-      upperLimit: BigNumber
-      lowerLimit: BigNumber
-      frozen: boolean
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: boolean
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, boolean] & {
+        entryPoint: BigNumber
+        upperLimit: BigNumber
+        lowerLimit: BigNumber
+        frozen: boolean
+      }
+    >
 
     invertedKeys(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'invertedKeys(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     lastRateUpdateTimes(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'lastRateUpdateTimes(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     lastRateUpdateTimesForCurrencies(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]]>
 
     'lastRateUpdateTimesForCurrencies(bytes32[])'(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]]>
 
     nominateNewOwner(
       _owner: string,
@@ -737,189 +664,109 @@ export class ExchangeRates extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    nominatedOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    nominatedOwner(overrides?: CallOverrides): Promise<[string]>
 
-    'nominatedOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'nominatedOwner()'(overrides?: CallOverrides): Promise<[string]>
 
-    oracle(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    oracle(overrides?: CallOverrides): Promise<[string]>
 
-    'oracle()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'oracle()'(overrides?: CallOverrides): Promise<[string]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
     rateAndTimestampAtRound(
       currencyKey: BytesLike,
       roundId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     'rateAndTimestampAtRound(bytes32,uint256)'(
       currencyKey: BytesLike,
       roundId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     rateAndUpdatedTime(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     'rateAndUpdatedTime(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     rateForCurrency(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'rateForCurrency(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     rateIsFrozen(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'rateIsFrozen(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     rateIsStale(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'rateIsStale(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    rateStalePeriod(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    rateStalePeriod(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'rateStalePeriod()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'rateStalePeriod()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     ratesAndStaleForCurrencies(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-      1: boolean
-    }>
+    ): Promise<[BigNumber[], boolean]>
 
     'ratesAndStaleForCurrencies(bytes32[])'(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-      1: boolean
-    }>
+    ): Promise<[BigNumber[], boolean]>
 
     ratesAndUpdatedTimeForCurrencyLastNRounds(
       currencyKey: BytesLike,
       numRounds: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rates: BigNumber[]
-      times: BigNumber[]
-      0: BigNumber[]
-      1: BigNumber[]
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+    >
 
     'ratesAndUpdatedTimeForCurrencyLastNRounds(bytes32,uint256)'(
       currencyKey: BytesLike,
       numRounds: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rates: BigNumber[]
-      times: BigNumber[]
-      0: BigNumber[]
-      1: BigNumber[]
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+    >
 
     ratesForCurrencies(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]]>
 
     'ratesForCurrencies(bytes32[])'(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]]>
 
     removeAggregator(
       currencyKey: BytesLike,
@@ -945,29 +792,13 @@ export class ExchangeRates extends Contract {
 
     'selfDestruct()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    selfDestructBeneficiary(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    selfDestructBeneficiary(overrides?: CallOverrides): Promise<[string]>
 
-    'selfDestructBeneficiary()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'selfDestructBeneficiary()'(overrides?: CallOverrides): Promise<[string]>
 
-    selfDestructInitiated(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    selfDestructInitiated(overrides?: CallOverrides): Promise<[boolean]>
 
-    'selfDestructInitiated()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'selfDestructInitiated()'(overrides?: CallOverrides): Promise<[boolean]>
 
     setInversePricing(
       currencyKey: BytesLike,
@@ -1123,28 +954,26 @@ export class ExchangeRates extends Contract {
     sourceAmount: BigNumberish,
     destinationCurrencyKey: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    value: BigNumber
-    sourceRate: BigNumber
-    destinationRate: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      value: BigNumber
+      sourceRate: BigNumber
+      destinationRate: BigNumber
+    }
+  >
 
   'effectiveValueAndRates(bytes32,uint256,bytes32)'(
     sourceCurrencyKey: BytesLike,
     sourceAmount: BigNumberish,
     destinationCurrencyKey: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    value: BigNumber
-    sourceRate: BigNumber
-    destinationRate: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      value: BigNumber
+      sourceRate: BigNumber
+      destinationRate: BigNumber
+    }
+  >
 
   effectiveValueAtRound(
     sourceCurrencyKey: BytesLike,
@@ -1201,30 +1030,26 @@ export class ExchangeRates extends Contract {
   inversePricing(
     arg0: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    entryPoint: BigNumber
-    upperLimit: BigNumber
-    lowerLimit: BigNumber
-    frozen: boolean
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-    3: boolean
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, boolean] & {
+      entryPoint: BigNumber
+      upperLimit: BigNumber
+      lowerLimit: BigNumber
+      frozen: boolean
+    }
+  >
 
   'inversePricing(bytes32)'(
     arg0: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    entryPoint: BigNumber
-    upperLimit: BigNumber
-    lowerLimit: BigNumber
-    frozen: boolean
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-    3: boolean
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, boolean] & {
+      entryPoint: BigNumber
+      upperLimit: BigNumber
+      lowerLimit: BigNumber
+      frozen: boolean
+    }
+  >
 
   invertedKeys(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
@@ -1279,43 +1104,23 @@ export class ExchangeRates extends Contract {
     currencyKey: BytesLike,
     roundId: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rate: BigNumber
-    time: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
   'rateAndTimestampAtRound(bytes32,uint256)'(
     currencyKey: BytesLike,
     roundId: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rate: BigNumber
-    time: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
   rateAndUpdatedTime(
     currencyKey: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    rate: BigNumber
-    time: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
   'rateAndUpdatedTime(bytes32)'(
     currencyKey: BytesLike,
     overrides?: CallOverrides
-  ): Promise<{
-    rate: BigNumber
-    time: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
   rateForCurrency(
     currencyKey: BytesLike,
@@ -1354,40 +1159,28 @@ export class ExchangeRates extends Contract {
   ratesAndStaleForCurrencies(
     currencyKeys: BytesLike[],
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber[]
-    1: boolean
-  }>
+  ): Promise<[BigNumber[], boolean]>
 
   'ratesAndStaleForCurrencies(bytes32[])'(
     currencyKeys: BytesLike[],
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber[]
-    1: boolean
-  }>
+  ): Promise<[BigNumber[], boolean]>
 
   ratesAndUpdatedTimeForCurrencyLastNRounds(
     currencyKey: BytesLike,
     numRounds: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rates: BigNumber[]
-    times: BigNumber[]
-    0: BigNumber[]
-    1: BigNumber[]
-  }>
+  ): Promise<
+    [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+  >
 
   'ratesAndUpdatedTimeForCurrencyLastNRounds(bytes32,uint256)'(
     currencyKey: BytesLike,
     numRounds: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rates: BigNumber[]
-    times: BigNumber[]
-    0: BigNumber[]
-    1: BigNumber[]
-  }>
+  ): Promise<
+    [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+  >
 
   ratesForCurrencies(
     currencyKeys: BytesLike[],
@@ -1583,28 +1376,26 @@ export class ExchangeRates extends Contract {
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      sourceRate: BigNumber
-      destinationRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        value: BigNumber
+        sourceRate: BigNumber
+        destinationRate: BigNumber
+      }
+    >
 
     'effectiveValueAndRates(bytes32,uint256,bytes32)'(
       sourceCurrencyKey: BytesLike,
       sourceAmount: BigNumberish,
       destinationCurrencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      value: BigNumber
-      sourceRate: BigNumber
-      destinationRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        value: BigNumber
+        sourceRate: BigNumber
+        destinationRate: BigNumber
+      }
+    >
 
     effectiveValueAtRound(
       sourceCurrencyKey: BytesLike,
@@ -1661,30 +1452,26 @@ export class ExchangeRates extends Contract {
     inversePricing(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      entryPoint: BigNumber
-      upperLimit: BigNumber
-      lowerLimit: BigNumber
-      frozen: boolean
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: boolean
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, boolean] & {
+        entryPoint: BigNumber
+        upperLimit: BigNumber
+        lowerLimit: BigNumber
+        frozen: boolean
+      }
+    >
 
     'inversePricing(bytes32)'(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      entryPoint: BigNumber
-      upperLimit: BigNumber
-      lowerLimit: BigNumber
-      frozen: boolean
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: boolean
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, boolean] & {
+        entryPoint: BigNumber
+        upperLimit: BigNumber
+        lowerLimit: BigNumber
+        frozen: boolean
+      }
+    >
 
     invertedKeys(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
@@ -1736,43 +1523,23 @@ export class ExchangeRates extends Contract {
       currencyKey: BytesLike,
       roundId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     'rateAndTimestampAtRound(bytes32,uint256)'(
       currencyKey: BytesLike,
       roundId: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     rateAndUpdatedTime(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     'rateAndUpdatedTime(bytes32)'(
       currencyKey: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      rate: BigNumber
-      time: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber] & { rate: BigNumber; time: BigNumber }>
 
     rateForCurrency(
       currencyKey: BytesLike,
@@ -1811,40 +1578,28 @@ export class ExchangeRates extends Contract {
     ratesAndStaleForCurrencies(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-      1: boolean
-    }>
+    ): Promise<[BigNumber[], boolean]>
 
     'ratesAndStaleForCurrencies(bytes32[])'(
       currencyKeys: BytesLike[],
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber[]
-      1: boolean
-    }>
+    ): Promise<[BigNumber[], boolean]>
 
     ratesAndUpdatedTimeForCurrencyLastNRounds(
       currencyKey: BytesLike,
       numRounds: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rates: BigNumber[]
-      times: BigNumber[]
-      0: BigNumber[]
-      1: BigNumber[]
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+    >
 
     'ratesAndUpdatedTimeForCurrencyLastNRounds(bytes32,uint256)'(
       currencyKey: BytesLike,
       numRounds: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rates: BigNumber[]
-      times: BigNumber[]
-      0: BigNumber[]
-      1: BigNumber[]
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber[]] & { rates: BigNumber[]; times: BigNumber[] }
+    >
 
     ratesForCurrencies(
       currencyKeys: BytesLike[],

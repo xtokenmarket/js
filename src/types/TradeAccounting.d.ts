@@ -406,17 +406,11 @@ export class TradeAccounting extends Contract {
 
     calculateAssetChangesForRebalanceToSnx(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setToSell: BigNumber }>
 
     'calculateAssetChangesForRebalanceToSnx()'(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setToSell: BigNumber }>
 
     calculateIssueTokenPrice(
       weiPerOneSnx: BigNumberish,
@@ -424,10 +418,7 @@ export class TradeAccounting extends Contract {
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      pricePerToken: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { pricePerToken: BigNumber }>
 
     'calculateIssueTokenPrice(uint256,uint256,uint256,uint256)'(
       weiPerOneSnx: BigNumberish,
@@ -435,108 +426,69 @@ export class TradeAccounting extends Contract {
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      pricePerToken: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { pricePerToken: BigNumber }>
 
     calculateRedeemTokenPrice(
       totalSupply: BigNumberish,
       snxBalanceOwned: BigNumberish,
       contractDebtValue: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      pricePerToken: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { pricePerToken: BigNumber }>
 
     'calculateRedeemTokenPrice(uint256,uint256,uint256)'(
       totalSupply: BigNumberish,
       snxBalanceOwned: BigNumberish,
       contractDebtValue: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      pricePerToken: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { pricePerToken: BigNumber }>
 
     calculateRedemptionValue(
       totalSupply: BigNumberish,
       tokensToRedeem: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      valueToRedeem: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { valueToRedeem: BigNumber }>
 
     'calculateRedemptionValue(uint256,uint256)'(
       totalSupply: BigNumberish,
       tokensToRedeem: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      valueToRedeem: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { valueToRedeem: BigNumber }>
 
     calculateSetIssuanceQuantity(
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetIssuable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetIssuable: BigNumber }>
 
     'calculateSetIssuanceQuantity()'(
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetIssuable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetIssuable: BigNumber }>
 
     calculateSetQuantity(
       componentQuantity: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetQuantity: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetQuantity: BigNumber }>
 
     'calculateSetQuantity(uint256)'(
       componentQuantity: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetQuantity: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetQuantity: BigNumber }>
 
     calculateSetRedemptionQuantity(
       totalSusdToBurn: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetRedeemable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetRedeemable: BigNumber }>
 
     'calculateSetRedemptionQuantity(uint256)'(
       totalSusdToBurn: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebalancingSetRedeemable: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { rebalancingSetRedeemable: BigNumber }>
 
     calculateSetToSellForRebalanceSetToEth(
       overrides?: CallOverrides
-    ): Promise<{
-      setQuantityToSell: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setQuantityToSell: BigNumber }>
 
     'calculateSetToSellForRebalanceSetToEth()'(
       overrides?: CallOverrides
-    ): Promise<{
-      setQuantityToSell: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setQuantityToSell: BigNumber }>
 
     calculateSusdToBurnForRedemption(
       tokensToRedeem: BigNumberish,
@@ -544,10 +496,7 @@ export class TradeAccounting extends Contract {
       contractDebtValue: BigNumberish,
       issuanceRatio: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      susdToBurn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { susdToBurn: BigNumber }>
 
     'calculateSusdToBurnForRedemption(uint256,uint256,uint256,uint256)'(
       tokensToRedeem: BigNumberish,
@@ -555,36 +504,25 @@ export class TradeAccounting extends Contract {
       contractDebtValue: BigNumberish,
       issuanceRatio: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      susdToBurn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { susdToBurn: BigNumber }>
 
     calculateSusdToBurnToEclipseEscrowed(
       issuanceRatio: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'calculateSusdToBurnToEclipseEscrowed(uint256)'(
       issuanceRatio: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     calculateSusdToBurnToFixRatioExternal(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'calculateSusdToBurnToFixRatioExternal()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     calculateTokensToMintWithEth(
       snxBalanceBefore: BigNumberish,
@@ -593,9 +531,7 @@ export class TradeAccounting extends Contract {
       totalSupply: BigNumberish,
       allocateToEth: boolean,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
       snxBalanceBefore: BigNumberish,
@@ -604,27 +540,21 @@ export class TradeAccounting extends Contract {
       totalSupply: BigNumberish,
       allocateToEth: boolean,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     calculateTokensToMintWithSnx(
       snxBalanceBefore: BigNumberish,
       snxAddedToBalance: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'calculateTokensToMintWithSnx(uint256,uint256,uint256)'(
       snxBalanceBefore: BigNumberish,
       snxAddedToBalance: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     confirmCurveAddress(
       _nextCurveAddress: string,
@@ -636,167 +566,105 @@ export class TradeAccounting extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    getActiveSetAssetBalance(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getActiveSetAssetBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getActiveSetAssetBalance()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    getAssetCurrentlyActiveInSet(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    getAssetCurrentlyActiveInSet(overrides?: CallOverrides): Promise<[string]>
 
     'getAssetCurrentlyActiveInSet()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     getEthAllocationOnHedge(
       susdBal: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      ethAllocation: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { ethAllocation: BigNumber }>
 
     'getEthAllocationOnHedge(uint256)'(
       susdBal: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      ethAllocation: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { ethAllocation: BigNumber }>
 
-    getEthBalance(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getEthBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getEthBalance()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getEthBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getMintWithEthUtils(
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      nonSnxAssetValue: BigNumber
-      0: boolean
-      1: BigNumber
-    }>
+    ): Promise<
+      [boolean, BigNumber] & {
+        allocateToEth: boolean
+        nonSnxAssetValue: BigNumber
+      }
+    >
 
     'getMintWithEthUtils(uint256)'(
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      nonSnxAssetValue: BigNumber
-      0: boolean
-      1: BigNumber
-    }>
+    ): Promise<
+      [boolean, BigNumber] & {
+        allocateToEth: boolean
+        nonSnxAssetValue: BigNumber
+      }
+    >
 
     getRebalanceTowardsHedgeUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-      2: string
-    }>
+    ): Promise<[BigNumber, BigNumber, string]>
 
     'getRebalanceTowardsHedgeUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-      2: string
-    }>
+    ): Promise<[BigNumber, BigNumber, string]>
 
     getRebalanceTowardsSnxUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      activeAsset: string
-      0: BigNumber
-      1: string
-    }>
+    ): Promise<
+      [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+    >
 
     'getRebalanceTowardsSnxUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      activeAsset: string
-      0: BigNumber
-      1: string
-    }>
+    ): Promise<
+      [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+    >
 
     getRebalanceUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      debtValueInWei: BigNumber
-      hedgeAssetsBalance: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        debtValueInWei: BigNumber
+        hedgeAssetsBalance: BigNumber
+      }
+    >
 
     'getRebalanceUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      debtValueInWei: BigNumber
-      hedgeAssetsBalance: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        debtValueInWei: BigNumber
+        hedgeAssetsBalance: BigNumber
+      }
+    >
 
     getSetHoldingsValueInWei(
       overrides?: CallOverrides
-    ): Promise<{
-      setValInWei: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setValInWei: BigNumber }>
 
     'getSetHoldingsValueInWei()'(
       overrides?: CallOverrides
-    ): Promise<{
-      setValInWei: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { setValInWei: BigNumber }>
 
-    getSnxBalance(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getSnxBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getSnxBalance()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getSnxBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getSusdBalance(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getSusdBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getSusdBalance()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getSusdBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'initialize(address,address,address,address,address,address,bytes32[2],address[2],address)'(
       _setAddress: string,
@@ -816,53 +684,27 @@ export class TradeAccounting extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    isOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isOwner(overrides?: CallOverrides): Promise<[boolean]>
 
-    'isOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
 
     isRebalanceTowardsHedgeRequired(
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'isRebalanceTowardsHedgeRequired()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    isRebalanceTowardsSnxRequired(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isRebalanceTowardsSnxRequired(overrides?: CallOverrides): Promise<[boolean]>
 
     'isRebalanceTowardsSnxRequired()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -897,20 +739,14 @@ export class TradeAccounting extends Contract {
       ethBalBefore: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      0: boolean
-    }>
+    ): Promise<[boolean] & { allocateToEth: boolean }>
 
     'shouldAllocateEthToEthReserve(uint256,uint256,uint256)'(
       setHoldingsInWei: BigNumberish,
       ethBalBefore: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      0: boolean
-    }>
+    ): Promise<[boolean] & { allocateToEth: boolean }>
 
     swapTokenToEther(
       fromToken: string,
@@ -1162,74 +998,60 @@ export class TradeAccounting extends Contract {
   getMintWithEthUtils(
     totalSupply: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    allocateToEth: boolean
-    nonSnxAssetValue: BigNumber
-    0: boolean
-    1: BigNumber
-  }>
+  ): Promise<
+    [boolean, BigNumber] & {
+      allocateToEth: boolean
+      nonSnxAssetValue: BigNumber
+    }
+  >
 
   'getMintWithEthUtils(uint256)'(
     totalSupply: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    allocateToEth: boolean
-    nonSnxAssetValue: BigNumber
-    0: boolean
-    1: BigNumber
-  }>
+  ): Promise<
+    [boolean, BigNumber] & {
+      allocateToEth: boolean
+      nonSnxAssetValue: BigNumber
+    }
+  >
 
   getRebalanceTowardsHedgeUtils(
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber
-    1: BigNumber
-    2: string
-  }>
+  ): Promise<[BigNumber, BigNumber, string]>
 
   'getRebalanceTowardsHedgeUtils()'(
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber
-    1: BigNumber
-    2: string
-  }>
+  ): Promise<[BigNumber, BigNumber, string]>
 
   getRebalanceTowardsSnxUtils(
     overrides?: CallOverrides
-  ): Promise<{
-    setToSell: BigNumber
-    activeAsset: string
-    0: BigNumber
-    1: string
-  }>
+  ): Promise<
+    [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+  >
 
   'getRebalanceTowardsSnxUtils()'(
     overrides?: CallOverrides
-  ): Promise<{
-    setToSell: BigNumber
-    activeAsset: string
-    0: BigNumber
-    1: string
-  }>
+  ): Promise<
+    [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+  >
 
   getRebalanceUtils(
     overrides?: CallOverrides
-  ): Promise<{
-    debtValueInWei: BigNumber
-    hedgeAssetsBalance: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      debtValueInWei: BigNumber
+      hedgeAssetsBalance: BigNumber
+    }
+  >
 
   'getRebalanceUtils()'(
     overrides?: CallOverrides
-  ): Promise<{
-    debtValueInWei: BigNumber
-    hedgeAssetsBalance: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      debtValueInWei: BigNumber
+      hedgeAssetsBalance: BigNumber
+    }
+  >
 
   getSetHoldingsValueInWei(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1565,74 +1387,60 @@ export class TradeAccounting extends Contract {
     getMintWithEthUtils(
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      nonSnxAssetValue: BigNumber
-      0: boolean
-      1: BigNumber
-    }>
+    ): Promise<
+      [boolean, BigNumber] & {
+        allocateToEth: boolean
+        nonSnxAssetValue: BigNumber
+      }
+    >
 
     'getMintWithEthUtils(uint256)'(
       totalSupply: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      allocateToEth: boolean
-      nonSnxAssetValue: BigNumber
-      0: boolean
-      1: BigNumber
-    }>
+    ): Promise<
+      [boolean, BigNumber] & {
+        allocateToEth: boolean
+        nonSnxAssetValue: BigNumber
+      }
+    >
 
     getRebalanceTowardsHedgeUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-      2: string
-    }>
+    ): Promise<[BigNumber, BigNumber, string]>
 
     'getRebalanceTowardsHedgeUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-      2: string
-    }>
+    ): Promise<[BigNumber, BigNumber, string]>
 
     getRebalanceTowardsSnxUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      activeAsset: string
-      0: BigNumber
-      1: string
-    }>
+    ): Promise<
+      [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+    >
 
     'getRebalanceTowardsSnxUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      setToSell: BigNumber
-      activeAsset: string
-      0: BigNumber
-      1: string
-    }>
+    ): Promise<
+      [BigNumber, string] & { setToSell: BigNumber; activeAsset: string }
+    >
 
     getRebalanceUtils(
       overrides?: CallOverrides
-    ): Promise<{
-      debtValueInWei: BigNumber
-      hedgeAssetsBalance: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        debtValueInWei: BigNumber
+        hedgeAssetsBalance: BigNumber
+      }
+    >
 
     'getRebalanceUtils()'(
       overrides?: CallOverrides
-    ): Promise<{
-      debtValueInWei: BigNumber
-      hedgeAssetsBalance: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        debtValueInWei: BigNumber
+        hedgeAssetsBalance: BigNumber
+      }
+    >
 
     getSetHoldingsValueInWei(overrides?: CallOverrides): Promise<BigNumber>
 

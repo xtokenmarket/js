@@ -336,43 +336,23 @@ export class KyberDAO extends Contract {
   interface: KyberDAOInterface
 
   functions: {
-    MAX_CAMPAIGN_OPTIONS(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_CAMPAIGN_OPTIONS(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_CAMPAIGN_OPTIONS()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_CAMPAIGN_OPTIONS()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_EPOCH_CAMPAIGNS(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_EPOCH_CAMPAIGNS(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_EPOCH_CAMPAIGNS()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_EPOCH_CAMPAIGNS()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     brrCampaigns(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'brrCampaigns(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     cancelCampaign(
       campaignID: BigNumberish,
@@ -384,217 +364,167 @@ export class KyberDAO extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    daoOperator(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    daoOperator(overrides?: CallOverrides): Promise<[string]>
 
-    'daoOperator()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'daoOperator()'(overrides?: CallOverrides): Promise<[string]>
 
-    epochPeriodInSeconds(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    epochPeriodInSeconds(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'epochPeriodInSeconds()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'epochPeriodInSeconds()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    firstEpochStartTimestamp(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    firstEpochStartTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'firstEpochStartTimestamp()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getCampaignDetails(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignType: number
-      startTimestamp: BigNumber
-      endTimestamp: BigNumber
-      totalKNCSupply: BigNumber
-      minPercentageInPrecision: BigNumber
-      cInPrecision: BigNumber
-      tInPrecision: BigNumber
-      link: string
-      options: BigNumber[]
-      0: number
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-      5: BigNumber
-      6: BigNumber
-      7: string
-      8: BigNumber[]
-    }>
+    ): Promise<
+      [
+        number,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber[]
+      ] & {
+        campaignType: number
+        startTimestamp: BigNumber
+        endTimestamp: BigNumber
+        totalKNCSupply: BigNumber
+        minPercentageInPrecision: BigNumber
+        cInPrecision: BigNumber
+        tInPrecision: BigNumber
+        link: string
+        options: BigNumber[]
+      }
+    >
 
     'getCampaignDetails(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignType: number
-      startTimestamp: BigNumber
-      endTimestamp: BigNumber
-      totalKNCSupply: BigNumber
-      minPercentageInPrecision: BigNumber
-      cInPrecision: BigNumber
-      tInPrecision: BigNumber
-      link: string
-      options: BigNumber[]
-      0: number
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-      5: BigNumber
-      6: BigNumber
-      7: string
-      8: BigNumber[]
-    }>
+    ): Promise<
+      [
+        number,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber[]
+      ] & {
+        campaignType: number
+        startTimestamp: BigNumber
+        endTimestamp: BigNumber
+        totalKNCSupply: BigNumber
+        minPercentageInPrecision: BigNumber
+        cInPrecision: BigNumber
+        tInPrecision: BigNumber
+        link: string
+        options: BigNumber[]
+      }
+    >
 
     getCampaignVoteCountData(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      voteCounts: BigNumber[]
-      totalVoteCount: BigNumber
-      0: BigNumber[]
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber] & {
+        voteCounts: BigNumber[]
+        totalVoteCount: BigNumber
+      }
+    >
 
     'getCampaignVoteCountData(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      voteCounts: BigNumber[]
-      totalVoteCount: BigNumber
-      0: BigNumber[]
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber] & {
+        voteCounts: BigNumber[]
+        totalVoteCount: BigNumber
+      }
+    >
 
     getCampaignWinningOptionAndValue(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      optionID: BigNumber
-      value: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }
+    >
 
     'getCampaignWinningOptionAndValue(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      optionID: BigNumber
-      value: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }
+    >
 
-    getCurrentEpochNumber(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getCurrentEpochNumber(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getCurrentEpochNumber()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getCurrentEpochNumber()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getCurrentEpochRewardPercentageInPrecision(
       staker: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getCurrentEpochRewardPercentageInPrecision(address)'(
       staker: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getDataFromRewardAndRebateWithValidation(
       rewardInBps: BigNumberish,
       rebateInBps: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      data: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { data: BigNumber }>
 
     'getDataFromRewardAndRebateWithValidation(uint256,uint256)'(
       rewardInBps: BigNumberish,
       rebateInBps: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      data: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { data: BigNumber }>
 
     getEpochNumber(
       timestamp: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getEpochNumber(uint256)'(
       timestamp: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getLatestBRRData(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestBRRData()'(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getLatestBRRDataWithCache(
       overrides?: Overrides
@@ -606,21 +536,21 @@ export class KyberDAO extends Contract {
 
     getLatestNetworkFeeData(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestNetworkFeeData()'(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getLatestNetworkFeeDataWithCache(
       overrides?: Overrides
@@ -633,68 +563,54 @@ export class KyberDAO extends Contract {
     getListCampaignIDs(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignIDs: BigNumber[]
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]] & { campaignIDs: BigNumber[] }>
 
     'getListCampaignIDs(uint256)'(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignIDs: BigNumber[]
-      0: BigNumber[]
-    }>
+    ): Promise<[BigNumber[]] & { campaignIDs: BigNumber[] }>
 
     getPastEpochRewardPercentageInPrecision(
       staker: string,
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getPastEpochRewardPercentageInPrecision(address,uint256)'(
       staker: string,
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getRebateAndRewardFromData(
       data: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebateInBps: BigNumber
-      rewardInBps: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        rebateInBps: BigNumber
+        rewardInBps: BigNumber
+      }
+    >
 
     'getRebateAndRewardFromData(uint256)'(
       data: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebateInBps: BigNumber
-      rewardInBps: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        rebateInBps: BigNumber
+        rewardInBps: BigNumber
+      }
+    >
 
     getTotalEpochPoints(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getTotalEpochPoints(uint256)'(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     handleWithdrawal(
       staker: string,
@@ -708,113 +624,69 @@ export class KyberDAO extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    kncToken(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    kncToken(overrides?: CallOverrides): Promise<[string]>
 
-    'kncToken()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'kncToken()'(overrides?: CallOverrides): Promise<[string]>
 
     minCampaignDurationInSeconds(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'minCampaignDurationInSeconds()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     networkFeeCampaigns(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'networkFeeCampaigns(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    numberCampaigns(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    numberCampaigns(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'numberCampaigns()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'numberCampaigns()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     numberVotes(
       arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'numberVotes(address,uint256)'(
       arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     shouldBurnRewardForEpoch(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'shouldBurnRewardForEpoch(uint256)'(
       epoch: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     stakerVotedOption(
       arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'stakerVotedOption(address,uint256)'(
       arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    staking(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    staking(overrides?: CallOverrides): Promise<[string]>
 
-    'staking()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'staking()'(overrides?: CallOverrides): Promise<[string]>
 
     submitNewCampaign(
       campaignType: BigNumberish,
@@ -896,90 +768,86 @@ export class KyberDAO extends Contract {
   getCampaignDetails(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    campaignType: number
-    startTimestamp: BigNumber
-    endTimestamp: BigNumber
-    totalKNCSupply: BigNumber
-    minPercentageInPrecision: BigNumber
-    cInPrecision: BigNumber
-    tInPrecision: BigNumber
-    link: string
-    options: BigNumber[]
-    0: number
-    1: BigNumber
-    2: BigNumber
-    3: BigNumber
-    4: BigNumber
-    5: BigNumber
-    6: BigNumber
-    7: string
-    8: BigNumber[]
-  }>
+  ): Promise<
+    [
+      number,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      BigNumber[]
+    ] & {
+      campaignType: number
+      startTimestamp: BigNumber
+      endTimestamp: BigNumber
+      totalKNCSupply: BigNumber
+      minPercentageInPrecision: BigNumber
+      cInPrecision: BigNumber
+      tInPrecision: BigNumber
+      link: string
+      options: BigNumber[]
+    }
+  >
 
   'getCampaignDetails(uint256)'(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    campaignType: number
-    startTimestamp: BigNumber
-    endTimestamp: BigNumber
-    totalKNCSupply: BigNumber
-    minPercentageInPrecision: BigNumber
-    cInPrecision: BigNumber
-    tInPrecision: BigNumber
-    link: string
-    options: BigNumber[]
-    0: number
-    1: BigNumber
-    2: BigNumber
-    3: BigNumber
-    4: BigNumber
-    5: BigNumber
-    6: BigNumber
-    7: string
-    8: BigNumber[]
-  }>
+  ): Promise<
+    [
+      number,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      BigNumber[]
+    ] & {
+      campaignType: number
+      startTimestamp: BigNumber
+      endTimestamp: BigNumber
+      totalKNCSupply: BigNumber
+      minPercentageInPrecision: BigNumber
+      cInPrecision: BigNumber
+      tInPrecision: BigNumber
+      link: string
+      options: BigNumber[]
+    }
+  >
 
   getCampaignVoteCountData(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    voteCounts: BigNumber[]
-    totalVoteCount: BigNumber
-    0: BigNumber[]
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber[], BigNumber] & {
+      voteCounts: BigNumber[]
+      totalVoteCount: BigNumber
+    }
+  >
 
   'getCampaignVoteCountData(uint256)'(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    voteCounts: BigNumber[]
-    totalVoteCount: BigNumber
-    0: BigNumber[]
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber[], BigNumber] & {
+      voteCounts: BigNumber[]
+      totalVoteCount: BigNumber
+    }
+  >
 
   getCampaignWinningOptionAndValue(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    optionID: BigNumber
-    value: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }>
 
   'getCampaignWinningOptionAndValue(uint256)'(
     campaignID: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    optionID: BigNumber
-    value: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }>
 
   getCurrentEpochNumber(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1019,33 +887,27 @@ export class KyberDAO extends Contract {
 
   getLatestBRRData(
     overrides?: CallOverrides
-  ): Promise<{
-    burnInBps: BigNumber
-    rewardInBps: BigNumber
-    rebateInBps: BigNumber
-    epoch: BigNumber
-    expiryTimestamp: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-    3: BigNumber
-    4: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      burnInBps: BigNumber
+      rewardInBps: BigNumber
+      rebateInBps: BigNumber
+      epoch: BigNumber
+      expiryTimestamp: BigNumber
+    }
+  >
 
   'getLatestBRRData()'(
     overrides?: CallOverrides
-  ): Promise<{
-    burnInBps: BigNumber
-    rewardInBps: BigNumber
-    rebateInBps: BigNumber
-    epoch: BigNumber
-    expiryTimestamp: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-    3: BigNumber
-    4: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      burnInBps: BigNumber
+      rewardInBps: BigNumber
+      rebateInBps: BigNumber
+      epoch: BigNumber
+      expiryTimestamp: BigNumber
+    }
+  >
 
   getLatestBRRDataWithCache(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1055,21 +917,15 @@ export class KyberDAO extends Contract {
 
   getLatestNetworkFeeData(
     overrides?: CallOverrides
-  ): Promise<{
-    feeInBps: BigNumber
-    expiryTimestamp: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & { feeInBps: BigNumber; expiryTimestamp: BigNumber }
+  >
 
   'getLatestNetworkFeeData()'(
     overrides?: CallOverrides
-  ): Promise<{
-    feeInBps: BigNumber
-    expiryTimestamp: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & { feeInBps: BigNumber; expiryTimestamp: BigNumber }
+  >
 
   getLatestNetworkFeeDataWithCache(
     overrides?: Overrides
@@ -1104,22 +960,16 @@ export class KyberDAO extends Contract {
   getRebateAndRewardFromData(
     data: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rebateInBps: BigNumber
-    rewardInBps: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & { rebateInBps: BigNumber; rewardInBps: BigNumber }
+  >
 
   'getRebateAndRewardFromData(uint256)'(
     data: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    rebateInBps: BigNumber
-    rewardInBps: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & { rebateInBps: BigNumber; rewardInBps: BigNumber }
+  >
 
   getTotalEpochPoints(
     epoch: BigNumberish,
@@ -1285,90 +1135,90 @@ export class KyberDAO extends Contract {
     getCampaignDetails(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignType: number
-      startTimestamp: BigNumber
-      endTimestamp: BigNumber
-      totalKNCSupply: BigNumber
-      minPercentageInPrecision: BigNumber
-      cInPrecision: BigNumber
-      tInPrecision: BigNumber
-      link: string
-      options: BigNumber[]
-      0: number
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-      5: BigNumber
-      6: BigNumber
-      7: string
-      8: BigNumber[]
-    }>
+    ): Promise<
+      [
+        number,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber[]
+      ] & {
+        campaignType: number
+        startTimestamp: BigNumber
+        endTimestamp: BigNumber
+        totalKNCSupply: BigNumber
+        minPercentageInPrecision: BigNumber
+        cInPrecision: BigNumber
+        tInPrecision: BigNumber
+        link: string
+        options: BigNumber[]
+      }
+    >
 
     'getCampaignDetails(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      campaignType: number
-      startTimestamp: BigNumber
-      endTimestamp: BigNumber
-      totalKNCSupply: BigNumber
-      minPercentageInPrecision: BigNumber
-      cInPrecision: BigNumber
-      tInPrecision: BigNumber
-      link: string
-      options: BigNumber[]
-      0: number
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-      5: BigNumber
-      6: BigNumber
-      7: string
-      8: BigNumber[]
-    }>
+    ): Promise<
+      [
+        number,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber[]
+      ] & {
+        campaignType: number
+        startTimestamp: BigNumber
+        endTimestamp: BigNumber
+        totalKNCSupply: BigNumber
+        minPercentageInPrecision: BigNumber
+        cInPrecision: BigNumber
+        tInPrecision: BigNumber
+        link: string
+        options: BigNumber[]
+      }
+    >
 
     getCampaignVoteCountData(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      voteCounts: BigNumber[]
-      totalVoteCount: BigNumber
-      0: BigNumber[]
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber] & {
+        voteCounts: BigNumber[]
+        totalVoteCount: BigNumber
+      }
+    >
 
     'getCampaignVoteCountData(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      voteCounts: BigNumber[]
-      totalVoteCount: BigNumber
-      0: BigNumber[]
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber[], BigNumber] & {
+        voteCounts: BigNumber[]
+        totalVoteCount: BigNumber
+      }
+    >
 
     getCampaignWinningOptionAndValue(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      optionID: BigNumber
-      value: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }
+    >
 
     'getCampaignWinningOptionAndValue(uint256)'(
       campaignID: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      optionID: BigNumber
-      value: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & { optionID: BigNumber; value: BigNumber }
+    >
 
     getCurrentEpochNumber(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1408,99 +1258,87 @@ export class KyberDAO extends Contract {
 
     getLatestBRRData(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestBRRData()'(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getLatestBRRDataWithCache(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestBRRDataWithCache()'(
       overrides?: CallOverrides
-    ): Promise<{
-      burnInBps: BigNumber
-      rewardInBps: BigNumber
-      rebateInBps: BigNumber
-      epoch: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-      3: BigNumber
-      4: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        burnInBps: BigNumber
+        rewardInBps: BigNumber
+        rebateInBps: BigNumber
+        epoch: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getLatestNetworkFeeData(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestNetworkFeeData()'(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getLatestNetworkFeeDataWithCache(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     'getLatestNetworkFeeDataWithCache()'(
       overrides?: CallOverrides
-    ): Promise<{
-      feeInBps: BigNumber
-      expiryTimestamp: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        feeInBps: BigNumber
+        expiryTimestamp: BigNumber
+      }
+    >
 
     getListCampaignIDs(
       epoch: BigNumberish,
@@ -1527,22 +1365,22 @@ export class KyberDAO extends Contract {
     getRebateAndRewardFromData(
       data: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebateInBps: BigNumber
-      rewardInBps: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        rebateInBps: BigNumber
+        rewardInBps: BigNumber
+      }
+    >
 
     'getRebateAndRewardFromData(uint256)'(
       data: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      rebateInBps: BigNumber
-      rewardInBps: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        rebateInBps: BigNumber
+        rewardInBps: BigNumber
+      }
+    >
 
     getTotalEpochPoints(
       epoch: BigNumberish,
