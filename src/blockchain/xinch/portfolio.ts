@@ -16,6 +16,7 @@ export const getPortfolioItemXInch = async (
 ): Promise<IPortfolioItem> => {
   const {
     inchLiquidityProtocolContract,
+    kyberProxyContract,
     network,
     xinchContract,
   } = await getXInchContracts(symbol, provider)
@@ -26,6 +27,7 @@ export const getPortfolioItemXInch = async (
   const { priceUsd } = await getXInchPrices(
     xinchContract,
     inchLiquidityProtocolContract,
+    kyberProxyContract,
     chainId
   )
   const xinchValue = (xinchBal * priceUsd).toFixed(2)

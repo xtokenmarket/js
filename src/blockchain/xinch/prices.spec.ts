@@ -13,6 +13,7 @@ const provider = new ethers.providers.InfuraProvider(
 test('Get xINCHa prices', async (t) => {
   const {
     inchLiquidityProtocolContract,
+    kyberProxyContract,
     network,
     xinchContract,
   } = await getXInchContracts(X_INCH_A, provider)
@@ -21,6 +22,7 @@ test('Get xINCHa prices', async (t) => {
   const { priceEth, priceUsd } = await getXInchPrices(
     xinchContract,
     inchLiquidityProtocolContract,
+    kyberProxyContract,
     chainId
   )
 

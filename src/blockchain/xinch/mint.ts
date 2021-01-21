@@ -2,9 +2,9 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
-import { ADDRESSES, ETH, INCH } from 'xtoken-abis'
+import { ADDRESSES, INCH } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, ZERO_ADDRESS } from '../../constants'
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { parseFees } from '../utils'
@@ -48,7 +48,6 @@ export const getExpectedQuantityOnMintXInch = async (
   const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
-  const ethAddress = ADDRESSES[ETH]
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const inchAddress = ADDRESSES[INCH][chainId]
@@ -56,13 +55,12 @@ export const getExpectedQuantityOnMintXInch = async (
   let inchExpected: BigNumber
 
   if (tradeWithEth) {
-    const expectedRate = await getExpectedRateInch(
+    inchExpected = await getExpectedRateInch(
       inchLiquidityProtocolContract,
-      ethAddress,
+      ZERO_ADDRESS,
       inchAddress,
       inputAmount
     )
-    inchExpected = ethToTrade.mul(expectedRate).div(DEC_18)
   } else {
     inchExpected = ethToTrade
   }
@@ -89,7 +87,7 @@ export const mintXInch = async (
   if (tradeWithEth) {
     const minRate = await getExpectedRateInch(
       inchLiquidityProtocolContract,
-      ADDRESSES[ETH],
+      ZERO_ADDRESS,
       tokenContract.address,
       amount,
       true

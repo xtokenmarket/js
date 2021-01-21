@@ -2,9 +2,9 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
-import { ADDRESSES, ETH, INCH } from 'xtoken-abis'
+import { ADDRESSES, INCH } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, ZERO_ADDRESS } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
 import { parseFees } from '../utils'
 
@@ -27,7 +27,7 @@ export const burnXInch = async (
   const minRate = await getExpectedRateInch(
     inchLiquidityProtocolContract,
     tokenContract.address,
-    ADDRESSES[ETH],
+    ZERO_ADDRESS,
     amount,
     true
   )
@@ -62,19 +62,16 @@ export const getExpectedQuantityOnBurnXInch = async (
   if (!sellForEth) {
     expectedQty = proRataInch
   } else {
-    const ethAddress = ADDRESSES[ETH]
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const inchAddress = ADDRESSES[INCH][chainId]
 
-    const expectedRate = await getExpectedRateInch(
+    expectedQty = await getExpectedRateInch(
       inchLiquidityProtocolContract,
       inchAddress,
-      ethAddress,
-      proRataInch
+      ZERO_ADDRESS,
+      inputAmount
     )
-
-    expectedQty = proRataInch.mul(expectedRate).div(DEC_18)
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
