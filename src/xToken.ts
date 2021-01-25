@@ -12,7 +12,7 @@ import {
   X_SNX_A,
 } from 'xtoken-abis'
 
-import { getBalancerEstimatedQuantity } from './blockchain/balancer'
+import { getBalancerEstimatedQuantity } from './blockchain/exchanges/balancer'
 import {
   approveXAave,
   burnXAave,

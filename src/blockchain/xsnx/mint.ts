@@ -44,9 +44,7 @@ export const getExpectedQuantityOnMintXSnx = async (
   if (tradeWithEth) {
     const ethContributed = inputAmount.mul(MINT_FEE).div(DEC_18)
     const { expectedRate } = await kyberProxyContract.getExpectedRate(
-      ADDRESSES[ETH],
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      ADDRESSES[ETH] as string,
       ADDRESSES[SNX][chainId],
       ethContributed.toString()
     )
@@ -92,7 +90,7 @@ export const mintXSnx = async (
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
       kyberProxyContract,
-      ADDRESSES[ETH],
+      ADDRESSES[ETH] as string,
       tokenContract.address,
       amount,
       true

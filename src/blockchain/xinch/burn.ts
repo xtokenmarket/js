@@ -62,8 +62,6 @@ export const getExpectedQuantityOnBurnXInch = async (
   if (!sellForEth) {
     expectedQty = proRataInch
   } else {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const inchAddress = ADDRESSES[INCH][chainId]
 
     expectedQty = await getExpectedRateInch(

@@ -29,8 +29,6 @@ export const getPortfolioItemXSnx = async (
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
 
   const exchangeRatesContract = await getExchangeRateContract(provider)

@@ -48,8 +48,6 @@ export const getExpectedQuantityOnMintXInch = async (
   const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const inchAddress = ADDRESSES[INCH][chainId]
 
   let inchExpected: BigNumber

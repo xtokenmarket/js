@@ -25,7 +25,7 @@ test('Expected rate', async (t) => {
   const expectedRate = await getExpectedRate(
     kyberProxyContract,
     tokenContract.address,
-    ADDRESSES[ETH],
+    ADDRESSES[ETH] as string,
     BigNumber.from('1000')
   )
 

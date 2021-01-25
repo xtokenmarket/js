@@ -106,8 +106,6 @@ export const getBalancerContract = (
 
   if (!poolSymbol) return null
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const address = ADDRESSES[poolSymbol][network.chainId]
 
   return new ethers.Contract(
@@ -124,8 +122,6 @@ export const getContract = (
 ) => {
   if (!provider) return null
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const address = ADDRESSES[contractName][network.chainId]
   if (!address) return null
 
