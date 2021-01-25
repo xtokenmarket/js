@@ -50,12 +50,8 @@ export const getXAavePrices = async (
 
   const proxyValue = parseEther('1')
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const aaveAddress = ADDRESSES[AAVE][chainId]
-  const ethAddress = ADDRESSES[ETH]
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const ethAddress = ADDRESSES[ETH] as string
   const usdcAddress = ADDRESSES[USDC][chainId]
 
   const [

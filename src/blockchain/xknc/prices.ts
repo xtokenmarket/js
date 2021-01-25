@@ -55,10 +55,9 @@ export const getXKncPrices = async (
   }
 
   const proxyValue = parseEther('1')
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const usdcAddress = ADDRESSES[USDC][chainId]
-  const ethAddress = ADDRESSES[ETH]
+  const ethAddress = ADDRESSES[ETH] as string
 
   const [
     xkncTotalSupply,

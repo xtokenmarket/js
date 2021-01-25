@@ -326,65 +326,29 @@ export class KyberProxy extends Contract {
       arg0: string,
       arg1: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
     'perReserveListedPairs(address,bytes32)'(
       arg0: string,
       arg1: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    getReserves(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    getReserves(overrides?: CallOverrides): Promise<[string[]]>
 
-    'getReserves()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    'getReserves()'(overrides?: CallOverrides): Promise<[string[]]>
 
-    enabled(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    enabled(overrides?: CallOverrides): Promise<[boolean]>
 
-    'enabled()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'enabled()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    pendingAdmin(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    pendingAdmin(overrides?: CallOverrides): Promise<[string]>
 
-    'pendingAdmin()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'pendingAdmin()'(overrides?: CallOverrides): Promise<[string]>
 
-    getOperators(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    getOperators(overrides?: CallOverrides): Promise<[string[]]>
 
-    'getOperators()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    'getOperators()'(overrides?: CallOverrides): Promise<[string[]]>
 
     withdrawToken(
       token: string,
@@ -400,17 +364,9 @@ export class KyberProxy extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    maxGasPrice(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    maxGasPrice(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'maxGasPrice()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'maxGasPrice()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     addAlerter(
       newAlerter: string,
@@ -422,67 +378,31 @@ export class KyberProxy extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    negligibleRateDiff(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    negligibleRateDiff(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'negligibleRateDiff()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'negligibleRateDiff()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    feeBurnerContract(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    feeBurnerContract(overrides?: CallOverrides): Promise<[string]>
 
-    'feeBurnerContract()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'feeBurnerContract()'(overrides?: CallOverrides): Promise<[string]>
 
-    expectedRateContract(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    expectedRateContract(overrides?: CallOverrides): Promise<[string]>
 
-    'expectedRateContract()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'expectedRateContract()'(overrides?: CallOverrides): Promise<[string]>
 
-    whiteListContract(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    whiteListContract(overrides?: CallOverrides): Promise<[string]>
 
-    'whiteListContract()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'whiteListContract()'(overrides?: CallOverrides): Promise<[string]>
 
     getUserCapInWei(
       user: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getUserCapInWei(address)'(
       user: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     transferAdmin(
       newAdmin: string,
@@ -508,69 +428,47 @@ export class KyberProxy extends Contract {
 
     'claimAdmin()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    isReserve(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isReserve(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
 
     'isReserve(address)'(
       arg0: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    ): Promise<[boolean]>
 
-    getAlerters(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    getAlerters(overrides?: CallOverrides): Promise<[string[]]>
 
-    'getAlerters()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string[]
-    }>
+    'getAlerters()'(overrides?: CallOverrides): Promise<[string[]]>
 
     getExpectedRate(
       src: string,
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      expectedRate: BigNumber
-      slippageRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        expectedRate: BigNumber
+        slippageRate: BigNumber
+      }
+    >
 
     'getExpectedRate(address,address,uint256)'(
       src: string,
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      expectedRate: BigNumber
-      slippageRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        expectedRate: BigNumber
+        slippageRate: BigNumber
+      }
+    >
 
-    reserves(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    reserves(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>
 
     'reserves(uint256)'(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     addOperator(
       newOperator: string,
@@ -627,20 +525,14 @@ export class KyberProxy extends Contract {
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber]>
 
     'findBestRate(address,address,uint256)'(
       src: string,
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber]>
 
     trade(
       src: string,
@@ -676,45 +568,25 @@ export class KyberProxy extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    getNumReserves(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getNumReserves(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getNumReserves()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getNumReserves()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getBalance(
       token: string,
       user: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getBalance(address,address)'(
       token: string,
       user: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    admin(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    admin(overrides?: CallOverrides): Promise<[string]>
 
-    'admin()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'admin()'(overrides?: CallOverrides): Promise<[string]>
   }
 
   removeAlerter(
@@ -862,24 +734,24 @@ export class KyberProxy extends Contract {
     dest: string,
     srcQty: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    expectedRate: BigNumber
-    slippageRate: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      expectedRate: BigNumber
+      slippageRate: BigNumber
+    }
+  >
 
   'getExpectedRate(address,address,uint256)'(
     src: string,
     dest: string,
     srcQty: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    expectedRate: BigNumber
-    slippageRate: BigNumber
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      expectedRate: BigNumber
+      slippageRate: BigNumber
+    }
+  >
 
   reserves(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
@@ -943,20 +815,14 @@ export class KyberProxy extends Contract {
     dest: string,
     srcQty: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber]>
 
   'findBestRate(address,address,uint256)'(
     src: string,
     dest: string,
     srcQty: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<{
-    0: BigNumber
-    1: BigNumber
-  }>
+  ): Promise<[BigNumber, BigNumber]>
 
   trade(
     src: string,
@@ -1146,24 +1012,24 @@ export class KyberProxy extends Contract {
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      expectedRate: BigNumber
-      slippageRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        expectedRate: BigNumber
+        slippageRate: BigNumber
+      }
+    >
 
     'getExpectedRate(address,address,uint256)'(
       src: string,
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      expectedRate: BigNumber
-      slippageRate: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        expectedRate: BigNumber
+        slippageRate: BigNumber
+      }
+    >
 
     reserves(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
@@ -1221,20 +1087,14 @@ export class KyberProxy extends Contract {
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber]>
 
     'findBestRate(address,address,uint256)'(
       src: string,
       dest: string,
       srcQty: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<[BigNumber, BigNumber]>
 
     trade(
       src: string,

@@ -555,213 +555,81 @@ export class BalancerPool extends Contract {
   interface: BalancerPoolInterface
 
   functions: {
-    BONE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    BONE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'BONE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'BONE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    BPOW_PRECISION(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    BPOW_PRECISION(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'BPOW_PRECISION()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'BPOW_PRECISION()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    EXIT_FEE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    EXIT_FEE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'EXIT_FEE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'EXIT_FEE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    INIT_POOL_SUPPLY(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    INIT_POOL_SUPPLY(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'INIT_POOL_SUPPLY()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'INIT_POOL_SUPPLY()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_BOUND_TOKENS(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_BOUND_TOKENS(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_BOUND_TOKENS()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_BOUND_TOKENS()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_BPOW_BASE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_BPOW_BASE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_BPOW_BASE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_BPOW_BASE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_FEE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_FEE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_FEE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_FEE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_IN_RATIO(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_IN_RATIO(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_IN_RATIO()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_IN_RATIO()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_OUT_RATIO(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_OUT_RATIO(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_OUT_RATIO()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_OUT_RATIO()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_TOTAL_WEIGHT(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_TOTAL_WEIGHT(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_TOTAL_WEIGHT()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_TOTAL_WEIGHT()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MAX_WEIGHT(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MAX_WEIGHT(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MAX_WEIGHT()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MAX_WEIGHT()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MIN_BALANCE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MIN_BALANCE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MIN_BALANCE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MIN_BALANCE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MIN_BOUND_TOKENS(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MIN_BOUND_TOKENS(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MIN_BOUND_TOKENS()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MIN_BOUND_TOKENS()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MIN_BPOW_BASE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MIN_BPOW_BASE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MIN_BPOW_BASE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MIN_BPOW_BASE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MIN_FEE(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MIN_FEE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MIN_FEE()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MIN_FEE()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MIN_WEIGHT(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    MIN_WEIGHT(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'MIN_WEIGHT()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'MIN_WEIGHT()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     allowance(
       src: string,
       dst: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'allowance(address,address)'(
       src: string,
       dst: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     approve(
       dst: string,
@@ -775,19 +643,12 @@ export class BalancerPool extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    balanceOf(
-      whom: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    balanceOf(whom: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
       whom: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     bind(
       token: string,
@@ -811,10 +672,7 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountIn: BigNumber }>
 
     'calcInGivenOut(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceIn: BigNumberish,
@@ -824,10 +682,7 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountIn: BigNumber }>
 
     calcOutGivenIn(
       tokenBalanceIn: BigNumberish,
@@ -837,10 +692,7 @@ export class BalancerPool extends Contract {
       tokenAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountOut: BigNumber }>
 
     'calcOutGivenIn(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceIn: BigNumberish,
@@ -850,10 +702,7 @@ export class BalancerPool extends Contract {
       tokenAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountOut: BigNumber }>
 
     calcPoolInGivenSingleOut(
       tokenBalanceOut: BigNumberish,
@@ -863,10 +712,7 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      poolAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { poolAmountIn: BigNumber }>
 
     'calcPoolInGivenSingleOut(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceOut: BigNumberish,
@@ -876,10 +722,7 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      poolAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { poolAmountIn: BigNumber }>
 
     calcPoolOutGivenSingleIn(
       tokenBalanceIn: BigNumberish,
@@ -889,10 +732,7 @@ export class BalancerPool extends Contract {
       tokenAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      poolAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { poolAmountOut: BigNumber }>
 
     'calcPoolOutGivenSingleIn(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceIn: BigNumberish,
@@ -902,10 +742,7 @@ export class BalancerPool extends Contract {
       tokenAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      poolAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { poolAmountOut: BigNumber }>
 
     calcSingleInGivenPoolOut(
       tokenBalanceIn: BigNumberish,
@@ -915,10 +752,7 @@ export class BalancerPool extends Contract {
       poolAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountIn: BigNumber }>
 
     'calcSingleInGivenPoolOut(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceIn: BigNumberish,
@@ -928,10 +762,7 @@ export class BalancerPool extends Contract {
       poolAmountOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountIn: BigNumber }>
 
     calcSingleOutGivenPoolIn(
       tokenBalanceOut: BigNumberish,
@@ -941,10 +772,7 @@ export class BalancerPool extends Contract {
       poolAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountOut: BigNumber }>
 
     'calcSingleOutGivenPoolIn(uint256,uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceOut: BigNumberish,
@@ -954,10 +782,7 @@ export class BalancerPool extends Contract {
       poolAmountIn: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { tokenAmountOut: BigNumber }>
 
     calcSpotPrice(
       tokenBalanceIn: BigNumberish,
@@ -966,10 +791,7 @@ export class BalancerPool extends Contract {
       tokenWeightOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
     'calcSpotPrice(uint256,uint256,uint256,uint256,uint256)'(
       tokenBalanceIn: BigNumberish,
@@ -978,22 +800,11 @@ export class BalancerPool extends Contract {
       tokenWeightOut: BigNumberish,
       swapFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
-    decimals(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    decimals(overrides?: CallOverrides): Promise<[number]>
 
-    'decimals()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
 
     decreaseApproval(
       dst: string,
@@ -1051,171 +862,94 @@ export class BalancerPool extends Contract {
 
     'finalize()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    getBalance(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getBalance(token: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getBalance(address)'(
       token: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    getColor(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    getColor(overrides?: CallOverrides): Promise<[string]>
 
-    'getColor()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'getColor()'(overrides?: CallOverrides): Promise<[string]>
 
-    getController(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    getController(overrides?: CallOverrides): Promise<[string]>
 
-    'getController()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'getController()'(overrides?: CallOverrides): Promise<[string]>
 
     getCurrentTokens(
       overrides?: CallOverrides
-    ): Promise<{
-      tokens: string[]
-      0: string[]
-    }>
+    ): Promise<[string[]] & { tokens: string[] }>
 
     'getCurrentTokens()'(
       overrides?: CallOverrides
-    ): Promise<{
-      tokens: string[]
-      0: string[]
-    }>
+    ): Promise<[string[]] & { tokens: string[] }>
 
     getDenormalizedWeight(
       token: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getDenormalizedWeight(address)'(
       token: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     getFinalTokens(
       overrides?: CallOverrides
-    ): Promise<{
-      tokens: string[]
-      0: string[]
-    }>
+    ): Promise<[string[]] & { tokens: string[] }>
 
     'getFinalTokens()'(
       overrides?: CallOverrides
-    ): Promise<{
-      tokens: string[]
-      0: string[]
-    }>
+    ): Promise<[string[]] & { tokens: string[] }>
 
     getNormalizedWeight(
       token: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'getNormalizedWeight(address)'(
       token: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    getNumTokens(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getNumTokens(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getNumTokens()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getNumTokens()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getSpotPrice(
       tokenIn: string,
       tokenOut: string,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
     'getSpotPrice(address,address)'(
       tokenIn: string,
       tokenOut: string,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
     getSpotPriceSansFee(
       tokenIn: string,
       tokenOut: string,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
     'getSpotPriceSansFee(address,address)'(
       tokenIn: string,
       tokenOut: string,
       overrides?: CallOverrides
-    ): Promise<{
-      spotPrice: BigNumber
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber] & { spotPrice: BigNumber }>
 
-    getSwapFee(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getSwapFee(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getSwapFee()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getSwapFee()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getTotalDenormalizedWeight(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getTotalDenormalizedWeight(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getTotalDenormalizedWeight()'(
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     gulp(token: string, overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1236,43 +970,17 @@ export class BalancerPool extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    isBound(
-      t: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isBound(t: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    'isBound(address)'(
-      t: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isBound(address)'(t: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    isFinalized(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isFinalized(overrides?: CallOverrides): Promise<[boolean]>
 
-    'isFinalized()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isFinalized()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    isPublicSwap(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isPublicSwap(overrides?: CallOverrides): Promise<[boolean]>
 
-    'isPublicSwap()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isPublicSwap()'(overrides?: CallOverrides): Promise<[boolean]>
 
     joinPool(
       poolAmountOut: BigNumberish,
@@ -1314,17 +1022,9 @@ export class BalancerPool extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    name(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    name(overrides?: CallOverrides): Promise<[string]>
 
-    'name()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'name()'(overrides?: CallOverrides): Promise<[string]>
 
     rebind(
       token: string,
@@ -1406,29 +1106,13 @@ export class BalancerPool extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
-    'symbol()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
 
-    totalSupply(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'totalSupply()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transfer(
       dst: string,
@@ -2549,12 +2233,12 @@ export class BalancerPool extends Contract {
       minAmountOut: BigNumberish,
       maxPrice: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      spotPriceAfter: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        tokenAmountOut: BigNumber
+        spotPriceAfter: BigNumber
+      }
+    >
 
     'swapExactAmountIn(address,uint256,address,uint256,uint256)'(
       tokenIn: string,
@@ -2563,12 +2247,12 @@ export class BalancerPool extends Contract {
       minAmountOut: BigNumberish,
       maxPrice: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountOut: BigNumber
-      spotPriceAfter: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        tokenAmountOut: BigNumber
+        spotPriceAfter: BigNumber
+      }
+    >
 
     swapExactAmountOut(
       tokenIn: string,
@@ -2577,12 +2261,12 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       maxPrice: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      spotPriceAfter: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        tokenAmountIn: BigNumber
+        spotPriceAfter: BigNumber
+      }
+    >
 
     'swapExactAmountOut(address,uint256,address,uint256,uint256)'(
       tokenIn: string,
@@ -2591,12 +2275,12 @@ export class BalancerPool extends Contract {
       tokenAmountOut: BigNumberish,
       maxPrice: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<{
-      tokenAmountIn: BigNumber
-      spotPriceAfter: BigNumber
-      0: BigNumber
-      1: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        tokenAmountIn: BigNumber
+        spotPriceAfter: BigNumber
+      }
+    >
 
     symbol(overrides?: CallOverrides): Promise<string>
 

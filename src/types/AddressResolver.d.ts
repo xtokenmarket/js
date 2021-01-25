@@ -116,33 +116,19 @@ export class AddressResolver extends Contract {
 
     'acceptOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    getAddress(
-      name: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    getAddress(name: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     'getAddress(bytes32)'(
       name: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
-    getSynth(
-      key: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    getSynth(key: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     'getSynth(bytes32)'(
       key: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     importAddresses(
       names: BytesLike[],
@@ -166,59 +152,32 @@ export class AddressResolver extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    nominatedOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    nominatedOwner(overrides?: CallOverrides): Promise<[string]>
 
-    'nominatedOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'nominatedOwner()'(overrides?: CallOverrides): Promise<[string]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
-    repository(
-      arg0: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    repository(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     'repository(bytes32)'(
       arg0: BytesLike,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     requireAndGetAddress(
       name: BytesLike,
       reason: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
 
     'requireAndGetAddress(bytes32,string)'(
       name: BytesLike,
       reason: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    ): Promise<[string]>
   }
 
   acceptOwnership(overrides?: Overrides): Promise<ContractTransaction>

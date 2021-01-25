@@ -47,9 +47,7 @@ export const getExpectedQuantityOnMintXKnc = async (
   const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
-  const ethAddress = ADDRESSES[ETH]
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const ethAddress = ADDRESSES[ETH] as string
   const kncAddress = ADDRESSES[KNC][chainId]
 
   let kncBalanceAfter: BigNumber
@@ -89,7 +87,7 @@ export const mintXKnc = async (
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
       kyberProxyContract,
-      ADDRESSES[ETH],
+      ADDRESSES[ETH] as string,
       tokenContract.address,
       amount,
       true

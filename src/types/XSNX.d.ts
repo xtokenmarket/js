@@ -395,173 +395,80 @@ export class XSNX extends Contract {
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
     'allowance(address,address)'(
       owner: string,
       spender: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
       account: string,
       overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    ): Promise<[BigNumber]>
 
-    decimals(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    decimals(overrides?: CallOverrides): Promise<[number]>
 
-    'decimals()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: number
-    }>
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
 
     feeDivisors(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     'feeDivisors()'(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
-    getClaimFeeDivisor(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    getClaimFeeDivisor(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'getClaimFeeDivisor()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    isOwner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    isOwner(overrides?: CallOverrides): Promise<[boolean]>
 
-    'isOwner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    name(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    name(overrides?: CallOverrides): Promise<[string]>
 
-    'name()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'name()'(overrides?: CallOverrides): Promise<[string]>
 
-    owner(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    'owner()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
 
-    paused(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
-    'paused()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: boolean
-    }>
+    'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    pauser(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    pauser(overrides?: CallOverrides): Promise<[string]>
 
-    'pauser()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'pauser()'(overrides?: CallOverrides): Promise<[string]>
 
-    symbol(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
-    'symbol()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: string
-    }>
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
 
-    totalSupply(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'totalSupply()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    withdrawableEthFees(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    withdrawableEthFees(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    'withdrawableEthFees()'(
-      overrides?: CallOverrides
-    ): Promise<{
-      0: BigNumber
-    }>
+    'withdrawableEthFees()'(overrides?: CallOverrides): Promise<[BigNumber]>
   }
 
   approve(
@@ -750,25 +657,23 @@ export class XSNX extends Contract {
 
   feeDivisors(
     overrides?: CallOverrides
-  ): Promise<{
-    mintFee: BigNumber
-    burnFee: BigNumber
-    claimFee: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
 
   'feeDivisors()'(
     overrides?: CallOverrides
-  ): Promise<{
-    mintFee: BigNumber
-    burnFee: BigNumber
-    claimFee: BigNumber
-    0: BigNumber
-    1: BigNumber
-    2: BigNumber
-  }>
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
 
   getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -987,25 +892,23 @@ export class XSNX extends Contract {
 
     feeDivisors(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     'feeDivisors()'(
       overrides?: CallOverrides
-    ): Promise<{
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-      0: BigNumber
-      1: BigNumber
-      2: BigNumber
-    }>
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
 
     getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
 

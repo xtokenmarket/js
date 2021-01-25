@@ -1,9 +1,18 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { parseEther } from 'ethers/lib/utils'
-import { ETH, X_AAVE_A, X_AAVE_B, X_KNC_A, X_KNC_B, X_SNX_A } from 'xtoken-abis'
+import {
+  ETH,
+  X_AAVE_A,
+  X_AAVE_B,
+  X_INCH_A,
+  X_INCH_B,
+  X_KNC_A,
+  X_KNC_B,
+  X_SNX_A,
+} from 'xtoken-abis'
 
-import { getBalancerEstimatedQuantity } from './blockchain/balancer'
+import { getBalancerEstimatedQuantity } from './blockchain/exchanges/balancer'
 import {
   approveXAave,
   burnXAave,
@@ -13,6 +22,15 @@ import {
   getPortfolioItemXAave,
   mintXAave,
 } from './blockchain/xaave'
+import {
+  approveXInch,
+  burnXInch,
+  getExpectedQuantityOnBurnXInch,
+  getExpectedQuantityOnMintXInch,
+  getMaximumRedeemableXInch,
+  getPortfolioItemXInch,
+  mintXInch,
+} from './blockchain/xinch'
 import {
   approveXKnc,
   burnXKnc,
@@ -79,6 +97,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return approveXAave(symbol, value, this.provider)
+      case X_INCH_A:
+      case X_INCH_B:
+        return approveXInch(symbol, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
         return approveXKnc(symbol, value, this.provider)
@@ -127,6 +148,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return burnXAave(symbol, sellForEth, value, this.provider)
+      case X_INCH_A:
+      case X_INCH_B:
+        return burnXInch(symbol, sellForEth, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
         return burnXKnc(symbol, sellForEth, value, this.provider)
@@ -197,6 +221,14 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_INCH_A:
+      case X_INCH_B:
+        return getExpectedQuantityOnBurnXInch(
+          symbol,
+          sellForEth,
+          amount,
+          this.provider
+        )
       case X_KNC_A:
       case X_KNC_B:
         return getExpectedQuantityOnBurnXKnc(
@@ -240,6 +272,14 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_INCH_A:
+      case X_INCH_B:
+        return getExpectedQuantityOnMintXInch(
+          symbol,
+          tradeWithEth,
+          amount,
+          this.provider
+        )
       case X_KNC_A:
       case X_KNC_B:
         return getExpectedQuantityOnMintXKnc(
@@ -264,16 +304,24 @@ export class XToken {
    * const maxRedeemable = await xToken.getMaxRedeemable('xAAVEa')
    * ```
    *
-   * @param {'xAAVEa' | 'xAAVEb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
    * @returns Maximum redeemable tokens for the given xToken
    */
   public async getMaxRedeemable(
-    symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A
+    symbol:
+      | typeof X_AAVE_A
+      | typeof X_AAVE_B
+      | typeof X_INCH_A
+      | typeof X_INCH_B
+      | typeof X_SNX_A
   ): Promise<string> {
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
         return getMaximumRedeemableXAave(symbol, this.provider)
+      case X_INCH_A:
+      case X_INCH_B:
+        return getMaximumRedeemableXInch(symbol, this.provider)
       case X_SNX_A:
         return getMaximumRedeemableXSnx(this.provider)
     }
@@ -302,6 +350,8 @@ export class XToken {
       getPortfolioItemXSnx(X_SNX_A, address, this.provider),
       getPortfolioItemXAave(X_AAVE_A, address, this.provider),
       getPortfolioItemXAave(X_AAVE_B, address, this.provider),
+      getPortfolioItemXInch(X_INCH_A, address, this.provider),
+      getPortfolioItemXInch(X_INCH_B, address, this.provider),
     ])
   }
 
@@ -335,6 +385,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return mintXAave(symbol, tradeWithEth, value, this.provider)
+      case X_INCH_A:
+      case X_INCH_B:
+        return mintXInch(symbol, tradeWithEth, value, this.provider)
       case X_KNC_A:
       case X_KNC_B:
         return mintXKnc(symbol, tradeWithEth, value, this.provider)

@@ -16,12 +16,7 @@ export const getMaximumRedeemableXSnx = async (provider: JsonRpcProvider) => {
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const snxAddress = ADDRESSES[SNX][chainId]
   const snxContract = getContract(SNX, provider, network) as ERC20
 

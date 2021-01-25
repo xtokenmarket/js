@@ -17,11 +17,17 @@ import {
   X_SNX_A,
   BUY,
   SELL,
+  INCH,
+  X_INCH_A,
+  X_INCH_B,
+  INCH_LIQUIDITY_PROTOCOL,
 } from 'xtoken-abis'
 
 export type IContracts =
   | typeof AAVE
   | typeof EXCHANGE_RATES
+  | typeof INCH
+  | typeof INCH_LIQUIDITY_PROTOCOL
   | typeof KNC
   | typeof KYBER_PROXY
   | typeof SNX
@@ -31,6 +37,8 @@ export type IContracts =
 export type ITokenSymbols =
   | typeof X_AAVE_A
   | typeof X_AAVE_B
+  | typeof X_INCH_A
+  | typeof X_INCH_B
   | typeof X_KNC_A
   | typeof X_KNC_B
   | typeof X_SNX_A

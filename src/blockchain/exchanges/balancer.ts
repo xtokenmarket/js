@@ -16,11 +16,10 @@ import {
 } from 'xtoken-abis'
 import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
 
-import { BalancerPool } from '../types'
-import { ITokenSymbols, ITradeType } from '../types/xToken'
-import { formatNumber } from '../utils'
-
-import { getBalancerContract } from './utils'
+import { BalancerPool } from '../../types'
+import { ITokenSymbols, ITradeType } from '../../types/xToken'
+import { formatNumber } from '../../utils'
+import { getBalancerContract } from '../utils'
 
 const { formatEther, parseEther } = ethers.utils
 
@@ -54,14 +53,8 @@ export const getBalancerEstimatedQuantity = async (
       return '0'
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const tokenInAddress = ADDRESSES[tokenInSymbol][chainId]
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const tokenOutAddress = ADDRESSES[symbol][chainId]
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const poolAddress = ADDRESSES[poolSymbol][chainId]
 
   const balancerContract = getBalancerContract(

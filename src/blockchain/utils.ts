@@ -7,6 +7,8 @@ import {
   AAVE,
   ADDRESSES,
   EXCHANGE_RATES,
+  INCH,
+  INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
   SNX,
@@ -16,6 +18,8 @@ import {
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
   X_AAVE_B_BALANCER_POOL,
+  X_INCH_A,
+  X_INCH_B,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
@@ -25,10 +29,12 @@ import AddressResolverAbi from 'xtoken-abis/build/main/abi/AddressResolver.json'
 import BalancerPoolAbi from 'xtoken-abis/build/main/abi/BalancerPool.json'
 import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
 import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
+import InchLiquidityProtocolAbi from 'xtoken-abis/build/main/abi/InchLiquidityProtocol.json'
 import KyberProxyAbi from 'xtoken-abis/build/main/abi/KyberProxy.json'
 import SynthetixAbi from 'xtoken-abis/build/main/abi/Synthetix.json'
 import TradeAccountingAbi from 'xtoken-abis/build/main/abi/TradeAccounting.json'
 import xAAVEAbi from 'xtoken-abis/build/main/abi/xAAVE.json'
+import xINCHAbi from 'xtoken-abis/build/main/abi/xINCH.json'
 import xKNCAbi from 'xtoken-abis/build/main/abi/xKNC.json'
 import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
 
@@ -49,10 +55,13 @@ export const estimateGas = async () => {
 const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
+    case INCH:
     case KNC:
       return ERC20Abi as ContractInterface
     case EXCHANGE_RATES:
       return ExchangeRatesAbi as ContractInterface
+    case INCH_LIQUIDITY_PROTOCOL:
+      return InchLiquidityProtocolAbi as ContractInterface
     case KYBER_PROXY:
       return KyberProxyAbi as ContractInterface
     case SNX:
@@ -62,6 +71,9 @@ const getAbi = (contractName: IContracts) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return xAAVEAbi as ContractInterface
+    case X_INCH_A:
+    case X_INCH_B:
+      return xINCHAbi as ContractInterface
     case X_KNC_A:
     case X_KNC_B:
       return (xKNCAbi as unknown) as ContractInterface
@@ -94,8 +106,6 @@ export const getBalancerContract = (
 
   if (!poolSymbol) return null
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const address = ADDRESSES[poolSymbol][network.chainId]
 
   return new ethers.Contract(
@@ -112,8 +122,6 @@ export const getContract = (
 ) => {
   if (!provider) return null
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const address = ADDRESSES[contractName][network.chainId]
   if (!address) return null
 
@@ -144,6 +152,9 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return AAVE
+    case X_INCH_A:
+    case X_INCH_B:
+      return INCH
     case X_KNC_A:
     case X_KNC_B:
       return KNC

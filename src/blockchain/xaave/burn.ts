@@ -27,7 +27,7 @@ export const burnXAave = async (
   const minRate = await getExpectedRate(
     kyberProxyContract,
     tokenContract.address,
-    ADDRESSES[ETH],
+    ADDRESSES[ETH] as string,
     amount,
     true
   )
@@ -62,9 +62,7 @@ export const getExpectedQuantityOnBurnXAave = async (
   if (!sellForEth) {
     expectedQty = proRataAave
   } else {
-    const ethAddress = ADDRESSES[ETH]
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    const ethAddress = ADDRESSES[ETH] as string
     const aaveAddress = ADDRESSES[AAVE][chainId]
 
     const { expectedRate } = await kyberProxyContract.getExpectedRate(

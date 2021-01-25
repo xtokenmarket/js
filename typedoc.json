@@ -1,7 +1,6 @@
 {
-  "entryPoints": ["src/index.ts", "src/types/xToken.d.ts"],
+  "entryPoints": ["src/index.ts", "src/types/xToken.d.ts", "node_modules/xtoken-abis/build/main/constants.d.ts"],
   "exclude": ["**/*+(__factory|.spec|helper).ts"],
-  "excludeExternals": true,
   "excludePrivate": true,
   "hideGenerator": true
 }
