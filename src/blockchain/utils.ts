@@ -82,6 +82,24 @@ const getAbi = (contractName: IContracts) => {
   }
 }
 
+export const getBalancerAddress = (symbol: ITokenSymbols, chainId: number) => {
+  let address
+  switch (symbol) {
+    case X_AAVE_A:
+      address = ADDRESSES[X_AAVE_A_BALANCER_POOL][chainId]
+      break
+    case X_AAVE_B:
+      address = ADDRESSES[X_AAVE_B_BALANCER_POOL][chainId]
+      break
+    case X_SNX_A:
+      address = ADDRESSES[X_SNX_A_BALANCER_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+
 export const getBalancerContract = (
   symbol: ITokenSymbols,
   provider: JsonRpcProvider,

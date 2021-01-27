@@ -49,3 +49,9 @@ test('Initialize xToken with wrong network', async (t) => {
 //   console.log(JSON.stringify(portfolio))
 //   t.is(typeof portfolio, 'object')
 // })
+
+// test('Get liquidity pool items', async (t) => {
+//   const liquidityPools = await xToken.getLiquidityPoolItems()
+//   console.log(JSON.stringify(liquidityPools))
+//   t.is(typeof liquidityPools, 'object')
+// })

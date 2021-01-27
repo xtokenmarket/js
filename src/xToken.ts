@@ -12,7 +12,10 @@ import {
   X_SNX_A,
 } from 'xtoken-abis'
 
-import { getBalancerEstimatedQuantity } from './blockchain/exchanges/balancer'
+import {
+  getBalancerEstimatedQuantity,
+  getBalancerPortfolioItem,
+} from './blockchain/exchanges/balancer'
 import {
   approveXAave,
   burnXAave,
@@ -295,6 +298,30 @@ export class XToken {
           this.provider
         )
     }
+  }
+
+  /**
+   * @example
+   * ```typescript
+   * // Get available liquidity pools for xTokens
+   * const liquidityPools = await xToken.getLiquidityPoolItems()
+   * ```
+   *
+   * @returns Returns available liquidity pools for xTokens along with their balances
+   */
+  public async getLiquidityPoolItems() {
+    const signer = this.provider.getSigner()
+    const address = await signer.getAddress()
+
+    if (!address) {
+      return Promise.reject(new Error('Invalid user address'))
+    }
+
+    return Promise.all([
+      getBalancerPortfolioItem(X_SNX_A, address, this.provider),
+      getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
+      getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
+    ])
   }
 
   /**
