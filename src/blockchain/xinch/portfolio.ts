@@ -15,7 +15,6 @@ export const getPortfolioItemXInch = async (
   provider: JsonRpcProvider
 ): Promise<IPortfolioItem> => {
   const {
-    inchLiquidityProtocolContract,
     kyberProxyContract,
     network,
     xinchContract,
@@ -26,7 +25,6 @@ export const getPortfolioItemXInch = async (
 
   const { priceUsd } = await getXInchPrices(
     xinchContract,
-    inchLiquidityProtocolContract,
     kyberProxyContract,
     chainId
   )
