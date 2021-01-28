@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 import { AAVE, ADDRESSES, ETH } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
+import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getExpectedRate, parseFees } from '../utils'
 
@@ -24,11 +25,13 @@ export const burnXAave = async (
     xaaveContract,
   } = await getXAaveContracts(symbol, provider)
 
+  const { proRataAave } = await getProRataAave(xaaveContract, amount)
+
   const minRate = await getExpectedRate(
     kyberProxyContract,
     tokenContract.address,
     ADDRESSES[ETH] as string,
-    amount,
+    proRataAave,
     true
   )
 
@@ -49,14 +52,10 @@ export const getExpectedQuantityOnBurnXAave = async (
   } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const [aaveHoldings, xaaveSupply, { burnFee }] = await Promise.all([
-    xaaveContract.getFundHoldings(),
-    xaaveContract.totalSupply(),
-    xaaveContract.feeDivisors(),
-  ])
-
-  const BURN_FEE = parseFees(burnFee)
-  const proRataAave = aaveHoldings.mul(inputAmount).div(xaaveSupply)
+  const { BURN_FEE, proRataAave } = await getProRataAave(
+    xaaveContract,
+    inputAmount
+  )
   let expectedQty: BigNumber
 
   if (!sellForEth) {
@@ -75,4 +74,17 @@ export const getExpectedQuantityOnBurnXAave = async (
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
+}
+
+const getProRataAave = async (xaaveContract: XAAVE, amount: BigNumber) => {
+  const [aaveHoldings, xaaveSupply, { burnFee }] = await Promise.all([
+    xaaveContract.getFundHoldings(),
+    xaaveContract.totalSupply(),
+    xaaveContract.feeDivisors(),
+  ])
+
+  const BURN_FEE = parseFees(burnFee)
+  const proRataAave = aaveHoldings.mul(amount).div(xaaveSupply)
+
+  return { BURN_FEE, proRataAave }
 }
