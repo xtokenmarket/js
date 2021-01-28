@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 import { ADDRESSES, INCH } from 'xtoken-abis'
 
 import { DEC_18, ZERO_ADDRESS } from '../../constants'
+import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { parseFees } from '../utils'
 
@@ -24,11 +25,13 @@ export const burnXInch = async (
     xinchContract,
   } = await getXInchContracts(symbol, provider)
 
+  const { proRataInch } = await getProRataInch(xinchContract, amount)
+
   const minRate = await getExpectedRateInch(
     inchLiquidityProtocolContract,
     tokenContract.address,
     ZERO_ADDRESS,
-    amount,
+    proRataInch,
     true
   )
 
@@ -49,14 +52,7 @@ export const getExpectedQuantityOnBurnXInch = async (
   } = await getXInchContracts(symbol, provider)
   const { chainId } = network
 
-  const [inchHoldings, xinchSupply, { burnFee }] = await Promise.all([
-    xinchContract.getNav(),
-    xinchContract.totalSupply(),
-    xinchContract.feeDivisors(),
-  ])
-
-  const BURN_FEE = parseFees(burnFee)
-  const proRataInch = inchHoldings.mul(inputAmount).div(xinchSupply)
+  const { BURN_FEE, proRataInch } = await getProRataInch(xinchContract, inputAmount)
   let expectedQty: BigNumber
 
   if (!sellForEth) {
@@ -73,4 +69,17 @@ export const getExpectedQuantityOnBurnXInch = async (
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
+}
+
+const getProRataInch = async (xinchContract: XINCH, amount: BigNumber) => {
+  const [inchHoldings, xinchSupply, { burnFee }] = await Promise.all([
+    xinchContract.getNav(),
+    xinchContract.totalSupply(),
+    xinchContract.feeDivisors(),
+  ])
+
+  const BURN_FEE = parseFees(burnFee)
+  const proRataInch = inchHoldings.mul(amount).div(xinchSupply)
+
+  return { BURN_FEE, proRataInch }
 }
