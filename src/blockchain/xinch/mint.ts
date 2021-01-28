@@ -63,10 +63,12 @@ export const getExpectedQuantityOnMintXInch = async (
     inchExpected = ethToTrade
   }
 
-  const xinchExpected = inchExpected
-    .mul(xinchSupply)
-    .div(inchHoldings)
-    .div(DEC_18)
+  let xinchExpected = inchExpected.mul(xinchSupply).div(inchHoldings)
+
+  if (!tradeWithEth) {
+    xinchExpected = xinchExpected.div(DEC_18)
+  }
+
   return formatEther(xinchExpected)
 }
 

@@ -138,7 +138,7 @@ export class XToken {
     const value = parseEther(amount)
 
     if (symbol !== X_KNC_A && symbol !== X_KNC_B) {
-      const maxRedeemable = await this.getMaxRedeemable(symbol)
+      const maxRedeemable = parseEther(await this.getMaxRedeemable(symbol))
 
       if (value.gt(maxRedeemable)) {
         return Promise.reject(
