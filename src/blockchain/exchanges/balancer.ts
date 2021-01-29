@@ -33,8 +33,8 @@ import {
 import { ITokenSymbols, ITradeType } from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import {
-  getBalancerAddress,
-  getBalancerContract,
+  getBalancerPoolAddress,
+  getBalancerPoolContract,
   getContract,
   getExchangeRateContract,
   getExpectedRate,
@@ -79,10 +79,10 @@ export const getBalancerEstimatedQuantity = async (
   const tokenOutAddress = ADDRESSES[symbol][chainId]
   const poolAddress = ADDRESSES[poolSymbol][chainId]
 
-  const balancerContract = getBalancerContract(
+  const balancerContract = getBalancerPoolContract(
     symbol,
     provider,
-    network
+    chainId
   ) as BalancerPool
   const tokenInContract = new ethers.Contract(
     tokenInAddress,
@@ -126,7 +126,7 @@ export const getBalancerEstimatedQuantity = async (
 
 const getBalances = async (
   symbol: ITokenSymbols,
-  balancerAddress: string,
+  balancerPoolAddress: string,
   tokenPrice: number,
   underlyingPrice: BigNumber,
   kyberProxyContract: KyberProxy,
@@ -153,9 +153,11 @@ const getBalances = async (
   const xTokenContract = new ethers.Contract(xTokenAddress, ERC20Abi, provider)
 
   // Balances
-  const underlyingBalance = await underlyingContract.balanceOf(balancerAddress)
-  const wethBalance = await wethContract.balanceOf(balancerAddress)
-  const xTokenBalance = await xTokenContract.balanceOf(balancerAddress)
+  const underlyingBalance = await underlyingContract.balanceOf(
+    balancerPoolAddress
+  )
+  const wethBalance = await wethContract.balanceOf(balancerPoolAddress)
+  const xTokenBalance = await xTokenContract.balanceOf(balancerPoolAddress)
 
   const ethPrice = await getExpectedRate(
     kyberProxyContract,
@@ -204,16 +206,16 @@ export const getBalancerPortfolioItem = async (
 
   // Addresses
   const asset = `${symbol} - ${ETH.toUpperCase()} - ${underlying}`
-  const balancerAddress = getBalancerAddress(symbol, chainId) as string
+  const balancerPoolAddress = getBalancerPoolAddress(symbol, chainId) as string
   const xTokenAddress = ADDRESSES[symbol][chainId]
   const underlyingAddress = ADDRESSES[tokenSymbol][chainId]
   const usdcAddress = ADDRESSES[USDC][chainId]
 
   // Contracts
-  const balancerPoolContract = getBalancerContract(
+  const balancerPoolContract = getBalancerPoolContract(
     symbol,
     provider,
-    network
+    chainId
   ) as BalancerPool
   const kyberProxyContract = getContract(
     KYBER_PROXY,
@@ -297,7 +299,7 @@ export const getBalancerPortfolioItem = async (
 
   const balancerContractBalances = await getBalances(
     symbol,
-    balancerAddress,
+    balancerPoolAddress,
     tokenPrice,
     underlyingPrice,
     kyberProxyContract,
