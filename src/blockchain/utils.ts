@@ -19,7 +19,9 @@ import {
   X_AAVE_B,
   X_AAVE_B_BALANCER_POOL,
   X_INCH_A,
+  X_INCH_A_INCH_POOL,
   X_INCH_B,
+  X_INCH_B_INCH_POOL,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
@@ -82,7 +84,10 @@ const getAbi = (contractName: IContracts) => {
   }
 }
 
-export const getBalancerAddress = (symbol: ITokenSymbols, chainId: number) => {
+export const getBalancerPoolAddress = (
+  symbol: ITokenSymbols,
+  chainId: number
+) => {
   let address
   switch (symbol) {
     case X_AAVE_A:
@@ -100,31 +105,16 @@ export const getBalancerAddress = (symbol: ITokenSymbols, chainId: number) => {
   return address
 }
 
-export const getBalancerContract = (
+export const getBalancerPoolContract = (
   symbol: ITokenSymbols,
   provider: JsonRpcProvider,
-  network: Network
+  chainId: number
 ) => {
   if (!provider || !symbol) return null
 
-  let poolSymbol
-  switch (symbol) {
-    case X_AAVE_A:
-      poolSymbol = X_AAVE_A_BALANCER_POOL
-      break
-    case X_AAVE_B:
-      poolSymbol = X_AAVE_B_BALANCER_POOL
-      break
-    case X_SNX_A:
-      poolSymbol = X_SNX_A_BALANCER_POOL
-      break
-    default:
-      poolSymbol = null
-  }
+  const address = getBalancerPoolAddress(symbol, chainId)
 
-  if (!poolSymbol) return null
-
-  const address = ADDRESSES[poolSymbol][network.chainId]
+  if (!address) return null
 
   return new ethers.Contract(
     address,
@@ -163,6 +153,40 @@ export const getExpectedRate = async (
     amount
   )
   return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
+}
+
+export const getInchPoolAddress = (
+  symbol: typeof X_INCH_A | typeof X_INCH_B,
+  chainId: number
+) => {
+  let address
+  switch (symbol) {
+    case X_INCH_A:
+      address = ADDRESSES[X_INCH_A_INCH_POOL][chainId]
+      break
+    case X_INCH_B:
+      address = ADDRESSES[X_INCH_B_INCH_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+
+export const getInchPoolContract = (
+  symbol: typeof X_INCH_A | typeof X_INCH_B,
+  provider: JsonRpcProvider,
+  chainId: number
+) => {
+  if (!provider || !symbol) return null
+
+  const address = getInchPoolAddress(symbol, chainId) as string
+
+  return new ethers.Contract(
+    address,
+    InchLiquidityProtocolAbi,
+    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+  )
 }
 
 export const getTokenSymbol = (symbol: ITokenSymbols) => {
