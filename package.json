@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "xtoken-abis": "0.1.4"
+    "xtoken-abis": "0.1.5"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
