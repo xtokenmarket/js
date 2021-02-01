@@ -67,7 +67,7 @@ export const getExpectedQuantityOnBurnXInch = async (
       inchLiquidityProtocolContract,
       inchAddress,
       ZERO_ADDRESS,
-      inputAmount
+      proRataInch
     )
   }
 
