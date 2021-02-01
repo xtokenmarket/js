@@ -13,20 +13,20 @@ test('Calculate ETH expected quantity on burn of xINCHa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXInch(
     X_INCH_A,
     true,
-    '1',
+    '1000',
     provider
   )
-  console.log('Expected ETH qty for 1 xINCHa:', expectedQty)
-  t.is(typeof expectedQty, 'string')
+  console.log('Expected ETH qty for 1000 xINCHa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
 })
 
 test('Calculate INCH expected quantity on burn of xINCHa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXInch(
     X_INCH_A,
     false,
-    '1',
+    '1000',
     provider
   )
-  console.log('Expected INCH qty for 1 xINCHa:', expectedQty)
-  t.is(typeof expectedQty, 'string')
+  console.log('Expected INCH qty for 1000 xINCHa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
 })
