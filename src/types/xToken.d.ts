@@ -58,4 +58,5 @@ export interface ITokenPrices {
   priceEth: number
   priceUsd: number
   sellPriceEth?: number
+  sellPriceUsd?: number
 }

@@ -104,6 +104,7 @@ export const getXSnxPrices = async (
   ])
 
   const priceUsd = issueTokenPriceInEth.mul(ethUsdPrice).div(DEC_18)
+  const sellPriceUsd = redeemTokenPriceEth.mul(ethUsdPrice).div(DEC_18)
   const aum = totalSupply.mul(priceUsd).div(DEC_18)
 
   return {
@@ -111,5 +112,6 @@ export const getXSnxPrices = async (
     priceEth: formatNumber(formatEther(issueTokenPriceInEth)),
     priceUsd: formatNumber(formatEther(priceUsd)),
     sellPriceEth: formatNumber(formatEther(redeemTokenPriceEth)),
+    sellPriceUsd: formatNumber(formatEther(sellPriceUsd)),
   }
 }
