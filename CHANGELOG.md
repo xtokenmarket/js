@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.16](https://github.com/xtokenmarket/xtoken-js/compare/v0.1.14...v0.1.16) (2021-02-04)
+
 ### [0.1.14](https://github.com/xtokenmarket/xtoken-js/compare/v0.1.13...v0.1.14) (2021-02-01)
 
 ### [0.1.13](https://github.com/xtokenmarket/xtoken-js/compare/v0.1.12...v0.1.13) (2021-01-29)
