@@ -66,8 +66,8 @@ export const getXInchPrices = async (
     getExpectedRate(kyberProxyContract, ethAddress, usdcAddress, proxyValue),
   ])
 
-  const xinchPerToken = inchHoldings.mul(DEC_18).div(xinchTotalSupply)
-  const priceUsd = xinchPerToken.mul(inchUsdRate).div(DEC_18)
+  const inchPerToken = inchHoldings.mul(DEC_18).div(xinchTotalSupply)
+  const priceUsd = inchPerToken.mul(inchUsdRate).div(DEC_18)
   const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
   const aum = priceUsd.mul(xinchTotalSupply).div(DEC_18)
 

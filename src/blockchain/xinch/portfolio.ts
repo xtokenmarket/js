@@ -3,7 +3,6 @@ import { formatEther } from 'ethers/lib/utils'
 
 import { XINCH } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { formatNumberWithCommas } from '../../utils'
 import { getUserAvailableTokenBalance } from '../utils'
 
 import { getXInchContracts } from './helper'
@@ -37,9 +36,9 @@ export const getPortfolioItemXInch = async (
 
   return {
     symbol,
-    quantity: formatNumberWithCommas(xinchBal.toString()),
+    quantity: xinchBal.toString(),
     price: `$${priceUsd}`,
-    value: `$${formatNumberWithCommas(xinchValue)}`,
+    value: `$${xinchValue}`,
     tokenEquivalent,
   }
 }
@@ -55,8 +54,5 @@ const getUnderlyingTokenEquivalent = async (
   ])
 
   const userTokenEquivalent = inchHoldings.mul(userXinchBal).div(xinchSupply)
-  const tokenEquivalent = formatEther(userTokenEquivalent)
-
-  if (Number(tokenEquivalent) < 1000) return Number(tokenEquivalent).toFixed(4)
-  return formatNumberWithCommas(tokenEquivalent)
+  return formatEther(userTokenEquivalent)
 }
