@@ -1,6 +1,5 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
-import axios from 'axios'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 import {
@@ -44,15 +43,6 @@ import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
 const { formatEther, parseEther } = ethers.utils
-
-export const estimateGas = async () => {
-  const response = await axios.get(
-    'https://ethgasstation.info/json/ethgasAPI.json'
-  )
-  return ethers.utils
-    .parseUnits(String(response.data.fast / 10), 'gwei')
-    .toString()
-}
 
 const getAbi = (contractName: IContracts) => {
   switch (contractName) {
@@ -205,7 +195,6 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
   }
 }
 
-/** @ignore */
 export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
 }
@@ -223,15 +212,15 @@ export const getUserAvailableTokenBalance = async (
   contract: Contract,
   address: string
 ) => {
-  let bal
+  let balance
 
   // TODO: Update the check to not be dependent upon `chainId`
   if (contract.address === ADDRESSES[SNX][1]) {
-    bal = await contract.transferableSynthetix(address)
+    balance = await contract.transferableSynthetix(address)
   } else {
-    bal = await contract.balanceOf(address)
+    balance = await contract.balanceOf(address)
   }
-  return Math.floor(Number(formatEther(bal.toString())) * 1000) / 1000
+  return Math.floor(Number(formatEther(balance.toString())) * 1000) / 1000
 }
 
 export const getExchangeRateContract = async (provider: JsonRpcProvider) => {

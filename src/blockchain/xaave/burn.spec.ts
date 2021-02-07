@@ -1,32 +1,50 @@
 import test from 'ava'
-import { ethers } from 'ethers'
-import { X_AAVE_A } from 'xtoken-abis'
+import { X_AAVE_A, X_AAVE_B } from 'xtoken-abis'
+
+import { provider } from '../../constants.spec'
 
 import { getExpectedQuantityOnBurnXAave } from './burn'
-
-const provider = new ethers.providers.InfuraProvider(
-  'homestead',
-  '645c2c65dd8f4be18a50a0bf011bab85'
-)
-
-test('Calculate ETH expected quantity on burn of xAAVEa', async (t) => {
-  const expectedQty = await getExpectedQuantityOnBurnXAave(
-    X_AAVE_A,
-    true,
-    '1',
-    provider
-  )
-  console.log('Expected ETH qty for 1 xAAVEa:', expectedQty)
-  t.is(typeof expectedQty, 'string')
-})
 
 test('Calculate AAVE expected quantity on burn of xAAVEa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXAave(
     X_AAVE_A,
     false,
-    '1',
+    '1000',
     provider
   )
-  console.log('Expected AAVE qty for 1 xAAVEa:', expectedQty)
-  t.is(typeof expectedQty, 'string')
+  console.log('Expected AAVE qty for 1000 xAAVEa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
+test('Calculate ETH expected quantity on burn of xAAVEa', async (t) => {
+  const expectedQty = await getExpectedQuantityOnBurnXAave(
+    X_AAVE_A,
+    true,
+    '1000',
+    provider
+  )
+  console.log('Expected ETH qty for 1000 xAAVEa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
+test('Calculate AAVE expected quantity on burn of xAAVEb', async (t) => {
+  const expectedQty = await getExpectedQuantityOnBurnXAave(
+    X_AAVE_B,
+    false,
+    '1000',
+    provider
+  )
+  console.log('Expected AAVE qty for 1000 xAAVEb:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
+test('Calculate ETH expected quantity on burn of xAAVEb', async (t) => {
+  const expectedQty = await getExpectedQuantityOnBurnXAave(
+    X_AAVE_B,
+    true,
+    '1000',
+    provider
+  )
+  console.log('Expected ETH qty for 1000 xAAVEb:', expectedQty)
+  t.true(Number(expectedQty) > 0)
 })

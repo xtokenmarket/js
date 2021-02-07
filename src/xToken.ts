@@ -1,6 +1,6 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { parseEther } from 'ethers/lib/utils'
+import { isAddress, parseEther } from 'ethers/lib/utils'
 import {
   ETH,
   X_AAVE_A,
@@ -314,7 +314,7 @@ export class XToken {
     const signer = this.provider.getSigner()
     const address = await signer.getAddress()
 
-    if (!address) {
+    if (!address || !isAddress(address)) {
       return Promise.reject(new Error('Invalid user address'))
     }
 
@@ -373,6 +373,10 @@ export class XToken {
   public async getPortfolioItems(): Promise<readonly IPortfolioItem[]> {
     const signer = this.provider.getSigner()
     const address = await signer.getAddress()
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error('Invalid user address'))
+    }
 
     return Promise.all([
       getPortfolioItemXKnc(X_KNC_A, address, this.provider),

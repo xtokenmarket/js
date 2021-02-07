@@ -3,7 +3,6 @@ import { formatEther } from 'ethers/lib/utils'
 
 import { XAAVE } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { formatNumberWithCommas } from '../../utils'
 import { getUserAvailableTokenBalance } from '../utils'
 
 import { getXAaveContracts } from './helper'
@@ -37,9 +36,9 @@ export const getPortfolioItemXAave = async (
 
   return {
     symbol,
-    quantity: formatNumberWithCommas(xaaveBal.toString()),
+    quantity: xaaveBal.toString(),
     price: `$${priceUsd}`,
-    value: `$${formatNumberWithCommas(xaaveValue)}`,
+    value: `$${xaaveValue}`,
     tokenEquivalent,
   }
 }
@@ -55,8 +54,5 @@ const getUnderlyingTokenEquivalent = async (
   ])
 
   const userTokenEquivalent = contractAaveBal.mul(userXaaveBal).div(xaaveSupply)
-  const tokenEquivalent = formatEther(userTokenEquivalent)
-
-  if (Number(tokenEquivalent) < 1000) return Number(tokenEquivalent).toFixed(4)
-  return formatNumberWithCommas(tokenEquivalent)
+  return formatEther(userTokenEquivalent)
 }

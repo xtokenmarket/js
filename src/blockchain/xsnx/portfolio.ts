@@ -1,15 +1,14 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
+import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
 import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { formatNumberWithCommas } from '../../utils'
+import { formatNumber } from '../../utils'
 import {
   getContract,
   getExchangeRateContract,
-  getTokenBalance,
   getUserAvailableTokenBalance,
 } from '../utils'
 
@@ -31,35 +30,32 @@ export const getPortfolioItemXSnx = async (
 
   const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
 
-  const exchangeRatesContract = await getExchangeRateContract(provider)
-  const snxContract = getContract(SNX, provider, network)
-  const xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
-  const xsnxBalRaw = await getTokenBalance(
-    xsnxContract.address,
-    address,
+  const exchangeRatesContract = (await getExchangeRateContract(
     provider
-  )
+  )) as ExchangeRates
+  const snxContract = getContract(SNX, provider, network)
+
+  const xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
+  const {
+    rate: snxPriceInUsd,
+  } = await exchangeRatesContract.rateAndUpdatedTime(formatBytes32String('SNX'))
   const { priceUsd } = await getXSnxPrices(
     xsnxContract,
     xsnxAdminAddress,
     tradeAccountingContract,
-    exchangeRatesContract as ExchangeRates,
+    exchangeRatesContract,
     snxContract as Contract,
     provider
   )
-  const xsnxValue = (xsnxBal * priceUsd).toFixed(2)
 
-  const xsnxTotalSupply = await xsnxContract.totalSupply()
-  const contractSnxBalance = await tradeAccountingContract.getSnxBalance()
-  const tokenEquivalent = contractSnxBalance
-    .mul(xsnxBalRaw)
-    .div(xsnxTotalSupply)
+  const xsnxValue = parseEther((xsnxBal * priceUsd).toString())
+  const tokenEquivalent = xsnxValue.div(snxPriceInUsd)
 
   return {
     symbol,
-    quantity: formatNumberWithCommas(xsnxBal.toString()),
+    quantity: xsnxBal.toString(),
     price: `$${priceUsd}`,
-    value: `$${xsnxValue}`,
-    tokenEquivalent: formatNumberWithCommas(formatEther(tokenEquivalent)),
+    value: `$${formatNumber(formatEther(xsnxValue))}`,
+    tokenEquivalent: tokenEquivalent.toString(),
   }
 }

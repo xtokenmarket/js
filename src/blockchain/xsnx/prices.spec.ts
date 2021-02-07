@@ -1,17 +1,13 @@
 import test from 'ava'
-import { Contract, ethers } from 'ethers'
+import { Contract } from 'ethers'
 import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
+import { provider } from '../../constants.spec'
 import { ExchangeRates } from '../../types'
 import { getContract, getExchangeRateContract } from '../utils'
 
 import { getXSnxContracts } from './helper'
 import { getXSnxPrices } from './prices'
-
-const provider = new ethers.providers.InfuraProvider(
-  'homestead',
-  '645c2c65dd8f4be18a50a0bf011bab85'
-)
 
 test('Get xSNXa prices', async (t) => {
   const {
@@ -26,7 +22,7 @@ test('Get xSNXa prices', async (t) => {
   const exchangeRatesContract = await getExchangeRateContract(provider)
   const snxContract = getContract(SNX, provider, network)
 
-  const { priceEth, priceUsd } = await getXSnxPrices(
+  const { aum, priceEth, priceUsd } = await getXSnxPrices(
     xsnxContract,
     xsnxAdminAddress,
     tradeAccountingContract,
@@ -35,8 +31,10 @@ test('Get xSNXa prices', async (t) => {
     provider
   )
 
+  console.log('xSNXa aum:', aum)
   console.log('xSNXa priceEth:', priceEth)
   console.log('xSNXa priceUsd:', priceUsd)
-  t.is(typeof priceEth, 'number')
-  t.is(typeof priceUsd, 'number')
+  t.true(aum > 0)
+  t.true(priceEth > 0)
+  t.true(priceUsd > 0)
 })

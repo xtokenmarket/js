@@ -1,16 +1,18 @@
 import test from 'ava'
-import { ethers } from 'ethers'
-import { X_AAVE_A } from 'xtoken-abis'
+import { X_AAVE_A, X_AAVE_B } from 'xtoken-abis'
+
+import { provider } from '../../constants.spec'
 
 import { getMaximumRedeemableXAave } from './redeem'
 
-const provider = new ethers.providers.InfuraProvider(
-  'homestead',
-  '645c2c65dd8f4be18a50a0bf011bab85'
-)
-
-test('Get maximum redeemable xAAVE', async (t) => {
+test('Get maximum redeemable xAAVEa', async (t) => {
   const maxRedeemable = await getMaximumRedeemableXAave(X_AAVE_A, provider)
-  console.log('Maximum redeemable xAAVE:', maxRedeemable)
-  t.is(typeof maxRedeemable, 'string')
+  console.log('Maximum redeemable xAAVEa:', maxRedeemable)
+  t.true(Number(maxRedeemable) > 0)
+})
+
+test('Get maximum redeemable xAAVEb', async (t) => {
+  const maxRedeemable = await getMaximumRedeemableXAave(X_AAVE_B, provider)
+  console.log('Maximum redeemable xAAVEb:', maxRedeemable)
+  t.true(Number(maxRedeemable) > 0)
 })

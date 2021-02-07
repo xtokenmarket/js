@@ -5,7 +5,6 @@ import { KNC } from 'xtoken-abis'
 
 import { XKNC } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { formatNumberWithCommas } from '../../utils'
 import { getContract, getUserAvailableTokenBalance } from '../utils'
 
 import { getXKncContracts } from './helper'
@@ -31,7 +30,7 @@ export const getPortfolioItemXKnc = async (
     kyberProxyContract,
     chainId
   )
-  const xkncValue = (xkncBal * priceUsd).toFixed(2).toString()
+  const xkncValue = (xkncBal * priceUsd).toFixed(2)
   const tokenEquivalent = await getUnderlyingTokenEquivalent(
     xkncContract,
     address
@@ -39,9 +38,9 @@ export const getPortfolioItemXKnc = async (
 
   return {
     symbol,
-    quantity: formatNumberWithCommas(xkncBal.toString()),
+    quantity: xkncBal.toString(),
     price: `$${priceUsd}`,
-    value: `$${formatNumberWithCommas(xkncValue)}`,
+    value: `$${xkncValue}`,
     tokenEquivalent,
   }
 }
@@ -57,8 +56,5 @@ const getUnderlyingTokenEquivalent = async (
   ])
 
   const userTokenEquivalent = contractKncBal.mul(userXkncBal).div(xkncSupply)
-  const tokenEquivalent = formatEther(userTokenEquivalent)
-
-  if (Number(tokenEquivalent) < 1000) return Number(tokenEquivalent).toFixed(2)
-  return formatNumberWithCommas(tokenEquivalent)
+  return formatEther(userTokenEquivalent)
 }

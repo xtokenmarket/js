@@ -1,34 +1,43 @@
 import test from 'ava'
-import { BigNumber, ethers } from 'ethers'
+import { BigNumber } from 'ethers'
 import { formatEther } from 'ethers/lib/utils'
-import { ADDRESSES, ETH, X_AAVE_A } from 'xtoken-abis'
+import {
+  ADDRESSES,
+  ETH,
+  X_AAVE_A,
+  X_AAVE_A_BALANCER_POOL,
+  X_KNC_A,
+} from 'xtoken-abis'
 
-import { estimateGas, getExpectedRate } from './utils'
+import { provider } from '../constants.spec'
+
+import { getBalancerPoolAddress, getExpectedRate } from './utils'
 import { getXAaveContracts } from './xaave/helper'
 
-const provider = new ethers.providers.InfuraProvider(
-  'homestead',
-  '645c2c65dd8f4be18a50a0bf011bab85'
-)
-
-test('Estimate gas', async (t) => {
-  const gas = await estimateGas()
-  console.log('Estimated gas:', gas)
-  t.is(typeof gas, 'string')
+test('Get BalancerPool address for xAAVEa', (t) => {
+  const balancerPoolAddress = getBalancerPoolAddress(X_AAVE_A, 1)
+  t.is(balancerPoolAddress, ADDRESSES[X_AAVE_A_BALANCER_POOL][1])
 })
 
-test('Expected rate', async (t) => {
+test('Get BalancerPool address for xKNCa', (t) => {
+  const balancerPoolAddress = getBalancerPoolAddress(X_KNC_A, 1)
+  t.is(balancerPoolAddress, null)
+})
+
+test('Expected rate for xAAVEa', async (t) => {
   const { kyberProxyContract, tokenContract } = await getXAaveContracts(
     X_AAVE_A,
     provider
   )
-  const expectedRate = await getExpectedRate(
-    kyberProxyContract,
-    tokenContract.address,
-    ADDRESSES[ETH] as string,
-    BigNumber.from('1000')
+  const expectedRate = formatEther(
+    await getExpectedRate(
+      kyberProxyContract,
+      tokenContract.address,
+      ADDRESSES[ETH] as string,
+      BigNumber.from('1000')
+    )
   )
 
-  console.log('Expected rate:', formatEther(expectedRate))
-  t.is(typeof expectedRate, 'object') // BigNumber
+  console.log('Expected rate for xAAVEa:', expectedRate)
+  t.true(Number(expectedRate) > 0)
 })
