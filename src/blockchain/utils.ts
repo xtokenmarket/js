@@ -2,6 +2,7 @@ import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
+import got from 'got'
 import {
   AAVE,
   ADDRESSES,
@@ -39,6 +40,7 @@ import xINCHAbi from 'xtoken-abis/build/main/abi/xINCH.json'
 import xKNCAbi from 'xtoken-abis/build/main/abi/xKNC.json'
 import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
 
+import { INCH_API_URL } from '../constants'
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
@@ -137,11 +139,32 @@ export const getExpectedRate = async (
   amount: BigNumber,
   isMinRate = false
 ) => {
-  const { expectedRate } = await kyberProxyContract.getExpectedRate(
-    inputAsset,
-    outputAsset,
-    amount
-  )
+  let expectedRate: BigNumber
+
+  // Fallback to Kyber, if 1Inch API fails
+  try {
+    const response = await got(
+      `${INCH_API_URL}?fromTokenAddress=${inputAsset}&toTokenAddress=${outputAsset}&amount=${parseEther(
+        '1'
+      )}`
+    )
+
+    const {
+      toTokenAmount,
+      toToken: { decimals },
+    } = JSON.parse(response.body)
+
+    const inchExpectedRate = toTokenAmount / 10 ** decimals
+    expectedRate = parseEther(inchExpectedRate.toString())
+  } catch (e) {
+    // Error
+    console.error(e)
+
+    expectedRate = (
+      await kyberProxyContract.getExpectedRate(inputAsset, outputAsset, amount)
+    ).expectedRate
+  }
+
   return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
 }
 

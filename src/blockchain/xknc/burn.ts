@@ -64,7 +64,8 @@ export const getExpectedQuantityOnBurnXKnc = async (
     const ethAddress = ADDRESSES[ETH] as string
     const kncAddress = ADDRESSES[KNC][chainId]
 
-    const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
       kncAddress,
       ethAddress,
       proRataKnc
