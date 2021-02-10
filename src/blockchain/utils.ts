@@ -2,7 +2,7 @@ import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
-import got from 'got'
+import superagent from 'superagent'
 import {
   AAVE,
   ADDRESSES,
@@ -143,7 +143,7 @@ export const getExpectedRate = async (
 
   // Fallback to Kyber, if 1Inch API fails
   try {
-    const response = await got(
+    const res = await superagent.get(
       `${INCH_API_URL}?fromTokenAddress=${inputAsset}&toTokenAddress=${outputAsset}&amount=${parseEther(
         '1'
       )}`
@@ -152,7 +152,7 @@ export const getExpectedRate = async (
     const {
       toTokenAmount,
       toToken: { decimals },
-    } = JSON.parse(response.body)
+    } = res.body
 
     const inchExpectedRate = toTokenAmount / 10 ** decimals
     expectedRate = parseEther(inchExpectedRate.toString())
