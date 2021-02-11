@@ -37,8 +37,8 @@ export const getPortfolioItemXInch = async (
   return {
     symbol,
     quantity: xinchBal.toString(),
-    price: `$${priceUsd}`,
-    value: `$${xinchValue}`,
+    price: priceUsd.toString(),
+    value: xinchValue.toString(),
     tokenEquivalent,
   }
 }
