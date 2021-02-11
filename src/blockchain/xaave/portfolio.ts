@@ -37,8 +37,8 @@ export const getPortfolioItemXAave = async (
   return {
     symbol,
     quantity: xaaveBal.toString(),
-    price: `$${priceUsd}`,
-    value: `$${xaaveValue}`,
+    price: priceUsd.toString(),
+    value: xaaveValue.toString(),
     tokenEquivalent,
   }
 }

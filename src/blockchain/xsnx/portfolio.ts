@@ -5,7 +5,6 @@ import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { formatNumber } from '../../utils'
 import {
   getContract,
   getExchangeRateContract,
@@ -49,13 +48,13 @@ export const getPortfolioItemXSnx = async (
   )
 
   const xsnxValue = parseEther((xsnxBal * priceUsd).toString())
-  const tokenEquivalent = xsnxValue.div(snxPriceInUsd)
+  const tokenEquivalent = xsnxValue.div(snxPriceInUsd).toString()
 
   return {
     symbol,
     quantity: xsnxBal.toString(),
-    price: `$${priceUsd}`,
-    value: `$${formatNumber(formatEther(xsnxValue))}`,
-    tokenEquivalent: tokenEquivalent.toString(),
+    price: priceUsd.toString(),
+    value: formatEther(xsnxValue),
+    tokenEquivalent,
   }
 }

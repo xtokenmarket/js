@@ -53,7 +53,8 @@ export const getExpectedQuantityOnMintXKnc = async (
   let kncBalanceAfter: BigNumber
 
   if (tradeWithEth) {
-    const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
       ethAddress,
       kncAddress,
       inputAmount

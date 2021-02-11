@@ -64,7 +64,8 @@ export const getExpectedQuantityOnBurnXAave = async (
     const ethAddress = ADDRESSES[ETH] as string
     const aaveAddress = ADDRESSES[AAVE][chainId]
 
-    const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
       aaveAddress,
       ethAddress,
       proRataAave

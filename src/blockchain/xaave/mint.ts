@@ -54,7 +54,8 @@ export const getExpectedQuantityOnMintXAave = async (
   let aaveExpected: BigNumber
 
   if (tradeWithEth) {
-    const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
       ethAddress,
       aaveAddress,
       inputAmount
@@ -68,6 +69,7 @@ export const getExpectedQuantityOnMintXAave = async (
     .mul(xaaveSupply)
     .div(aaveHoldings)
     .div(DEC_18)
+
   return formatEther(xaaveExpected)
 }
 

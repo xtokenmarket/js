@@ -43,10 +43,11 @@ export const getExpectedQuantityOnMintXSnx = async (
 
   if (tradeWithEth) {
     const ethContributed = inputAmount.mul(MINT_FEE).div(DEC_18)
-    const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
       ADDRESSES[ETH] as string,
       ADDRESSES[SNX][chainId],
-      ethContributed.toString()
+      ethContributed
     )
 
     const [setHoldingsWei, ethBal] = await Promise.all([

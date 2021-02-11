@@ -39,8 +39,8 @@ export const getPortfolioItemXKnc = async (
   return {
     symbol,
     quantity: xkncBal.toString(),
-    price: `$${priceUsd}`,
-    value: `$${xkncValue}`,
+    price: priceUsd.toString(),
+    value: xkncValue.toString(),
     tokenEquivalent,
   }
 }
