@@ -88,7 +88,7 @@ export class XToken {
    * ```
    *
    * @param {ITokenSymbols} symbol Symbol of the token to be approved
-   * @param {string} amount Amount of the token to be approved, [[MAX_UINT]] will be used by default
+   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
    * @returns A promise of the transaction response
    */
   public async approve(

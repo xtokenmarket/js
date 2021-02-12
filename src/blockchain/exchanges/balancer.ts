@@ -30,7 +30,11 @@ import {
   XAAVE,
   XSNX,
 } from '../../types'
-import { ITokenSymbols, ITradeType } from '../../types/xToken'
+import {
+  ILiquidityPoolItem,
+  ITokenSymbols,
+  ITradeType,
+} from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import {
   getBalancerPoolAddress,
@@ -197,7 +201,7 @@ export const getBalancerPortfolioItem = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<null | ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 

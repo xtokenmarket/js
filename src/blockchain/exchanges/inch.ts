@@ -12,7 +12,7 @@ import {
 
 import { DEC_18 } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
-import { ITokenSymbols } from '../../types/xToken'
+import { ILiquidityPoolItem, ITokenSymbols } from '../../types/xToken'
 import {
   getContract,
   getExpectedRate,
@@ -76,7 +76,7 @@ export const getInchPortfolioItem = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<null | ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 

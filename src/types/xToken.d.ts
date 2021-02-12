@@ -45,6 +45,27 @@ export type ITokenSymbols =
 
 export type ITradeType = typeof BUY | typeof SELL
 
+interface ITokenBalance {
+  amt: string
+  name: string
+  val: string
+}
+
+export interface ILiquidityPoolItem {
+  asset: string
+  balances: {
+    eth: ITokenBalance
+    token: ITokenBalance
+    totalVal: string
+    underlying?: ITokenBalance
+  }
+  poolPrice: string
+  quantity: string
+  tokenPrice: number
+  underlyingPrice?: string
+  value: string
+}
+
 export interface IPortfolioItem {
   price: string
   quantity: string
