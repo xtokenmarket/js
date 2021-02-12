@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "superagent": "^6.1.0",
-    "xtoken-abis": "0.1.5"
+    "xtoken-abis": "0.1.6"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",

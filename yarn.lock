@@ -7002,10 +7002,10 @@ xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xtoken-abis@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/xtoken-abis/-/xtoken-abis-0.1.5.tgz#d823d66e40ea3041e723af82078cbe9ac908599d"
-  integrity sha512-d+qJZVMSbQLOgWUWZVLO6/lrPlJLmFi1wvAAWQXoiStFdXPrqObIkTuEufcpF3bm/ce0c4bArb6JSi0Wt148FA==
+xtoken-abis@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/xtoken-abis/-/xtoken-abis-0.1.6.tgz#7765cd4dd9811326ba6a566c630afcae9d5b02e3"
+  integrity sha512-7L8xhbgLw7ndRq9wxGmycD44427FQMKsnOTUg1AuWFfTRP7/lsMLycwq2fMqX2Ar/oFd9YErSXU4/XwmW4ffiw==
 
 y18n@^4.0.0:
   version "4.0.0"
