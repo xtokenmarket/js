@@ -15,51 +15,6 @@ export class XKNC__factory {
 
 const _abi = [
   {
-    inputs: [
-      {
-        internalType: 'string',
-        name: '_mandate',
-        type: 'string',
-      },
-      {
-        internalType: 'address',
-        name: '_kyberStakingAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_kyberProxyAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_kyberTokenAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_kyberDaoAddress',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'AddedToWhitelist',
-    type: 'event',
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -88,56 +43,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'redeemedForKnc',
-        type: 'bool',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'burnAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'Burn',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'EthRewardClaimed',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: 'uint256',
         name: 'mintFee',
@@ -157,93 +62,6 @@ const _abi = [
       },
     ],
     name: 'FeeDivisorsSet',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'ethAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'kncAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'FeeWithdraw',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'ethPayable',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'mintAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'MintWithEth',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'kncPayable',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'mintAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'MintWithKnc',
     type: 'event',
   },
   {
@@ -276,64 +94,6 @@ const _abi = [
       },
     ],
     name: 'Paused',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'PauserAdded',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'PauserRemoved',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'RemovedFromWhitelist',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'TokenRewardClaimed',
     type: 'event',
   },
   {
@@ -375,27 +135,6 @@ const _abi = [
     type: 'event',
   },
   {
-    payable: true,
-    stateMutability: 'payable',
-    type: 'fallback',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'addFallbackAllowedAddress',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -410,42 +149,10 @@ const _abi = [
     ],
     name: 'addKyberFeeHandler',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'addPauser',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'addToWhitelist',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
     inputs: [
       {
         internalType: 'address',
@@ -466,12 +173,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -492,12 +197,10 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -512,12 +215,10 @@ const _abi = [
     ],
     name: 'approveKyberProxyContract',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'bool',
@@ -527,12 +228,10 @@ const _abi = [
     ],
     name: 'approveStakingContract',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [
       {
         internalType: 'address',
@@ -548,12 +247,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -573,12 +270,10 @@ const _abi = [
     ],
     name: 'burn',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -603,12 +298,10 @@ const _abi = [
     ],
     name: 'claimReward',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'decimals',
     outputs: [
@@ -618,12 +311,10 @@ const _abi = [
         type: 'uint8',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -644,35 +335,12 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'feeDivisors',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
     inputs: [],
-    name: 'feeStructure',
+    name: 'feeDivisors',
     outputs: [
       {
         internalType: 'uint256',
@@ -690,12 +358,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'getAvailableKncBalanceTwei',
     outputs: [
@@ -705,12 +371,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [
       {
         internalType: 'enum xKNC.FeeTypes',
@@ -726,12 +390,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'getFundEthBalanceWei',
     outputs: [
@@ -741,12 +403,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'getFundKncBalanceTwei',
     outputs: [
@@ -756,12 +416,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -782,150 +440,63 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'isOwner',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
     inputs: [
       {
-        internalType: 'address',
-        name: 'account',
+        internalType: 'string',
+        name: '_symbol',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: '_mandate',
+        type: 'string',
+      },
+      {
+        internalType: 'contract IKyberStaking',
+        name: '_kyberStaking',
         type: 'address',
       },
-    ],
-    name: 'isPauser',
-    outputs: [
       {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
+        internalType: 'contract IKyberNetworkProxy',
+        name: '_kyberProxy',
         type: 'address',
       },
-    ],
-    name: 'isWhitelisted',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'knc',
-    outputs: [
       {
         internalType: 'contract ERC20',
-        name: '',
+        name: '_knc',
         type: 'address',
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'kyberDao',
-    outputs: [
       {
         internalType: 'contract IKyberDAO',
-        name: '',
+        name: '_kyberDao',
         type: 'address',
       },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'mintFee',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'burnFee',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'claimFee',
         type: 'uint256',
       },
     ],
-    name: 'kyberFeeHandlers',
-    outputs: [
-      {
-        internalType: 'contract IKyberFeeHandler',
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
-    inputs: [],
-    name: 'kyberProxy',
-    outputs: [
-      {
-        internalType: 'contract IKyberNetworkProxy',
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'kyberStaking',
-    outputs: [
-      {
-        internalType: 'contract IKyberStaking',
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
     inputs: [],
     name: 'mandate',
     outputs: [
@@ -935,12 +506,10 @@ const _abi = [
         type: 'string',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -950,12 +519,10 @@ const _abi = [
     ],
     name: 'mint',
     outputs: [],
-    payable: true,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -963,14 +530,12 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'mintWithKnc',
+    name: 'mintWithToken',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'name',
     outputs: [
@@ -980,12 +545,10 @@ const _abi = [
         type: 'string',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'owner',
     outputs: [
@@ -995,21 +558,17 @@ const _abi = [
         type: 'address',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [],
     name: 'pause',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'paused',
     outputs: [
@@ -1019,45 +578,17 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'removefromWhitelist',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
     inputs: [],
     name: 'renounceOwnership',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
-    inputs: [],
-    name: 'renouncePauser',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -1077,12 +608,36 @@ const _abi = [
     ],
     name: 'setFeeDivisors',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: true,
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_manager',
+        type: 'address',
+      },
+    ],
+    name: 'setManager',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_manager2',
+        type: 'address',
+      },
+    ],
+    name: 'setManager2',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'symbol',
     outputs: [
@@ -1092,12 +647,10 @@ const _abi = [
         type: 'string',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: true,
     inputs: [],
     name: 'totalSupply',
     outputs: [
@@ -1107,12 +660,10 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    payable: false,
     stateMutability: 'view',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -1133,12 +684,10 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -1164,12 +713,10 @@ const _abi = [
         type: 'bool',
       },
     ],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'address',
@@ -1179,21 +726,17 @@ const _abi = [
     ],
     name: 'transferOwnership',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [],
     name: 'unpause',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256[]',
@@ -1213,12 +756,10 @@ const _abi = [
     ],
     name: 'unwindRewards',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [
       {
         internalType: 'uint256',
@@ -1233,17 +774,18 @@ const _abi = [
     ],
     name: 'vote',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    constant: false,
     inputs: [],
     name: 'withdrawFees',
     outputs: [],
-    payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
+  },
+  {
+    stateMutability: 'payable',
+    type: 'receive',
   },
 ]

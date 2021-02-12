@@ -41,7 +41,7 @@ export const getExpectedQuantityOnMintXKnc = async (
   const [kncBalBefore, currentSupply, { mintFee }] = await Promise.all([
     xkncContract.getFundKncBalanceTwei(),
     xkncContract.totalSupply(),
-    xkncContract.feeStructure(),
+    xkncContract.feeDivisors(),
   ])
 
   const MINT_FEE = parseFees(mintFee)
@@ -110,7 +110,7 @@ export const mintXKnc = async (
       )
     }
 
-    return xkncContract.mintWithKnc(amount)
+    return xkncContract.mintWithToken(amount)
   }
 }
 

@@ -12,19 +12,16 @@ import { getExpectedRate } from '../utils'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { ADDRESSES, KNC, KYBER_PROXY, X_KNC_A } from 'xtoken-abis'
- * import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
- * import KyberProxyAbi from 'xtoken-abis/build/main/abi/KyberProxy.json'
- * import xKNCAbi from 'xtoken-abis/build/main/abi/xKNC.json'
+ * import { Abi, ADDRESSES, KNC, KYBER_PROXY, X_KNC_A } from 'xtoken-abis'
  * import { getXKncPrices } from 'xtoken-js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
  * const network = await provider.getNetwork()
  * const { chainId } = network
  *
- * const xkncContract = new ethers.Contract(ADDRESSES[X_KNC_A][chainId], xKNCAbi, provider)
- * const kncContract = new ethers.Contract(ADDRESSES[KNC][chainId], ERC20Abi, provider)
- * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], KyberProxyAbi, provider)
+ * const xkncContract = new ethers.Contract(ADDRESSES[X_KNC_A][chainId], Abi.xKNC, provider)
+ * const kncContract = new ethers.Contract(ADDRESSES[KNC][chainId], Abi.ERC20, provider)
+ * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], Abi.KyberProxy, provider)
  *
  * const { priceEth, priceUsd } = await getXKncPrices(
  *   xkncContract,

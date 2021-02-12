@@ -51,7 +51,7 @@ export const getExpectedQuantityOnBurnXKnc = async (
   const [kncFundBal, totalSupply, { burnFee }] = await Promise.all([
     xkncContract.getFundKncBalanceTwei(),
     xkncContract.totalSupply(),
-    xkncContract.feeStructure(),
+    xkncContract.feeDivisors(),
   ])
 
   const BURN_FEE = parseFees(burnFee)

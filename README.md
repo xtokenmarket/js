@@ -3,16 +3,18 @@
 Helper library to interact with xToken contracts written in Typescript with full typing support. It allows access to the low level API to directly interact with the contracts.
 
 ## Install
+
 ```sh
 yarn add xtoken-js
 ```
 
 ## Dependencies
 
-At the moment, xtoken-js requires to use [Ether.js](https://www.npmjs.com/package/ethers) V5. In the future will add support for web3.js
+At the moment, `xtoken-js` requires using [xtoken-abis](https://www.npmjs.com/package/xtoken-abis) and [Ether.js](https://www.npmjs.com/package/ethers) v5.0.30
 
 ```sh
-yarn add ethers
+yarn add xtoken-abis
+yarn add ethers@5.0.30
 ```
 
 ## Documentation
@@ -20,8 +22,10 @@ yarn add ethers
 GitHub pages: [https://xtokenmarket.github.io/xtoken-js](https://xtokenmarket.github.io/xtoken-js/)
 
 ## Examples
+
 ```sh
 import { ethers } from 'ethers'
+import { X_KNC_A } from 'xtoken-abis'
 import { XToken } from 'xtoken-js'
 
 // Setup provider
@@ -31,7 +35,7 @@ const provider = new ethers.providers.InfuraProvider('homestead', '<API KEY>')
 const xToken = new XToken(provider)
 
 // Calculate expected mint quantity for tokens
-const expectedQty = await xToken.getExpectedQuantityOnMint('xKNCa', true, '1') // args: `symbol`, `tradeWithEth` & `amount`
+const expectedQty = await xToken.getExpectedQuantityOnMint(X_KNC_A, true, '1') // args: `symbol`, `tradeWithEth` & `amount`
 ```
 
 ## Development
@@ -43,11 +47,13 @@ const expectedQty = await xToken.getExpectedQuantityOnMint('xKNCa', true, '1') /
 - Automatic linting and formatting using [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint) and [Prettier](https://prettier.io/)
 
 ### Build
+
 ```sh
 yarn watch:build
 ```
 
 ### Tests
+
 ```sh
 yarn watch:test
 ```
@@ -78,7 +84,7 @@ The src folder is analyzed and documentation is automatically generated using [T
 yarn doc
 ```
 
-This command generates API documentation in HTML format and opens it in a browser.
+This command generates the library documentation in HTML format and opens it in a browser.
 
 Since types are tracked by Typescript, there's no need to indicate types in JSDoc format. For more information, see the [TypeDoc documentation](http://typedoc.org/guides/doccomments/).
 
@@ -88,6 +94,22 @@ To generate and publish documentation to [GitHub Pages](https://pages.github.com
 yarn doc:publish
 ```
 
-Once published, documentation should be available at the proper GitHub Pages URL for your repo.
+Once published, documentation should be available at the [GitHub Pages](https://xtokenmarket.github.io/xtoken-js/)
+
+## Publishing
+
+Before publishing the package to NPM, `prepare-release` command builds, runs the tests, increases the package version automatically and publishes the docs to GitHub Pages.
+
+```sh
+yarn prepare-release
+```
+
+Once the above command runs successfully, you should then execute the below command which will tag the release version and publish the build to NPM.
+
+**Note: Before publishing the package, ensure that the `package.json` has the `version` field incremented and also the `build` folder has the compiled code.**
+
+```sh
+git push --follow-tags origin main && npm publish
+```
 
 Created using [typescript-starter](https://github.com/bitjson/typescript-starter)
