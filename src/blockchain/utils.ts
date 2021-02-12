@@ -5,6 +5,7 @@ import { ContractInterface } from 'ethers/lib/ethers'
 import superagent from 'superagent'
 import {
   AAVE,
+  Abi,
   ADDRESSES,
   EXCHANGE_RATES,
   INCH,
@@ -27,18 +28,6 @@ import {
   X_SNX_A,
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
-import AddressResolverAbi from 'xtoken-abis/build/main/abi/AddressResolver.json'
-import BalancerPoolAbi from 'xtoken-abis/build/main/abi/BalancerPool.json'
-import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
-import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
-import InchLiquidityProtocolAbi from 'xtoken-abis/build/main/abi/InchLiquidityProtocol.json'
-import KyberProxyAbi from 'xtoken-abis/build/main/abi/KyberProxy.json'
-import SynthetixAbi from 'xtoken-abis/build/main/abi/Synthetix.json'
-import TradeAccountingAbi from 'xtoken-abis/build/main/abi/TradeAccounting.json'
-import xAAVEAbi from 'xtoken-abis/build/main/abi/xAAVE.json'
-import xINCHAbi from 'xtoken-abis/build/main/abi/xINCH.json'
-import xKNCAbi from 'xtoken-abis/build/main/abi/xKNC.json'
-import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
 
 import { INCH_API_URL } from '../constants'
 import { KyberProxy } from '../types'
@@ -51,28 +40,28 @@ const getAbi = (contractName: IContracts) => {
     case AAVE:
     case INCH:
     case KNC:
-      return ERC20Abi as ContractInterface
+      return Abi.ERC20 as ContractInterface
     case EXCHANGE_RATES:
-      return ExchangeRatesAbi as ContractInterface
+      return Abi.ExchangeRates as ContractInterface
     case INCH_LIQUIDITY_PROTOCOL:
-      return InchLiquidityProtocolAbi as ContractInterface
+      return Abi.InchLiquidityProtocol as ContractInterface
     case KYBER_PROXY:
-      return KyberProxyAbi as ContractInterface
+      return Abi.KyberProxy as ContractInterface
     case SNX:
-      return SynthetixAbi as ContractInterface
+      return Abi.Synthetix as ContractInterface
     case TRADE_ACCOUNTING:
-      return TradeAccountingAbi as ContractInterface
+      return Abi.TradeAccounting as ContractInterface
     case X_AAVE_A:
     case X_AAVE_B:
-      return xAAVEAbi as ContractInterface
+      return Abi.xAAVE as ContractInterface
     case X_INCH_A:
     case X_INCH_B:
-      return xINCHAbi as ContractInterface
+      return Abi.xINCH as ContractInterface
     case X_KNC_A:
     case X_KNC_B:
-      return (xKNCAbi as unknown) as ContractInterface
+      return Abi.xKNC as ContractInterface
     case X_SNX_A:
-      return xSNXAbi as ContractInterface
+      return Abi.xSNX as ContractInterface
   }
 }
 
@@ -110,7 +99,7 @@ export const getBalancerPoolContract = (
 
   return new ethers.Contract(
     address,
-    BalancerPoolAbi,
+    Abi.BalancerPool,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 }
@@ -197,7 +186,7 @@ export const getInchPoolContract = (
 
   return new ethers.Contract(
     address,
-    InchLiquidityProtocolAbi,
+    Abi.InchLiquidityProtocol,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 }
@@ -227,7 +216,7 @@ export const getTokenBalance = async (
   userAddress: string,
   provider: JsonRpcProvider
 ) => {
-  const contract = new ethers.Contract(tokenAddress, ERC20Abi, provider)
+  const contract = new ethers.Contract(tokenAddress, Abi.ERC20, provider)
   return contract.balanceOf(userAddress)
 }
 
@@ -251,7 +240,7 @@ export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
 
   const resolver = new ethers.Contract(
     ADDRESSES[SYNTHETIX_ADDRESS_RESOLVER][1],
-    AddressResolverAbi,
+    Abi.AddressResolver,
     provider
   )
   const address = resolver.getAddress(
@@ -262,7 +251,7 @@ export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
 
   return new ethers.Contract(
     address,
-    ExchangeRatesAbi,
+    Abi.ExchangeRates,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 }

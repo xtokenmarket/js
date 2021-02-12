@@ -522,6 +522,11 @@ const _abi = [
         type: 'string',
       },
       {
+        internalType: 'string',
+        name: '_mandate',
+        type: 'string',
+      },
+      {
         internalType: 'contract IERC20',
         name: '_oneInch',
         type: 'address',
@@ -573,6 +578,19 @@ const _abi = [
     name: 'leftoverShareVote',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'mandate',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {

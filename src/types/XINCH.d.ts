@@ -45,8 +45,9 @@ interface XINCHInterface extends ethers.utils.Interface {
     'getStakedBalance()': FunctionFragment
     'governanceShareVote(uint256)': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'initialize(string,address,address,address,uint256,uint256,uint256)': FunctionFragment
+    'initialize(string,string,address,address,address,uint256,uint256,uint256)': FunctionFragment
     'leftoverShareVote(uint256,uint256)': FunctionFragment
+    'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
     'mintWithToken(uint256)': FunctionFragment
     'name()': FunctionFragment
@@ -158,6 +159,7 @@ interface XINCHInterface extends ethers.utils.Interface {
       string,
       string,
       string,
+      string,
       BigNumberish,
       BigNumberish,
       BigNumberish
@@ -167,6 +169,7 @@ interface XINCHInterface extends ethers.utils.Interface {
     functionFragment: 'leftoverShareVote',
     values: [BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'mandate', values?: undefined): string
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithToken',
@@ -326,6 +329,7 @@ interface XINCHInterface extends ethers.utils.Interface {
     functionFragment: 'leftoverShareVote',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'mandate', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'mintWithToken',
@@ -643,6 +647,7 @@ export class XINCH extends Contract {
 
     initialize(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -652,8 +657,9 @@ export class XINCH extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(string,address,address,address,uint256,uint256,uint256)'(
+    'initialize(string,string,address,address,address,uint256,uint256,uint256)'(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -674,6 +680,10 @@ export class XINCH extends Contract {
       refShare: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    mandate(overrides?: CallOverrides): Promise<[string]>
+
+    'mandate()'(overrides?: CallOverrides): Promise<[string]>
 
     mint(
       minReturn: BigNumberish,
@@ -1105,6 +1115,7 @@ export class XINCH extends Contract {
 
   initialize(
     _symbol: string,
+    _mandate: string,
     _oneInch: string,
     _governanceMothership: string,
     _oneInchLiquidityProtocol: string,
@@ -1114,8 +1125,9 @@ export class XINCH extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(string,address,address,address,uint256,uint256,uint256)'(
+  'initialize(string,string,address,address,address,uint256,uint256,uint256)'(
     _symbol: string,
+    _mandate: string,
     _oneInch: string,
     _governanceMothership: string,
     _oneInchLiquidityProtocol: string,
@@ -1136,6 +1148,10 @@ export class XINCH extends Contract {
     refShare: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  mandate(overrides?: CallOverrides): Promise<string>
+
+  'mandate()'(overrides?: CallOverrides): Promise<string>
 
   mint(
     minReturn: BigNumberish,
@@ -1561,6 +1577,7 @@ export class XINCH extends Contract {
 
     initialize(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -1570,8 +1587,9 @@ export class XINCH extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(string,address,address,address,uint256,uint256,uint256)'(
+    'initialize(string,string,address,address,address,uint256,uint256,uint256)'(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -1592,6 +1610,10 @@ export class XINCH extends Contract {
       refShare: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    mandate(overrides?: CallOverrides): Promise<string>
+
+    'mandate()'(overrides?: CallOverrides): Promise<string>
 
     mint(minReturn: BigNumberish, overrides?: CallOverrides): Promise<void>
 
@@ -2018,6 +2040,7 @@ export class XINCH extends Contract {
 
     initialize(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -2027,8 +2050,9 @@ export class XINCH extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(string,address,address,address,uint256,uint256,uint256)'(
+    'initialize(string,string,address,address,address,uint256,uint256,uint256)'(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -2049,6 +2073,10 @@ export class XINCH extends Contract {
       refShare: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    mandate(overrides?: CallOverrides): Promise<BigNumber>
+
+    'mandate()'(overrides?: CallOverrides): Promise<BigNumber>
 
     mint(
       minReturn: BigNumberish,
@@ -2467,6 +2495,7 @@ export class XINCH extends Contract {
 
     initialize(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -2476,8 +2505,9 @@ export class XINCH extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(string,address,address,address,uint256,uint256,uint256)'(
+    'initialize(string,string,address,address,address,uint256,uint256,uint256)'(
       _symbol: string,
+      _mandate: string,
       _oneInch: string,
       _governanceMothership: string,
       _oneInchLiquidityProtocol: string,
@@ -2498,6 +2528,10 @@ export class XINCH extends Contract {
       refShare: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    mandate(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'mandate()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     mint(
       minReturn: BigNumberish,

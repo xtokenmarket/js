@@ -12,21 +12,17 @@ import { getTokenBalance } from '../utils'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { ADDRESSES, EXCHANGE_RATES, TRADE_ACCOUNTING, SNX, X_SNX_A, X_SNX_A_ADMIN } from 'xtoken-abis'
- * import ExchangeRatesAbi from 'xtoken-abis/build/main/abi/ExchangeRates.json'
- * import SynthetixAbi from 'xtoken-abis/build/main/abi/Synthetix.json'
- * import TradeAccountingAbi from 'xtoken-abis/build/main/abi/TradeAccounting.json'
- * import xSNXAbi from 'xtoken-abis/build/main/abi/xSNX.json'
+ * import { Abi, ADDRESSES, EXCHANGE_RATES, TRADE_ACCOUNTING, SNX, X_SNX_A, X_SNX_A_ADMIN } from 'xtoken-abis'
  * import { getXSnxPrices } from 'xtoken-js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
  * const network = await provider.getNetwork()
  * const { chainId } = network
  *
- * const xsnxContract = new ethers.Contract(ADDRESSES[X_SNX_A][chainId], xSNXAbi, provider)
- * const snxContract = new ethers.Contract(ADDRESSES[SNX][chainId], SynthetixAbi, provider)
- * const exchangeRatesContract = new ethers.Contract(ADDRESSES[EXCHANGE_RATES][chainId], ExchangeRatesAbi, provider)
- * const tradeAccountingContract = new ethers.Contract(ADDRESSES[TRADE_ACCOUNTING][chainId], TradeAccountingAbi, provider)
+ * const xsnxContract = new ethers.Contract(ADDRESSES[X_SNX_A][chainId], Abi.xSNX, provider)
+ * const snxContract = new ethers.Contract(ADDRESSES[SNX][chainId], Abi.Synthetix, provider)
+ * const exchangeRatesContract = new ethers.Contract(ADDRESSES[EXCHANGE_RATES][chainId], Abi.ExchangeRates, provider)
+ * const tradeAccountingContract = new ethers.Contract(ADDRESSES[TRADE_ACCOUNTING][chainId], Abi.TradeAccounting, provider)
  *
  * const { priceEth, priceUsd } = await getXSnxPrices(
  *   xsnxContract,

@@ -1,6 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import {
+  Abi,
   ADDRESSES,
   ETH,
   KYBER_PROXY,
@@ -8,11 +9,10 @@ import {
   X_INCH_A,
   X_INCH_B,
 } from 'xtoken-abis'
-import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
 
 import { DEC_18 } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
-import { ITokenSymbols } from '../../types/xToken'
+import { ILiquidityPoolItem, ITokenSymbols } from '../../types/xToken'
 import {
   getContract,
   getExpectedRate,
@@ -37,7 +37,7 @@ const getBalances = async (
   const xTokenAddress = ADDRESSES[symbol][chainId]
 
   // Contracts
-  const xTokenContract = new ethers.Contract(xTokenAddress, ERC20Abi, provider)
+  const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
   // Balances
   const xTokenBalance = await xTokenContract.balanceOf(inchPoolAddress)
@@ -76,7 +76,7 @@ export const getInchPortfolioItem = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<null | ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 

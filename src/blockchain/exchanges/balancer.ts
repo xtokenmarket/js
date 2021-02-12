@@ -3,6 +3,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract, ethers } from 'ethers'
 import {
   AAVE,
+  Abi,
   ADDRESSES,
   BUY,
   ETH,
@@ -19,7 +20,6 @@ import {
   X_SNX_A_ADMIN,
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
-import ERC20Abi from 'xtoken-abis/build/main/abi/ERC20.json'
 
 import { DEC_18 } from '../../constants'
 import {
@@ -30,7 +30,11 @@ import {
   XAAVE,
   XSNX,
 } from '../../types'
-import { ITokenSymbols, ITradeType } from '../../types/xToken'
+import {
+  ILiquidityPoolItem,
+  ITokenSymbols,
+  ITradeType,
+} from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import {
   getBalancerPoolAddress,
@@ -86,12 +90,12 @@ export const getBalancerEstimatedQuantity = async (
   ) as BalancerPool
   const tokenInContract = new ethers.Contract(
     tokenInAddress,
-    ERC20Abi,
+    Abi.ERC20,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
   const tokenOutContract = new ethers.Contract(
     tokenOutAddress,
-    ERC20Abi,
+    Abi.ERC20,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 
@@ -146,11 +150,11 @@ const getBalances = async (
   // Contracts
   const underlyingContract = new ethers.Contract(
     underlyingAddress,
-    ERC20Abi,
+    Abi.ERC20,
     provider
   )
-  const wethContract = new ethers.Contract(wethAddress, ERC20Abi, provider)
-  const xTokenContract = new ethers.Contract(xTokenAddress, ERC20Abi, provider)
+  const wethContract = new ethers.Contract(wethAddress, Abi.ERC20, provider)
+  const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
   // Balances
   const underlyingBalance = await underlyingContract.balanceOf(
@@ -197,7 +201,7 @@ export const getBalancerPortfolioItem = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-) => {
+): Promise<null | ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 
@@ -222,7 +226,7 @@ export const getBalancerPortfolioItem = async (
     provider,
     network
   ) as KyberProxy
-  const tokenContract = new ethers.Contract(xTokenAddress, ERC20Abi, provider)
+  const tokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
   const userBalance = await balancerPoolContract.balanceOf(address)
 

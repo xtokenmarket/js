@@ -23,10 +23,7 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface XKNCInterface extends ethers.utils.Interface {
   functions: {
-    'addFallbackAllowedAddress(address)': FunctionFragment
     'addKyberFeeHandler(address,address)': FunctionFragment
-    'addPauser(address)': FunctionFragment
-    'addToWhitelist(address)': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
     'approveKyberProxyContract(address,bool)': FunctionFragment
@@ -36,32 +33,24 @@ interface XKNCInterface extends ethers.utils.Interface {
     'claimReward(uint256,uint256[],uint256[],uint256[])': FunctionFragment
     'decimals()': FunctionFragment
     'decreaseAllowance(address,uint256)': FunctionFragment
-    'feeDivisors(uint256)': FunctionFragment
-    'feeStructure()': FunctionFragment
+    'feeDivisors()': FunctionFragment
     'getAvailableKncBalanceTwei()': FunctionFragment
     'getFeeRate(uint8)': FunctionFragment
     'getFundEthBalanceWei()': FunctionFragment
     'getFundKncBalanceTwei()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'isOwner()': FunctionFragment
-    'isPauser(address)': FunctionFragment
-    'isWhitelisted(address)': FunctionFragment
-    'knc()': FunctionFragment
-    'kyberDao()': FunctionFragment
-    'kyberFeeHandlers(uint256)': FunctionFragment
-    'kyberProxy()': FunctionFragment
-    'kyberStaking()': FunctionFragment
+    'initialize(string,string,address,address,address,address,uint256,uint256,uint256)': FunctionFragment
     'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
-    'mintWithKnc(uint256)': FunctionFragment
+    'mintWithToken(uint256)': FunctionFragment
     'name()': FunctionFragment
     'owner()': FunctionFragment
     'pause()': FunctionFragment
     'paused()': FunctionFragment
-    'removefromWhitelist(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
-    'renouncePauser()': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
+    'setManager(address)': FunctionFragment
+    'setManager2(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
@@ -74,17 +63,8 @@ interface XKNCInterface extends ethers.utils.Interface {
   }
 
   encodeFunctionData(
-    functionFragment: 'addFallbackAllowedAddress',
-    values: [string]
-  ): string
-  encodeFunctionData(
     functionFragment: 'addKyberFeeHandler',
     values: [string, string]
-  ): string
-  encodeFunctionData(functionFragment: 'addPauser', values: [string]): string
-  encodeFunctionData(
-    functionFragment: 'addToWhitelist',
-    values: [string]
   ): string
   encodeFunctionData(
     functionFragment: 'allowance',
@@ -118,10 +98,6 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'feeDivisors',
-    values: [BigNumberish]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'feeStructure',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -144,27 +120,24 @@ interface XKNCInterface extends ethers.utils.Interface {
     functionFragment: 'increaseAllowance',
     values: [string, BigNumberish]
   ): string
-  encodeFunctionData(functionFragment: 'isOwner', values?: undefined): string
-  encodeFunctionData(functionFragment: 'isPauser', values: [string]): string
   encodeFunctionData(
-    functionFragment: 'isWhitelisted',
-    values: [string]
-  ): string
-  encodeFunctionData(functionFragment: 'knc', values?: undefined): string
-  encodeFunctionData(functionFragment: 'kyberDao', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'kyberFeeHandlers',
-    values: [BigNumberish]
-  ): string
-  encodeFunctionData(functionFragment: 'kyberProxy', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'kyberStaking',
-    values?: undefined
+    functionFragment: 'initialize',
+    values: [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
   ): string
   encodeFunctionData(functionFragment: 'mandate', values?: undefined): string
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
-    functionFragment: 'mintWithKnc',
+    functionFragment: 'mintWithToken',
     values: [BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
@@ -172,21 +145,15 @@ interface XKNCInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'pause', values?: undefined): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'removefromWhitelist',
-    values: [string]
-  ): string
-  encodeFunctionData(
     functionFragment: 'renounceOwnership',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'renouncePauser',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'setFeeDivisors',
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'setManager', values: [string]): string
+  encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'totalSupply',
@@ -219,16 +186,7 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): string
 
   decodeFunctionResult(
-    functionFragment: 'addFallbackAllowedAddress',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'addKyberFeeHandler',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'addPauser', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'addToWhitelist',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
@@ -251,10 +209,6 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
   decodeFunctionResult(
-    functionFragment: 'feeStructure',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'getAvailableKncBalanceTwei',
     data: BytesLike
   ): Result
@@ -271,46 +225,27 @@ interface XKNCInterface extends ethers.utils.Interface {
     functionFragment: 'increaseAllowance',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'isOwner', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'isPauser', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'isWhitelisted',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'knc', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'kyberDao', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'kyberFeeHandlers',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'kyberProxy', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'kyberStaking',
-    data: BytesLike
-  ): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mandate', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'mintWithKnc', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'mintWithToken',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
   decodeFunctionResult(
-    functionFragment: 'removefromWhitelist',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'renounceOwnership',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'renouncePauser',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'setFeeDivisors',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
@@ -334,38 +269,18 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): Result
 
   events: {
-    'AddedToWhitelist(address)': EventFragment
     'Approval(address,address,uint256)': EventFragment
-    'Burn(address,bool,uint256,uint256)': EventFragment
-    'EthRewardClaimed(uint256,uint256)': EventFragment
     'FeeDivisorsSet(uint256,uint256,uint256)': EventFragment
-    'FeeWithdraw(uint256,uint256,uint256)': EventFragment
-    'MintWithEth(address,uint256,uint256,uint256)': EventFragment
-    'MintWithKnc(address,uint256,uint256,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
-    'PauserAdded(address)': EventFragment
-    'PauserRemoved(address)': EventFragment
-    'RemovedFromWhitelist(address)': EventFragment
-    'TokenRewardClaimed(uint256,uint256)': EventFragment
     'Transfer(address,address,uint256)': EventFragment
     'Unpaused(address)': EventFragment
   }
 
-  getEvent(nameOrSignatureOrTopic: 'AddedToWhitelist'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'EthRewardClaimed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FeeDivisorsSet'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'FeeWithdraw'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'MintWithEth'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'MintWithKnc'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PauserAdded'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PauserRemoved'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'RemovedFromWhitelist'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'TokenRewardClaimed'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
 }
@@ -384,16 +299,6 @@ export class XKNC extends Contract {
   interface: XKNCInterface
 
   functions: {
-    addFallbackAllowedAddress(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'addFallbackAllowedAddress(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     addKyberFeeHandler(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
@@ -403,26 +308,6 @@ export class XKNC extends Contract {
     'addKyberFeeHandler(address,address)'(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    addPauser(
-      account: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'addPauser(address)'(
-      account: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    addToWhitelist(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'addToWhitelist(address)'(
-      _address: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -526,16 +411,6 @@ export class XKNC extends Contract {
     ): Promise<ContractTransaction>
 
     feeDivisors(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    'feeDivisors(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    feeStructure(
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -545,7 +420,7 @@ export class XKNC extends Contract {
       }
     >
 
-    'feeStructure()'(
+    'feeDivisors()'(
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -591,52 +466,31 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    isOwner(overrides?: CallOverrides): Promise<[boolean]>
+    initialize(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
-    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
-
-    isPauser(account: string, overrides?: CallOverrides): Promise<[boolean]>
-
-    'isPauser(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    isWhitelisted(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    'isWhitelisted(address)'(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    knc(overrides?: CallOverrides): Promise<[string]>
-
-    'knc()'(overrides?: CallOverrides): Promise<[string]>
-
-    kyberDao(overrides?: CallOverrides): Promise<[string]>
-
-    'kyberDao()'(overrides?: CallOverrides): Promise<[string]>
-
-    kyberFeeHandlers(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>
-
-    'kyberFeeHandlers(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>
-
-    kyberProxy(overrides?: CallOverrides): Promise<[string]>
-
-    'kyberProxy()'(overrides?: CallOverrides): Promise<[string]>
-
-    kyberStaking(overrides?: CallOverrides): Promise<[string]>
-
-    'kyberStaking()'(overrides?: CallOverrides): Promise<[string]>
+    'initialize(string,string,address,address,address,address,uint256,uint256,uint256)'(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     mandate(overrides?: CallOverrides): Promise<[string]>
 
@@ -652,12 +506,12 @@ export class XKNC extends Contract {
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    mintWithKnc(
+    mintWithToken(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'mintWithKnc(uint256)'(
+    'mintWithToken(uint256)'(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
@@ -678,23 +532,9 @@ export class XKNC extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    removefromWhitelist(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'removefromWhitelist(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
-
-    renouncePauser(overrides?: Overrides): Promise<ContractTransaction>
-
-    'renouncePauser()'(overrides?: Overrides): Promise<ContractTransaction>
 
     setFeeDivisors(
       _mintFee: BigNumberish,
@@ -707,6 +547,26 @@ export class XKNC extends Contract {
       _mintFee: BigNumberish,
       _burnFee: BigNumberish,
       _claimFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setManager(address)'(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setManager2(
+      _manager2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -789,16 +649,6 @@ export class XKNC extends Contract {
     'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
   }
 
-  addFallbackAllowedAddress(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'addFallbackAllowedAddress(address)'(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   addKyberFeeHandler(
     _kyberfeeHandlerAddress: string,
     _tokenAddress: string,
@@ -808,26 +658,6 @@ export class XKNC extends Contract {
   'addKyberFeeHandler(address,address)'(
     _kyberfeeHandlerAddress: string,
     _tokenAddress: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  addPauser(
-    account: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'addPauser(address)'(
-    account: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  addToWhitelist(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'addToWhitelist(address)'(
-    _address: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -930,14 +760,7 @@ export class XKNC extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  feeDivisors(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
-
-  'feeDivisors(uint256)'(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  feeStructure(
+  feeDivisors(
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -947,7 +770,7 @@ export class XKNC extends Contract {
     }
   >
 
-  'feeStructure()'(
+  'feeDivisors()'(
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
@@ -988,49 +811,31 @@ export class XKNC extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  isOwner(overrides?: CallOverrides): Promise<boolean>
+  initialize(
+    _symbol: string,
+    _mandate: string,
+    _kyberStaking: string,
+    _kyberProxy: string,
+    _knc: string,
+    _kyberDao: string,
+    mintFee: BigNumberish,
+    burnFee: BigNumberish,
+    claimFee: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
-  'isOwner()'(overrides?: CallOverrides): Promise<boolean>
-
-  isPauser(account: string, overrides?: CallOverrides): Promise<boolean>
-
-  'isPauser(address)'(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>
-
-  isWhitelisted(_address: string, overrides?: CallOverrides): Promise<boolean>
-
-  'isWhitelisted(address)'(
-    _address: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>
-
-  knc(overrides?: CallOverrides): Promise<string>
-
-  'knc()'(overrides?: CallOverrides): Promise<string>
-
-  kyberDao(overrides?: CallOverrides): Promise<string>
-
-  'kyberDao()'(overrides?: CallOverrides): Promise<string>
-
-  kyberFeeHandlers(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>
-
-  'kyberFeeHandlers(uint256)'(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>
-
-  kyberProxy(overrides?: CallOverrides): Promise<string>
-
-  'kyberProxy()'(overrides?: CallOverrides): Promise<string>
-
-  kyberStaking(overrides?: CallOverrides): Promise<string>
-
-  'kyberStaking()'(overrides?: CallOverrides): Promise<string>
+  'initialize(string,string,address,address,address,address,uint256,uint256,uint256)'(
+    _symbol: string,
+    _mandate: string,
+    _kyberStaking: string,
+    _kyberProxy: string,
+    _knc: string,
+    _kyberDao: string,
+    mintFee: BigNumberish,
+    burnFee: BigNumberish,
+    claimFee: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   mandate(overrides?: CallOverrides): Promise<string>
 
@@ -1046,12 +851,12 @@ export class XKNC extends Contract {
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  mintWithKnc(
+  mintWithToken(
     kncAmountTwei: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'mintWithKnc(uint256)'(
+  'mintWithToken(uint256)'(
     kncAmountTwei: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
@@ -1072,23 +877,9 @@ export class XKNC extends Contract {
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-  removefromWhitelist(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'removefromWhitelist(address)'(
-    _address: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
   'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
-
-  renouncePauser(overrides?: Overrides): Promise<ContractTransaction>
-
-  'renouncePauser()'(overrides?: Overrides): Promise<ContractTransaction>
 
   setFeeDivisors(
     _mintFee: BigNumberish,
@@ -1101,6 +892,26 @@ export class XKNC extends Contract {
     _mintFee: BigNumberish,
     _burnFee: BigNumberish,
     _claimFee: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setManager(
+    _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setManager(address)'(
+    _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setManager2(
+    _manager2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setManager2(address)'(
+    _manager2: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1183,16 +994,6 @@ export class XKNC extends Contract {
   'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
   callStatic: {
-    addFallbackAllowedAddress(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'addFallbackAllowedAddress(address)'(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     addKyberFeeHandler(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
@@ -1202,20 +1003,6 @@ export class XKNC extends Contract {
     'addKyberFeeHandler(address,address)'(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    addPauser(account: string, overrides?: CallOverrides): Promise<void>
-
-    'addPauser(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    addToWhitelist(_address: string, overrides?: CallOverrides): Promise<void>
-
-    'addToWhitelist(address)'(
-      _address: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1319,16 +1106,6 @@ export class XKNC extends Contract {
     ): Promise<boolean>
 
     feeDivisors(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'feeDivisors(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    feeStructure(
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -1338,7 +1115,7 @@ export class XKNC extends Contract {
       }
     >
 
-    'feeStructure()'(
+    'feeDivisors()'(
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -1384,49 +1161,31 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
-    isOwner(overrides?: CallOverrides): Promise<boolean>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<boolean>
-
-    isPauser(account: string, overrides?: CallOverrides): Promise<boolean>
-
-    'isPauser(address)'(
-      account: string,
+    initialize(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
 
-    isWhitelisted(_address: string, overrides?: CallOverrides): Promise<boolean>
-
-    'isWhitelisted(address)'(
-      _address: string,
+    'initialize(string,string,address,address,address,address,uint256,uint256,uint256)'(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<boolean>
-
-    knc(overrides?: CallOverrides): Promise<string>
-
-    'knc()'(overrides?: CallOverrides): Promise<string>
-
-    kyberDao(overrides?: CallOverrides): Promise<string>
-
-    'kyberDao()'(overrides?: CallOverrides): Promise<string>
-
-    kyberFeeHandlers(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>
-
-    'kyberFeeHandlers(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>
-
-    kyberProxy(overrides?: CallOverrides): Promise<string>
-
-    'kyberProxy()'(overrides?: CallOverrides): Promise<string>
-
-    kyberStaking(overrides?: CallOverrides): Promise<string>
-
-    'kyberStaking()'(overrides?: CallOverrides): Promise<string>
+    ): Promise<void>
 
     mandate(overrides?: CallOverrides): Promise<string>
 
@@ -1439,12 +1198,12 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    mintWithKnc(
+    mintWithToken(
       kncAmountTwei: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'mintWithKnc(uint256)'(
+    'mintWithToken(uint256)'(
       kncAmountTwei: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
@@ -1465,23 +1224,9 @@ export class XKNC extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-    removefromWhitelist(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'removefromWhitelist(address)'(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
     'renounceOwnership()'(overrides?: CallOverrides): Promise<void>
-
-    renouncePauser(overrides?: CallOverrides): Promise<void>
-
-    'renouncePauser()'(overrides?: CallOverrides): Promise<void>
 
     setFeeDivisors(
       _mintFee: BigNumberish,
@@ -1494,6 +1239,20 @@ export class XKNC extends Contract {
       _mintFee: BigNumberish,
       _burnFee: BigNumberish,
       _claimFee: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setManager(_manager: string, overrides?: CallOverrides): Promise<void>
+
+    'setManager(address)'(
+      _manager: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setManager2(_manager2: string, overrides?: CallOverrides): Promise<void>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1577,40 +1336,13 @@ export class XKNC extends Contract {
   }
 
   filters: {
-    AddedToWhitelist(account: string | null): EventFilter
-
     Approval(
       owner: string | null,
       spender: string | null,
       value: null
     ): EventFilter
 
-    Burn(
-      user: string | null,
-      redeemedForKnc: null,
-      burnAmount: null,
-      timestamp: null
-    ): EventFilter
-
-    EthRewardClaimed(amount: null, timestamp: null): EventFilter
-
     FeeDivisorsSet(mintFee: null, burnFee: null, claimFee: null): EventFilter
-
-    FeeWithdraw(ethAmount: null, kncAmount: null, timestamp: null): EventFilter
-
-    MintWithEth(
-      user: string | null,
-      ethPayable: null,
-      mintAmount: null,
-      timestamp: null
-    ): EventFilter
-
-    MintWithKnc(
-      user: string | null,
-      kncPayable: null,
-      mintAmount: null,
-      timestamp: null
-    ): EventFilter
 
     OwnershipTransferred(
       previousOwner: string | null,
@@ -1619,30 +1351,12 @@ export class XKNC extends Contract {
 
     Paused(account: null): EventFilter
 
-    PauserAdded(account: string | null): EventFilter
-
-    PauserRemoved(account: string | null): EventFilter
-
-    RemovedFromWhitelist(account: string | null): EventFilter
-
-    TokenRewardClaimed(amount: null, timestamp: null): EventFilter
-
     Transfer(from: string | null, to: string | null, value: null): EventFilter
 
     Unpaused(account: null): EventFilter
   }
 
   estimateGas: {
-    addFallbackAllowedAddress(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'addFallbackAllowedAddress(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     addKyberFeeHandler(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
@@ -1652,20 +1366,6 @@ export class XKNC extends Contract {
     'addKyberFeeHandler(address,address)'(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    addPauser(account: string, overrides?: Overrides): Promise<BigNumber>
-
-    'addPauser(address)'(
-      account: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    addToWhitelist(_address: string, overrides?: Overrides): Promise<BigNumber>
-
-    'addToWhitelist(address)'(
-      _address: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -1768,19 +1468,9 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    feeDivisors(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
+    feeDivisors(overrides?: CallOverrides): Promise<BigNumber>
 
-    'feeDivisors(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    feeStructure(overrides?: CallOverrides): Promise<BigNumber>
-
-    'feeStructure()'(overrides?: CallOverrides): Promise<BigNumber>
+    'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getAvailableKncBalanceTwei(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1818,52 +1508,31 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    isOwner(overrides?: CallOverrides): Promise<BigNumber>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    isPauser(account: string, overrides?: CallOverrides): Promise<BigNumber>
-
-    'isPauser(address)'(
-      account: string,
-      overrides?: CallOverrides
+    initialize(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
     ): Promise<BigNumber>
 
-    isWhitelisted(
-      _address: string,
-      overrides?: CallOverrides
+    'initialize(string,string,address,address,address,address,uint256,uint256,uint256)'(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
     ): Promise<BigNumber>
-
-    'isWhitelisted(address)'(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    knc(overrides?: CallOverrides): Promise<BigNumber>
-
-    'knc()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    kyberDao(overrides?: CallOverrides): Promise<BigNumber>
-
-    'kyberDao()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    kyberFeeHandlers(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'kyberFeeHandlers(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    kyberProxy(overrides?: CallOverrides): Promise<BigNumber>
-
-    'kyberProxy()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    kyberStaking(overrides?: CallOverrides): Promise<BigNumber>
-
-    'kyberStaking()'(overrides?: CallOverrides): Promise<BigNumber>
 
     mandate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1879,12 +1548,12 @@ export class XKNC extends Contract {
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    mintWithKnc(
+    mintWithToken(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'mintWithKnc(uint256)'(
+    'mintWithToken(uint256)'(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
@@ -1905,23 +1574,9 @@ export class XKNC extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    removefromWhitelist(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'removefromWhitelist(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<BigNumber>
-
-    renouncePauser(overrides?: Overrides): Promise<BigNumber>
-
-    'renouncePauser()'(overrides?: Overrides): Promise<BigNumber>
 
     setFeeDivisors(
       _mintFee: BigNumberish,
@@ -1934,6 +1589,20 @@ export class XKNC extends Contract {
       _mintFee: BigNumberish,
       _burnFee: BigNumberish,
       _claimFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setManager(_manager: string, overrides?: Overrides): Promise<BigNumber>
+
+    'setManager(address)'(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setManager2(_manager2: string, overrides?: Overrides): Promise<BigNumber>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2017,16 +1686,6 @@ export class XKNC extends Contract {
   }
 
   populateTransaction: {
-    addFallbackAllowedAddress(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'addFallbackAllowedAddress(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     addKyberFeeHandler(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
@@ -2036,26 +1695,6 @@ export class XKNC extends Contract {
     'addKyberFeeHandler(address,address)'(
       _kyberfeeHandlerAddress: string,
       _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    addPauser(
-      account: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'addPauser(address)'(
-      account: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    addToWhitelist(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'addToWhitelist(address)'(
-      _address: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -2161,19 +1800,9 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    feeDivisors(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
+    feeDivisors(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    'feeDivisors(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    feeStructure(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'feeStructure()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getAvailableKncBalanceTwei(
       overrides?: CallOverrides
@@ -2221,55 +1850,31 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    isOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    isPauser(
-      account: string,
-      overrides?: CallOverrides
+    initialize(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'isPauser(address)'(
-      account: string,
-      overrides?: CallOverrides
+    'initialize(string,string,address,address,address,address,uint256,uint256,uint256)'(
+      _symbol: string,
+      _mandate: string,
+      _kyberStaking: string,
+      _kyberProxy: string,
+      _knc: string,
+      _kyberDao: string,
+      mintFee: BigNumberish,
+      burnFee: BigNumberish,
+      claimFee: BigNumberish,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
-
-    isWhitelisted(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'isWhitelisted(address)'(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    knc(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'knc()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    kyberDao(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'kyberDao()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    kyberFeeHandlers(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'kyberFeeHandlers(uint256)'(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    kyberProxy(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'kyberProxy()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    kyberStaking(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'kyberStaking()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     mandate(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -2285,12 +1890,12 @@ export class XKNC extends Contract {
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    mintWithKnc(
+    mintWithToken(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'mintWithKnc(uint256)'(
+    'mintWithToken(uint256)'(
       kncAmountTwei: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
@@ -2311,23 +1916,9 @@ export class XKNC extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    removefromWhitelist(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'removefromWhitelist(address)'(
-      _address: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    renouncePauser(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    'renouncePauser()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     setFeeDivisors(
       _mintFee: BigNumberish,
@@ -2340,6 +1931,26 @@ export class XKNC extends Contract {
       _mintFee: BigNumberish,
       _burnFee: BigNumberish,
       _claimFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setManager(address)'(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setManager2(
+      _manager2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
