@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ITokenPrices | xtoken-js</title>
+	<title>ITokenBalance | xtoken-js</title>
 	<meta name="description" content="Documentation for xtoken-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/xtoken_types.html">XToken Types</a>
 				</li>
 				<li>
-					<a href="xtoken_types.itokenprices.html">ITokenPrices</a>
+					<a href="xtoken_types.itokenbalance.html">ITokenBalance</a>
 				</li>
 			</ul>
-			<h1>Interface ITokenPrices</h1>
+			<h1>Interface ITokenBalance</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ITokenPrices</span>
+						<span class="target">ITokenBalance</span>
 					</li>
 				</ul>
 			</section>
@@ -83,11 +83,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenprices.html#aum" class="tsd-kind-icon">aum</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenprices.html#priceeth" class="tsd-kind-icon">price<wbr>Eth</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenprices.html#priceusd" class="tsd-kind-icon">price<wbr>Usd</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenprices.html#sellpriceeth" class="tsd-kind-icon">sell<wbr>Price<wbr>Eth</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenprices.html#sellpriceusd" class="tsd-kind-icon">sell<wbr>Price<wbr>Usd</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenbalance.html#amt" class="tsd-kind-icon">amt</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenbalance.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="xtoken_types.itokenbalance.html#val" class="tsd-kind-icon">val</a></li>
 							</ul>
 						</section>
 					</div>
@@ -96,52 +94,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="aum" class="tsd-anchor"></a>
-					<h3>aum</h3>
-					<div class="tsd-signature tsd-kind-icon">aum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="amt" class="tsd-anchor"></a>
+					<h3>amt</h3>
+					<div class="tsd-signature tsd-kind-icon">amt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L78">src/types/xToken.d.ts:78</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L49">src/types/xToken.d.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="priceeth" class="tsd-anchor"></a>
-					<h3>price<wbr>Eth</h3>
-					<div class="tsd-signature tsd-kind-icon">price<wbr>Eth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L79">src/types/xToken.d.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L50">src/types/xToken.d.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="priceusd" class="tsd-anchor"></a>
-					<h3>price<wbr>Usd</h3>
-					<div class="tsd-signature tsd-kind-icon">price<wbr>Usd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="val" class="tsd-anchor"></a>
+					<h3>val</h3>
+					<div class="tsd-signature tsd-kind-icon">val<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L80">src/types/xToken.d.ts:80</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sellpriceeth" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sell<wbr>Price<wbr>Eth</h3>
-					<div class="tsd-signature tsd-kind-icon">sell<wbr>Price<wbr>Eth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L81">src/types/xToken.d.ts:81</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sellpriceusd" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sell<wbr>Price<wbr>Usd</h3>
-					<div class="tsd-signature tsd-kind-icon">sell<wbr>Price<wbr>Usd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L82">src/types/xToken.d.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/7738858/src/types/xToken.d.ts#L51">src/types/xToken.d.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,33 +156,27 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="xtoken_types.iportfolioitem.html" class="tsd-kind-icon">IPortfolio<wbr>Item</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="xtoken_types.itokenbalance.html" class="tsd-kind-icon">IToken<wbr>Balance</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="xtoken_types.itokenprices.html" class="tsd-kind-icon">IToken<wbr>Prices</a>
+						<a href="xtoken_types.itokenbalance.html" class="tsd-kind-icon">IToken<wbr>Balance</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="xtoken_types.itokenprices.html#aum" class="tsd-kind-icon">aum</a>
+								<a href="xtoken_types.itokenbalance.html#amt" class="tsd-kind-icon">amt</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="xtoken_types.itokenprices.html#priceeth" class="tsd-kind-icon">price<wbr>Eth</a>
+								<a href="xtoken_types.itokenbalance.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="xtoken_types.itokenprices.html#priceusd" class="tsd-kind-icon">price<wbr>Usd</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="xtoken_types.itokenprices.html#sellpriceeth" class="tsd-kind-icon">sell<wbr>Price<wbr>Eth</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="xtoken_types.itokenprices.html#sellpriceusd" class="tsd-kind-icon">sell<wbr>Price<wbr>Usd</a>
+								<a href="xtoken_types.itokenbalance.html#val" class="tsd-kind-icon">val</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="xtoken_types.itokenprices.html" class="tsd-kind-icon">IToken<wbr>Prices</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/xtoken_types.html#icontracts" class="tsd-kind-icon">IContracts</a>
 					</li>

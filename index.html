@@ -70,8 +70,9 @@
 				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
 					<h2>Dependencies</h2>
 				</a>
-				<p>At the moment, xtoken-js requires to use <a href="https://www.npmjs.com/package/ethers">Ether.js</a> V5. In the future will add support for web3.js</p>
-				<pre><code class="language-sh"><span style="color: #000000">yarn add ethers</span>
+				<p>At the moment, <code>xtoken-js</code> requires using <a href="https://www.npmjs.com/package/xtoken-abis">xtoken-abis</a> and <a href="https://www.npmjs.com/package/ethers">Ether.js</a> v5.0.30</p>
+				<pre><code class="language-sh"><span style="color: #000000">yarn add xtoken-abis</span>
+<span style="color: #000000">yarn add ethers@5.0.30</span>
 </code></pre>
 				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
 					<h2>Documentation</h2>
@@ -81,6 +82,7 @@
 					<h2>Examples</h2>
 				</a>
 				<pre><code class="language-sh"><span style="color: #000000">import { ethers } from </span><span style="color: #A31515">&#039;ethers&#039;</span>
+<span style="color: #000000">import { X_KNC_A } from </span><span style="color: #A31515">&#039;xtoken-abis&#039;</span>
 <span style="color: #000000">import { XToken } from </span><span style="color: #A31515">&#039;xtoken-js&#039;</span>
 
 <span style="color: #000000">// Setup provider</span>
@@ -90,7 +92,7 @@
 <span style="color: #000000">const xToken = new XToken(provider)</span>
 
 <span style="color: #000000">// Calculate expected mint quantity </span><span style="color: #AF00DB">for</span><span style="color: #000000"> tokens</span>
-<span style="color: #000000">const expectedQty = await xToken.getExpectedQuantityOnMint(</span><span style="color: #A31515">&#039;xKNCa&#039;</span><span style="color: #000000">, true, </span><span style="color: #A31515">&#039;1&#039;</span><span style="color: #000000">) // args: </span><span style="color: #A31515">`symbol`</span><span style="color: #000000">, </span><span style="color: #A31515">`tradeWithEth`</span><span style="color: #000000"> &amp; </span><span style="color: #A31515">`amount`</span>
+<span style="color: #000000">const expectedQty = await xToken.getExpectedQuantityOnMint(X_KNC_A, true, </span><span style="color: #A31515">&#039;1&#039;</span><span style="color: #000000">) // args: </span><span style="color: #A31515">`symbol`</span><span style="color: #000000">, </span><span style="color: #A31515">`tradeWithEth`</span><span style="color: #000000"> &amp; </span><span style="color: #A31515">`amount`</span>
 </code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
@@ -131,12 +133,22 @@
 				<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">TypeDoc</a>.</p>
 				<pre><code class="language-sh"><span style="color: #000000">yarn doc</span>
 </code></pre>
-				<p>This command generates API documentation in HTML format and opens it in a browser.</p>
+				<p>This command generates the library documentation in HTML format and opens it in a browser.</p>
 				<p>Since types are tracked by Typescript, there&#39;s no need to indicate types in JSDoc format. For more information, see the <a href="http://typedoc.org/guides/doccomments/">TypeDoc documentation</a>.</p>
 				<p>To generate and publish documentation to <a href="https://pages.github.com/">GitHub Pages</a> use the following command:</p>
 				<pre><code class="language-sh"><span style="color: #000000">yarn doc:publish</span>
 </code></pre>
-				<p>Once published, documentation should be available at the proper GitHub Pages URL for your repo.</p>
+				<p>Once published, documentation should be available at the <a href="https://xtokenmarket.github.io/xtoken-js/">GitHub Pages</a></p>
+				<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
+					<h2>Publishing</h2>
+				</a>
+				<p>Before publishing the package to NPM, <code>prepare-release</code> command builds, runs the tests, increases the package version automatically and publishes the docs to GitHub Pages.</p>
+				<pre><code class="language-sh"><span style="color: #000000">yarn prepare-release</span>
+</code></pre>
+				<p>Once the above command runs successfully, you should then execute the below command which will tag the release version and publish the build to NPM.</p>
+				<p><strong>Note: Before publishing the package, ensure that the <code>package.json</code> has the <code>version</code> field incremented and also the <code>build</code> folder has the compiled code.</strong></p>
+				<pre><code class="language-sh"><span style="color: #000000">git push --follow-tags origin main &amp;&amp; npm publish</span>
+</code></pre>
 				<p>Created using <a href="https://github.com/bitjson/typescript-starter">typescript-starter</a></p>
 			</div>
 		</div>
