@@ -4,7 +4,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import { AAVE, ADDRESSES, ETH } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getExpectedRate, parseFees } from '../utils'
@@ -55,6 +55,7 @@ export const getExpectedQuantityOnMintXAave = async (
 
   if (tradeWithEth) {
     const expectedRate = await getExpectedRate(
+      Exchange.INCH,
       kyberProxyContract,
       ethAddress,
       aaveAddress,
@@ -87,6 +88,7 @@ export const mintXAave = async (
 
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
+      Exchange.INCH,
       kyberProxyContract,
       ADDRESSES[ETH] as string,
       tokenContract.address,

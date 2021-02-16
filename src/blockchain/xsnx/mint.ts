@@ -3,7 +3,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
 import { ADDRESSES, ETH, SNX } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { XSNX } from '../../types'
 import { getExpectedRate, parseFees } from '../utils'
 
@@ -44,6 +44,7 @@ export const getExpectedQuantityOnMintXSnx = async (
   if (tradeWithEth) {
     const ethContributed = inputAmount.mul(MINT_FEE).div(DEC_18)
     const expectedRate = await getExpectedRate(
+      Exchange.INCH,
       kyberProxyContract,
       ADDRESSES[ETH] as string,
       ADDRESSES[SNX][chainId],
@@ -90,6 +91,7 @@ export const mintXSnx = async (
 
   if (tradeWithEth) {
     const minRate = await getExpectedRate(
+      Exchange.INCH,
       kyberProxyContract,
       ADDRESSES[ETH] as string,
       tokenContract.address,

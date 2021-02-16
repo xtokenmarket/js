@@ -29,7 +29,7 @@ import {
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
 
-import { INCH_API_URL } from '../constants'
+import { Exchange, INCH_API_URL } from '../constants'
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
@@ -122,16 +122,16 @@ export const getContract = (
 }
 
 export const getExpectedRate = async (
+  exchange: Exchange,
   kyberProxyContract: KyberProxy,
   inputAsset: string,
   outputAsset: string,
   amount: BigNumber,
   isMinRate = false
 ) => {
-  let expectedRate: BigNumber
+  let expectedRate = BigNumber.from('0')
 
-  // Fallback to Kyber, if 1Inch API fails
-  try {
+  if (exchange === Exchange.INCH) {
     const res = await superagent.get(
       `${INCH_API_URL}?fromTokenAddress=${inputAsset}&toTokenAddress=${outputAsset}&amount=${parseEther(
         '1'
@@ -145,10 +145,7 @@ export const getExpectedRate = async (
 
     const inchExpectedRate = toTokenAmount / 10 ** decimals
     expectedRate = parseEther(inchExpectedRate.toString())
-  } catch (e) {
-    // Error
-    console.error(e)
-
+  } else if (exchange === Exchange.KYBER) {
     expectedRate = (
       await kyberProxyContract.getExpectedRate(inputAsset, outputAsset, amount)
     ).expectedRate

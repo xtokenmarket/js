@@ -2,7 +2,7 @@ import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 import { ADDRESSES, ETH, USDC } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -65,12 +65,19 @@ export const getXKncPrices = async (
     xkncContract.totalSupply(),
     xkncContract.getFundKncBalanceTwei(),
     getExpectedRate(
+      Exchange.KYBER,
       kyberProxyContract,
       kncContract.address,
       usdcAddress,
       proxyValue
     ),
-    getExpectedRate(kyberProxyContract, ethAddress, usdcAddress, proxyValue),
+    getExpectedRate(
+      Exchange.INCH,
+      kyberProxyContract,
+      ethAddress,
+      usdcAddress,
+      proxyValue
+    ),
   ])
 
   const priceUsd = xkncKncBal.mul(kncUsdRate).div(xkncTotalSupply)
