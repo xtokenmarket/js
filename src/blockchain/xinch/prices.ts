@@ -1,7 +1,7 @@
 import { formatEther, parseEther } from 'ethers/lib/utils'
 import { ADDRESSES, ETH, INCH, USDC } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { KyberProxy, XINCH } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -60,8 +60,20 @@ export const getXInchPrices = async (
   ] = await Promise.all([
     xinchContract.totalSupply(),
     xinchContract.getNav(),
-    getExpectedRate(kyberProxyContract, inchAddress, usdcAddress, proxyValue),
-    getExpectedRate(kyberProxyContract, ethAddress, usdcAddress, proxyValue),
+    getExpectedRate(
+      Exchange.INCH,
+      kyberProxyContract,
+      inchAddress,
+      usdcAddress,
+      proxyValue
+    ),
+    getExpectedRate(
+      Exchange.INCH,
+      kyberProxyContract,
+      ethAddress,
+      usdcAddress,
+      proxyValue
+    ),
   ])
 
   const inchPerToken = inchHoldings.mul(DEC_18).div(xinchTotalSupply)

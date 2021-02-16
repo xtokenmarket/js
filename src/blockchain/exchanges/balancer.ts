@@ -21,7 +21,7 @@ import {
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import {
   BalancerPool,
   ExchangeRates,
@@ -164,6 +164,7 @@ const getBalances = async (
   const xTokenBalance = await xTokenContract.balanceOf(balancerPoolAddress)
 
   const ethPrice = await getExpectedRate(
+    Exchange.INCH,
     kyberProxyContract,
     ethAddress,
     usdcAddress,
@@ -257,6 +258,7 @@ export const getBalancerPortfolioItem = async (
       )
       tokenPrice = priceUsd
       underlyingPrice = await getExpectedRate(
+        Exchange.INCH,
         kyberProxyContract,
         underlyingAddress, // SNX
         usdcAddress,
@@ -273,6 +275,7 @@ export const getBalancerPortfolioItem = async (
       )
       tokenPrice = priceUsd
       underlyingPrice = await getExpectedRate(
+        Exchange.INCH,
         kyberProxyContract,
         underlyingAddress, // AAVE
         usdcAddress,
@@ -290,6 +293,7 @@ export const getBalancerPortfolioItem = async (
       tokenPrice = priceUsd
 
       underlyingPrice = await getExpectedRate(
+        Exchange.INCH,
         kyberProxyContract,
         underlyingAddress, // AAVE
         usdcAddress,

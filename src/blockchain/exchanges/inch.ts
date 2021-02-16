@@ -10,7 +10,7 @@ import {
   X_INCH_B,
 } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
 import { ILiquidityPoolItem, ITokenSymbols } from '../../types/xToken'
 import {
@@ -43,6 +43,7 @@ const getBalances = async (
   const xTokenBalance = await xTokenContract.balanceOf(inchPoolAddress)
 
   const ethPrice = await getExpectedRate(
+    Exchange.INCH,
     kyberProxyContract,
     ethAddress,
     usdcAddress,

@@ -1,7 +1,7 @@
 import { formatEther, parseEther } from 'ethers/lib/utils'
 import { AAVE, ADDRESSES, ETH, USDC } from 'xtoken-abis'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, Exchange } from '../../constants'
 import { KyberProxy, XAAVE } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -60,8 +60,20 @@ export const getXAavePrices = async (
   ] = await Promise.all([
     xaaveContract.totalSupply(),
     xaaveContract.getFundHoldings(),
-    getExpectedRate(kyberProxyContract, aaveAddress, usdcAddress, proxyValue),
-    getExpectedRate(kyberProxyContract, ethAddress, usdcAddress, proxyValue),
+    getExpectedRate(
+      Exchange.INCH,
+      kyberProxyContract,
+      aaveAddress,
+      usdcAddress,
+      proxyValue
+    ),
+    getExpectedRate(
+      Exchange.INCH,
+      kyberProxyContract,
+      ethAddress,
+      usdcAddress,
+      proxyValue
+    ),
   ])
 
   const xaavePerToken = xaaveAaveBal.mul(DEC_18).div(xaaveTotalSupply)
