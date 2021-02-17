@@ -21,6 +21,7 @@ import {
   X_INCH_A,
   X_INCH_B,
   INCH_LIQUIDITY_PROTOCOL,
+  UNISWAP_V2_PAIR,
 } from 'xtoken-abis'
 
 export type IContracts =
@@ -32,6 +33,7 @@ export type IContracts =
   | typeof KYBER_PROXY
   | typeof SNX
   | typeof TRADE_ACCOUNTING
+  | typeof UNISWAP_V2_PAIR
   | ITokenSymbols
 
 export type ITokenSymbols =

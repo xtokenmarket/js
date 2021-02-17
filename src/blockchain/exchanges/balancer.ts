@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract, ethers } from 'ethers'
 import {
@@ -46,6 +45,8 @@ import {
 } from '../utils'
 import { getXAavePrices } from '../xaave'
 import { getXSnxPrices } from '../xsnx'
+
+import { getBalances } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
 
@@ -126,76 +127,6 @@ export const getBalancerEstimatedQuantity = async (
     formatEther(calcOutGivenIn),
     tradeType === BUY ? 0 : 3
   ).toString()
-}
-
-const getBalances = async (
-  symbol: ITokenSymbols,
-  balancerPoolAddress: string,
-  tokenPrice: number,
-  underlyingPrice: BigNumber,
-  kyberProxyContract: KyberProxy,
-  provider: JsonRpcProvider,
-  chainId: number
-) => {
-  const tokenSymbol = getTokenSymbol(symbol)
-  const underlying = tokenSymbol.toUpperCase()
-
-  // Addresses
-  const ethAddress = ADDRESSES[ETH] as string
-  const underlyingAddress = ADDRESSES[tokenSymbol][chainId]
-  const usdcAddress = ADDRESSES[USDC][chainId]
-  const wethAddress = ADDRESSES[WETH][chainId]
-  const xTokenAddress = ADDRESSES[symbol][chainId]
-
-  // Contracts
-  const underlyingContract = new ethers.Contract(
-    underlyingAddress,
-    Abi.ERC20,
-    provider
-  )
-  const wethContract = new ethers.Contract(wethAddress, Abi.ERC20, provider)
-  const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
-
-  // Balances
-  const underlyingBalance = await underlyingContract.balanceOf(
-    balancerPoolAddress
-  )
-  const wethBalance = await wethContract.balanceOf(balancerPoolAddress)
-  const xTokenBalance = await xTokenContract.balanceOf(balancerPoolAddress)
-
-  const ethPrice = await getExpectedRate(
-    Exchange.INCH,
-    kyberProxyContract,
-    ethAddress,
-    usdcAddress,
-    parseEther('0.1')
-  )
-
-  const ethVal = wethBalance.mul(ethPrice).div(DEC_18)
-  const tokenVal = xTokenBalance
-    .mul(parseEther(tokenPrice.toString()))
-    .div(DEC_18)
-  const underlyingVal = underlyingBalance.mul(underlyingPrice).div(DEC_18)
-  const totalVal = ethVal.add(tokenVal).add(underlyingVal)
-
-  return {
-    totalVal: formatEther(totalVal),
-    token: {
-      name: symbol,
-      amt: formatEther(xTokenBalance),
-      val: formatEther(tokenVal),
-    },
-    underlying: {
-      name: underlying,
-      amt: formatEther(underlyingBalance),
-      val: formatEther(underlyingVal),
-    },
-    eth: {
-      name: ETH.toUpperCase(),
-      amt: formatEther(wethBalance),
-      val: formatEther(ethVal),
-    },
-  }
 }
 
 export const getBalancerPortfolioItem = async (
@@ -309,10 +240,11 @@ export const getBalancerPortfolioItem = async (
     symbol,
     balancerPoolAddress,
     tokenPrice,
-    underlyingPrice,
     kyberProxyContract,
     provider,
-    chainId
+    chainId,
+    underlyingPrice,
+    true
   )
 
   const bptTokenSupply = await balancerPoolContract.totalSupply()

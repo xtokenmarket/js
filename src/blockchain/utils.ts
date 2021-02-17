@@ -15,6 +15,7 @@ import {
   SNX,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
+  UNISWAP_V2_PAIR,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
@@ -24,7 +25,9 @@ import {
   X_INCH_B,
   X_INCH_B_INCH_POOL,
   X_KNC_A,
+  X_KNC_A_UNISWAP_POOL,
   X_KNC_B,
+  X_KNC_B_UNISWAP_POOL,
   X_SNX_A,
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
@@ -51,6 +54,8 @@ const getAbi = (contractName: IContracts) => {
       return Abi.Synthetix as ContractInterface
     case TRADE_ACCOUNTING:
       return Abi.TradeAccounting as ContractInterface
+    case UNISWAP_V2_PAIR:
+      return Abi.UniswapV2Pair as ContractInterface
     case X_AAVE_A:
     case X_AAVE_B:
       return Abi.xAAVE as ContractInterface
@@ -249,6 +254,40 @@ export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
   return new ethers.Contract(
     address,
     Abi.ExchangeRates,
+    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+  )
+}
+
+export const getUniswapPoolAddress = (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  chainId: number
+) => {
+  let address
+  switch (symbol) {
+    case X_KNC_A:
+      address = ADDRESSES[X_KNC_A_UNISWAP_POOL][chainId]
+      break
+    case X_KNC_B:
+      address = ADDRESSES[X_KNC_B_UNISWAP_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+
+export const getUniswapPoolContract = (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  provider: JsonRpcProvider,
+  chainId: number
+) => {
+  if (!provider || !symbol) return null
+
+  const address = getUniswapPoolAddress(symbol, chainId) as string
+
+  return new ethers.Contract(
+    address,
+    Abi.UniswapV2Pair,
     process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
   )
 }

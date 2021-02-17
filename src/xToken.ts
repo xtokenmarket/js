@@ -17,6 +17,7 @@ import {
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
 import { getInchPortfolioItem } from './blockchain/exchanges/inch'
+import { getUniswapPortfolioItem } from './blockchain/exchanges/uniswap'
 import {
   approveXAave,
   burnXAave,
@@ -324,6 +325,8 @@ export class XToken {
       getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
       getInchPortfolioItem(X_INCH_A, address, this.provider),
       getInchPortfolioItem(X_INCH_B, address, this.provider),
+      getUniswapPortfolioItem(X_KNC_A, address, this.provider),
+      getUniswapPortfolioItem(X_KNC_B, address, this.provider),
     ])
   }
 
