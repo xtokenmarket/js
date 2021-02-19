@@ -9,7 +9,6 @@ import {
   KYBER_PROXY,
   SNX,
   TRADE_ACCOUNTING,
-  USDC,
   WETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
@@ -20,7 +19,7 @@ import {
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18 } from '../../constants'
 import {
   BalancerPool,
   ExchangeRates,
@@ -40,19 +39,19 @@ import {
   getBalancerPoolContract,
   getContract,
   getExchangeRateContract,
-  getExpectedRate,
   getTokenSymbol,
 } from '../utils'
 import { getXAavePrices } from '../xaave'
 import { getXSnxPrices } from '../xsnx'
 
 import { getBalances } from './helper'
+import { getEthTokenPrice, getEthUsdcPrice } from './uniswap'
 
 const { formatEther, parseEther } = ethers.utils
 
 export const getBalancerEstimatedQuantity = async (
-  tokenIn: typeof ETH | ITokenSymbols,
-  symbol: ITokenSymbols,
+  tokenIn: typeof ETH | typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
+  symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
   amount: string,
   tradeType: ITradeType,
   provider: JsonRpcProvider
@@ -145,7 +144,6 @@ export const getBalancerPortfolioItem = async (
   const balancerPoolAddress = getBalancerPoolAddress(symbol, chainId) as string
   const xTokenAddress = ADDRESSES[symbol][chainId]
   const underlyingAddress = ADDRESSES[tokenSymbol][chainId]
-  const usdcAddress = ADDRESSES[USDC][chainId]
 
   // Contracts
   const balancerPoolContract = getBalancerPoolContract(
@@ -163,7 +161,13 @@ export const getBalancerPortfolioItem = async (
   const userBalance = await balancerPoolContract.balanceOf(address)
 
   let tokenPrice
-  let underlyingPrice
+  const [ethUsdcPrice, underlyingEthPrice] = await Promise.all([
+    getEthUsdcPrice(provider),
+    getEthTokenPrice(underlyingAddress, true, provider),
+  ])
+  const underlyingPrice = parseEther(underlyingEthPrice)
+    .mul(parseEther(ethUsdcPrice))
+    .div(DEC_18)
 
   switch (symbol) {
     case X_SNX_A: {
@@ -188,13 +192,6 @@ export const getBalancerPortfolioItem = async (
         provider
       )
       tokenPrice = priceUsd
-      underlyingPrice = await getExpectedRate(
-        Exchange.INCH,
-        kyberProxyContract,
-        underlyingAddress, // SNX
-        usdcAddress,
-        parseEther('0.1')
-      )
       break
     }
     case X_AAVE_A: {
@@ -205,13 +202,6 @@ export const getBalancerPortfolioItem = async (
         chainId
       )
       tokenPrice = priceUsd
-      underlyingPrice = await getExpectedRate(
-        Exchange.INCH,
-        kyberProxyContract,
-        underlyingAddress, // AAVE
-        usdcAddress,
-        ethers.utils.parseEther('0.1')
-      )
       break
     }
     case X_AAVE_B: {
@@ -222,14 +212,6 @@ export const getBalancerPortfolioItem = async (
         chainId
       )
       tokenPrice = priceUsd
-
-      underlyingPrice = await getExpectedRate(
-        Exchange.INCH,
-        kyberProxyContract,
-        underlyingAddress, // AAVE
-        usdcAddress,
-        ethers.utils.parseEther('0.1')
-      )
       break
     }
     default:
@@ -240,7 +222,6 @@ export const getBalancerPortfolioItem = async (
     symbol,
     balancerPoolAddress,
     tokenPrice,
-    kyberProxyContract,
     provider,
     chainId,
     underlyingPrice,

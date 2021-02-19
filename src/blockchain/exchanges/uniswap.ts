@@ -1,6 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { ChainId, Fetcher, Route, Token, WETH } from '@uniswap/sdk'
 import { Contract, ethers } from 'ethers'
-import { ETH, KNC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
+import { ADDRESSES, ETH, KNC, USDC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { UniswapV2Pair } from '../../types'
@@ -16,6 +17,38 @@ import { getXKncContracts } from '../xknc/helper'
 import { getBalances } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
+
+export const getEthUsdcPrice = async (
+  provider: JsonRpcProvider
+): Promise<string> => {
+  const network = await provider.getNetwork()
+  const { chainId } = network
+
+  const usdcAddress = ADDRESSES[USDC][chainId]
+  const usdcToken = new Token(ChainId.MAINNET, usdcAddress, 6)
+
+  const pair = await Fetcher.fetchPairData(
+    usdcToken,
+    WETH[usdcToken.chainId],
+    provider
+  )
+  const route = new Route([pair], WETH[usdcToken.chainId])
+
+  return route.midPrice.toSignificant(6)
+}
+
+export const getEthTokenPrice = async (
+  tokenAddress: string,
+  isPriceInvert: boolean,
+  provider: JsonRpcProvider
+): Promise<string> => {
+  const token = new Token(ChainId.MAINNET, tokenAddress, 18)
+  const pair = await Fetcher.fetchPairData(token, WETH[token.chainId], provider)
+  const route = new Route([pair], WETH[token.chainId])
+  return isPriceInvert
+    ? route.midPrice.invert().toSignificant(6)
+    : route.midPrice.toSignificant(6)
+}
 
 export const getUniswapPortfolioItem = async (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
@@ -45,15 +78,13 @@ export const getUniswapPortfolioItem = async (
   const { priceUsd } = await getXKncPrices(
     xkncContract,
     kncContract as Contract,
-    kyberProxyContract,
-    chainId
+    kyberProxyContract
   )
 
   const uniswapPoolBalances = await getBalances(
     symbol,
     uniswapPoolAddress,
     priceUsd,
-    kyberProxyContract,
     provider,
     chainId,
     undefined,

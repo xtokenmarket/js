@@ -1,11 +1,13 @@
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { ADDRESSES, ETH, USDC } from 'xtoken-abis'
+import { ADDRESSES, ETH } from 'xtoken-abis'
 
 import { DEC_18, Exchange } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
+import { getEthUsdcPrice } from '../exchanges/uniswap'
 import { getExpectedRate } from '../utils'
 
 /**
@@ -34,14 +36,12 @@ import { getExpectedRate } from '../utils'
  * @param {XKNC} xkncContract xKNCa/xKNCb token contract
  * @param {Contract} kncContract KNC token contract
  * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
- * @param {number} chainId Connected network's ID, 1 for Mainnet
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXKncPrices = async (
   xkncContract: XKNC,
   kncContract: Contract,
-  kyberProxyContract: KyberProxy,
-  chainId: number
+  kyberProxyContract: KyberProxy
 ): Promise<ITokenPrices> => {
   if (!xkncContract) {
     return {
@@ -52,15 +52,13 @@ export const getXKncPrices = async (
   }
 
   const proxyValue = parseEther('1')
-
-  const usdcAddress = ADDRESSES[USDC][chainId]
   const ethAddress = ADDRESSES[ETH] as string
 
   const [
     xkncTotalSupply,
     xkncKncBal,
-    kncUsdRate,
-    ethUsdRate,
+    kncEthPrice,
+    ethUsdcPrice,
   ] = await Promise.all([
     xkncContract.totalSupply(),
     xkncContract.getFundKncBalanceTwei(),
@@ -68,20 +66,15 @@ export const getXKncPrices = async (
       Exchange.KYBER,
       kyberProxyContract,
       kncContract.address,
-      usdcAddress,
-      proxyValue
-    ),
-    getExpectedRate(
-      Exchange.INCH,
-      kyberProxyContract,
       ethAddress,
-      usdcAddress,
       proxyValue
     ),
+    getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
   ])
 
-  const priceUsd = xkncKncBal.mul(kncUsdRate).div(xkncTotalSupply)
-  const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
+  const kncUsdcPrice = kncEthPrice.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+  const priceUsd = xkncKncBal.mul(kncUsdcPrice).div(xkncTotalSupply)
+  const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
   const aum = priceUsd.mul(xkncTotalSupply).div(DEC_18)
 
   return {

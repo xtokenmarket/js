@@ -2,26 +2,24 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { Abi, ADDRESSES, ETH, USDC, WETH } from 'xtoken-abis'
+import { Abi, ADDRESSES, ETH, WETH } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
-import { KyberProxy } from '../../types'
+import { DEC_18 } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
-import { getExpectedRate, getTokenSymbol } from '../utils'
+import { getTokenSymbol } from '../utils'
+
+import { getEthUsdcPrice } from './uniswap'
 
 export const getBalances = async (
   symbol: ITokenSymbols,
   poolAddress: string,
   tokenPrice: number,
-  kyberProxyContract: KyberProxy,
   provider: JsonRpcProvider,
   chainId: number,
   underlyingPrice?: BigNumber,
   isWeth?: boolean
 ) => {
   // Addresses
-  const ethAddress = ADDRESSES[ETH] as string
-  const usdcAddress = ADDRESSES[USDC][chainId]
   const xTokenAddress = ADDRESSES[symbol][chainId]
 
   // Contracts
@@ -30,19 +28,13 @@ export const getBalances = async (
   // Balances
   const xTokenBalance = await xTokenContract.balanceOf(poolAddress)
 
-  const ethPrice = await getExpectedRate(
-    Exchange.INCH,
-    kyberProxyContract,
-    ethAddress,
-    usdcAddress,
-    parseEther('1')
-  )
+  const ethUsdcPrice = await getEthUsdcPrice(provider)
 
   const tokenVal = xTokenBalance
     .mul(parseEther(tokenPrice.toString()))
     .div(DEC_18)
   let ethVal = tokenVal
-  let ethBalance = ethVal.mul(DEC_18).div(ethPrice)
+  let ethBalance = ethVal.mul(DEC_18).div(parseEther(ethUsdcPrice)).div(DEC_18)
 
   if (isWeth) {
     const wethAddress = ADDRESSES[WETH][chainId]
@@ -50,7 +42,7 @@ export const getBalances = async (
     const wethBalance = await wethContract.balanceOf(poolAddress)
 
     ethBalance = wethBalance
-    ethVal = wethBalance.mul(ethPrice).div(DEC_18)
+    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18).div(DEC_18)
   }
 
   let underlying

@@ -48,6 +48,7 @@
     "node": ">=10"
   },
   "dependencies": {
+    "@uniswap/sdk": "^3.0.3",
     "superagent": "^6.1.0"
   },
   "devDependencies": {

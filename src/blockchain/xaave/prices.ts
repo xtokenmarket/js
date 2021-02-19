@@ -1,11 +1,12 @@
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { AAVE, ADDRESSES, ETH, USDC } from 'xtoken-abis'
+import { AAVE, ADDRESSES } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { KyberProxy, XAAVE } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import { getExpectedRate } from '../utils'
+import { getEthTokenPrice, getEthUsdcPrice } from '../exchanges/uniswap'
 
 /**
  * @example
@@ -46,39 +47,30 @@ export const getXAavePrices = async (
     }
   }
 
-  const proxyValue = parseEther('1')
-
   const aaveAddress = ADDRESSES[AAVE][chainId]
-  const ethAddress = ADDRESSES[ETH] as string
-  const usdcAddress = ADDRESSES[USDC][chainId]
 
   const [
     xaaveTotalSupply,
     xaaveAaveBal,
-    aaveUsdRate,
-    ethUsdRate,
+    aaveEthPrice,
+    ethUsdcPrice,
   ] = await Promise.all([
     xaaveContract.totalSupply(),
     xaaveContract.getFundHoldings(),
-    getExpectedRate(
-      Exchange.INCH,
-      kyberProxyContract,
+    getEthTokenPrice(
       aaveAddress,
-      usdcAddress,
-      proxyValue
+      true,
+      kyberProxyContract.provider as JsonRpcProvider
     ),
-    getExpectedRate(
-      Exchange.INCH,
-      kyberProxyContract,
-      ethAddress,
-      usdcAddress,
-      proxyValue
-    ),
+    getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
   ])
 
+  const aaveUsdPrice = parseEther(aaveEthPrice)
+    .mul(parseEther(ethUsdcPrice))
+    .div(DEC_18)
   const xaavePerToken = xaaveAaveBal.mul(DEC_18).div(xaaveTotalSupply)
-  const priceUsd = xaavePerToken.mul(aaveUsdRate).div(DEC_18)
-  const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
+  const priceUsd = xaavePerToken.mul(aaveUsdPrice).div(DEC_18)
+  const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
   const aum = priceUsd.mul(xaaveTotalSupply).div(DEC_18)
 
   return {
