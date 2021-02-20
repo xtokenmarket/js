@@ -13,14 +13,12 @@ test('Get xKNCa prices', async (t) => {
     X_KNC_A,
     provider
   )
-  const { chainId } = network
   const kncContract = getContract(KNC, provider, network)
 
   const { aum, priceEth, priceUsd } = await getXKncPrices(
     xkncContract,
     kncContract as Contract,
-    kyberProxyContract,
-    chainId
+    kyberProxyContract
   )
 
   console.log('xKNCa aum:', aum)
@@ -36,14 +34,12 @@ test('Get xKNCb prices', async (t) => {
     X_KNC_B,
     provider
   )
-  const { chainId } = network
   const kncContract = getContract(KNC, provider, network)
 
   const { aum, priceEth, priceUsd } = await getXKncPrices(
     xkncContract,
     kncContract as Contract,
-    kyberProxyContract,
-    chainId
+    kyberProxyContract
   )
 
   console.log('xKNCb aum:', aum)

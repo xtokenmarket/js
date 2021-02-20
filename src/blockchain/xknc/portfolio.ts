@@ -19,7 +19,6 @@ export const getPortfolioItemXKnc = async (
     symbol,
     provider
   )
-  const { chainId } = network
 
   const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
   const kncContract = getContract(KNC, provider, network)
@@ -27,8 +26,7 @@ export const getPortfolioItemXKnc = async (
   const { priceUsd } = await getXKncPrices(
     xkncContract,
     kncContract as Contract,
-    kyberProxyContract,
-    chainId
+    kyberProxyContract
   )
   const xkncValue = (xkncBal * priceUsd).toFixed(2)
   const tokenEquivalent = await getUnderlyingTokenEquivalent(

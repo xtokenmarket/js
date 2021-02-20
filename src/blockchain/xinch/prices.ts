@@ -1,11 +1,12 @@
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { ADDRESSES, ETH, INCH, USDC } from 'xtoken-abis'
+import { ADDRESSES, INCH } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { KyberProxy, XINCH } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import { getExpectedRate } from '../utils'
+import { getEthTokenPrice, getEthUsdcPrice } from '../exchanges/uniswap'
 
 /**
  * @example
@@ -46,39 +47,30 @@ export const getXInchPrices = async (
     }
   }
 
-  const proxyValue = parseEther('1')
-
   const inchAddress = ADDRESSES[INCH][chainId]
-  const ethAddress = ADDRESSES[ETH] as string
-  const usdcAddress = ADDRESSES[USDC][chainId]
 
   const [
     xinchTotalSupply,
     inchHoldings,
-    inchUsdRate,
-    ethUsdRate,
+    inchEthPrice,
+    ethUsdcPrice,
   ] = await Promise.all([
     xinchContract.totalSupply(),
     xinchContract.getNav(),
-    getExpectedRate(
-      Exchange.INCH,
-      kyberProxyContract,
+    getEthTokenPrice(
       inchAddress,
-      usdcAddress,
-      proxyValue
+      true,
+      kyberProxyContract.provider as JsonRpcProvider
     ),
-    getExpectedRate(
-      Exchange.INCH,
-      kyberProxyContract,
-      ethAddress,
-      usdcAddress,
-      proxyValue
-    ),
+    getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
   ])
 
+  const inchUsdPrice = parseEther(inchEthPrice)
+    .mul(parseEther(ethUsdcPrice))
+    .div(DEC_18)
   const inchPerToken = inchHoldings.mul(DEC_18).div(xinchTotalSupply)
-  const priceUsd = inchPerToken.mul(inchUsdRate).div(DEC_18)
-  const priceEth = priceUsd.mul(DEC_18).div(ethUsdRate)
+  const priceUsd = inchPerToken.mul(inchUsdPrice).div(DEC_18)
+  const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
   const aum = priceUsd.mul(xinchTotalSupply).div(DEC_18)
 
   return {

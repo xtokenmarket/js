@@ -10,7 +10,7 @@ yarn add xtoken-js
 
 ## Dependencies
 
-At the moment, `xtoken-js` requires using [xtoken-abis](https://www.npmjs.com/package/xtoken-abis) and [Ether.js](https://www.npmjs.com/package/ethers) v5.0.30
+At the moment, `xtoken-js` requires using [xtoken-abis](https://www.npmjs.com/package/xtoken-abis) and [ethers.js](https://www.npmjs.com/package/ethers) v5.0.30
 
 ```sh
 yarn add xtoken-abis
@@ -56,6 +56,12 @@ yarn watch:build
 
 ```sh
 yarn watch:test
+```
+
+In order to run a single test, you can use the name of the test or regex name to match the tests to be executed
+
+```sh
+yarn build && npx ava -m='*prices*'
 ```
 
 ### Linting

@@ -1,76 +1,81 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import {
-  Abi,
   ADDRESSES,
+  BUY,
   ETH,
+  INCH,
   KYBER_PROXY,
-  USDC,
+  SELL,
   X_INCH_A,
   X_INCH_B,
 } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18, ZERO_ADDRESS } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
-import { ILiquidityPoolItem, ITokenSymbols } from '../../types/xToken'
-import {
-  getContract,
-  getExpectedRate,
-  getInchPoolAddress,
-  getInchPoolContract,
-} from '../utils'
+import { ILiquidityPoolItem, ITradeType } from '../../types/xToken'
+import { getContract, getInchPoolAddress, getInchPoolContract } from '../utils'
 import { getXInchPrices } from '../xinch'
+import { getExpectedRateInch, getXInchContracts } from '../xinch/helper'
+
+import { getBalances } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
 
-const getBalances = async (
-  symbol: ITokenSymbols,
-  inchPoolAddress: string,
-  tokenPrice: number,
-  kyberProxyContract: KyberProxy,
-  provider: JsonRpcProvider,
-  chainId: number
-) => {
+export const getInchEstimatedQuantity = async (
+  tokenIn: typeof ETH | typeof X_INCH_A | typeof X_INCH_B,
+  symbol: typeof X_INCH_A | typeof X_INCH_B,
+  amount: string,
+  tradeType: ITradeType,
+  provider: JsonRpcProvider
+): Promise<string> => {
+  let inputAmount = parseEther(amount)
+  const { inchLiquidityProtocolContract, network } = await getXInchContracts(
+    symbol,
+    provider
+  )
+  const { chainId } = network
+
   // Addresses
-  const ethAddress = ADDRESSES[ETH] as string
-  const usdcAddress = ADDRESSES[USDC][chainId]
-  const xTokenAddress = ADDRESSES[symbol][chainId]
+  const inchAddress = ADDRESSES[INCH][chainId]
+  const xinchAddress = ADDRESSES[symbol][chainId]
 
   // Contracts
-  const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
+  const inchPoolContract = getInchPoolContract(
+    symbol,
+    provider,
+    chainId
+  ) as InchLiquidityProtocol
 
-  // Balances
-  const xTokenBalance = await xTokenContract.balanceOf(inchPoolAddress)
+  let expectedQty
 
-  const ethPrice = await getExpectedRate(
-    Exchange.INCH,
-    kyberProxyContract,
-    ethAddress,
-    usdcAddress,
-    parseEther('0.1')
+  // Get equivalent `ETH` quantity from the input `1INCH` amount
+  if (tradeType === BUY && tokenIn !== ETH) {
+    inputAmount = await getExpectedRateInch(
+      inchLiquidityProtocolContract,
+      inchAddress,
+      ZERO_ADDRESS,
+      inputAmount
+    )
+  }
+
+  expectedQty = await inchPoolContract.getReturn(
+    tradeType === BUY ? ZERO_ADDRESS : xinchAddress,
+    tradeType === BUY ? xinchAddress : ZERO_ADDRESS,
+    inputAmount
   )
 
-  const tokenVal = xTokenBalance
-    .mul(parseEther(tokenPrice.toString()))
-    .div(DEC_18)
-  const ethVal = tokenVal
-  const totalVal = ethVal.add(tokenVal)
-
-  const ethBalance = ethVal.mul(DEC_18).div(ethPrice)
-
-  return {
-    totalVal: formatEther(totalVal),
-    token: {
-      name: symbol,
-      amt: formatEther(xTokenBalance),
-      val: formatEther(tokenVal),
-    },
-    eth: {
-      name: ETH.toUpperCase(),
-      amt: formatEther(ethBalance),
-      val: formatEther(ethVal),
-    },
+  // Get final `1INCH` quantity from the estimated `ETH` quantity
+  if (tradeType === SELL && tokenIn !== ETH) {
+    expectedQty = await getExpectedRateInch(
+      inchLiquidityProtocolContract,
+      ZERO_ADDRESS,
+      inchAddress,
+      expectedQty
+    )
   }
+
+  return formatEther(expectedQty)
 }
 
 export const getInchPortfolioItem = async (
@@ -106,24 +111,23 @@ export const getInchPortfolioItem = async (
     chainId
   )
 
-  const inchContractBalances = await getBalances(
+  const inchPoolBalances = await getBalances(
     symbol,
     inchPoolAddress,
     priceUsd,
-    kyberProxyContract,
     provider,
     chainId
   )
 
   const xinchEthPoolSupply = await inchPoolContract.totalSupply()
-  const poolPrice = parseEther(inchContractBalances.totalVal)
+  const poolPrice = parseEther(inchPoolBalances.totalVal)
     .mul(DEC_18)
     .div(xinchEthPoolSupply)
   const value = poolPrice.mul(userBalance).div(DEC_18)
 
   return {
     asset,
-    balances: inchContractBalances,
+    balances: inchPoolBalances,
     poolPrice: formatEther(poolPrice),
     quantity: formatEther(userBalance),
     tokenPrice: priceUsd,

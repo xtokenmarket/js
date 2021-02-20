@@ -21,7 +21,9 @@ import {
   X_INCH_A,
   X_INCH_B,
   INCH_LIQUIDITY_PROTOCOL,
+  UNISWAP_V2_PAIR,
 } from 'xtoken-abis'
+import { Exchange } from '../constants'
 
 export type IContracts =
   | typeof AAVE
@@ -32,6 +34,7 @@ export type IContracts =
   | typeof KYBER_PROXY
   | typeof SNX
   | typeof TRADE_ACCOUNTING
+  | typeof UNISWAP_V2_PAIR
   | ITokenSymbols
 
 export type ITokenSymbols =
@@ -80,4 +83,9 @@ export interface ITokenPrices {
   priceUsd: number
   sellPriceEth?: number
   sellPriceUsd?: number
+}
+
+export interface IReturn {
+  expectedQuantity: string
+  source: Exchange
 }

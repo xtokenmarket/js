@@ -2,6 +2,7 @@ import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 import {
+  BUY,
   ETH,
   X_AAVE_A,
   X_AAVE_B,
@@ -16,7 +17,11 @@ import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
-import { getInchPortfolioItem } from './blockchain/exchanges/inch'
+import {
+  getInchEstimatedQuantity,
+  getInchPortfolioItem,
+} from './blockchain/exchanges/inch'
+import { getUniswapPortfolioItem } from './blockchain/exchanges/uniswap'
 import {
   approveXAave,
   burnXAave,
@@ -52,8 +57,13 @@ import {
   getPortfolioItemXSnx,
   mintXSnx,
 } from './blockchain/xsnx'
-import { MAX_UINT } from './constants'
-import { IPortfolioItem, ITokenSymbols, ITradeType } from './types/xToken'
+import { Exchange, MAX_UINT } from './constants'
+import {
+  IPortfolioItem,
+  IReturn,
+  ITokenSymbols,
+  ITradeType,
+} from './types/xToken'
 
 /**
  * Helper class providing the wrapper around the methods to interact with the xToken contracts.
@@ -166,19 +176,99 @@ export class XToken {
   /**
    * @example
    * ```typescript
+   * // Get best return for the trading pair from the available sources
+   * const return = await xToken.getBestReturn('xAAVEa', true, '100')
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to burn
+   * @param {boolean} tradeWithEth True, if selling the xToken for ETH
+   * @param {string} amount Quantity of the xToken to be traded
+   * @param {ITradeType} tradeType Buy/sell type of the trade
+   * @returns Expected quantity for selling the given xToken
+   */
+  public async getBestReturn(
+    symbol: ITokenSymbols,
+    tradeWithEth: boolean,
+    amount: string,
+    tradeType: ITradeType
+  ): Promise<IReturn> {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+
+    let dexReturn = '0'
+    let xTokenReturn: string
+
+    if (tradeType === BUY) {
+      xTokenReturn = await this.getExpectedQuantityOnMint(
+        symbol,
+        tradeWithEth,
+        amount
+      )
+    } else {
+      xTokenReturn = await this.getExpectedQuantityOnBurn(
+        symbol,
+        tradeWithEth,
+        amount
+      )
+    }
+
+    let bestReturn = xTokenReturn
+    let source = Exchange.XTOKEN
+
+    if ([X_AAVE_A, X_AAVE_B, X_SNX_A].includes(symbol)) {
+      dexReturn = await this.getExpectedQuantityOnBalancer(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tradeWithEth ? ETH : symbol,
+        symbol,
+        amount,
+        tradeType
+      )
+
+      if (Number(xTokenReturn) < Number(dexReturn)) {
+        bestReturn = dexReturn
+        source = Exchange.BALANCER
+      }
+    } else if ([X_INCH_A, X_INCH_B].includes(symbol)) {
+      dexReturn = await getInchEstimatedQuantity(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tradeWithEth ? ETH : symbol,
+        symbol,
+        amount,
+        tradeType,
+        this.provider
+      )
+
+      if (Number(xTokenReturn) < Number(dexReturn)) {
+        bestReturn = dexReturn
+        source = Exchange.INCH
+      }
+    }
+
+    return {
+      expectedQuantity: parseEther(bestReturn).toString(),
+      source,
+    }
+  }
+
+  /**
+   * @example
+   * ```typescript
    * // Get expected quantity of xAAVEa when minting for 1 ETH
    * const expectedQty = await xToken.getExpectedQuantityOnBalancer('eth', 'xAAVEa', '1', 'buy')
    * ```
    *
-   * @param {'eth' | ITokenSymbols} tokenIn 'eth' in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint
-   * @param {ITokenSymbols} symbol Symbol of the xToken to burn/mint
+   * @param {'eth' | 'xAAVEa' | 'xAAVEb' | 'xSNXa'} tokenIn 'eth' in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint
+   * @param {'xAAVEa' | 'xAAVEb' | 'xSNXa'} symbol Symbol of the xToken to burn/mint
    * @param {string} amount Quantity of the xToken to be traded
    * @param {ITradeType} tradeType Buy/sell type of the trade
    * @returns Expected quantity for the particular trade to be made on Balancer
    */
   public async getExpectedQuantityOnBalancer(
-    tokenIn: typeof ETH | ITokenSymbols,
-    symbol: ITokenSymbols,
+    tokenIn: typeof ETH | typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
+    symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
     amount: string,
     tradeType: ITradeType
   ): Promise<string> {
@@ -324,6 +414,8 @@ export class XToken {
       getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
       getInchPortfolioItem(X_INCH_A, address, this.provider),
       getInchPortfolioItem(X_INCH_B, address, this.provider),
+      getUniswapPortfolioItem(X_KNC_A, address, this.provider),
+      getUniswapPortfolioItem(X_KNC_B, address, this.provider),
     ])
   }
 
