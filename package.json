@@ -48,8 +48,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@uniswap/sdk": "^3.0.3",
-    "superagent": "^6.1.0"
+    "@uniswap/sdk": "^3.0.3"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
@@ -57,7 +56,6 @@
     "@typechain/ethers-v5": "^5.0.0",
     "@types/dotenv": "^8.2.0",
     "@types/node": "^14.14.27",
-    "@types/superagent": "^4.1.10",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "ava": "^3.15.0",

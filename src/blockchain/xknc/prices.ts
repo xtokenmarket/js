@@ -3,7 +3,7 @@ import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 import { ADDRESSES, ETH } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -18,8 +18,6 @@ import { getExpectedRate } from '../utils'
  * import { getXKncPrices } from 'xtoken-js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
- * const network = await provider.getNetwork()
- * const { chainId } = network
  *
  * const xkncContract = new ethers.Contract(ADDRESSES[X_KNC_A][chainId], Abi.xKNC, provider)
  * const kncContract = new ethers.Contract(ADDRESSES[KNC][chainId], Abi.ERC20, provider)
@@ -29,7 +27,6 @@ import { getExpectedRate } from '../utils'
  *   xkncContract,
  *   kncContract,
  *   kyberProxyContract,
- *   chainId
  * )
  * ```
  *
@@ -63,7 +60,6 @@ export const getXKncPrices = async (
     xkncContract.totalSupply(),
     xkncContract.getFundKncBalanceTwei(),
     getExpectedRate(
-      Exchange.KYBER,
       kyberProxyContract,
       kncContract.address,
       ethAddress,

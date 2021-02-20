@@ -9,7 +9,6 @@ import {
   X_KNC_A,
 } from 'xtoken-abis'
 
-import { Exchange } from '../constants'
 import { provider } from '../constants.spec'
 
 import { getBalancerPoolAddress, getExpectedRate } from './utils'
@@ -32,7 +31,6 @@ test('Expected rate for xAAVEa', async (t) => {
   )
   const expectedRate = formatEther(
     await getExpectedRate(
-      Exchange.INCH,
       kyberProxyContract,
       tokenContract.address,
       ADDRESSES[ETH] as string,

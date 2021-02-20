@@ -4,7 +4,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import { ADDRESSES, ETH, KNC } from 'xtoken-abis'
 
-import { DEC_18, Exchange } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
 import { getExpectedRate, parseFees } from '../utils'
 
@@ -25,7 +25,6 @@ export const burnXKnc = async (
   } = await getXKncContracts(symbol, provider)
 
   const minRate = await getExpectedRate(
-    Exchange.KYBER,
     kyberProxyContract,
     tokenContract.address,
     ADDRESSES[ETH] as string,
@@ -66,7 +65,6 @@ export const getExpectedQuantityOnBurnXKnc = async (
     const kncAddress = ADDRESSES[KNC][chainId]
 
     const expectedRate = await getExpectedRate(
-      Exchange.KYBER,
       kyberProxyContract,
       kncAddress,
       ethAddress,

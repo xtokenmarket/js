@@ -2,7 +2,6 @@ import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
-import superagent from 'superagent'
 import {
   AAVE,
   Abi,
@@ -32,7 +31,6 @@ import {
   X_SNX_A_BALANCER_POOL,
 } from 'xtoken-abis'
 
-import { Exchange, INCH_API_URL } from '../constants'
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
@@ -127,35 +125,17 @@ export const getContract = (
 }
 
 export const getExpectedRate = async (
-  exchange: Exchange,
   kyberProxyContract: KyberProxy,
   inputAsset: string,
   outputAsset: string,
   amount: BigNumber,
   isMinRate = false
 ) => {
-  let expectedRate = BigNumber.from('0')
-
-  if (exchange === Exchange.INCH) {
-    const res = await superagent.get(
-      `${INCH_API_URL}?fromTokenAddress=${inputAsset}&toTokenAddress=${outputAsset}&amount=${parseEther(
-        '1'
-      )}`
-    )
-
-    const {
-      toTokenAmount,
-      toToken: { decimals },
-    } = res.body
-
-    const inchExpectedRate = toTokenAmount / 10 ** decimals
-    expectedRate = parseEther(inchExpectedRate.toString())
-  } else if (exchange === Exchange.KYBER) {
-    expectedRate = (
-      await kyberProxyContract.getExpectedRate(inputAsset, outputAsset, amount)
-    ).expectedRate
-  }
-
+  const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    inputAsset,
+    outputAsset,
+    amount
+  )
   return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
 }
 
