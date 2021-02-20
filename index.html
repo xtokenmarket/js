@@ -70,7 +70,7 @@
 				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
 					<h2>Dependencies</h2>
 				</a>
-				<p>At the moment, <code>xtoken-js</code> requires using <a href="https://www.npmjs.com/package/xtoken-abis">xtoken-abis</a> and <a href="https://www.npmjs.com/package/ethers">Ether.js</a> v5.0.30</p>
+				<p>At the moment, <code>xtoken-js</code> requires using <a href="https://www.npmjs.com/package/xtoken-abis">xtoken-abis</a> and <a href="https://www.npmjs.com/package/ethers">ethers.js</a> v5.0.30</p>
 				<pre><code class="language-sh"><span style="color: #000000">yarn add xtoken-abis</span>
 <span style="color: #000000">yarn add ethers@5.0.30</span>
 </code></pre>
@@ -113,6 +113,9 @@
 					<h3>Tests</h3>
 				</a>
 				<pre><code class="language-sh"><span style="color: #000000">yarn watch:test</span>
+</code></pre>
+				<p>In order to run a single test, you can use the name of the test or regex name to match the tests to be executed</p>
+				<pre><code class="language-sh"><span style="color: #000000">yarn build &amp;&amp; npx ava -m=</span><span style="color: #A31515">&#039;*prices*&#039;</span>
 </code></pre>
 				<a href="#linting" id="linting" style="color: inherit; text-decoration: none;">
 					<h3>Linting</h3>

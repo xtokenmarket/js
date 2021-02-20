@@ -116,6 +116,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#approve" class="tsd-kind-icon">approve</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#burn" class="tsd-kind-icon">burn</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#getbestreturn" class="tsd-kind-icon">get<wbr>Best<wbr>Return</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#getexpectedquantityonbalancer" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBalancer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#getexpectedquantityonburn" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBurn</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="xtoken_js.xtoken.html#getexpectedquantityonmint" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnMint</a></li>
@@ -140,7 +141,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L72">src/xToken.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L82">src/xToken.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -165,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">JsonRpcProvider</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L72">src/xToken.ts:72</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L82">src/xToken.ts:82</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +183,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L94">src/xToken.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L104">src/xToken.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L131">src/xToken.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L141">src/xToken.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -271,16 +272,70 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getexpectedquantityonbalancer" class="tsd-anchor"></a>
-					<h3>get<wbr>Expected<wbr>Quantity<wbr>OnBalancer</h3>
+					<a name="getbestreturn" class="tsd-anchor"></a>
+					<h3>get<wbr>Best<wbr>Return</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBalancer<span class="tsd-signature-symbol">(</span>tokenIn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xINCHa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xINCHb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xKNCa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xKNCb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;eth&quot;</span>, symbol<span class="tsd-signature-symbol">: </span><a href="../modules/xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a>, amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tradeType<span class="tsd-signature-symbol">: </span><a href="../modules/xtoken_types.html#itradetype" class="tsd-signature-type" data-tsd-kind="Type alias">ITradeType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Best<wbr>Return<span class="tsd-signature-symbol">(</span>symbol<span class="tsd-signature-symbol">: </span><a href="../modules/xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a>, tradeWithEth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tradeType<span class="tsd-signature-symbol">: </span><a href="../modules/xtoken_types.html#itradetype" class="tsd-signature-type" data-tsd-kind="Type alias">ITradeType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.ireturn.html" class="tsd-signature-type" data-tsd-kind="Interface">IReturn</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L179">src/xToken.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L189">src/xToken.ts:189</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #008000">// Get best return for the trading pair from the available sources</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">return</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">xToken</span><span style="color: #000000">.</span><span style="color: #795E26">getBestReturn</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;xAAVEa&#039;</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;100&#039;</span><span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>symbol: <a href="../modules/xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Symbol of the xToken to burn</p>
+									</div>
+								</li>
+								<li>
+									<h5>tradeWithEth: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>True, if selling the xToken for ETH</p>
+									</div>
+								</li>
+								<li>
+									<h5>amount: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Quantity of the xToken to be traded</p>
+									</div>
+								</li>
+								<li>
+									<h5>tradeType: <a href="../modules/xtoken_types.html#itradetype" class="tsd-signature-type" data-tsd-kind="Type alias">ITradeType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Buy/sell type of the trade</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.ireturn.html" class="tsd-signature-type" data-tsd-kind="Interface">IReturn</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Expected quantity for selling the given xToken</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getexpectedquantityonbalancer" class="tsd-anchor"></a>
+					<h3>get<wbr>Expected<wbr>Quantity<wbr>OnBalancer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBalancer<span class="tsd-signature-symbol">(</span>tokenIn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;eth&quot;</span>, symbol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span>, amount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tradeType<span class="tsd-signature-symbol">: </span><a href="../modules/xtoken_types.html#itradetype" class="tsd-signature-type" data-tsd-kind="Type alias">ITradeType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L269">src/xToken.ts:269</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -295,13 +350,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>tokenIn: <span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xINCHa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xINCHb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xKNCa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xKNCb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;eth&quot;</span></h5>
+									<h5>tokenIn: <span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;eth&quot;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>&#39;eth&#39; in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint</p>
 									</div>
 								</li>
 								<li>
-									<h5>symbol: <a href="../modules/xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a></h5>
+									<h5>symbol: <span class="tsd-signature-type">&quot;xAAVEa&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xAAVEb&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;xSNXa&quot;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Symbol of the xToken to burn/mint</p>
 									</div>
@@ -334,7 +389,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L210">src/xToken.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L300">src/xToken.ts:300</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,7 +437,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L261">src/xToken.ts:261</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L351">src/xToken.ts:351</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,13 +479,13 @@
 					<a name="getliquiditypoolitems" class="tsd-anchor"></a>
 					<h3>get<wbr>Liquidity<wbr>Pool<wbr>Items</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Liquidity<wbr>Pool<wbr>Items<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Liquidity<wbr>Pool<wbr>Items<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L313">src/xToken.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L403">src/xToken.ts:403</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -442,7 +497,7 @@
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-signature-type" data-tsd-kind="Interface">ILiquidityPoolItem</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Returns available liquidity pools for xTokens along with their balances</p>
 						</li>
 					</ul>
@@ -457,7 +512,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L340">src/xToken.ts:340</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L432">src/xToken.ts:432</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -493,7 +548,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L373">src/xToken.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L465">src/xToken.ts:465</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -525,7 +580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/2ef516a/src/xToken.ts#L408">src/xToken.ts:408</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/xtoken-js/blob/c923f57/src/xToken.ts#L500">src/xToken.ts:500</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -611,6 +666,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="xtoken_js.xtoken.html#burn" class="tsd-kind-icon">burn</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="xtoken_js.xtoken.html#getbestreturn" class="tsd-kind-icon">get<wbr>Best<wbr>Return</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="xtoken_js.xtoken.html#getexpectedquantityonbalancer" class="tsd-kind-icon">get<wbr>Expected<wbr>Quantity<wbr>OnBalancer</a>
