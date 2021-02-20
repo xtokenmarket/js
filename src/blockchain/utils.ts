@@ -136,7 +136,7 @@ export const getExpectedRate = async (
     outputAsset,
     amount
   )
-  return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
+  return isMinRate ? expectedRate.mul(97).div(100) : expectedRate
 }
 
 export const getInchPoolAddress = (
