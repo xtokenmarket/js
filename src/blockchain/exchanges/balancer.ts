@@ -229,7 +229,8 @@ export const getBalancerPortfolioItem = async (
   )
 
   const bptTokenSupply = await balancerPoolContract.totalSupply()
-  const poolPrice = parseEther(balancerContractBalances.totalVal)
+  const poolPrice = parseEther(balancerContractBalances.eth.val)
+    .mul(4)
     .mul(DEC_18)
     .div(bptTokenSupply)
   const value = poolPrice.mul(userBalance).div(DEC_18)

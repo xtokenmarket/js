@@ -19,7 +19,7 @@ export const getExpectedRateInch = async (
     outputAsset,
     amount
   )
-  return isMinRate ? expectedRate.mul(98).div(100) : expectedRate
+  return isMinRate ? BigNumber.from('0') : expectedRate
 }
 
 export const getXInchContracts = async (

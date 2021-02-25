@@ -42,7 +42,7 @@ export const getBalances = async (
     const wethBalance = await wethContract.balanceOf(poolAddress)
 
     ethBalance = wethBalance
-    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18).div(DEC_18)
+    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
   }
 
   let underlying

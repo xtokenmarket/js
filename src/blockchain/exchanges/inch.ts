@@ -120,7 +120,8 @@ export const getInchPortfolioItem = async (
   )
 
   const xinchEthPoolSupply = await inchPoolContract.totalSupply()
-  const poolPrice = parseEther(inchPoolBalances.totalVal)
+  const poolPrice = parseEther(inchPoolBalances.eth.val)
+    .mul(2)
     .mul(DEC_18)
     .div(xinchEthPoolSupply)
   const value = poolPrice.mul(userBalance).div(DEC_18)
