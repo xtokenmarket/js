@@ -28,13 +28,15 @@ export const getBalances = async (
   // Balances
   const xTokenBalance = await xTokenContract.balanceOf(poolAddress)
 
+  // ETH price in USD
   const ethUsdcPrice = await getEthUsdcPrice(provider)
 
   const tokenVal = xTokenBalance
     .mul(parseEther(tokenPrice.toString()))
     .div(DEC_18)
-  let ethVal = tokenVal
-  let ethBalance = ethVal.mul(DEC_18).div(parseEther(ethUsdcPrice)).div(DEC_18)
+
+  let ethVal
+  let ethBalance
 
   if (isWeth) {
     const wethAddress = ADDRESSES[WETH][chainId]
@@ -42,7 +44,10 @@ export const getBalances = async (
     const wethBalance = await wethContract.balanceOf(poolAddress)
 
     ethBalance = wethBalance
-    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18).div(DEC_18)
+    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+  } else {
+    ethBalance = await provider.getBalance(poolAddress)
+    ethVal = ethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
   }
 
   let underlying

@@ -92,7 +92,8 @@ export const getUniswapPortfolioItem = async (
   )
 
   const xkncEthPoolSupply = await uniswapPoolContract.totalSupply()
-  const poolPrice = parseEther(uniswapPoolBalances.totalVal)
+  const poolPrice = parseEther(uniswapPoolBalances.eth.val)
+    .mul(2)
     .mul(DEC_18)
     .div(xkncEthPoolSupply)
   const value = poolPrice.mul(userBalance).div(DEC_18)
