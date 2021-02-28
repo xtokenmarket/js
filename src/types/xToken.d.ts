@@ -48,6 +48,13 @@ export type ITokenSymbols =
 
 export type ITradeType = typeof BUY | typeof SELL
 
+interface IAsset {
+  aum: number
+  mandate: string
+  price: number
+  symbol: ITokenSymbols
+}
+
 interface ITokenBalance {
   amt: string
   name: string

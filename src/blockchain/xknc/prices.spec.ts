@@ -1,19 +1,18 @@
 import test from 'ava'
 import { Contract } from 'ethers'
-import { KNC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
+import { X_KNC_A, X_KNC_B } from 'xtoken-abis'
 
 import { provider } from '../../constants.spec'
-import { getContract } from '../utils'
 
 import { getXKncContracts } from './helper'
 import { getXKncPrices } from './prices'
 
 test('Get xKNCa prices', async (t) => {
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    X_KNC_A,
-    provider
-  )
-  const kncContract = getContract(KNC, provider, network)
+  const {
+    kncContract,
+    kyberProxyContract,
+    xkncContract,
+  } = await getXKncContracts(X_KNC_A, provider)
 
   const { aum, priceEth, priceUsd } = await getXKncPrices(
     xkncContract,
@@ -30,11 +29,11 @@ test('Get xKNCa prices', async (t) => {
 })
 
 test('Get xKNCb prices', async (t) => {
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    X_KNC_B,
-    provider
-  )
-  const kncContract = getContract(KNC, provider, network)
+  const {
+    kncContract,
+    kyberProxyContract,
+    xkncContract,
+  } = await getXKncContracts(X_KNC_B, provider)
 
   const { aum, priceEth, priceUsd } = await getXKncPrices(
     xkncContract,

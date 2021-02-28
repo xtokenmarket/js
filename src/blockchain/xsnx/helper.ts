@@ -1,6 +1,6 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { KYBER_PROXY, TRADE_ACCOUNTING, X_SNX_A } from 'xtoken-abis'
+import { KYBER_PROXY, SNX, TRADE_ACCOUNTING, X_SNX_A } from 'xtoken-abis'
 
 import { KyberProxy, TradeAccounting, XSNX } from '../../types'
 import { getContract, getTokenSymbol } from '../utils'
@@ -9,6 +9,7 @@ export const getXSnxContracts = async (provider: JsonRpcProvider) => {
   const network = await provider.getNetwork()
 
   const xsnxContract = getContract(X_SNX_A, provider, network) as XSNX
+  const snxContract = getContract(SNX, provider, network)
   const kyberProxyContract = getContract(
     KYBER_PROXY,
     provider,
@@ -37,6 +38,7 @@ export const getXSnxContracts = async (provider: JsonRpcProvider) => {
   return {
     kyberProxyContract,
     network,
+    snxContract,
     tokenContract,
     tradeAccountingContract,
     xsnxContract,

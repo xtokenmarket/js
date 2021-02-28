@@ -31,6 +31,7 @@ import {
   getPortfolioItemXAave,
   mintXAave,
 } from './blockchain/xaave'
+import { getXAaveAsset } from './blockchain/xaave/asset'
 import {
   approveXInch,
   burnXInch,
@@ -40,6 +41,7 @@ import {
   getPortfolioItemXInch,
   mintXInch,
 } from './blockchain/xinch'
+import { getXInchAsset } from './blockchain/xinch/asset'
 import {
   approveXKnc,
   burnXKnc,
@@ -48,6 +50,7 @@ import {
   getPortfolioItemXKnc,
   mintXKnc,
 } from './blockchain/xknc'
+import { getXKncAsset } from './blockchain/xknc/asset'
 import {
   approveXSnx,
   burnXSnx,
@@ -57,6 +60,7 @@ import {
   getPortfolioItemXSnx,
   mintXSnx,
 } from './blockchain/xsnx'
+import { getXSnxAsset } from './blockchain/xsnx/asset'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IPortfolioItem,
@@ -478,6 +482,28 @@ export class XToken {
       getPortfolioItemXAave(X_AAVE_B, address, this.provider),
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
+    ])
+  }
+
+  /**
+   * @example
+   * ```typescript
+   * // Get available xTokens list
+   * const xTokensList = await xToken.getXAssets()
+   * ```
+   *
+   * @returns Returns list of all the xTokens along with their asset details:
+   * AUM, Mandate & USD price
+   */
+  public async getXAssets() {
+    return Promise.all([
+      getXAaveAsset(X_AAVE_A, this.provider),
+      getXAaveAsset(X_AAVE_B, this.provider),
+      getXInchAsset(X_INCH_A, this.provider),
+      getXInchAsset(X_INCH_B, this.provider),
+      getXKncAsset(X_KNC_A, this.provider),
+      getXKncAsset(X_KNC_B, this.provider),
+      getXSnxAsset(X_SNX_A, this.provider),
     ])
   }
 

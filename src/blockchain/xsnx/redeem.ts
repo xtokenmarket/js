@@ -4,13 +4,14 @@ import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { ERC20 } from '../../types'
-import { getContract, getTokenBalance } from '../utils'
+import { getTokenBalance } from '../utils'
 
 import { getXSnxContracts } from './helper'
 
 export const getMaximumRedeemableXSnx = async (provider: JsonRpcProvider) => {
   const {
     network,
+    snxContract,
     tradeAccountingContract,
     xsnxContract,
   } = await getXSnxContracts(provider)
@@ -18,7 +19,6 @@ export const getMaximumRedeemableXSnx = async (provider: JsonRpcProvider) => {
 
   const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
   const snxAddress = ADDRESSES[SNX][chainId]
-  const snxContract = getContract(SNX, provider, network) as ERC20
 
   const [
     availableEthBalance,
@@ -29,7 +29,10 @@ export const getMaximumRedeemableXSnx = async (provider: JsonRpcProvider) => {
     tradeAccountingContract.getEthBalance(),
     xsnxContract.totalSupply(),
     getTokenBalance(snxAddress, xsnxAdminAddress, provider),
-    snxContract.debtBalanceOf(xsnxAdminAddress, formatBytes32String('sUSD')),
+    (snxContract as ERC20).debtBalanceOf(
+      xsnxAdminAddress,
+      formatBytes32String('sUSD')
+    ),
   ])
 
   const redeemTokenPrice = await tradeAccountingContract.calculateRedeemTokenPrice(

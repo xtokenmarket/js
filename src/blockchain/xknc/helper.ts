@@ -1,6 +1,6 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { KYBER_PROXY } from 'xtoken-abis'
+import { KNC, KYBER_PROXY } from 'xtoken-abis'
 
 import { KyberProxy, XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
@@ -13,6 +13,7 @@ export const getXKncContracts = async (
   const network = await provider.getNetwork()
 
   const xkncContract = getContract(symbol, provider, network) as XKNC
+  const kncContract = getContract(KNC, provider, network)
   const kyberProxyContract = getContract(
     KYBER_PROXY,
     provider,
@@ -24,11 +25,12 @@ export const getXKncContracts = async (
     network
   ) as Contract
 
-  if (!xkncContract || !kyberProxyContract || !tokenContract) {
+  if (!xkncContract || !kncContract || !kyberProxyContract || !tokenContract) {
     return Promise.reject(new Error('Unknown error'))
   }
 
   return {
+    kncContract,
     kyberProxyContract,
     network,
     tokenContract,

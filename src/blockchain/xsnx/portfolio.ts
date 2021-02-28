@@ -1,15 +1,11 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
-import { ADDRESSES, SNX, X_SNX_A_ADMIN } from 'xtoken-abis'
+import { ADDRESSES, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import {
-  getContract,
-  getExchangeRateContract,
-  getUserAvailableTokenBalance,
-} from '../utils'
+import { getExchangeRateContract, getUserAvailableTokenBalance } from '../utils'
 
 import { getXSnxContracts } from './helper'
 import { getXSnxPrices } from './prices'
@@ -22,17 +18,16 @@ export const getPortfolioItemXSnx = async (
 ): Promise<IPortfolioItem> => {
   const {
     network,
+    snxContract,
     tradeAccountingContract,
     xsnxContract,
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
   const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
-
   const exchangeRatesContract = (await getExchangeRateContract(
     provider
   )) as ExchangeRates
-  const snxContract = getContract(SNX, provider, network)
 
   const xsnxBal = await getUserAvailableTokenBalance(xsnxContract, address)
   const {

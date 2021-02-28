@@ -1,11 +1,10 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatEther } from 'ethers/lib/utils'
-import { KNC } from 'xtoken-abis'
 
 import { XKNC } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
-import { getContract, getUserAvailableTokenBalance } from '../utils'
+import { getUserAvailableTokenBalance } from '../utils'
 
 import { getXKncContracts } from './helper'
 import { getXKncPrices } from './prices'
@@ -15,13 +14,13 @@ export const getPortfolioItemXKnc = async (
   address: string,
   provider: JsonRpcProvider
 ): Promise<IPortfolioItem> => {
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    symbol,
-    provider
-  )
+  const {
+    kncContract,
+    kyberProxyContract,
+    xkncContract,
+  } = await getXKncContracts(symbol, provider)
 
   const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
-  const kncContract = getContract(KNC, provider, network)
 
   const { priceUsd } = await getXKncPrices(
     xkncContract,
