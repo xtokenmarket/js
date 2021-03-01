@@ -1,16 +1,12 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ChainId, Fetcher, Route, Token, WETH } from '@uniswap/sdk'
 import { Contract, ethers } from 'ethers'
-import { ADDRESSES, ETH, KNC, USDC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
+import { ADDRESSES, ETH, USDC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { UniswapV2Pair } from '../../types'
 import { ILiquidityPoolItem } from '../../types/xToken'
-import {
-  getContract,
-  getUniswapPoolAddress,
-  getUniswapPoolContract,
-} from '../utils'
+import { getUniswapPoolAddress, getUniswapPoolContract } from '../utils'
 import { getXKncPrices } from '../xknc'
 import { getXKncContracts } from '../xknc/helper'
 
@@ -55,10 +51,12 @@ export const getUniswapPortfolioItem = async (
   address: string,
   provider: JsonRpcProvider
 ): Promise<null | ILiquidityPoolItem> => {
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    symbol,
-    provider
-  )
+  const {
+    kncContract,
+    kyberProxyContract,
+    network,
+    xkncContract,
+  } = await getXKncContracts(symbol, provider)
   const { chainId } = network
 
   // Addresses
@@ -66,7 +64,6 @@ export const getUniswapPortfolioItem = async (
   const uniswapPoolAddress = getUniswapPoolAddress(symbol, chainId) as string
 
   // Contracts
-  const kncContract = getContract(KNC, provider, network)
   const uniswapPoolContract = getUniswapPoolContract(
     symbol,
     provider,
