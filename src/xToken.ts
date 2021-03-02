@@ -497,13 +497,13 @@ export class XToken {
    */
   public async getXAssets() {
     return Promise.all([
+      getXKncAsset(X_KNC_A, this.provider),
+      getXKncAsset(X_KNC_B, this.provider),
+      getXSnxAsset(X_SNX_A, this.provider),
       getXAaveAsset(X_AAVE_A, this.provider),
       getXAaveAsset(X_AAVE_B, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
-      getXKncAsset(X_KNC_A, this.provider),
-      getXKncAsset(X_KNC_B, this.provider),
-      getXSnxAsset(X_SNX_A, this.provider),
     ])
   }
 
