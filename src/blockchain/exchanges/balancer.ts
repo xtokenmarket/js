@@ -39,6 +39,7 @@ import {
   getBalancerPoolContract,
   getContract,
   getExchangeRateContract,
+  getSigner,
   getTokenSymbol,
 } from '../utils'
 import { getXAavePrices } from '../xaave'
@@ -91,12 +92,12 @@ export const getBalancerEstimatedQuantity = async (
   const tokenInContract = new ethers.Contract(
     tokenInAddress,
     Abi.ERC20,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+    getSigner(provider)
   )
   const tokenOutContract = new ethers.Contract(
     tokenOutAddress,
     Abi.ERC20,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+    getSigner(provider)
   )
 
   const [

@@ -100,11 +100,7 @@ export const getBalancerPoolContract = (
 
   if (!address) return null
 
-  return new ethers.Contract(
-    address,
-    Abi.BalancerPool,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
-  )
+  return new ethers.Contract(address, Abi.BalancerPool, getSigner(provider))
 }
 
 export const getContract = (
@@ -117,11 +113,7 @@ export const getContract = (
   const address = ADDRESSES[contractName][network.chainId]
   if (!address) return null
 
-  return new ethers.Contract(
-    address,
-    getAbi(contractName),
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
-  )
+  return new ethers.Contract(address, getAbi(contractName), getSigner(provider))
 }
 
 export const getExpectedRate = async (
@@ -169,7 +161,7 @@ export const getInchPoolContract = (
   return new ethers.Contract(
     address,
     Abi.InchLiquidityProtocol,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
+    getSigner(provider)
   )
 }
 
@@ -231,11 +223,7 @@ export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
 
   if (!address) return null
 
-  return new ethers.Contract(
-    address,
-    Abi.ExchangeRates,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
-  )
+  return new ethers.Contract(address, Abi.ExchangeRates, getSigner(provider))
 }
 
 export const getUniswapPoolAddress = (
@@ -265,9 +253,10 @@ export const getUniswapPoolContract = (
 
   const address = getUniswapPoolAddress(symbol, chainId) as string
 
-  return new ethers.Contract(
-    address,
-    Abi.UniswapV2Pair,
-    process.env.NODE_ENV === 'test' ? provider : provider.getSigner()
-  )
+  return new ethers.Contract(address, Abi.UniswapV2Pair, getSigner(provider))
+}
+
+export const getSigner = (provider: JsonRpcProvider) => {
+  const isInfuraProvider = provider.constructor.name === 'InfuraProvider'
+  return isInfuraProvider ? provider : provider.getSigner()
 }
