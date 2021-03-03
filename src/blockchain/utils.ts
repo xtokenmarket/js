@@ -257,6 +257,6 @@ export const getUniswapPoolContract = (
 }
 
 export const getSigner = (provider: JsonRpcProvider) => {
-  const isInfuraProvider = provider.constructor.name === 'InfuraProvider'
+  const isInfuraProvider = provider.connection.url.indexOf('infura') > -1
   return isInfuraProvider ? provider : provider.getSigner()
 }
