@@ -32,7 +32,8 @@ export const burnXKnc = async (
     true
   )
 
-  return xkncContract.burn(amount, sellForEth, minRate)
+  // `xKNC` contract has `redeemForKnc` instead of `sellForEth` bool
+  return xkncContract.burn(amount, !sellForEth, minRate)
 }
 
 export const getExpectedQuantityOnBurnXKnc = async (
