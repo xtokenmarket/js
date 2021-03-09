@@ -1,6 +1,6 @@
 {
   "name": "xtoken-js",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "JS helper library to interact with xToken contracts",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
