@@ -96,3 +96,8 @@ export interface IReturn {
   expectedQuantity: string
   source: Exchange
 }
+
+export interface IReturns {
+  best: IReturn
+  estimates: Array<IReturn>
+}
