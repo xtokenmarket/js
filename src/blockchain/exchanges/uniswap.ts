@@ -1,12 +1,34 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { ChainId, Fetcher, Route, Token, WETH } from '@uniswap/sdk'
+import {
+  ChainId,
+  Fetcher,
+  Percent,
+  Route,
+  Token,
+  TokenAmount,
+  Trade,
+  TradeType,
+  WETH,
+} from '@uniswap/sdk'
 import { Contract, ethers } from 'ethers'
-import { ADDRESSES, ETH, USDC, X_KNC_A, X_KNC_B } from 'xtoken-abis'
+import {
+  ADDRESSES,
+  BUY,
+  ETH,
+  USDC,
+  WETH as WETH_SYMBOL,
+  X_KNC_A,
+  X_KNC_B,
+} from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { UniswapV2Pair } from '../../types'
-import { ILiquidityPoolItem } from '../../types/xToken'
-import { getUniswapPoolAddress, getUniswapPoolContract } from '../utils'
+import { ILiquidityPoolItem, ITradeType } from '../../types/xToken'
+import {
+  getTokenSymbol,
+  getUniswapPoolAddress,
+  getUniswapPoolContract,
+} from '../utils'
 import { getXKncPrices } from '../xknc'
 import { getXKncContracts } from '../xknc/helper'
 
@@ -44,6 +66,64 @@ export const getEthTokenPrice = async (
   return isPriceInvert
     ? route.midPrice.invert().toSignificant(6)
     : route.midPrice.toSignificant(6)
+}
+
+export const getUniswapEstimatedQuantity = async (
+  tokenIn: typeof ETH | typeof X_KNC_A | typeof X_KNC_B,
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  amount: string,
+  tradeType: ITradeType,
+  provider: JsonRpcProvider
+): Promise<string> => {
+  const network = await provider.getNetwork()
+  const { chainId } = network
+
+  const inputAmount = parseEther(amount)
+  const slippageTolerance = new Percent('50', '10000')
+  const token = getTokenSymbol(symbol)
+
+  // Addresses
+  const kncAddress = ADDRESSES[token][chainId]
+  const xkncAddress = ADDRESSES[symbol][chainId]
+  let tokenInAddress: string
+
+  if (tradeType === BUY) {
+    tokenInAddress =
+      tokenIn === ETH ? ADDRESSES[WETH_SYMBOL][chainId] : kncAddress
+  } else {
+    tokenInAddress = xkncAddress
+  }
+
+  const inputToken = new Token(chainId, tokenInAddress, 18)
+  const kncToken = new Token(chainId, kncAddress, 18)
+  const xKNCToken = new Token(chainId, xkncAddress, 18)
+
+  const ethXKncPair = await Fetcher.fetchPairData(
+    WETH[ChainId.MAINNET],
+    xKNCToken,
+    provider
+  )
+  const kncEthPair = await Fetcher.fetchPairData(
+    kncToken,
+    WETH[ChainId.MAINNET],
+    provider
+  )
+  let pairs = [ethXKncPair]
+
+  if (tokenIn !== ETH) {
+    pairs =
+      tradeType === BUY ? [kncEthPair, ethXKncPair] : [ethXKncPair, kncEthPair]
+  }
+
+  const route = new Route(pairs, inputToken)
+  const trade = new Trade(
+    route,
+    new TokenAmount(inputToken, inputAmount.toString()),
+    TradeType.EXACT_INPUT
+  )
+
+  const amountOutMin = trade.minimumAmountOut(slippageTolerance)
+  return amountOutMin.toSignificant(6)
 }
 
 export const getUniswapPortfolioItem = async (

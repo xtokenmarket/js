@@ -21,7 +21,10 @@ import {
   getInchEstimatedQuantity,
   getInchPortfolioItem,
 } from './blockchain/exchanges/inch'
-import { getUniswapPortfolioItem } from './blockchain/exchanges/uniswap'
+import {
+  getUniswapEstimatedQuantity,
+  getUniswapPortfolioItem,
+} from './blockchain/exchanges/uniswap'
 import {
   approveXAave,
   burnXAave,
@@ -64,7 +67,7 @@ import { getXSnxAsset } from './blockchain/xsnx/asset'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IPortfolioItem,
-  IReturn,
+  IReturns,
   ITokenSymbols,
   ITradeType,
 } from './types/xToken'
@@ -180,7 +183,7 @@ export class XToken {
   /**
    * @example
    * ```typescript
-   * // Get best return for the trading pair from the available sources
+   * // Get best return and estimated quantities for the trading pair from available sources
    * const return = await xToken.getBestReturn('xAAVEa', true, '100')
    * ```
    *
@@ -188,54 +191,44 @@ export class XToken {
    * @param {boolean} tradeWithEth True, if selling the xToken for ETH
    * @param {string} amount Quantity of the xToken to be traded
    * @param {ITradeType} tradeType Buy/sell type of the trade
-   * @returns Expected quantity for selling the given xToken
+   * @returns Estimated quantities from available sources for trading the given xToken
    */
   public async getBestReturn(
     symbol: ITokenSymbols,
     tradeWithEth: boolean,
     amount: string,
     tradeType: ITradeType
-  ): Promise<IReturn> {
+  ): Promise<IReturns> {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
 
-    let dexReturn = '0'
-    let xTokenReturn: string
+    let dexExpectedQty = '0'
+    let dexSource = Exchange.KYBER
+    let xTokenExpectedQty: string
 
     if (tradeType === BUY) {
-      xTokenReturn = await this.getExpectedQuantityOnMint(
+      xTokenExpectedQty = await this.getExpectedQuantityOnMint(
         symbol,
         tradeWithEth,
         amount
       )
     } else {
-      xTokenReturn = await this.getExpectedQuantityOnBurn(
+      xTokenExpectedQty = await this.getExpectedQuantityOnBurn(
         symbol,
         tradeWithEth,
         amount
       )
     }
 
-    let bestReturn = xTokenReturn
-    let source = Exchange.XTOKEN
+    const xTokenReturn = {
+      expectedQuantity: parseEther(xTokenExpectedQty).toString(),
+      source: Exchange.XTOKEN,
+    }
 
     if ([X_AAVE_A, X_AAVE_B, X_SNX_A].includes(symbol)) {
-      dexReturn = await this.getExpectedQuantityOnBalancer(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        tradeWithEth ? ETH : symbol,
-        symbol,
-        amount,
-        tradeType
-      )
-
-      if (Number(xTokenReturn) < Number(dexReturn)) {
-        bestReturn = dexReturn
-        source = Exchange.BALANCER
-      }
-    } else if ([X_INCH_A, X_INCH_B].includes(symbol)) {
-      dexReturn = await getInchEstimatedQuantity(
+      dexSource = Exchange.BALANCER
+      dexExpectedQty = await getBalancerEstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         tradeWithEth ? ETH : symbol,
@@ -244,20 +237,48 @@ export class XToken {
         tradeType,
         this.provider
       )
+    } else if ([X_INCH_A, X_INCH_B].includes(symbol)) {
+      dexSource = Exchange.INCH
+      dexExpectedQty = await getInchEstimatedQuantity(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tradeWithEth ? ETH : symbol,
+        symbol,
+        amount,
+        tradeType,
+        this.provider
+      )
+    } else if ([X_KNC_A, X_KNC_B].includes(symbol)) {
+      dexSource = Exchange.UNISWAP
+      dexExpectedQty = await getUniswapEstimatedQuantity(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tradeWithEth ? ETH : symbol,
+        symbol,
+        amount,
+        tradeType,
+        this.provider
+      )
+    }
 
-      if (Number(xTokenReturn) < Number(dexReturn)) {
-        bestReturn = dexReturn
-        source = Exchange.INCH
-      }
+    const dexReturn = {
+      expectedQuantity: parseEther(dexExpectedQty).toString(),
+      source: dexSource,
+    }
+
+    let bestReturn = xTokenReturn
+    if (Number(xTokenExpectedQty) < Number(dexExpectedQty)) {
+      bestReturn = dexReturn
     }
 
     return {
-      expectedQuantity: parseEther(bestReturn).toString(),
-      source,
+      best: bestReturn,
+      estimates: [xTokenReturn, dexReturn],
     }
   }
 
   /**
+   * @deprecated Will be removed in favor of [[getBestReturn]]
    * @example
    * ```typescript
    * // Get expected quantity of xAAVEa when minting for 1 ETH
