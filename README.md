@@ -1,32 +1,32 @@
-# xtoken-js
+# @xtoken/js
 
 Helper library to interact with xToken contracts written in Typescript with full typing support. It allows access to the low level API to directly interact with the contracts.
 
 ## Install
 
 ```sh
-yarn add xtoken-js
+yarn add @xtoken/js
 ```
 
 ## Dependencies
 
-At the moment, `xtoken-js` requires using [xtoken-abis](https://www.npmjs.com/package/xtoken-abis) and [ethers.js](https://www.npmjs.com/package/ethers) v5.0.30
+At the moment, `@xtoken/js` requires using [@xtoken/abis](https://www.npmjs.com/package/@xtoken/abis) and [ethers.js](https://www.npmjs.com/package/ethers) v5.0.30
 
 ```sh
-yarn add xtoken-abis
+yarn add @xtoken/abis
 yarn add ethers@5.0.30
 ```
 
 ## Documentation
 
-GitHub pages: [https://xtokenmarket.github.io/xtoken-js](https://xtokenmarket.github.io/xtoken-js/)
+GitHub pages: [https://xtokenmarket.github.io/js](https://xtokenmarket.github.io/js/)
 
 ## Examples
 
 ```sh
 import { ethers } from 'ethers'
-import { X_KNC_A } from 'xtoken-abis'
-import { XToken } from 'xtoken-js'
+import { X_KNC_A } from '@xtoken/abis'
+import { XToken } from '@xtoken/js'
 
 // Setup provider
 const provider = new ethers.providers.InfuraProvider('homestead', '<API KEY>')
@@ -100,7 +100,7 @@ To generate and publish documentation to [GitHub Pages](https://pages.github.com
 yarn doc:publish
 ```
 
-Once published, documentation should be available at the [GitHub Pages](https://xtokenmarket.github.io/xtoken-js/)
+Once published, documentation should be available at the [GitHub Pages](https://xtokenmarket.github.io/js/)
 
 ## Publishing
 

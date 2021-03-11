@@ -1,5 +1,5 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { X_INCH_A, X_INCH_B } from 'xtoken-abis'
+import { X_INCH_A, X_INCH_B } from '@xtoken/abis'
 
 import { IAsset } from '../../types/xToken'
 

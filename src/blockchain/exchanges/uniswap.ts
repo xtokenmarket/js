@@ -10,7 +10,6 @@ import {
   TradeType,
   WETH,
 } from '@uniswap/sdk'
-import { Contract, ethers } from 'ethers'
 import {
   ADDRESSES,
   BUY,
@@ -19,7 +18,8 @@ import {
   WETH as WETH_SYMBOL,
   X_KNC_A,
   X_KNC_B,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import { Contract, ethers } from 'ethers'
 
 import { DEC_18 } from '../../constants'
 import { UniswapV2Pair } from '../../types'

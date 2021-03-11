@@ -1,5 +1,5 @@
+import { X_SNX_A } from '@xtoken/abis'
 import test from 'ava'
-import { X_SNX_A } from 'xtoken-abis'
 
 import { provider, testAddress } from '../../constants.spec'
 

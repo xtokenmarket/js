@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { INCH_LIQUIDITY_PROTOCOL, KYBER_PROXY } from '@xtoken/abis'
 import { BigNumber } from 'ethers'
-import { INCH_LIQUIDITY_PROTOCOL, KYBER_PROXY } from 'xtoken-abis'
 
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'

@@ -1,7 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { ADDRESSES, ETH } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { ADDRESSES, ETH } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
@@ -14,8 +14,8 @@ import { getExpectedRate } from '../utils'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { Abi, ADDRESSES, KNC, KYBER_PROXY, X_KNC_A } from 'xtoken-abis'
- * import { getXKncPrices } from 'xtoken-js'
+ * import { Abi, ADDRESSES, KNC, KYBER_PROXY, X_KNC_A } from '@xtoken/abis'
+ * import { getXKncPrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
  *

@@ -1,5 +1,5 @@
+import { X_AAVE_A } from '@xtoken/abis'
 import test from 'ava'
-import { X_AAVE_A } from 'xtoken-abis'
 
 import { provider, ropstenProvider } from './constants.spec'
 import { XToken } from './xToken'
