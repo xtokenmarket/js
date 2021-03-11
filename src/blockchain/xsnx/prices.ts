@@ -12,8 +12,8 @@ import { getTokenBalance } from '../utils'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { Abi, ADDRESSES, EXCHANGE_RATES, TRADE_ACCOUNTING, SNX, X_SNX_A, X_SNX_A_ADMIN } from 'xtoken-abis'
- * import { getXSnxPrices } from 'xtoken-js'
+ * import { Abi, ADDRESSES, EXCHANGE_RATES, TRADE_ACCOUNTING, SNX, X_SNX_A, X_SNX_A_ADMIN } from '@xtoken/abis'
+ * import { getXSnxPrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
  * const network = await provider.getNetwork()

@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { Abi, ADDRESSES, ETH, WETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { Abi, ADDRESSES, ETH, WETH } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'

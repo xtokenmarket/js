@@ -1,7 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { ADDRESSES, X_SNX_A_ADMIN } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
-import { ADDRESSES, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'

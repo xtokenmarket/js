@@ -1,13 +1,13 @@
-import test from 'ava'
-import { BigNumber } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
 import {
   ADDRESSES,
   ETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
   X_KNC_A,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import test from 'ava'
+import { BigNumber } from 'ethers'
+import { formatEther } from 'ethers/lib/utils'
 
 import { provider } from '../constants.spec'
 

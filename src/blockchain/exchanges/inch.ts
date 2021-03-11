@@ -1,5 +1,4 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { ethers } from 'ethers'
 import {
   ADDRESSES,
   BUY,
@@ -9,7 +8,8 @@ import {
   SELL,
   X_INCH_A,
   X_INCH_B,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import { ethers } from 'ethers'
 
 import { DEC_18, ZERO_ADDRESS } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'

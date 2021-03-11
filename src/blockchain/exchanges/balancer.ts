@@ -1,5 +1,4 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { Contract, ethers } from 'ethers'
 import {
   AAVE,
   Abi,
@@ -17,7 +16,8 @@ import {
   X_SNX_A,
   X_SNX_A_ADMIN,
   X_SNX_A_BALANCER_POOL,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import { Contract, ethers } from 'ethers'
 
 import { DEC_18 } from '../../constants'
 import {

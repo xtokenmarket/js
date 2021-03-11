@@ -1,5 +1,5 @@
+import { X_KNC_A, X_KNC_B } from '@xtoken/abis'
 import test from 'ava'
-import { X_KNC_A, X_KNC_B } from 'xtoken-abis'
 
 import { provider } from '../../constants.spec'
 

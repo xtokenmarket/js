@@ -1,7 +1,5 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider, Network } from '@ethersproject/providers'
-import { BigNumber, ethers } from 'ethers'
-import { ContractInterface } from 'ethers/lib/ethers'
 import {
   AAVE,
   Abi,
@@ -29,7 +27,9 @@ import {
   X_KNC_B_UNISWAP_POOL,
   X_SNX_A,
   X_SNX_A_BALANCER_POOL,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import { BigNumber, ethers } from 'ethers'
+import { ContractInterface } from 'ethers/lib/ethers'
 
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'

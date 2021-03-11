@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { ADDRESSES, X_SNX_A, X_SNX_A_ADMIN } from '@xtoken/abis'
 import { Contract } from 'ethers'
-import { ADDRESSES, X_SNX_A, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { ExchangeRates } from '../../types'
 import { IAsset } from '../../types/xToken'

@@ -22,7 +22,7 @@ import {
   X_INCH_B,
   INCH_LIQUIDITY_PROTOCOL,
   UNISWAP_V2_PAIR,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
 import { Exchange } from '../constants'
 
 export type IContracts =

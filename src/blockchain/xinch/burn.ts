@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
-import { ADDRESSES, INCH } from 'xtoken-abis'
 
 import { DEC_18, ZERO_ADDRESS } from '../../constants'
 import { XINCH } from '../../types'

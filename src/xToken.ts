@@ -1,6 +1,5 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { isAddress, parseEther } from 'ethers/lib/utils'
 import {
   BUY,
   ETH,
@@ -11,7 +10,8 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
-} from 'xtoken-abis'
+} from '@xtoken/abis'
+import { isAddress, parseEther } from 'ethers/lib/utils'
 
 import {
   getBalancerEstimatedQuantity,
@@ -78,7 +78,7 @@ import {
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { XToken } from 'xtoken-js'
+ * import { XToken } from '@xtoken/js'
  *
  * // Metamask provider
  * const provider = new ethers.providers.Web3Provider(window.ethereum)

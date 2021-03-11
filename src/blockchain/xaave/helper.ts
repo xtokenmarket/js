@@ -1,6 +1,6 @@
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { KYBER_PROXY } from 'xtoken-abis'
+import { KYBER_PROXY } from '@xtoken/abis'
 
 import { KyberProxy, XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'

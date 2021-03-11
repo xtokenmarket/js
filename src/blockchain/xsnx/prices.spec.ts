@@ -1,6 +1,6 @@
+import { ADDRESSES, X_SNX_A_ADMIN } from '@xtoken/abis'
 import test from 'ava'
 import { Contract } from 'ethers'
-import { ADDRESSES, X_SNX_A_ADMIN } from 'xtoken-abis'
 
 import { provider } from '../../constants.spec'
 import { ExchangeRates } from '../../types'

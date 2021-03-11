@@ -1,11 +1,11 @@
 {
-  "name": "xtoken-js",
+  "name": "@xtoken/js",
   "version": "0.1.27",
   "description": "JS helper library to interact with xToken contracts",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/xtokenmarket/xtoken-js",
+  "repository": "https://github.com/xtokenmarket/js",
   "license": "MIT",
   "keywords": [],
   "scripts": {
@@ -38,7 +38,7 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx -e .idea -e .env && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test doc:html version doc:publish",
-    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/xtoken-abis/build/main/abi/*.json'",
+    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/*.json'",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -46,6 +46,9 @@
   },
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@uniswap/sdk": "^3.0.3"
@@ -58,6 +61,7 @@
     "@types/node": "^14.14.27",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "@xtoken/abis": "0.1.8",
     "ava": "^3.15.0",
     "codecov": "^3.8.1",
     "copyfiles": "^2.4.1",
@@ -83,12 +87,11 @@
     "ts-node": "^9.1.1",
     "typechain": "^4.0.1",
     "typedoc": "^0.20.24",
-    "typescript": "^4.1.5",
-    "xtoken-abis": "0.1.8"
+    "typescript": "^4.1.5"
   },
   "peerDependencies": {
-    "ethers": "5.0.30",
-    "xtoken-abis": "0.1.8"
+    "@xtoken/abis": "0.1.8",
+    "ethers": "5.0.30"
   },
   "files": [
     "build/main",

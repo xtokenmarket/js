@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { AAVE, ADDRESSES } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import { AAVE, ADDRESSES } from 'xtoken-abis'
 
 import { DEC_18 } from '../../constants'
 import { KyberProxy, XAAVE } from '../../types'
@@ -12,8 +12,8 @@ import { getEthTokenPrice, getEthUsdcPrice } from '../exchanges/uniswap'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { Abi, ADDRESSES, KYBER_PROXY, X_AAVE_A } from 'xtoken-abis'
- * import { getXAavePrices } from 'xtoken-js'
+ * import { Abi, ADDRESSES, KYBER_PROXY, X_AAVE_A } from '@xtoken/abis'
+ * import { getXAavePrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
  * const network = await provider.getNetwork()

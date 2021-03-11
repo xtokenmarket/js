@@ -1,5 +1,5 @@
+import { BUY, ETH, SELL, X_AAVE_A, X_AAVE_B, X_SNX_A } from '@xtoken/abis'
 import test from 'ava'
-import { BUY, ETH, SELL, X_AAVE_A, X_AAVE_B, X_SNX_A } from 'xtoken-abis'
 
 import { provider, testAddress } from '../../constants.spec'
 
