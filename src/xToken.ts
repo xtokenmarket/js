@@ -66,6 +66,8 @@ import {
 import { getXSnxAsset } from './blockchain/xsnx/asset'
 import { Exchange, MAX_UINT } from './constants'
 import {
+  IAsset,
+  ILiquidityPoolItem,
   IPortfolioItem,
   IReturns,
   ITokenSymbols,
@@ -425,7 +427,7 @@ export class XToken {
    *
    * @returns Returns available liquidity pools for xTokens along with their balances
    */
-  public async getLiquidityPoolItems() {
+  public async getLiquidityPoolItems(): Promise<readonly ILiquidityPoolItem[]> {
     const signer = this.provider.getSigner()
     const address = await signer.getAddress()
 
@@ -516,7 +518,7 @@ export class XToken {
    * @returns Returns list of all the xTokens along with their asset details:
    * AUM, Mandate & USD price
    */
-  public async getXAssets() {
+  public async getXAssets(): Promise<readonly IAsset[]> {
     return Promise.all([
       getXKncAsset(X_KNC_A, this.provider),
       getXKncAsset(X_KNC_B, this.provider),

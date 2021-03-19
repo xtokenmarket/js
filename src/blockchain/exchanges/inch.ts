@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import {
   ADDRESSES,
@@ -82,7 +83,7 @@ export const getInchPortfolioItem = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   address: string,
   provider: JsonRpcProvider
-): Promise<null | ILiquidityPoolItem> => {
+): Promise<ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 
@@ -102,7 +103,12 @@ export const getInchPortfolioItem = async (
     network
   ) as KyberProxy
 
-  const userBalance = await inchPoolContract.balanceOf(address)
+  let userBalance = BigNumber.from('0')
+  try {
+    userBalance = await inchPoolContract.balanceOf(address)
+  } catch (e) {
+    console.error('Error while fetching user balance:', e)
+  }
 
   const xinchContract = getContract(symbol, provider, network) as XINCH
   const { priceUsd } = await getXInchPrices(

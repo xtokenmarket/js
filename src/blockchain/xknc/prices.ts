@@ -3,7 +3,7 @@ import { ADDRESSES, ETH } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, DEFAULT_PRICES } from '../../constants'
 import { KyberProxy, XKNC } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -40,42 +40,39 @@ export const getXKncPrices = async (
   kncContract: Contract,
   kyberProxyContract: KyberProxy
 ): Promise<ITokenPrices> => {
-  if (!xkncContract) {
+  try {
+    const proxyValue = parseEther('1')
+    const ethAddress = ADDRESSES[ETH] as string
+
+    const [
+      xkncTotalSupply,
+      xkncKncBal,
+      kncEthPrice,
+      ethUsdcPrice,
+    ] = await Promise.all([
+      xkncContract.totalSupply(),
+      xkncContract.getFundKncBalanceTwei(),
+      getExpectedRate(
+        kyberProxyContract,
+        kncContract.address,
+        ethAddress,
+        proxyValue
+      ),
+      getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
+    ])
+
+    const kncUsdcPrice = kncEthPrice.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+    const priceUsd = xkncKncBal.mul(kncUsdcPrice).div(xkncTotalSupply)
+    const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
+    const aum = priceUsd.mul(xkncTotalSupply).div(DEC_18)
+
     return {
-      aum: 0,
-      priceEth: 0,
-      priceUsd: 0,
+      priceUsd: formatNumber(formatEther(priceUsd)),
+      priceEth: formatNumber(formatEther(priceEth), 6),
+      aum: formatNumber(formatEther(aum), 0),
     }
-  }
-
-  const proxyValue = parseEther('1')
-  const ethAddress = ADDRESSES[ETH] as string
-
-  const [
-    xkncTotalSupply,
-    xkncKncBal,
-    kncEthPrice,
-    ethUsdcPrice,
-  ] = await Promise.all([
-    xkncContract.totalSupply(),
-    xkncContract.getFundKncBalanceTwei(),
-    getExpectedRate(
-      kyberProxyContract,
-      kncContract.address,
-      ethAddress,
-      proxyValue
-    ),
-    getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
-  ])
-
-  const kncUsdcPrice = kncEthPrice.mul(parseEther(ethUsdcPrice)).div(DEC_18)
-  const priceUsd = xkncKncBal.mul(kncUsdcPrice).div(xkncTotalSupply)
-  const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
-  const aum = priceUsd.mul(xkncTotalSupply).div(DEC_18)
-
-  return {
-    priceUsd: formatNumber(formatEther(priceUsd)),
-    priceEth: formatNumber(formatEther(priceEth), 6),
-    aum: formatNumber(formatEther(aum), 0),
+  } catch (e) {
+    console.error('Error while fetching token price:', e)
+    return DEFAULT_PRICES
   }
 }

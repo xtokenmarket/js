@@ -2,6 +2,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatEther } from 'ethers/lib/utils'
 
+import { DEFAULT_PORTFOLIO_ITEM } from '../../constants'
 import { XKNC } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
 import { getUserAvailableTokenBalance } from '../utils'
@@ -14,31 +15,39 @@ export const getPortfolioItemXKnc = async (
   address: string,
   provider: JsonRpcProvider
 ): Promise<IPortfolioItem> => {
-  const {
-    kncContract,
-    kyberProxyContract,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
+  try {
+    const {
+      kncContract,
+      kyberProxyContract,
+      xkncContract,
+    } = await getXKncContracts(symbol, provider)
 
-  const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
+    const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
 
-  const { priceUsd } = await getXKncPrices(
-    xkncContract,
-    kncContract as Contract,
-    kyberProxyContract
-  )
-  const xkncValue = (xkncBal * priceUsd).toFixed(2)
-  const tokenEquivalent = await getUnderlyingTokenEquivalent(
-    xkncContract,
-    address
-  )
+    const { priceUsd } = await getXKncPrices(
+      xkncContract,
+      kncContract as Contract,
+      kyberProxyContract
+    )
+    const xkncValue = (xkncBal * priceUsd).toFixed(2)
+    const tokenEquivalent = await getUnderlyingTokenEquivalent(
+      xkncContract,
+      address
+    )
 
-  return {
-    symbol,
-    quantity: xkncBal.toString(),
-    price: priceUsd.toString(),
-    value: xkncValue.toString(),
-    tokenEquivalent,
+    return {
+      symbol,
+      quantity: xkncBal.toString(),
+      price: priceUsd.toString(),
+      value: xkncValue.toString(),
+      tokenEquivalent,
+    }
+  } catch (e) {
+    console.error('Error while fetching portfolio balance:', e)
+    return {
+      symbol,
+      ...DEFAULT_PORTFOLIO_ITEM,
+    }
   }
 }
 

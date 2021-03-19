@@ -1,6 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
+import { DEFAULT_PORTFOLIO_ITEM } from '../../constants'
 import { XINCH } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
 import { getUserAvailableTokenBalance } from '../utils'
@@ -13,33 +14,41 @@ export const getPortfolioItemXInch = async (
   address: string,
   provider: JsonRpcProvider
 ): Promise<IPortfolioItem> => {
-  const {
-    kyberProxyContract,
-    network,
-    xinchContract,
-  } = await getXInchContracts(symbol, provider)
-  const { chainId } = network
+  try {
+    const {
+      kyberProxyContract,
+      network,
+      xinchContract,
+    } = await getXInchContracts(symbol, provider)
+    const { chainId } = network
 
-  const xinchBal = await getUserAvailableTokenBalance(xinchContract, address)
+    const xinchBal = await getUserAvailableTokenBalance(xinchContract, address)
 
-  const { priceUsd } = await getXInchPrices(
-    xinchContract,
-    kyberProxyContract,
-    chainId
-  )
-  const xinchValue = (xinchBal * priceUsd).toFixed(2)
+    const { priceUsd } = await getXInchPrices(
+      xinchContract,
+      kyberProxyContract,
+      chainId
+    )
+    const xinchValue = (xinchBal * priceUsd).toFixed(2)
 
-  const tokenEquivalent = await getUnderlyingTokenEquivalent(
-    xinchContract,
-    address
-  )
+    const tokenEquivalent = await getUnderlyingTokenEquivalent(
+      xinchContract,
+      address
+    )
 
-  return {
-    symbol,
-    quantity: xinchBal.toString(),
-    price: priceUsd.toString(),
-    value: xinchValue.toString(),
-    tokenEquivalent,
+    return {
+      symbol,
+      quantity: xinchBal.toString(),
+      price: priceUsd.toString(),
+      value: xinchValue.toString(),
+      tokenEquivalent,
+    }
+  } catch (e) {
+    console.error('Error while fetching portfolio balance:', e)
+    return {
+      symbol,
+      ...DEFAULT_PORTFOLIO_ITEM,
+    }
   }
 }
 

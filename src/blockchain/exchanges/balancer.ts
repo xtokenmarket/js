@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import {
   AAVE,
@@ -133,7 +134,7 @@ export const getBalancerPortfolioItem = async (
   symbol: ITokenSymbols,
   address: string,
   provider: JsonRpcProvider
-): Promise<null | ILiquidityPoolItem> => {
+): Promise<ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network
 
@@ -159,9 +160,14 @@ export const getBalancerPortfolioItem = async (
   ) as KyberProxy
   const tokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
-  const userBalance = await balancerPoolContract.balanceOf(address)
+  let userBalance = BigNumber.from('0')
+  try {
+    userBalance = await balancerPoolContract.balanceOf(address)
+  } catch (e) {
+    console.error('Error while fetching user balance:', e)
+  }
 
-  let tokenPrice
+  let tokenPrice = 0
   const [ethUsdcPrice, underlyingEthPrice] = await Promise.all([
     getEthUsdcPrice(provider),
     getEthTokenPrice(underlyingAddress, true, provider),
@@ -170,53 +176,55 @@ export const getBalancerPortfolioItem = async (
     .mul(parseEther(ethUsdcPrice))
     .div(DEC_18)
 
-  switch (symbol) {
-    case X_SNX_A: {
-      const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+  try {
+    switch (symbol) {
+      case X_SNX_A: {
+        const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
 
-      const tradeAccountingContract = getContract(
-        TRADE_ACCOUNTING,
-        provider,
-        network
-      ) as TradeAccounting
-      const exchangeRatesContract = (await getExchangeRateContract(
-        provider
-      )) as ExchangeRates
-      const snxContract = getContract(SNX, provider, network) as Contract
+        const tradeAccountingContract = getContract(
+          TRADE_ACCOUNTING,
+          provider,
+          network
+        ) as TradeAccounting
+        const exchangeRatesContract = (await getExchangeRateContract(
+          provider
+        )) as ExchangeRates
+        const snxContract = getContract(SNX, provider, network) as Contract
 
-      const { priceUsd } = await getXSnxPrices(
-        tokenContract as XSNX,
-        xsnxAdminAddress,
-        tradeAccountingContract,
-        exchangeRatesContract,
-        snxContract,
-        provider
-      )
-      tokenPrice = priceUsd
-      break
+        const { priceUsd } = await getXSnxPrices(
+          tokenContract as XSNX,
+          xsnxAdminAddress,
+          tradeAccountingContract,
+          exchangeRatesContract,
+          snxContract,
+          provider
+        )
+        tokenPrice = priceUsd
+        break
+      }
+      case X_AAVE_A: {
+        const xaaveaContract = getContract(symbol, provider, network) as XAAVE
+        const { priceUsd } = await getXAavePrices(
+          xaaveaContract,
+          kyberProxyContract,
+          chainId
+        )
+        tokenPrice = priceUsd
+        break
+      }
+      case X_AAVE_B: {
+        const xaavebContract = getContract(symbol, provider, network) as XAAVE
+        const { priceUsd } = await getXAavePrices(
+          xaavebContract,
+          kyberProxyContract,
+          chainId
+        )
+        tokenPrice = priceUsd
+        break
+      }
     }
-    case X_AAVE_A: {
-      const xaaveaContract = getContract(symbol, provider, network) as XAAVE
-      const { priceUsd } = await getXAavePrices(
-        xaaveaContract,
-        kyberProxyContract,
-        chainId
-      )
-      tokenPrice = priceUsd
-      break
-    }
-    case X_AAVE_B: {
-      const xaavebContract = getContract(symbol, provider, network) as XAAVE
-      const { priceUsd } = await getXAavePrices(
-        xaavebContract,
-        kyberProxyContract,
-        chainId
-      )
-      tokenPrice = priceUsd
-      break
-    }
-    default:
-      return null
+  } catch (e) {
+    console.error(e)
   }
 
   const balancerContractBalances = await getBalances(

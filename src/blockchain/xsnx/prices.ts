@@ -2,7 +2,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, DEFAULT_PRICES } from '../../constants'
 import { ExchangeRates, TradeAccounting, XSNX } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -50,64 +50,60 @@ export const getXSnxPrices = async (
   snxContract: Contract,
   provider: JsonRpcProvider
 ): Promise<ITokenPrices> => {
-  if (!tradeAccountingContract || !exchangeRatesContract) {
-    return {
-      aum: 0,
-      priceEth: 0,
-      priceUsd: 0,
-      sellPriceEth: 0,
-    }
-  }
+  try {
+    const [
+      { rate: snxUsdPrice },
+      { rate: ethUsdPrice },
+      contractDebtValue,
+    ] = await Promise.all([
+      exchangeRatesContract.rateAndUpdatedTime(formatBytes32String('SNX')),
+      exchangeRatesContract.rateAndUpdatedTime(formatBytes32String('sETH')),
+      snxContract.debtBalanceOf(xsnxAdminAddress, formatBytes32String('sUSD')),
+    ])
+    const weiPerOneSnx = snxUsdPrice.mul(DEC_18).div(ethUsdPrice)
 
-  const [
-    { rate: snxUsdPrice },
-    { rate: ethUsdPrice },
-    contractDebtValue,
-  ] = await Promise.all([
-    exchangeRatesContract.rateAndUpdatedTime(formatBytes32String('SNX')),
-    exchangeRatesContract.rateAndUpdatedTime(formatBytes32String('sETH')),
-    snxContract.debtBalanceOf(xsnxAdminAddress, formatBytes32String('sUSD')),
-  ])
-  const weiPerOneSnx = snxUsdPrice.mul(DEC_18).div(ethUsdPrice)
-
-  const [
-    snxBalanceBefore,
-    setHoldings,
-    ethBal,
-    totalSupply,
-    snxBalanceOwned,
-  ] = await Promise.all([
-    tradeAccountingContract.getSnxBalance(),
-    tradeAccountingContract.getSetHoldingsValueInWei(),
-    tradeAccountingContract.getEthBalance(),
-    xsnxContract.totalSupply(),
-    getTokenBalance(snxContract.address, xsnxAdminAddress, provider),
-  ])
-  const nonSnxAssetValue = setHoldings.add(ethBal)
-
-  const [issueTokenPriceInEth, redeemTokenPriceEth] = await Promise.all([
-    tradeAccountingContract.calculateIssueTokenPrice(
-      weiPerOneSnx,
+    const [
       snxBalanceBefore,
-      nonSnxAssetValue,
-      totalSupply
-    ),
-    tradeAccountingContract.calculateRedeemTokenPrice(
+      setHoldings,
+      ethBal,
       totalSupply,
       snxBalanceOwned,
-      contractDebtValue
-    ),
-  ])
+    ] = await Promise.all([
+      tradeAccountingContract.getSnxBalance(),
+      tradeAccountingContract.getSetHoldingsValueInWei(),
+      tradeAccountingContract.getEthBalance(),
+      xsnxContract.totalSupply(),
+      getTokenBalance(snxContract.address, xsnxAdminAddress, provider),
+    ])
+    const nonSnxAssetValue = setHoldings.add(ethBal)
 
-  const priceUsd = issueTokenPriceInEth.mul(ethUsdPrice).div(DEC_18)
-  const sellPriceUsd = redeemTokenPriceEth.mul(ethUsdPrice).div(DEC_18)
-  const aum = totalSupply.mul(priceUsd).div(DEC_18)
+    const [issueTokenPriceInEth, redeemTokenPriceEth] = await Promise.all([
+      tradeAccountingContract.calculateIssueTokenPrice(
+        weiPerOneSnx,
+        snxBalanceBefore,
+        nonSnxAssetValue,
+        totalSupply
+      ),
+      tradeAccountingContract.calculateRedeemTokenPrice(
+        totalSupply,
+        snxBalanceOwned,
+        contractDebtValue
+      ),
+    ])
 
-  return {
-    aum: formatNumber(formatEther(aum), 0),
-    priceEth: formatNumber(formatEther(issueTokenPriceInEth)),
-    priceUsd: formatNumber(formatEther(priceUsd)),
-    sellPriceEth: formatNumber(formatEther(redeemTokenPriceEth)),
-    sellPriceUsd: formatNumber(formatEther(sellPriceUsd)),
+    const priceUsd = issueTokenPriceInEth.mul(ethUsdPrice).div(DEC_18)
+    const sellPriceUsd = redeemTokenPriceEth.mul(ethUsdPrice).div(DEC_18)
+    const aum = totalSupply.mul(priceUsd).div(DEC_18)
+
+    return {
+      aum: formatNumber(formatEther(aum), 0),
+      priceEth: formatNumber(formatEther(issueTokenPriceInEth)),
+      priceUsd: formatNumber(formatEther(priceUsd)),
+      sellPriceEth: formatNumber(formatEther(redeemTokenPriceEth)),
+      sellPriceUsd: formatNumber(formatEther(sellPriceUsd)),
+    }
+  } catch (e) {
+    console.error('Error while fetching token price:', e)
+    return DEFAULT_PRICES
   }
 }
