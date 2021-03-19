@@ -25,8 +25,13 @@ export const getBalances = async (
   // Contracts
   const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
-  // Balances
-  const xTokenBalance = await xTokenContract.balanceOf(poolAddress)
+  let xTokenBalance = BigNumber.from('0')
+  try {
+    // Balances
+    xTokenBalance = await xTokenContract.balanceOf(poolAddress)
+  } catch (e) {
+    console.error('Error while fetching user balance:', e)
+  }
 
   // ETH price in USD
   const ethUsdcPrice = await getEthUsdcPrice(provider)

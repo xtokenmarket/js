@@ -2,7 +2,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { AAVE, ADDRESSES } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, DEFAULT_PRICES } from '../../constants'
 import { KyberProxy, XAAVE } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
@@ -39,43 +39,40 @@ export const getXAavePrices = async (
   kyberProxyContract: KyberProxy,
   chainId: number
 ): Promise<ITokenPrices> => {
-  if (!xaaveContract) {
+  try {
+    const aaveAddress = ADDRESSES[AAVE][chainId]
+
+    const [
+      xaaveTotalSupply,
+      xaaveAaveBal,
+      aaveEthPrice,
+      ethUsdcPrice,
+    ] = await Promise.all([
+      xaaveContract.totalSupply(),
+      xaaveContract.getFundHoldings(),
+      getEthTokenPrice(
+        aaveAddress,
+        true,
+        kyberProxyContract.provider as JsonRpcProvider
+      ),
+      getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
+    ])
+
+    const aaveUsdPrice = parseEther(aaveEthPrice)
+      .mul(parseEther(ethUsdcPrice))
+      .div(DEC_18)
+    const xaavePerToken = xaaveAaveBal.mul(DEC_18).div(xaaveTotalSupply)
+    const priceUsd = xaavePerToken.mul(aaveUsdPrice).div(DEC_18)
+    const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
+    const aum = priceUsd.mul(xaaveTotalSupply).div(DEC_18)
+
     return {
-      aum: 0,
-      priceEth: 0,
-      priceUsd: 0,
+      aum: formatNumber(formatEther(aum), 0),
+      priceEth: formatNumber(formatEther(priceEth), 6),
+      priceUsd: formatNumber(formatEther(priceUsd)),
     }
-  }
-
-  const aaveAddress = ADDRESSES[AAVE][chainId]
-
-  const [
-    xaaveTotalSupply,
-    xaaveAaveBal,
-    aaveEthPrice,
-    ethUsdcPrice,
-  ] = await Promise.all([
-    xaaveContract.totalSupply(),
-    xaaveContract.getFundHoldings(),
-    getEthTokenPrice(
-      aaveAddress,
-      true,
-      kyberProxyContract.provider as JsonRpcProvider
-    ),
-    getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
-  ])
-
-  const aaveUsdPrice = parseEther(aaveEthPrice)
-    .mul(parseEther(ethUsdcPrice))
-    .div(DEC_18)
-  const xaavePerToken = xaaveAaveBal.mul(DEC_18).div(xaaveTotalSupply)
-  const priceUsd = xaavePerToken.mul(aaveUsdPrice).div(DEC_18)
-  const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
-  const aum = priceUsd.mul(xaaveTotalSupply).div(DEC_18)
-
-  return {
-    aum: formatNumber(formatEther(aum), 0),
-    priceEth: formatNumber(formatEther(priceEth), 6),
-    priceUsd: formatNumber(formatEther(priceUsd)),
+  } catch (e) {
+    console.error('Error while fetching token price:', e)
+    return DEFAULT_PRICES
   }
 }

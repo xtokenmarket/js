@@ -1,6 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
+import { DEFAULT_PORTFOLIO_ITEM } from '../../constants'
 import { XAAVE } from '../../types'
 import { IPortfolioItem, ITokenSymbols } from '../../types/xToken'
 import { getUserAvailableTokenBalance } from '../utils'
@@ -13,33 +14,41 @@ export const getPortfolioItemXAave = async (
   address: string,
   provider: JsonRpcProvider
 ): Promise<IPortfolioItem> => {
-  const {
-    kyberProxyContract,
-    network,
-    xaaveContract,
-  } = await getXAaveContracts(symbol, provider)
-  const { chainId } = network
+  try {
+    const {
+      kyberProxyContract,
+      network,
+      xaaveContract,
+    } = await getXAaveContracts(symbol, provider)
+    const { chainId } = network
 
-  const xaaveBal = await getUserAvailableTokenBalance(xaaveContract, address)
+    const xaaveBal = await getUserAvailableTokenBalance(xaaveContract, address)
 
-  const { priceUsd } = await getXAavePrices(
-    xaaveContract,
-    kyberProxyContract,
-    chainId
-  )
-  const xaaveValue = (xaaveBal * priceUsd).toFixed(2).toString()
+    const { priceUsd } = await getXAavePrices(
+      xaaveContract,
+      kyberProxyContract,
+      chainId
+    )
+    const xaaveValue = (xaaveBal * priceUsd).toFixed(2).toString()
 
-  const tokenEquivalent = await getUnderlyingTokenEquivalent(
-    xaaveContract,
-    address
-  )
+    const tokenEquivalent = await getUnderlyingTokenEquivalent(
+      xaaveContract,
+      address
+    )
 
-  return {
-    symbol,
-    quantity: xaaveBal.toString(),
-    price: priceUsd.toString(),
-    value: xaaveValue.toString(),
-    tokenEquivalent,
+    return {
+      symbol,
+      quantity: xaaveBal.toString(),
+      price: priceUsd.toString(),
+      value: xaaveValue.toString(),
+      tokenEquivalent,
+    }
+  } catch (e) {
+    console.error('Error while fetching portfolio balance:', e)
+    return {
+      symbol,
+      ...DEFAULT_PORTFOLIO_ITEM,
+    }
   }
 }
 

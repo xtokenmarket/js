@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import {
   ChainId,
@@ -130,7 +131,7 @@ export const getUniswapPortfolioItem = async (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
   address: string,
   provider: JsonRpcProvider
-): Promise<null | ILiquidityPoolItem> => {
+): Promise<ILiquidityPoolItem> => {
   const {
     kncContract,
     kyberProxyContract,
@@ -150,7 +151,12 @@ export const getUniswapPortfolioItem = async (
     chainId
   ) as UniswapV2Pair
 
-  const userBalance = await uniswapPoolContract.balanceOf(address)
+  let userBalance = BigNumber.from('0')
+  try {
+    userBalance = await uniswapPoolContract.balanceOf(address)
+  } catch (e) {
+    console.error('Error while fetching user balance:', e)
+  }
 
   const { priceUsd } = await getXKncPrices(
     xkncContract,

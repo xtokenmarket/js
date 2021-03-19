@@ -13,3 +13,18 @@ export enum Exchange {
   UNISWAP = 'Uniswap',
   XTOKEN = 'xToken',
 }
+
+// Default values
+export const DEFAULT_PRICES = Object.freeze({
+  aum: 0,
+  priceEth: 0,
+  priceUsd: 0,
+  sellPriceEth: 0,
+})
+
+export const DEFAULT_PORTFOLIO_ITEM = Object.freeze({
+  price: '0',
+  quantity: '0',
+  tokenEquivalent: '0',
+  value: '0',
+})
