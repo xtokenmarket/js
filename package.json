@@ -48,7 +48,8 @@
     "node": ">=10"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "cache": "~/.npm"
   },
   "dependencies": {
     "@uniswap/sdk": "^3.0.3"
