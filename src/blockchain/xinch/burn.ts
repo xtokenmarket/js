@@ -4,9 +4,10 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, ZERO_ADDRESS } from '../../constants'
+import { DEC_18, GAS_LIMIT_PERCENTAGE, ZERO_ADDRESS } from '../../constants'
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
+import { getPercentage } from '../../utils'
 import { parseFees } from '../utils'
 
 import { getExpectedRateInch, getXInchContracts } from './helper'
@@ -35,7 +36,16 @@ export const burnXInch = async (
     true
   )
 
-  return xinchContract.burn(amount, sellForEth, minRate)
+  // Estimate `gasLimit`, if trading with `ETH`
+  let gasLimit = undefined
+  if (sellForEth) {
+    gasLimit = getPercentage(
+      await xinchContract.estimateGas.burn(amount, sellForEth, minRate),
+      GAS_LIMIT_PERCENTAGE
+    )
+  }
+
+  return xinchContract.burn(amount, sellForEth, minRate, { gasLimit })
 }
 
 export const getExpectedQuantityOnBurnXInch = async (

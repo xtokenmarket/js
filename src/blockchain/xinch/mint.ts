@@ -4,9 +4,10 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, ZERO_ADDRESS } from '../../constants'
+import { DEC_18, GAS_LIMIT_PERCENTAGE, ZERO_ADDRESS } from '../../constants'
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
+import { getPercentage } from '../../utils'
 import { parseFees } from '../utils'
 
 import { getExpectedRateInch, getXInchContracts } from './helper'
@@ -92,7 +93,17 @@ export const mintXInch = async (
       amount,
       true
     )
+
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xinchContract.estimateGas.mint(minRate.toString(), {
+        value: amount,
+      }),
+      GAS_LIMIT_PERCENTAGE
+    )
+
     return xinchContract.mint(minRate.toString(), {
+      gasLimit,
       value: amount,
     })
   } else {

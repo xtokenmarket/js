@@ -2,6 +2,9 @@ import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { BigNumber, ethers } from 'ethers'
 
+import { GAS_LIMIT_PERCENTAGE } from '../../constants'
+import { getPercentage } from '../../utils'
+
 import { getXSnxContracts } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
@@ -11,7 +14,13 @@ export const burnXSnx = async (
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { xsnxContract } = await getXSnxContracts(provider)
-  return xsnxContract.burn(amount)
+
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await xsnxContract.estimateGas.burn(amount),
+    GAS_LIMIT_PERCENTAGE
+  )
+  return xsnxContract.burn(amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnBurnXSnx = async (

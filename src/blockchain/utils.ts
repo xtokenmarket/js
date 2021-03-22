@@ -31,6 +31,7 @@ import {
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 
+import { ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'
 import { IContracts, ITokenSymbols } from '../types/xToken'
 
@@ -123,12 +124,16 @@ export const getExpectedRate = async (
   amount: BigNumber,
   isMinRate = false
 ) => {
+  if (isMinRate) {
+    return ZERO_NUMBER
+  }
+
   const { expectedRate } = await kyberProxyContract.getExpectedRate(
     inputAsset,
     outputAsset,
     amount
   )
-  return isMinRate ? BigNumber.from('0') : expectedRate
+  return expectedRate
 }
 
 export const getInchPoolAddress = (

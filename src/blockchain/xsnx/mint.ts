@@ -3,8 +3,9 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, SNX } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
 import { XSNX } from '../../types'
+import { getPercentage } from '../../utils'
 import { getExpectedRate, parseFees } from '../utils'
 
 import { getXSnxContracts } from './helper'
@@ -96,7 +97,17 @@ export const mintXSnx = async (
       amount,
       true
     )
+
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xsnxContract.estimateGas.mint(minRate.toString(), {
+        value: amount,
+      }),
+      GAS_LIMIT_PERCENTAGE
+    )
+
     return xsnxContract.mint(minRate.toString(), {
+      gasLimit,
       value: amount,
     })
   } else {

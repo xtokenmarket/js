@@ -4,9 +4,10 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, KNC } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18 } from '../../constants'
+import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
+import { getPercentage } from '../../utils'
 import { getExpectedRate, parseFees } from '../utils'
 
 import { getXKncContracts } from './helper'
@@ -93,7 +94,17 @@ export const mintXKnc = async (
       amount,
       true
     )
+
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xkncContract.estimateGas.mint(minRate.toString(), {
+        value: amount,
+      }),
+      GAS_LIMIT_PERCENTAGE
+    )
+
     return xkncContract.mint(minRate.toString(), {
+      gasLimit,
       value: amount,
     })
   } else {
