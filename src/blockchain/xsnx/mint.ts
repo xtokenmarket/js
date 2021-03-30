@@ -3,7 +3,11 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, SNX } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
 import { XSNX } from '../../types'
 import { getPercentage } from '../../utils'
 import { getExpectedRate, parseFees } from '../utils'
@@ -17,7 +21,14 @@ export const approveXSnx = async (
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xsnxContract } = await getXSnxContracts(provider)
-  return tokenContract.approve(xsnxContract.address, amount)
+
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(xsnxContract.address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+
+  return tokenContract.approve(xsnxContract.address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXSnx = async (
@@ -103,7 +114,7 @@ export const mintXSnx = async (
       await xsnxContract.estimateGas.mint(minRate.toString(), {
         value: amount,
       }),
-      GAS_LIMIT_PERCENTAGE
+      GAS_LIMIT_PERCENTAGE_ETH
     )
 
     return xsnxContract.mint(minRate.toString(), {
@@ -118,13 +129,20 @@ export const mintXSnx = async (
       xsnxContract,
       address
     )
+
     if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )
     }
 
-    return xsnxContract.mintWithSnx(amount)
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xsnxContract.estimateGas.mintWithSnx(amount),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+
+    return xsnxContract.mintWithSnx(amount, { gasLimit })
   }
 }
 

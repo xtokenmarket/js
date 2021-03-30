@@ -4,7 +4,11 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { AAVE, ADDRESSES, ETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
@@ -23,7 +27,14 @@ export const approveXAave = async (
     symbol,
     provider
   )
-  return tokenContract.approve(xaaveContract.address, amount)
+
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(xaaveContract.address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+
+  return tokenContract.approve(xaaveContract.address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXAave = async (
@@ -100,7 +111,7 @@ export const mintXAave = async (
       await xaaveContract.estimateGas.mint(minRate.toString(), {
         value: amount,
       }),
-      GAS_LIMIT_PERCENTAGE
+      GAS_LIMIT_PERCENTAGE_ETH
     )
 
     return xaaveContract.mint(minRate.toString(), {
@@ -122,7 +133,13 @@ export const mintXAave = async (
       )
     }
 
-    return xaaveContract.mintWithToken(amount)
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xaaveContract.estimateGas.mintWithToken(amount),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+
+    return xaaveContract.mintWithToken(amount, { gasLimit })
   }
 }
 

@@ -4,7 +4,12 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE, ZERO_ADDRESS } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+  ZERO_ADDRESS,
+} from '../../constants'
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
@@ -23,7 +28,14 @@ export const approveXInch = async (
     symbol,
     provider
   )
-  return tokenContract.approve(xinchContract.address, amount)
+
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(xinchContract.address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+
+  return tokenContract.approve(xinchContract.address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXInch = async (
@@ -99,7 +111,7 @@ export const mintXInch = async (
       await xinchContract.estimateGas.mint(minRate.toString(), {
         value: amount,
       }),
-      GAS_LIMIT_PERCENTAGE
+      GAS_LIMIT_PERCENTAGE_ETH
     )
 
     return xinchContract.mint(minRate.toString(), {
@@ -121,7 +133,13 @@ export const mintXInch = async (
       )
     }
 
-    return xinchContract.mintWithToken(amount)
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xinchContract.estimateGas.mintWithToken(amount),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+
+    return xinchContract.mintWithToken(amount, { gasLimit })
   }
 }
 
