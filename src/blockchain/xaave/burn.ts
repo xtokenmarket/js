@@ -4,7 +4,11 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { AAVE, ADDRESSES, ETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
@@ -36,14 +40,11 @@ export const burnXAave = async (
     true
   )
 
-  // Estimate `gasLimit`, if trading with `ETH`
-  let gasLimit = undefined
-  if (sellForEth) {
-    gasLimit = getPercentage(
-      await xaaveContract.estimateGas.burn(amount, sellForEth, minRate),
-      GAS_LIMIT_PERCENTAGE
-    )
-  }
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await xaaveContract.estimateGas.burn(amount, sellForEth, minRate),
+    sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
 
   return xaaveContract.burn(amount, sellForEth, minRate, {
     gasLimit,

@@ -4,7 +4,11 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, KNC } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
 import { XKNC } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
@@ -23,7 +27,14 @@ export const approveXKnc = async (
     symbol,
     provider
   )
-  return tokenContract.approve(xkncContract.address, amount)
+
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(xkncContract.address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+
+  return tokenContract.approve(xkncContract.address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXKnc = async (
@@ -100,7 +111,7 @@ export const mintXKnc = async (
       await xkncContract.estimateGas.mint(minRate.toString(), {
         value: amount,
       }),
-      GAS_LIMIT_PERCENTAGE
+      GAS_LIMIT_PERCENTAGE_ETH
     )
 
     return xkncContract.mint(minRate.toString(), {
@@ -115,13 +126,20 @@ export const mintXKnc = async (
       xkncContract,
       address
     )
+
     if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )
     }
 
-    return xkncContract.mintWithToken(amount)
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xkncContract.estimateGas.mintWithToken(amount),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+
+    return xkncContract.mintWithToken(amount, { gasLimit })
   }
 }
 

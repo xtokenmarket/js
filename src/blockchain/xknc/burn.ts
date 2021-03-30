@@ -4,7 +4,11 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, KNC } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, GAS_LIMIT_PERCENTAGE } from '../../constants'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
 import { getExpectedRate, parseFees } from '../utils'
@@ -33,14 +37,11 @@ export const burnXKnc = async (
     true
   )
 
-  // Estimate `gasLimit`, if trading with `ETH`
-  let gasLimit = undefined
-  if (sellForEth) {
-    gasLimit = getPercentage(
-      await xkncContract.estimateGas.burn(amount, !sellForEth, minRate),
-      GAS_LIMIT_PERCENTAGE
-    )
-  }
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await xkncContract.estimateGas.burn(amount, !sellForEth, minRate),
+    sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
 
   // `xKNC` contract has `redeemForKnc` instead of `sellForEth` bool
   return xkncContract.burn(amount, !sellForEth, minRate, { gasLimit })
