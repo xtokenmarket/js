@@ -5,6 +5,8 @@ import {
   ETH,
   X_AAVE_A,
   X_AAVE_B,
+  X_HEGIC_A,
+  X_HEGIC_B,
   X_INCH_A,
   X_INCH_B,
   X_KNC_A,
@@ -35,6 +37,16 @@ import {
   mintXAave,
 } from './blockchain/xaave'
 import { getXAaveAsset } from './blockchain/xaave/asset'
+import {
+  approveXHegic,
+  burnXHegic,
+  getExpectedQuantityOnBurnXHegic,
+  getExpectedQuantityOnMintXHegic,
+  getMaximumRedeemableXHegic,
+  getPortfolioItemXHegic,
+  mintXHegic,
+} from './blockchain/xhegic'
+import { getXHegicAsset } from './blockchain/xhegic/asset'
 import {
   approveXInch,
   burnXInch,
@@ -120,6 +132,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return approveXAave(symbol, value, this.provider)
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return approveXHegic(symbol, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return approveXInch(symbol, value, this.provider)
@@ -171,6 +186,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return burnXAave(symbol, sellForEth, value, this.provider)
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return burnXHegic(symbol, sellForEth, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return burnXInch(symbol, sellForEth, value, this.provider)
@@ -228,6 +246,7 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
+    // TODO: Add `Sushiswap` for `xHEGIC` tokens
     if ([X_AAVE_A, X_AAVE_B, X_SNX_A].includes(symbol)) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerEstimatedQuantity(
@@ -280,39 +299,6 @@ export class XToken {
   }
 
   /**
-   * @deprecated Will be removed in favor of [[getBestReturn]]
-   * @example
-   * ```typescript
-   * // Get expected quantity of xAAVEa when minting for 1 ETH
-   * const expectedQty = await xToken.getExpectedQuantityOnBalancer('eth', 'xAAVEa', '1', 'buy')
-   * ```
-   *
-   * @param {'eth' | 'xAAVEa' | 'xAAVEb' | 'xSNXa'} tokenIn 'eth' in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint
-   * @param {'xAAVEa' | 'xAAVEb' | 'xSNXa'} symbol Symbol of the xToken to burn/mint
-   * @param {string} amount Quantity of the xToken to be traded
-   * @param {ITradeType} tradeType Buy/sell type of the trade
-   * @returns Expected quantity for the particular trade to be made on Balancer
-   */
-  public async getExpectedQuantityOnBalancer(
-    tokenIn: typeof ETH | typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
-    symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
-    amount: string,
-    tradeType: ITradeType
-  ): Promise<string> {
-    if (+amount === 0 || isNaN(+amount)) {
-      return Promise.reject(new Error('Invalid value for amount'))
-    }
-
-    return getBalancerEstimatedQuantity(
-      tokenIn,
-      symbol,
-      amount,
-      tradeType,
-      this.provider
-    )
-  }
-
-  /**
    * @example
    * ```typescript
    * // Get expected quantity of ETH when selling 100 xAAVEa
@@ -337,6 +323,14 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getExpectedQuantityOnBurnXAave(
+          symbol,
+          sellForEth,
+          amount,
+          this.provider
+        )
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return getExpectedQuantityOnBurnXHegic(
           symbol,
           sellForEth,
           amount,
@@ -393,6 +387,14 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return getExpectedQuantityOnMintXHegic(
+          symbol,
+          tradeWithEth,
+          amount,
+          this.provider
+        )
       case X_INCH_A:
       case X_INCH_B:
         return getExpectedQuantityOnMintXInch(
@@ -435,6 +437,7 @@ export class XToken {
       return Promise.reject(new Error('Invalid user address'))
     }
 
+    // TODO: Add liquidity portfolio item for `xHEGIC` tokens
     return Promise.all([
       getBalancerPortfolioItem(X_SNX_A, address, this.provider),
       getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
@@ -453,13 +456,15 @@ export class XToken {
    * const maxRedeemable = await xToken.getMaxRedeemable('xAAVEa')
    * ```
    *
-   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {'xAAVEa' | 'xAAVEb' | 'xHEGICa' | 'xHEGICb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
    * @returns Maximum redeemable tokens for the given xToken
    */
   public async getMaxRedeemable(
     symbol:
       | typeof X_AAVE_A
       | typeof X_AAVE_B
+      | typeof X_HEGIC_A
+      | typeof X_HEGIC_B
       | typeof X_INCH_A
       | typeof X_INCH_B
       | typeof X_SNX_A
@@ -468,6 +473,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getMaximumRedeemableXAave(symbol, this.provider)
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return getMaximumRedeemableXHegic(symbol, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return getMaximumRedeemableXInch(symbol, this.provider)
@@ -505,6 +513,8 @@ export class XToken {
       getPortfolioItemXAave(X_AAVE_B, address, this.provider),
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
+      getPortfolioItemXHegic(X_HEGIC_A, address, this.provider),
+      getPortfolioItemXHegic(X_HEGIC_B, address, this.provider),
     ])
   }
 
@@ -527,6 +537,8 @@ export class XToken {
       getXAaveAsset(X_AAVE_B, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
+      getXHegicAsset(X_HEGIC_A, this.provider),
+      getXHegicAsset(X_HEGIC_B, this.provider),
     ])
   }
 
@@ -560,6 +572,9 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return mintXAave(symbol, tradeWithEth, value, this.provider)
+      case X_HEGIC_A:
+      case X_HEGIC_B:
+        return mintXHegic(symbol, tradeWithEth, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return mintXInch(symbol, tradeWithEth, value, this.provider)

@@ -5,11 +5,13 @@ import {
   Abi,
   ADDRESSES,
   EXCHANGE_RATES,
+  HEGIC,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
   SNX,
+  SUSHISWAP_V2_ROUTER,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
   UNISWAP_V2_PAIR,
@@ -17,6 +19,8 @@ import {
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
   X_AAVE_B_BALANCER_POOL,
+  X_HEGIC_A,
+  X_HEGIC_B,
   X_INCH_A,
   X_INCH_A_INCH_POOL,
   X_INCH_B,
@@ -40,6 +44,7 @@ const { formatEther, parseEther } = ethers.utils
 const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
+    case HEGIC:
     case INCH:
     case KNC:
       return Abi.ERC20 as ContractInterface
@@ -51,6 +56,8 @@ const getAbi = (contractName: IContracts) => {
       return Abi.KyberProxy as ContractInterface
     case SNX:
       return Abi.Synthetix as ContractInterface
+    case SUSHISWAP_V2_ROUTER:
+      return Abi.SushiswapV2Router as ContractInterface
     case TRADE_ACCOUNTING:
       return Abi.TradeAccounting as ContractInterface
     case UNISWAP_V2_PAIR:
@@ -58,6 +65,9 @@ const getAbi = (contractName: IContracts) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return Abi.xAAVE as ContractInterface
+    case X_HEGIC_A:
+    case X_HEGIC_B:
+      return Abi.xAAVE as ContractInterface // TODO: Change this to `Abi.xHEGIC` interface
     case X_INCH_A:
     case X_INCH_B:
       return Abi.xINCH as ContractInterface
@@ -175,6 +185,9 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return AAVE
+    case X_HEGIC_A:
+    case X_HEGIC_B:
+      return HEGIC
     case X_INCH_A:
     case X_INCH_B:
       return INCH
@@ -232,11 +245,18 @@ export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
 }
 
 export const getUniswapPoolAddress = (
-  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  symbol: typeof X_HEGIC_A | typeof X_HEGIC_B | typeof X_KNC_A | typeof X_KNC_B,
   chainId: number
 ) => {
   let address
   switch (symbol) {
+    // TODO: Replace with `xHEGIC` liquidity pool addresses
+    case X_HEGIC_A:
+      address = ADDRESSES[X_HEGIC_A][chainId]
+      break
+    case X_HEGIC_B:
+      address = ADDRESSES[X_HEGIC_B][chainId]
+      break
     case X_KNC_A:
       address = ADDRESSES[X_KNC_A_UNISWAP_POOL][chainId]
       break
@@ -250,7 +270,7 @@ export const getUniswapPoolAddress = (
 }
 
 export const getUniswapPoolContract = (
-  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  symbol: typeof X_HEGIC_A | typeof X_HEGIC_B | typeof X_KNC_A | typeof X_KNC_B,
   provider: JsonRpcProvider,
   chainId: number
 ) => {

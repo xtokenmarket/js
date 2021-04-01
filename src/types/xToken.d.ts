@@ -6,12 +6,15 @@
 import {
   AAVE,
   EXCHANGE_RATES,
+  HEGIC,
   KNC,
   KYBER_PROXY,
   SNX,
   TRADE_ACCOUNTING,
   X_AAVE_A,
   X_AAVE_B,
+  X_HEGIC_A,
+  X_HEGIC_B,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
@@ -22,17 +25,20 @@ import {
   X_INCH_B,
   INCH_LIQUIDITY_PROTOCOL,
   UNISWAP_V2_PAIR,
+  SUSHISWAP_V2_ROUTER,
 } from '@xtoken/abis'
 import { Exchange } from '../constants'
 
 export type IContracts =
   | typeof AAVE
   | typeof EXCHANGE_RATES
+  | typeof HEGIC
   | typeof INCH
   | typeof INCH_LIQUIDITY_PROTOCOL
   | typeof KNC
   | typeof KYBER_PROXY
   | typeof SNX
+  | typeof SUSHISWAP_V2_ROUTER
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_V2_PAIR
   | ITokenSymbols
@@ -40,6 +46,8 @@ export type IContracts =
 export type ITokenSymbols =
   | typeof X_AAVE_A
   | typeof X_AAVE_B
+  | typeof X_HEGIC_A
+  | typeof X_HEGIC_B
   | typeof X_INCH_A
   | typeof X_INCH_B
   | typeof X_KNC_A
