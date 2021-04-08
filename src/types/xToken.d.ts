@@ -22,11 +22,14 @@ import {
   X_INCH_B,
   INCH_LIQUIDITY_PROTOCOL,
   UNISWAP_V2_PAIR,
+  X_BNT_A,
+  BNT,
 } from '@xtoken/abis'
 import { Exchange } from '../constants'
 
 export type IContracts =
   | typeof AAVE
+  | typeof BNT
   | typeof EXCHANGE_RATES
   | typeof INCH
   | typeof INCH_LIQUIDITY_PROTOCOL
@@ -40,6 +43,7 @@ export type IContracts =
 export type ITokenSymbols =
   | typeof X_AAVE_A
   | typeof X_AAVE_B
+  | typeof X_BNT_A
   | typeof X_INCH_A
   | typeof X_INCH_B
   | typeof X_KNC_A

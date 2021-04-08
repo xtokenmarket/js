@@ -6,6 +6,7 @@ import {
   ETH,
   X_AAVE_A,
   X_AAVE_B,
+  X_BNT_A,
   X_INCH_A,
   X_INCH_B,
   X_KNC_A,
@@ -18,6 +19,7 @@ import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
+import { getBancorEstimatedQuantity } from './blockchain/exchanges/bancor'
 import {
   getInchEstimatedQuantity,
   getInchPortfolioItem,
@@ -37,6 +39,15 @@ import {
   mintXAave,
 } from './blockchain/xaave'
 import { getXAaveAsset } from './blockchain/xaave/asset'
+import {
+  approveXBnt,
+  burnXBnt,
+  getExpectedQuantityOnBurnXBnt,
+  getExpectedQuantityOnMintXBnt,
+  getMaximumRedeemableXBnt,
+  mintXBnt,
+} from './blockchain/xbnt'
+import { getXBntAsset } from './blockchain/xbnt/asset'
 import {
   approveXInch,
   burnXInch,
@@ -122,6 +133,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return approveXAave(symbol, value, this.provider)
+      case X_BNT_A:
+        return approveXBnt(symbol, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return approveXInch(symbol, value, this.provider)
@@ -173,6 +186,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return burnXAave(symbol, sellForEth, value, this.provider)
+      case X_BNT_A:
+        return burnXBnt(symbol, sellForEth, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return burnXInch(symbol, sellForEth, value, this.provider)
@@ -265,6 +280,17 @@ export class XToken {
         tradeType,
         this.provider
       )*/
+    } else if (symbol === X_BNT_A) {
+      dexSource = Exchange.BANCOR
+      dexExpectedQty = await getBancorEstimatedQuantity(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tradeWithEth ? ETH : symbol,
+        symbol,
+        amount,
+        tradeType,
+        this.provider
+      )
     }
 
     const dexReturn = {
@@ -346,6 +372,13 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_BNT_A:
+        return getExpectedQuantityOnBurnXBnt(
+          symbol,
+          sellForEth,
+          amount,
+          this.provider
+        )
       case X_INCH_A:
       case X_INCH_B:
         return getExpectedQuantityOnBurnXInch(
@@ -392,6 +425,13 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getExpectedQuantityOnMintXAave(
+          symbol,
+          tradeWithEth,
+          amount,
+          this.provider
+        )
+      case X_BNT_A:
+        return getExpectedQuantityOnMintXBnt(
           symbol,
           tradeWithEth,
           amount,
@@ -463,6 +503,7 @@ export class XToken {
     symbol:
       | typeof X_AAVE_A
       | typeof X_AAVE_B
+      | typeof X_BNT_A
       | typeof X_INCH_A
       | typeof X_INCH_B
       | typeof X_SNX_A
@@ -471,6 +512,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getMaximumRedeemableXAave(symbol, this.provider)
+      case X_BNT_A:
+        return getMaximumRedeemableXBnt(symbol, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return getMaximumRedeemableXInch(symbol, this.provider)
@@ -529,6 +572,7 @@ export class XToken {
       getXAaveAsset(X_AAVE_B, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
+      getXBntAsset(X_BNT_A, this.provider),
     ])
   }
 
@@ -564,6 +608,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return mintXAave(symbol, tradeWithEth, value, affiliate, this.provider)
+      case X_BNT_A:
+        return mintXBnt(symbol, tradeWithEth, value, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return mintXInch(symbol, tradeWithEth, value, this.provider)
