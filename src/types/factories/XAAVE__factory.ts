@@ -123,6 +123,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_address',
+        type: 'address',
+      },
+    ],
+    name: 'addToWhitelist',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'adminActiveTimestamp',
     outputs: [
@@ -592,6 +605,11 @@ const _abi = [
         name: 'aaveAmount',
         type: 'uint256',
       },
+      {
+        internalType: 'address',
+        name: 'affiliate',
+        type: 'address',
+      },
     ],
     name: 'mintWithToken',
     outputs: [],
@@ -664,6 +682,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_address',
+        type: 'address',
+      },
+    ],
+    name: 'removeFromWhitelist',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'renounceOwnership',
     outputs: [],
@@ -715,6 +746,19 @@ const _abi = [
       },
     ],
     name: 'setManager',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_manager2',
+        type: 'address',
+      },
+    ],
+    name: 'setManager2',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

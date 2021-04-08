@@ -24,6 +24,7 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 interface XAAVEInterface extends ethers.utils.Interface {
   functions: {
     'LIQUIDATION_TIME_PERIOD()': FunctionFragment
+    'addToWhitelist(address)': FunctionFragment
     'adminActiveTimestamp()': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
@@ -52,16 +53,18 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'initialize(address,address,address,address,address,uint256,uint256,uint256,string,string)': FunctionFragment
     'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
-    'mintWithToken(uint256)': FunctionFragment
+    'mintWithToken(uint256,address)': FunctionFragment
     'name()': FunctionFragment
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
     'redeem(uint256)': FunctionFragment
+    'removeFromWhitelist(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
     'setGovernanceV2Address(address)': FunctionFragment
     'setManager(address)': FunctionFragment
+    'setManager2(address)': FunctionFragment
     'setVotingAaveAddress(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalSupply()': FunctionFragment
@@ -79,6 +82,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'LIQUIDATION_TIME_PERIOD',
     values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'addToWhitelist',
+    values: [string]
   ): string
   encodeFunctionData(
     functionFragment: 'adminActiveTimestamp',
@@ -187,7 +194,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithToken',
-    values: [BigNumberish]
+    values: [BigNumberish, string]
   ): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
@@ -197,6 +204,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
   encodeFunctionData(functionFragment: 'redeem', values: [BigNumberish]): string
+  encodeFunctionData(
+    functionFragment: 'removeFromWhitelist',
+    values: [string]
+  ): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
@@ -210,6 +221,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     values: [string]
   ): string
   encodeFunctionData(functionFragment: 'setManager', values: [string]): string
+  encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(
     functionFragment: 'setVotingAaveAddress',
     values: [string]
@@ -258,6 +270,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(
     functionFragment: 'LIQUIDATION_TIME_PERIOD',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'addToWhitelist',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -352,6 +368,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'redeem', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'removeFromWhitelist',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
   ): Result
@@ -364,6 +384,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setVotingAaveAddress',
     data: BytesLike
@@ -430,6 +451,16 @@ export class XAAVE extends Contract {
     LIQUIDATION_TIME_PERIOD(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'LIQUIDATION_TIME_PERIOD()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    addToWhitelist(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'addToWhitelist(address)'(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     adminActiveTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -670,11 +701,13 @@ export class XAAVE extends Contract {
 
     mintWithToken(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'mintWithToken(uint256)'(
+    'mintWithToken(uint256,address)'(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -701,6 +734,16 @@ export class XAAVE extends Contract {
 
     'redeem(uint256)'(
       amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    removeFromWhitelist(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeFromWhitelist(address)'(
+      _address: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -739,6 +782,16 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setManager2(
+      _manager2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -840,6 +893,16 @@ export class XAAVE extends Contract {
   LIQUIDATION_TIME_PERIOD(overrides?: CallOverrides): Promise<BigNumber>
 
   'LIQUIDATION_TIME_PERIOD()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  addToWhitelist(
+    _address: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'addToWhitelist(address)'(
+    _address: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1080,11 +1143,13 @@ export class XAAVE extends Contract {
 
   mintWithToken(
     aaveAmount: BigNumberish,
+    affiliate: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'mintWithToken(uint256)'(
+  'mintWithToken(uint256,address)'(
     aaveAmount: BigNumberish,
+    affiliate: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1111,6 +1176,16 @@ export class XAAVE extends Contract {
 
   'redeem(uint256)'(
     amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  removeFromWhitelist(
+    _address: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeFromWhitelist(address)'(
+    _address: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1149,6 +1224,16 @@ export class XAAVE extends Contract {
 
   'setManager(address)'(
     _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setManager2(
+    _manager2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setManager2(address)'(
+    _manager2: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1250,6 +1335,13 @@ export class XAAVE extends Contract {
     LIQUIDATION_TIME_PERIOD(overrides?: CallOverrides): Promise<BigNumber>
 
     'LIQUIDATION_TIME_PERIOD()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    addToWhitelist(_address: string, overrides?: CallOverrides): Promise<void>
+
+    'addToWhitelist(address)'(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1485,11 +1577,13 @@ export class XAAVE extends Contract {
 
     mintWithToken(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'mintWithToken(uint256)'(
+    'mintWithToken(uint256,address)'(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1513,6 +1607,16 @@ export class XAAVE extends Contract {
 
     'redeem(uint256)'(
       amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    removeFromWhitelist(
+      _address: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeFromWhitelist(address)'(
+      _address: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1548,6 +1652,13 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setManager2(_manager2: string, overrides?: CallOverrides): Promise<void>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1669,6 +1780,13 @@ export class XAAVE extends Contract {
     LIQUIDATION_TIME_PERIOD(overrides?: CallOverrides): Promise<BigNumber>
 
     'LIQUIDATION_TIME_PERIOD()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    addToWhitelist(_address: string, overrides?: Overrides): Promise<BigNumber>
+
+    'addToWhitelist(address)'(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1889,11 +2007,13 @@ export class XAAVE extends Contract {
 
     mintWithToken(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'mintWithToken(uint256)'(
+    'mintWithToken(uint256,address)'(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -1917,6 +2037,16 @@ export class XAAVE extends Contract {
 
     'redeem(uint256)'(
       amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    removeFromWhitelist(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeFromWhitelist(address)'(
+      _address: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -1952,6 +2082,13 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setManager2(_manager2: string, overrides?: Overrides): Promise<BigNumber>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2057,6 +2194,16 @@ export class XAAVE extends Contract {
 
     'LIQUIDATION_TIME_PERIOD()'(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    addToWhitelist(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'addToWhitelist(address)'(
+      _address: string,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     adminActiveTimestamp(
@@ -2297,11 +2444,13 @@ export class XAAVE extends Contract {
 
     mintWithToken(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'mintWithToken(uint256)'(
+    'mintWithToken(uint256,address)'(
       aaveAmount: BigNumberish,
+      affiliate: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -2328,6 +2477,16 @@ export class XAAVE extends Contract {
 
     'redeem(uint256)'(
       amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    removeFromWhitelist(
+      _address: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeFromWhitelist(address)'(
+      _address: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -2366,6 +2525,16 @@ export class XAAVE extends Contract {
 
     'setManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setManager2(
+      _manager2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setManager2(address)'(
+      _manager2: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
