@@ -1018,10 +1018,10 @@
   resolved "https://registry.yarnpkg.com/@uniswap/v2-core/-/v2-core-1.0.1.tgz#af8f508bf183204779938969e2e54043e147d425"
   integrity sha512-MtybtkUPSyysqLY2U210NBDeCHX+ltHt3oADGdjqoThZaFRDKwM6k1Nb3F0A3hk5hwuQvytFWhrWHOEq6nVJ8Q==
 
-"@xtoken/abis@0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@xtoken/abis/-/abis-0.1.8.tgz#8026244dd3d1ca8cbf8042f0f27c5f47b8c1525f"
-  integrity sha512-KLft9OKAKLaHNdATsMUWFxBKflR2ArTbRXQPHVP2SnDPY6LUeVZDHgxI3jH9iyVxGFATe9k1Tg9NGpw009H9pA==
+"@xtoken/abis@0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@xtoken/abis/-/abis-0.1.9.tgz#345c4b7ffb310595d1145a859f2d08e5051e6ee0"
+  integrity sha512-2CwmJ4iDLDyyaF7WccvkPd0Wv8d8bVy1FhB/xqTO2CdCSeYPPh7ayIpq970pvzBd4M02ShldtWdd1UCMCJKokA==
 
 JSONStream@^1.0.4:
   version "1.3.5"
