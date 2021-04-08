@@ -1,4 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
+import { AddressZero } from '@ethersproject/constants'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
@@ -8,7 +9,6 @@ import {
   DEC_18,
   GAS_LIMIT_PERCENTAGE_DEFAULT,
   GAS_LIMIT_PERCENTAGE_ETH,
-  ZERO_ADDRESS,
 } from '../../constants'
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
@@ -68,7 +68,7 @@ export const getExpectedQuantityOnMintXInch = async (
   if (tradeWithEth) {
     inchExpected = await getExpectedRateInch(
       inchLiquidityProtocolContract,
-      ZERO_ADDRESS,
+      AddressZero,
       inchAddress,
       inputAmount
     )
@@ -100,7 +100,7 @@ export const mintXInch = async (
   if (tradeWithEth) {
     const minRate = await getExpectedRateInch(
       inchLiquidityProtocolContract,
-      ZERO_ADDRESS,
+      AddressZero,
       tokenContract.address,
       amount,
       true

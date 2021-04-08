@@ -1,3 +1,4 @@
+import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import {
@@ -544,12 +545,14 @@ export class XToken {
    * @param {boolean} tradeWithEth Mint with ETH/Token
    * @param {string} amount Quantity of token to be minted,
    *                        tokens need to be approved before minting using [[approve]] method
+   * @param {string} affiliate Affiliate address to whom the affiliate fees should be sent to
    * @returns A promise of the transaction response
    */
   public async mint(
     symbol: ITokenSymbols,
     tradeWithEth: boolean,
-    amount: string
+    amount: string,
+    affiliate = AddressZero
   ): Promise<ContractTransaction> {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
@@ -559,7 +562,7 @@ export class XToken {
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return mintXAave(symbol, tradeWithEth, value, this.provider)
+        return mintXAave(symbol, tradeWithEth, value, affiliate, this.provider)
       case X_INCH_A:
       case X_INCH_B:
         return mintXInch(symbol, tradeWithEth, value, this.provider)

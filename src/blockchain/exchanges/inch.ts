@@ -1,4 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
+import { AddressZero } from '@ethersproject/constants'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import {
   ADDRESSES,
@@ -12,7 +13,7 @@ import {
 } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
-import { DEC_18, ZERO_ADDRESS } from '../../constants'
+import { DEC_18 } from '../../constants'
 import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
 import { ILiquidityPoolItem, ITradeType } from '../../types/xToken'
 import { getContract, getInchPoolAddress, getInchPoolContract } from '../utils'
@@ -55,14 +56,14 @@ export const getInchEstimatedQuantity = async (
     inputAmount = await getExpectedRateInch(
       inchLiquidityProtocolContract,
       inchAddress,
-      ZERO_ADDRESS,
+      AddressZero,
       inputAmount
     )
   }
 
   expectedQty = await inchPoolContract.getReturn(
-    tradeType === BUY ? ZERO_ADDRESS : xinchAddress,
-    tradeType === BUY ? xinchAddress : ZERO_ADDRESS,
+    tradeType === BUY ? AddressZero : xinchAddress,
+    tradeType === BUY ? xinchAddress : AddressZero,
     inputAmount
   )
 
@@ -70,7 +71,7 @@ export const getInchEstimatedQuantity = async (
   if (tradeType === SELL && tokenIn !== ETH) {
     expectedQty = await getExpectedRateInch(
       inchLiquidityProtocolContract,
-      ZERO_ADDRESS,
+      AddressZero,
       inchAddress,
       expectedQty
     )

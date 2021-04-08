@@ -89,6 +89,7 @@ export const mintXAave = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: BigNumber,
+  affiliate: string,
   provider: JsonRpcProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -135,11 +136,13 @@ export const mintXAave = async (
 
     // Estimate `gasLimit`
     const gasLimit = getPercentage(
-      await xaaveContract.estimateGas.mintWithToken(amount),
+      await xaaveContract.estimateGas.mintWithToken(amount, affiliate),
       GAS_LIMIT_PERCENTAGE_DEFAULT
     )
 
-    return xaaveContract.mintWithToken(amount, { gasLimit })
+    return xaaveContract.mintWithToken(amount, affiliate, {
+      gasLimit,
+    })
   }
 }
 
