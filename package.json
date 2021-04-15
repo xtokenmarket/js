@@ -52,6 +52,7 @@
     "cache": "~/.npm"
   },
   "dependencies": {
+    "@dynamic-amm/sdk": "^3.0.8",
     "@uniswap/sdk": "^3.0.3"
   },
   "devDependencies": {
@@ -93,6 +94,38 @@
   "peerDependencies": {
     "@xtoken/abis": "0.1.11",
     "ethers": "5.0.30"
+  },
+  "resolutions": {
+    "@ethersproject/abi": "5.0.12",
+    "@ethersproject/abstract-provider": "5.0.9",
+    "@ethersproject/abstract-signer": "5.0.12",
+    "@ethersproject/address": "5.0.10",
+    "@ethersproject/base64": "5.0.8",
+    "@ethersproject/basex": "5.0.8",
+    "@ethersproject/bignumber": "5.0.14",
+    "@ethersproject/bytes": "5.0.10",
+    "@ethersproject/constants": "5.0.9",
+    "@ethersproject/contracts": "5.0.10",
+    "@ethersproject/hash": "5.0.11",
+    "@ethersproject/hdnode": "5.0.9",
+    "@ethersproject/json-wallets": "5.0.11",
+    "@ethersproject/keccak256": "5.0.8",
+    "@ethersproject/logger": "5.0.9",
+    "@ethersproject/networks": "5.0.8",
+    "@ethersproject/pbkdf2": "5.0.8",
+    "@ethersproject/properties": "5.0.8",
+    "@ethersproject/providers": "5.0.22",
+    "@ethersproject/random": "5.0.8",
+    "@ethersproject/rlp": "5.0.8",
+    "@ethersproject/sha2": "5.0.8",
+    "@ethersproject/signing-key": "5.0.10",
+    "@ethersproject/solidity": "5.0.9",
+    "@ethersproject/strings": "5.0.9",
+    "@ethersproject/transactions": "5.0.10",
+    "@ethersproject/units": "5.0.10",
+    "@ethersproject/wallet": "5.0.11",
+    "@ethersproject/web": "5.0.13",
+    "@ethersproject/wordlists": "5.0.9"
   },
   "files": [
     "build/main",

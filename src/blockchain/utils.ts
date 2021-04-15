@@ -29,6 +29,7 @@ import {
   X_INCH_B,
   X_INCH_B_INCH_POOL,
   X_KNC_A,
+  X_KNC_A_KYBER_POOL,
   X_KNC_A_UNISWAP_POOL,
   X_KNC_B,
   X_KNC_B_UNISWAP_POOL,
@@ -207,6 +208,33 @@ export const getInchPoolContract = (
     Abi.InchLiquidityProtocol,
     getSigner(provider)
   )
+}
+
+export const getKyberPoolAddress = (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  chainId: number
+) => {
+  let address
+  switch (symbol) {
+    case X_KNC_A:
+      address = ADDRESSES[X_KNC_A_KYBER_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+
+export const getKyberPoolContract = (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  provider: BaseProvider,
+  chainId: number
+) => {
+  if (!provider || !symbol) return null
+
+  const address = getKyberPoolAddress(symbol, chainId) as string
+
+  return new ethers.Contract(address, Abi.DMMPool, getSigner(provider))
 }
 
 export const getTokenSymbol = (symbol: ITokenSymbols) => {
