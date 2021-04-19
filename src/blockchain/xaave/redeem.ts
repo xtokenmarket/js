@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
 import { ITokenSymbols } from '../../types/xToken'
@@ -7,7 +7,7 @@ import { getXAaveContracts } from './helper'
 
 export const getMaximumRedeemableXAave = async (
   symbol: ITokenSymbols,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const { xaaveContract } = await getXAaveContracts(symbol, provider)
 

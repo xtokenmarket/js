@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, X_SNX_A, X_SNX_A_ADMIN } from '@xtoken/abis'
 import { Contract } from 'ethers'
 
@@ -11,7 +11,7 @@ import { getXSnxPrices } from './prices'
 
 export const getXSnxAsset = async (
   symbol: typeof X_SNX_A,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<IAsset> => {
   const {
     network,

@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
@@ -23,7 +23,7 @@ export const burnXInch = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: BigNumber,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const {
     inchLiquidityProtocolContract,
@@ -54,7 +54,7 @@ export const getExpectedQuantityOnBurnXInch = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const inputAmount = parseEther(amount)
   const {

@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, X_SNX_A_ADMIN } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
@@ -15,7 +15,7 @@ import { getXSnxPrices } from './prices'
 export const getPortfolioItemXSnx = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
     const {

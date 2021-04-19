@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { AAVE, ADDRESSES, ETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
@@ -12,7 +12,7 @@ import {
 import { XAAVE } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getExpectedRate, parseFees } from '../utils'
+import { getExpectedRate, getSignerAddress, parseFees } from '../utils'
 
 import { getXAaveContracts } from './helper'
 
@@ -21,7 +21,7 @@ const { formatEther, parseEther } = ethers.utils
 export const approveXAave = async (
   symbol: ITokenSymbols,
   amount: BigNumber,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xaaveContract } = await getXAaveContracts(
     symbol,
@@ -41,7 +41,7 @@ export const getExpectedQuantityOnMintXAave = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   const inputAmount = parseEther(amount)
   const {
@@ -90,7 +90,7 @@ export const mintXAave = async (
   tradeWithEth: boolean,
   amount: BigNumber,
   affiliate: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const {
     kyberProxyContract,
@@ -120,8 +120,7 @@ export const mintXAave = async (
       value: amount,
     })
   } else {
-    const signer = provider.getSigner()
-    const address = await signer.getAddress()
+    const address = await getSignerAddress(provider)
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xaaveContract,

@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
@@ -39,7 +39,7 @@ import { getTokenBalance } from '../utils'
  * @param {TradeAccounting} tradeAccountingContract Trade accounting contract
  * @param {ExchangeRates} exchangeRatesContract Exchange rates contract
  * @param {Contract} snxContract SNX contract
- * @param {JsonRpcProvider} provider Ether.js Provider
+ * @param {BaseProvider} provider Ether.js Provider
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXSnxPrices = async (
@@ -48,7 +48,7 @@ export const getXSnxPrices = async (
   tradeAccountingContract: TradeAccounting,
   exchangeRatesContract: ExchangeRates,
   snxContract: Contract,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ITokenPrices> => {
   try {
     const [

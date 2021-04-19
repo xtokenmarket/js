@@ -1,5 +1,5 @@
 import { Contract } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { INCH_LIQUIDITY_PROTOCOL, KYBER_PROXY } from '@xtoken/abis'
 import { BigNumber } from 'ethers'
 
@@ -24,7 +24,7 @@ export const getExpectedRateInch = async (
 
 export const getXInchContracts = async (
   symbol: ITokenSymbols,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
 

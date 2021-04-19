@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { AAVE, ADDRESSES } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -53,9 +53,9 @@ export const getXAavePrices = async (
       getEthTokenPrice(
         aaveAddress,
         true,
-        kyberProxyContract.provider as JsonRpcProvider
+        kyberProxyContract.provider as BaseProvider
       ),
-      getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
+      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])
 
     const aaveUsdPrice = parseEther(aaveEthPrice)

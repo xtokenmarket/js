@@ -1,5 +1,5 @@
 import { Contract } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { KYBER_PROXY } from '@xtoken/abis'
 
 import { KyberProxy, XAAVE } from '../../types'
@@ -8,7 +8,7 @@ import { getContract, getTokenSymbol } from '../utils'
 
 export const getXAaveContracts = async (
   symbol: ITokenSymbols,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
 
