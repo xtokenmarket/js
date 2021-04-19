@@ -1,5 +1,9 @@
 import { Contract } from '@ethersproject/contracts'
-import { JsonRpcProvider, Network } from '@ethersproject/providers'
+import {
+  BaseProvider,
+  JsonRpcProvider,
+  Network,
+} from '@ethersproject/providers'
 import {
   AAVE,
   Abi,
@@ -92,7 +96,7 @@ export const getBalancerPoolAddress = (
 
 export const getBalancerPoolContract = (
   symbol: ITokenSymbols,
-  provider: JsonRpcProvider,
+  provider: BaseProvider,
   chainId: number
 ) => {
   if (!provider || !symbol) return null
@@ -106,7 +110,7 @@ export const getBalancerPoolContract = (
 
 export const getContract = (
   contractName: IContracts,
-  provider: JsonRpcProvider,
+  provider: BaseProvider,
   network: Network
 ) => {
   if (!provider) return null
@@ -156,7 +160,7 @@ export const getInchPoolAddress = (
 
 export const getInchPoolContract = (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
-  provider: JsonRpcProvider,
+  provider: BaseProvider,
   chainId: number
 ) => {
   if (!provider || !symbol) return null
@@ -193,7 +197,7 @@ export const parseFees = (fee: BigNumber) => {
 export const getTokenBalance = async (
   tokenAddress: string,
   userAddress: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const contract = new ethers.Contract(tokenAddress, Abi.ERC20, provider)
   return contract.balanceOf(userAddress)
@@ -214,7 +218,7 @@ export const getUserAvailableTokenBalance = async (
   return Math.floor(Number(formatEther(balance.toString())) * 1000) / 1000
 }
 
-export const getExchangeRateContract = async (provider: JsonRpcProvider) => {
+export const getExchangeRateContract = async (provider: BaseProvider) => {
   if (!provider) return null
 
   const resolver = new ethers.Contract(
@@ -251,7 +255,7 @@ export const getUniswapPoolAddress = (
 
 export const getUniswapPoolContract = (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
-  provider: JsonRpcProvider,
+  provider: BaseProvider,
   chainId: number
 ) => {
   if (!provider || !symbol) return null
@@ -261,7 +265,15 @@ export const getUniswapPoolContract = (
   return new ethers.Contract(address, Abi.UniswapV2Pair, getSigner(provider))
 }
 
-export const getSigner = (provider: JsonRpcProvider) => {
-  const isInfuraProvider = provider.connection.url.indexOf('infura') > -1
-  return isInfuraProvider ? provider : provider.getSigner()
+export const getSigner = (provider: BaseProvider) => {
+  try {
+    return (provider as JsonRpcProvider).getSigner()
+  } catch (e) {
+    return provider
+  }
+}
+
+export const getSignerAddress = async (provider: BaseProvider) => {
+  const signer = (provider as JsonRpcProvider).getSigner()
+  return signer.getAddress()
 }

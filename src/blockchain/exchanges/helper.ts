@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { Abi, ADDRESSES, ETH, WETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
@@ -14,7 +14,7 @@ export const getBalances = async (
   symbol: ITokenSymbols,
   poolAddress: string,
   tokenPrice: number,
-  provider: JsonRpcProvider,
+  provider: BaseProvider,
   chainId: number,
   underlyingPrice?: BigNumber,
   isWeth?: boolean

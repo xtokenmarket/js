@@ -1,6 +1,6 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import {
   BUY,
   ETH,
@@ -26,6 +26,7 @@ import {
   getUniswapEstimatedQuantity,
   getUniswapPortfolioItem,
 } from './blockchain/exchanges/uniswap'
+import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
   burnXAave,
@@ -89,12 +90,12 @@ import {
  * ```
  */
 export class XToken {
-  protected readonly provider: JsonRpcProvider
+  protected readonly provider: BaseProvider
 
   /**
-   * @param {JsonRpcProvider} provider Ethers.js provider
+   * @param {BaseProvider} provider Ethers.js provider
    */
-  constructor(provider: JsonRpcProvider) {
+  constructor(provider: BaseProvider) {
     this.provider = provider
   }
 
@@ -429,8 +430,7 @@ export class XToken {
    * @returns Returns available liquidity pools for xTokens along with their balances
    */
   public async getLiquidityPoolItems(): Promise<readonly ILiquidityPoolItem[]> {
-    const signer = this.provider.getSigner()
-    const address = await signer.getAddress()
+    const address = await getSignerAddress(this.provider)
 
     if (!address || !isAddress(address)) {
       return Promise.reject(new Error('Invalid user address'))
@@ -491,8 +491,7 @@ export class XToken {
    *          with their corresponding balance and price
    */
   public async getPortfolioItems(): Promise<readonly IPortfolioItem[]> {
-    const signer = this.provider.getSigner()
-    const address = await signer.getAddress()
+    const address = await getSignerAddress(this.provider)
 
     if (!address || !isAddress(address)) {
       return Promise.reject(new Error('Invalid user address'))

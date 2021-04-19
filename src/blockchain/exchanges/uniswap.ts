@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import {
   ChainId,
   Fetcher,
@@ -38,7 +38,7 @@ import { getBalances } from './helper'
 const { formatEther, parseEther } = ethers.utils
 
 export const getEthUsdcPrice = async (
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   const network = await provider.getNetwork()
   const { chainId } = network
@@ -59,7 +59,7 @@ export const getEthUsdcPrice = async (
 export const getEthTokenPrice = async (
   tokenAddress: string,
   isPriceInvert: boolean,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   const token = new Token(ChainId.MAINNET, tokenAddress, 18)
   const pair = await Fetcher.fetchPairData(token, WETH[token.chainId], provider)
@@ -74,7 +74,7 @@ export const getUniswapEstimatedQuantity = async (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
   amount: string,
   tradeType: ITradeType,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   const network = await provider.getNetwork()
   const { chainId } = network
@@ -130,7 +130,7 @@ export const getUniswapEstimatedQuantity = async (
 export const getUniswapPortfolioItem = async (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
   address: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ILiquidityPoolItem> => {
   const {
     kncContract,

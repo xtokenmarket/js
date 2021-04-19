@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
 import { DEFAULT_PORTFOLIO_ITEM } from '../../constants'
@@ -12,7 +12,7 @@ import { getXAavePrices } from './prices'
 export const getPortfolioItemXAave = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
     const {

@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -53,9 +53,9 @@ export const getXInchPrices = async (
       getEthTokenPrice(
         inchAddress,
         true,
-        kyberProxyContract.provider as JsonRpcProvider
+        kyberProxyContract.provider as BaseProvider
       ),
-      getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
+      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])
 
     const inchUsdPrice = parseEther(inchEthPrice)

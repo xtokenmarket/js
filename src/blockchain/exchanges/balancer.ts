@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import {
   AAVE,
   Abi,
@@ -56,7 +56,7 @@ export const getBalancerEstimatedQuantity = async (
   symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
   amount: string,
   tradeType: ITradeType,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
   const { chainId } = network
@@ -133,7 +133,7 @@ export const getBalancerEstimatedQuantity = async (
 export const getBalancerPortfolioItem = async (
   symbol: ITokenSymbols,
   address: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network

@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { AddressZero } from '@ethersproject/constants'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import {
   ADDRESSES,
   BUY,
@@ -29,7 +29,7 @@ export const getInchEstimatedQuantity = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   amount: string,
   tradeType: ITradeType,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   let inputAmount = parseEther(amount)
   const { inchLiquidityProtocolContract, network } = await getXInchContracts(
@@ -83,7 +83,7 @@ export const getInchEstimatedQuantity = async (
 export const getInchPortfolioItem = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   address: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ILiquidityPoolItem> => {
   const network = await provider.getNetwork()
   const { chainId } = network

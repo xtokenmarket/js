@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
@@ -58,7 +58,7 @@ export const getXKncPrices = async (
         ethAddress,
         proxyValue
       ),
-      getEthUsdcPrice(kyberProxyContract.provider as JsonRpcProvider),
+      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])
 
     const kncUsdcPrice = kncEthPrice.mul(parseEther(ethUsdcPrice)).div(DEC_18)

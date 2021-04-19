@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, INCH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
@@ -13,7 +13,7 @@ import {
 import { XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { parseFees } from '../utils'
+import { getSignerAddress, parseFees } from '../utils'
 
 import { getExpectedRateInch, getXInchContracts } from './helper'
 
@@ -22,7 +22,7 @@ const { formatEther, parseEther } = ethers.utils
 export const approveXInch = async (
   symbol: ITokenSymbols,
   amount: BigNumber,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const { tokenContract, xinchContract } = await getXInchContracts(
     symbol,
@@ -42,7 +42,7 @@ export const getExpectedQuantityOnMintXInch = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<string> => {
   const inputAmount = parseEther(amount)
   const {
@@ -89,7 +89,7 @@ export const mintXInch = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
   amount: BigNumber,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const {
     inchLiquidityProtocolContract,
@@ -119,8 +119,7 @@ export const mintXInch = async (
       value: amount,
     })
   } else {
-    const signer = provider.getSigner()
-    const address = await signer.getAddress()
+    const address = await getSignerAddress(provider)
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xinchContract,

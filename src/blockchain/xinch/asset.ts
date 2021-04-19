@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { X_INCH_A, X_INCH_B } from '@xtoken/abis'
 
 import { IAsset } from '../../types/xToken'
@@ -8,7 +8,7 @@ import { getXInchPrices } from './prices'
 
 export const getXInchAsset = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<IAsset> => {
   const {
     kyberProxyContract,

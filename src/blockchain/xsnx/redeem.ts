@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, SNX, X_SNX_A_ADMIN } from '@xtoken/abis'
 import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
@@ -8,7 +8,7 @@ import { getTokenBalance } from '../utils'
 
 import { getXSnxContracts } from './helper'
 
-export const getMaximumRedeemableXSnx = async (provider: JsonRpcProvider) => {
+export const getMaximumRedeemableXSnx = async (provider: BaseProvider) => {
   const {
     network,
     snxContract,

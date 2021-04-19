@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, ETH, KNC } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
@@ -21,7 +21,7 @@ export const burnXKnc = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: BigNumber,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const {
     kyberProxyContract,
@@ -51,7 +51,7 @@ export const getExpectedQuantityOnBurnXKnc = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
   amount: string,
-  provider: JsonRpcProvider
+  provider: BaseProvider
 ) => {
   const inputAmount = parseEther(amount)
   const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
