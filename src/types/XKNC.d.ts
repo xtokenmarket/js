@@ -23,14 +23,12 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface XKNCInterface extends ethers.utils.Interface {
   functions: {
-    'addKyberFeeHandler(address,address)': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
     'approveKyberProxyContract(address,bool)': FunctionFragment
-    'approveStakingContract(bool)': FunctionFragment
     'balanceOf(address)': FunctionFragment
     'burn(uint256,bool,uint256)': FunctionFragment
-    'claimReward(uint256,uint256[],uint256[],uint256[])': FunctionFragment
+    'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])': FunctionFragment
     'decimals()': FunctionFragment
     'decreaseAllowance(address,uint256)': FunctionFragment
     'feeDivisors()': FunctionFragment
@@ -38,9 +36,11 @@ interface XKNCInterface extends ethers.utils.Interface {
     'getFeeRate(uint8)': FunctionFragment
     'getFundEthBalanceWei()': FunctionFragment
     'getFundKncBalanceTwei()': FunctionFragment
+    'getRewardDistributor()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(string,string,address,address,address,address,uint256,uint256,uint256)': FunctionFragment
     'mandate()': FunctionFragment
+    'migrateV3(address,address,address,address)': FunctionFragment
     'mint(uint256)': FunctionFragment
     'mintWithToken(uint256)': FunctionFragment
     'name()': FunctionFragment
@@ -51,21 +51,17 @@ interface XKNCInterface extends ethers.utils.Interface {
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
     'setManager(address)': FunctionFragment
     'setManager2(address)': FunctionFragment
+    'setRewardsDistributor(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
     'unpause()': FunctionFragment
-    'unwindRewards(uint256[],uint256[],uint256[])': FunctionFragment
     'vote(uint256,uint256)': FunctionFragment
     'withdrawFees()': FunctionFragment
   }
 
-  encodeFunctionData(
-    functionFragment: 'addKyberFeeHandler',
-    values: [string, string]
-  ): string
   encodeFunctionData(
     functionFragment: 'allowance',
     values: [string, string]
@@ -78,10 +74,6 @@ interface XKNCInterface extends ethers.utils.Interface {
     functionFragment: 'approveKyberProxyContract',
     values: [string, boolean]
   ): string
-  encodeFunctionData(
-    functionFragment: 'approveStakingContract',
-    values: [boolean]
-  ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
   encodeFunctionData(
     functionFragment: 'burn',
@@ -89,7 +81,14 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'claimReward',
-    values: [BigNumberish, BigNumberish[], BigNumberish[], BigNumberish[]]
+    values: [
+      BigNumberish,
+      BigNumberish,
+      string[],
+      BigNumberish[],
+      BytesLike[],
+      BigNumberish[]
+    ]
   ): string
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
   encodeFunctionData(
@@ -117,6 +116,10 @@ interface XKNCInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
+    functionFragment: 'getRewardDistributor',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'increaseAllowance',
     values: [string, BigNumberish]
   ): string
@@ -135,6 +138,10 @@ interface XKNCInterface extends ethers.utils.Interface {
     ]
   ): string
   encodeFunctionData(functionFragment: 'mandate', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'migrateV3',
+    values: [string, string, string, string]
+  ): string
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithToken',
@@ -154,6 +161,10 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'setManager', values: [string]): string
   encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'setRewardsDistributor',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'totalSupply',
@@ -173,10 +184,6 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'unwindRewards',
-    values: [BigNumberish[], BigNumberish[], BigNumberish[]]
-  ): string
-  encodeFunctionData(
     functionFragment: 'vote',
     values: [BigNumberish, BigNumberish]
   ): string
@@ -185,18 +192,10 @@ interface XKNCInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
 
-  decodeFunctionResult(
-    functionFragment: 'addKyberFeeHandler',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'approveKyberProxyContract',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'approveStakingContract',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
@@ -222,11 +221,16 @@ interface XKNCInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
+    functionFragment: 'getRewardDistributor',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'increaseAllowance',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mandate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'migrateV3', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'mintWithToken',
@@ -246,6 +250,10 @@ interface XKNCInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'setRewardsDistributor',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
@@ -258,10 +266,6 @@ interface XKNCInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'unwindRewards',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'vote', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'withdrawFees',
@@ -299,18 +303,6 @@ export class XKNC extends Contract {
   interface: XKNCInterface
 
   functions: {
-    addKyberFeeHandler(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'addKyberFeeHandler(address,address)'(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     allowance(
       owner: string,
       spender: string,
@@ -347,16 +339,6 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    approveStakingContract(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'approveStakingContract(bool)'(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
@@ -379,17 +361,21 @@ export class XKNC extends Contract {
     ): Promise<ContractTransaction>
 
     claimReward(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'claimReward(uint256,uint256[],uint256[],uint256[])'(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+    'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])'(
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<ContractTransaction>
@@ -454,6 +440,10 @@ export class XKNC extends Contract {
 
     'getFundKncBalanceTwei()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
+    getRewardDistributor(overrides?: CallOverrides): Promise<[string]>
+
+    'getRewardDistributor()'(overrides?: CallOverrides): Promise<[string]>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -495,6 +485,22 @@ export class XKNC extends Contract {
     mandate(overrides?: CallOverrides): Promise<[string]>
 
     'mandate()'(overrides?: CallOverrides): Promise<[string]>
+
+    migrateV3(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'migrateV3(address,address,address,address)'(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     mint(
       minRate: BigNumberish,
@@ -570,6 +576,16 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    setRewardsDistributor(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setRewardsDistributor(address)'(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     symbol(overrides?: CallOverrides): Promise<[string]>
 
     'symbol()'(overrides?: CallOverrides): Promise<[string]>
@@ -618,29 +634,15 @@ export class XKNC extends Contract {
 
     'unpause()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    unwindRewards(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'unwindRewards(uint256[],uint256[],uint256[])'(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     vote(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
     'vote(uint256,uint256)'(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -648,18 +650,6 @@ export class XKNC extends Contract {
 
     'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
   }
-
-  addKyberFeeHandler(
-    _kyberfeeHandlerAddress: string,
-    _tokenAddress: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'addKyberFeeHandler(address,address)'(
-    _kyberfeeHandlerAddress: string,
-    _tokenAddress: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
 
   allowance(
     owner: string,
@@ -697,16 +687,6 @@ export class XKNC extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  approveStakingContract(
-    _reset: boolean,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'approveStakingContract(bool)'(
-    _reset: boolean,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
   'balanceOf(address)'(
@@ -729,17 +709,21 @@ export class XKNC extends Contract {
   ): Promise<ContractTransaction>
 
   claimReward(
-    epoch: BigNumberish,
-    feeHandlerIndices: BigNumberish[],
-    maxAmountsToSell: BigNumberish[],
+    cycle: BigNumberish,
+    index: BigNumberish,
+    tokens: string[],
+    cumulativeAmounts: BigNumberish[],
+    merkleProof: BytesLike[],
     minRates: BigNumberish[],
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'claimReward(uint256,uint256[],uint256[],uint256[])'(
-    epoch: BigNumberish,
-    feeHandlerIndices: BigNumberish[],
-    maxAmountsToSell: BigNumberish[],
+  'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])'(
+    cycle: BigNumberish,
+    index: BigNumberish,
+    tokens: string[],
+    cumulativeAmounts: BigNumberish[],
+    merkleProof: BytesLike[],
     minRates: BigNumberish[],
     overrides?: Overrides
   ): Promise<ContractTransaction>
@@ -799,6 +783,10 @@ export class XKNC extends Contract {
 
   'getFundKncBalanceTwei()'(overrides?: CallOverrides): Promise<BigNumber>
 
+  getRewardDistributor(overrides?: CallOverrides): Promise<string>
+
+  'getRewardDistributor()'(overrides?: CallOverrides): Promise<string>
+
   increaseAllowance(
     spender: string,
     addedValue: BigNumberish,
@@ -840,6 +828,22 @@ export class XKNC extends Contract {
   mandate(overrides?: CallOverrides): Promise<string>
 
   'mandate()'(overrides?: CallOverrides): Promise<string>
+
+  migrateV3(
+    _newKnc: string,
+    _newKyberDao: string,
+    _newKyberStaking: string,
+    _rewardsDistributor: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'migrateV3(address,address,address,address)'(
+    _newKnc: string,
+    _newKyberDao: string,
+    _newKyberStaking: string,
+    _rewardsDistributor: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   mint(
     minRate: BigNumberish,
@@ -915,6 +919,16 @@ export class XKNC extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  setRewardsDistributor(
+    _rewardsDistributor: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setRewardsDistributor(address)'(
+    _rewardsDistributor: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   symbol(overrides?: CallOverrides): Promise<string>
 
   'symbol()'(overrides?: CallOverrides): Promise<string>
@@ -963,29 +977,15 @@ export class XKNC extends Contract {
 
   'unpause()'(overrides?: Overrides): Promise<ContractTransaction>
 
-  unwindRewards(
-    feeHandlerIndices: BigNumberish[],
-    maxAmountsToSell: BigNumberish[],
-    minRates: BigNumberish[],
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'unwindRewards(uint256[],uint256[],uint256[])'(
-    feeHandlerIndices: BigNumberish[],
-    maxAmountsToSell: BigNumberish[],
-    minRates: BigNumberish[],
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   vote(
-    campaignID: BigNumberish,
-    option: BigNumberish,
+    proposalId: BigNumberish,
+    optionBitMask: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
   'vote(uint256,uint256)'(
-    campaignID: BigNumberish,
-    option: BigNumberish,
+    proposalId: BigNumberish,
+    optionBitMask: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -994,18 +994,6 @@ export class XKNC extends Contract {
   'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
   callStatic: {
-    addKyberFeeHandler(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'addKyberFeeHandler(address,address)'(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     allowance(
       owner: string,
       spender: string,
@@ -1042,16 +1030,6 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    approveStakingContract(
-      _reset: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'approveStakingContract(bool)'(
-      _reset: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
     'balanceOf(address)'(
@@ -1074,17 +1052,21 @@ export class XKNC extends Contract {
     ): Promise<void>
 
     claimReward(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<void>
 
-    'claimReward(uint256,uint256[],uint256[],uint256[])'(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+    'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])'(
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<void>
@@ -1149,6 +1131,10 @@ export class XKNC extends Contract {
 
     'getFundKncBalanceTwei()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getRewardDistributor(overrides?: CallOverrides): Promise<string>
+
+    'getRewardDistributor()'(overrides?: CallOverrides): Promise<string>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -1190,6 +1176,22 @@ export class XKNC extends Contract {
     mandate(overrides?: CallOverrides): Promise<string>
 
     'mandate()'(overrides?: CallOverrides): Promise<string>
+
+    migrateV3(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'migrateV3(address,address,address,address)'(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     mint(minRate: BigNumberish, overrides?: CallOverrides): Promise<void>
 
@@ -1256,6 +1258,16 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    setRewardsDistributor(
+      _rewardsDistributor: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setRewardsDistributor(address)'(
+      _rewardsDistributor: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     symbol(overrides?: CallOverrides): Promise<string>
 
     'symbol()'(overrides?: CallOverrides): Promise<string>
@@ -1304,29 +1316,15 @@ export class XKNC extends Contract {
 
     'unpause()'(overrides?: CallOverrides): Promise<void>
 
-    unwindRewards(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'unwindRewards(uint256[],uint256[],uint256[])'(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: CallOverrides
-    ): Promise<void>
-
     vote(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
     'vote(uint256,uint256)'(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1357,18 +1355,6 @@ export class XKNC extends Contract {
   }
 
   estimateGas: {
-    addKyberFeeHandler(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'addKyberFeeHandler(address,address)'(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     allowance(
       owner: string,
       spender: string,
@@ -1405,16 +1391,6 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    approveStakingContract(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'approveStakingContract(bool)'(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
     'balanceOf(address)'(
@@ -1437,17 +1413,21 @@ export class XKNC extends Contract {
     ): Promise<BigNumber>
 
     claimReward(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'claimReward(uint256,uint256[],uint256[],uint256[])'(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+    'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])'(
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<BigNumber>
@@ -1496,6 +1476,10 @@ export class XKNC extends Contract {
 
     'getFundKncBalanceTwei()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getRewardDistributor(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getRewardDistributor()'(overrides?: CallOverrides): Promise<BigNumber>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -1537,6 +1521,22 @@ export class XKNC extends Contract {
     mandate(overrides?: CallOverrides): Promise<BigNumber>
 
     'mandate()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    migrateV3(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'migrateV3(address,address,address,address)'(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     mint(
       minRate: BigNumberish,
@@ -1606,6 +1606,16 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    setRewardsDistributor(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setRewardsDistributor(address)'(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     symbol(overrides?: CallOverrides): Promise<BigNumber>
 
     'symbol()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1654,29 +1664,15 @@ export class XKNC extends Contract {
 
     'unpause()'(overrides?: Overrides): Promise<BigNumber>
 
-    unwindRewards(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'unwindRewards(uint256[],uint256[],uint256[])'(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     vote(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
     'vote(uint256,uint256)'(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -1686,18 +1682,6 @@ export class XKNC extends Contract {
   }
 
   populateTransaction: {
-    addKyberFeeHandler(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'addKyberFeeHandler(address,address)'(
-      _kyberfeeHandlerAddress: string,
-      _tokenAddress: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     allowance(
       owner: string,
       spender: string,
@@ -1734,16 +1718,6 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    approveStakingContract(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'approveStakingContract(bool)'(
-      _reset: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     balanceOf(
       account: string,
       overrides?: CallOverrides
@@ -1769,17 +1743,21 @@ export class XKNC extends Contract {
     ): Promise<PopulatedTransaction>
 
     claimReward(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'claimReward(uint256,uint256[],uint256[],uint256[])'(
-      epoch: BigNumberish,
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
+    'claimReward(uint256,uint256,address[],uint256[],bytes32[],uint256[])'(
+      cycle: BigNumberish,
+      index: BigNumberish,
+      tokens: string[],
+      cumulativeAmounts: BigNumberish[],
+      merkleProof: BytesLike[],
       minRates: BigNumberish[],
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
@@ -1838,6 +1816,14 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    getRewardDistributor(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getRewardDistributor()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -1879,6 +1865,22 @@ export class XKNC extends Contract {
     mandate(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'mandate()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    migrateV3(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'migrateV3(address,address,address,address)'(
+      _newKnc: string,
+      _newKyberDao: string,
+      _newKyberStaking: string,
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
 
     mint(
       minRate: BigNumberish,
@@ -1954,6 +1956,16 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    setRewardsDistributor(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setRewardsDistributor(address)'(
+      _rewardsDistributor: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'symbol()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -2002,29 +2014,15 @@ export class XKNC extends Contract {
 
     'unpause()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
-    unwindRewards(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'unwindRewards(uint256[],uint256[],uint256[])'(
-      feeHandlerIndices: BigNumberish[],
-      maxAmountsToSell: BigNumberish[],
-      minRates: BigNumberish[],
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     vote(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     'vote(uint256,uint256)'(
-      campaignID: BigNumberish,
-      option: BigNumberish,
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
