@@ -5,7 +5,7 @@ import { provider } from '../../constants.spec'
 
 import { getExpectedQuantityOnMintXKnc } from './mint'
 
-test('Calculate xKNCa expected quantity on mint with ETH', async (t) => {
+/*test('Calculate xKNCa expected quantity on mint with ETH', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXKnc(
     X_KNC_A,
     true,
@@ -14,7 +14,7 @@ test('Calculate xKNCa expected quantity on mint with ETH', async (t) => {
   )
   console.log('Expected xKNCa qty for 1 ETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Calculate xKNCa expected quantity on mint with KNC', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXKnc(
@@ -27,7 +27,7 @@ test('Calculate xKNCa expected quantity on mint with KNC', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate xKNCb expected quantity on mint with ETH', async (t) => {
+/*test('Calculate xKNCb expected quantity on mint with ETH', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXKnc(
     X_KNC_B,
     true,
@@ -36,7 +36,7 @@ test('Calculate xKNCb expected quantity on mint with ETH', async (t) => {
   )
   console.log('Expected xKNCb qty for 1 ETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Calculate xKNCb expected quantity on mint with KNC', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXKnc(

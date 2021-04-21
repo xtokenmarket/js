@@ -23,7 +23,7 @@ import {
   getInchPortfolioItem,
 } from './blockchain/exchanges/inch'
 import {
-  getUniswapEstimatedQuantity,
+  // getUniswapEstimatedQuantity,
   getUniswapPortfolioItem,
 } from './blockchain/exchanges/uniswap'
 import { getSignerAddress } from './blockchain/utils'
@@ -254,7 +254,9 @@ export class XToken {
       )
     } else if ([X_KNC_A, X_KNC_B].includes(symbol)) {
       dexSource = Exchange.UNISWAP
-      dexExpectedQty = await getUniswapEstimatedQuantity(
+
+      // TODO: Enable after Kyber V3 upgrade fixes
+      /*dexExpectedQty = await getUniswapEstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         tradeWithEth ? ETH : symbol,
@@ -262,7 +264,7 @@ export class XToken {
         amount,
         tradeType,
         this.provider
-      )
+      )*/
     }
 
     const dexReturn = {
