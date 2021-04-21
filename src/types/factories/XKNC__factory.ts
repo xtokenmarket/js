@@ -138,24 +138,6 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_kyberfeeHandlerAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_tokenAddress',
-        type: 'address',
-      },
-    ],
-    name: 'addKyberFeeHandler',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
         name: 'owner',
         type: 'address',
       },
@@ -221,19 +203,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'bool',
-        name: '_reset',
-        type: 'bool',
-      },
-    ],
-    name: 'approveStakingContract',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'address',
         name: 'account',
         type: 'address',
@@ -277,18 +246,28 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
-        name: 'epoch',
+        name: 'cycle',
         type: 'uint256',
       },
       {
-        internalType: 'uint256[]',
-        name: 'feeHandlerIndices',
-        type: 'uint256[]',
+        internalType: 'uint256',
+        name: 'index',
+        type: 'uint256',
+      },
+      {
+        internalType: 'contract IERC20[]',
+        name: 'tokens',
+        type: 'address[]',
       },
       {
         internalType: 'uint256[]',
-        name: 'maxAmountsToSell',
+        name: 'cumulativeAmounts',
         type: 'uint256[]',
+      },
+      {
+        internalType: 'bytes32[]',
+        name: 'merkleProof',
+        type: 'bytes32[]',
       },
       {
         internalType: 'uint256[]',
@@ -420,6 +399,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'getRewardDistributor',
+    outputs: [
+      {
+        internalType: 'contract IRewardsDistributor',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -507,6 +499,34 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_newKnc',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IKyberDAO',
+        name: '_newKyberDao',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IKyberStaking',
+        name: '_newKyberStaking',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IRewardsDistributor',
+        name: '_rewardsDistributor',
+        type: 'address',
+      },
+    ],
+    name: 'migrateV3',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -638,6 +658,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'contract IRewardsDistributor',
+        name: '_rewardsDistributor',
+        type: 'address',
+      },
+    ],
+    name: 'setRewardsDistributor',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'symbol',
     outputs: [
@@ -739,36 +772,13 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'uint256[]',
-        name: 'feeHandlerIndices',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'maxAmountsToSell',
-        type: 'uint256[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'minRates',
-        type: 'uint256[]',
-      },
-    ],
-    name: 'unwindRewards',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint256',
-        name: 'campaignID',
+        name: 'proposalId',
         type: 'uint256',
       },
       {
         internalType: 'uint256',
-        name: 'option',
+        name: 'optionBitMask',
         type: 'uint256',
       },
     ],
