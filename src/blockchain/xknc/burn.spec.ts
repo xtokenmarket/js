@@ -5,7 +5,7 @@ import { provider } from '../../constants.spec'
 
 import { getExpectedQuantityOnBurnXKnc } from './burn'
 
-test('Calculate ETH expected quantity on burn of xKNCa', async (t) => {
+/*test('Calculate ETH expected quantity on burn of xKNCa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXKnc(
     X_KNC_A,
     true,
@@ -14,7 +14,7 @@ test('Calculate ETH expected quantity on burn of xKNCa', async (t) => {
   )
   console.log('Expected ETH qty for 1 xKNCa:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Calculate KNC expected quantity on burn of xKNCa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXKnc(
@@ -27,7 +27,7 @@ test('Calculate KNC expected quantity on burn of xKNCa', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate ETH expected quantity on burn of xKNCb', async (t) => {
+/*test('Calculate ETH expected quantity on burn of xKNCb', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXKnc(
     X_KNC_B,
     true,
@@ -36,7 +36,7 @@ test('Calculate ETH expected quantity on burn of xKNCb', async (t) => {
   )
   console.log('Expected ETH qty for 1 xKNCb:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Calculate KNC expected quantity on burn of xKNCb', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXKnc(

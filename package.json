@@ -112,10 +112,7 @@
     },
     "files": [
       "!build/module/**",
-      "!src/constants.spec.ts",
-      "!src/blockchain/xknc/burn.spec.ts",
-      "!src/blockchain/xknc/mint.spec.ts",
-      "!src/blockchain/xknc/prices.spec.ts"
+      "!src/constants.spec.ts"
     ]
   },
   "config": {

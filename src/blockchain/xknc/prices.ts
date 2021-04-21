@@ -31,13 +31,13 @@ import { getExpectedRate } from '../utils'
  * ```
  *
  * @param {XKNC} xkncContract xKNCa/xKNCb token contract
- * @param {Contract} kncContract KNC token contract
+ * @param {Contract} _kncContract KNC token contract
  * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXKncPrices = async (
   xkncContract: XKNC,
-  kncContract: Contract,
+  _kncContract: Contract,
   kyberProxyContract: KyberProxy
 ): Promise<ITokenPrices> => {
   try {
@@ -54,7 +54,8 @@ export const getXKncPrices = async (
       xkncContract.getFundKncBalanceTwei(),
       getExpectedRate(
         kyberProxyContract,
-        kncContract.address,
+        '0xdd974D5C2e2928deA5F71b9825b8b646686BD200', // old `KNC` address
+        // kncContract.address, // TODO: Revert this to support Kyber V3 contract upgrades
         ethAddress,
         proxyValue
       ),
