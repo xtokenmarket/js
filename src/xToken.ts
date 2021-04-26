@@ -19,7 +19,10 @@ import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
-import { getBancorEstimatedQuantity } from './blockchain/exchanges/bancor'
+import {
+  getBancorEstimatedQuantity,
+  getBancorPortfolioItem,
+} from './blockchain/exchanges/bancor'
 import {
   getInchEstimatedQuantity,
   getInchPortfolioItem,
@@ -45,6 +48,7 @@ import {
   getExpectedQuantityOnBurnXBnt,
   getExpectedQuantityOnMintXBnt,
   getMaximumRedeemableXBnt,
+  getPortfolioItemXBnt,
   mintXBnt,
 } from './blockchain/xbnt'
 import { getXBntAsset } from './blockchain/xbnt/asset'
@@ -486,6 +490,7 @@ export class XToken {
       getInchPortfolioItem(X_INCH_B, address, this.provider),
       getUniswapPortfolioItem(X_KNC_A, address, this.provider),
       getUniswapPortfolioItem(X_KNC_B, address, this.provider),
+      getBancorPortfolioItem(X_BNT_A, address, this.provider),
     ])
   }
 
@@ -550,6 +555,7 @@ export class XToken {
       getPortfolioItemXAave(X_AAVE_B, address, this.provider),
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
+      getPortfolioItemXBnt(X_BNT_A, address, this.provider),
     ])
   }
 

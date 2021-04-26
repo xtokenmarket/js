@@ -88,30 +88,21 @@ export const mintXBnt = async (
   amount: BigNumber,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {
-  const {
-    kyberProxyContract,
-    tokenContract,
-    xbntContract,
-  } = await getXBntContracts(symbol, provider)
+  const { tokenContract, xbntContract } = await getXBntContracts(
+    symbol,
+    provider
+  )
 
   if (tradeWithEth) {
-    const minRate = await getExpectedRate(
-      kyberProxyContract,
-      ADDRESSES[ETH] as string,
-      tokenContract.address,
-      amount,
-      true
-    )
-
     // Estimate `gasLimit`
     const gasLimit = getPercentage(
-      await xbntContract.estimateGas.mint(ETH_BNT_PATH, minRate.toString(), {
+      await xbntContract.estimateGas.mint(ETH_BNT_PATH, '1', {
         value: amount,
       }),
       GAS_LIMIT_PERCENTAGE_ETH
     )
 
-    return xbntContract.mint(ETH_BNT_PATH, minRate.toString(), {
+    return xbntContract.mint(ETH_BNT_PATH, '1', {
       gasLimit,
       value: amount,
     })

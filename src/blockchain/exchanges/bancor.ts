@@ -4,6 +4,7 @@ import {
   Abi,
   ADDRESSES,
   BANCOR_CONTRACT_REGISTRY,
+  BNT,
   BUY,
   ETH,
   X_BNT_A,
@@ -14,16 +15,12 @@ import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
 import { BNT_ETH_PATH, DEC_18 } from '../../constants'
 import { BancorNetwork, BancorSmartToken } from '../../types'
 import { ILiquidityPoolItem, ITradeType } from '../../types/xToken'
-import {
-  getBancorPoolAddress,
-  getBancorPoolContract,
-  getSigner,
-  getTokenSymbol,
-} from '../utils'
+import { getBancorPoolContract, getSigner, getTokenSymbol } from '../utils'
 import { getXBntPrices } from '../xbnt'
 import { getXBntContracts } from '../xbnt/helper'
 
 import { getBalances } from './helper'
+import { getEthUsdcPrice } from './uniswap'
 
 export const getBancorNetworkAddress = async (
   provider: BaseProvider
@@ -113,9 +110,10 @@ export const getBancorPortfolioItem = async (
   )
   const { chainId } = network
 
-  // Addresses
-  const asset = `${symbol}<>${ETH.toUpperCase()}`
-  const bancorPoolAddress = getBancorPoolAddress(symbol, chainId) as string
+  const asset = `${symbol}<>${BNT.toUpperCase()}`
+
+  // Pool address which has `xBNTa` and `BNT` balances
+  const bancorPoolAddress = '0xA35Cf3bDF58EF1cE6a9657659Ebe4cD8b491F2cE'
 
   // Contracts
   const bancorPoolContract = getBancorPoolContract(
@@ -131,6 +129,14 @@ export const getBancorPortfolioItem = async (
     console.error('Error while fetching user balance:', e)
   }
 
+  const [ethUsdcPrice, bntEthPrice] = await Promise.all([
+    getEthUsdcPrice(provider),
+    getBntEthPrice(provider),
+  ])
+  const underlyingPrice = parseEther(bntEthPrice)
+    .mul(parseEther(ethUsdcPrice))
+    .div(DEC_18)
+
   const { priceUsd } = await getXBntPrices(xbntContract, kyberProxyContract)
 
   const bancorPoolBalances = await getBalances(
@@ -139,15 +145,14 @@ export const getBancorPortfolioItem = async (
     priceUsd,
     provider,
     chainId,
-    undefined,
+    underlyingPrice,
     false
   )
 
-  const xbntEthPoolSupply = await bancorPoolContract.totalSupply()
-  const poolPrice = parseEther(bancorPoolBalances.eth.val)
-    .mul(2)
+  const xbntBntPoolSupply = await bancorPoolContract.totalSupply()
+  const poolPrice = parseEther(bancorPoolBalances.totalVal)
     .mul(DEC_18)
-    .div(xbntEthPoolSupply)
+    .div(xbntBntPoolSupply)
   const value = poolPrice.mul(userBalance).div(DEC_18)
 
   return {

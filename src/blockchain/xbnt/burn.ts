@@ -25,34 +25,15 @@ export const burnXBnt = async (
   amount: BigNumber,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {
-  const {
-    kyberProxyContract,
-    tokenContract,
-    xbntContract,
-  } = await getXBntContracts(symbol, provider)
-
-  const { proRataBnt } = await getProRataBnt(xbntContract, amount)
-
-  const minRate = await getExpectedRate(
-    kyberProxyContract,
-    tokenContract.address,
-    ADDRESSES[ETH] as string,
-    proRataBnt,
-    true
-  )
+  const { xbntContract } = await getXBntContracts(symbol, provider)
 
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await xbntContract.estimateGas.burn(
-      amount,
-      sellForEth,
-      BNT_ETH_PATH,
-      minRate
-    ),
+    await xbntContract.estimateGas.burn(amount, sellForEth, BNT_ETH_PATH, '1'),
     sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return xbntContract.burn(amount, sellForEth, BNT_ETH_PATH, minRate, {
+  return xbntContract.burn(amount, sellForEth, BNT_ETH_PATH, '1', {
     gasLimit,
   })
 }

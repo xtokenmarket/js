@@ -74,5 +74,5 @@ test('Calculate expected quantity on mint of xBNTa with BNT on Bancor', async (t
 test('Get Bancor Portfolio of xBNTa', async (t) => {
   const portfolio = await getBancorPortfolioItem(X_BNT_A, testAddress, provider)
   console.log('[Bancor] Portfolio value of xBNTa:', portfolio?.value)
-  t.true(Number(portfolio?.value) === 0) // TODO: Update check to greater than zero
+  t.true(Number(portfolio?.value) > 0)
 })
