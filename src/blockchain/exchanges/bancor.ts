@@ -110,7 +110,7 @@ export const getBancorPortfolioItem = async (
   )
   const { chainId } = network
 
-  const asset = `${symbol}<>${BNT.toUpperCase()}`
+  const asset = `${symbol} - ${BNT.toUpperCase()}`
 
   // Pool address which has `xBNTa` and `BNT` balances
   const bancorPoolAddress = '0xA35Cf3bDF58EF1cE6a9657659Ebe4cD8b491F2cE'

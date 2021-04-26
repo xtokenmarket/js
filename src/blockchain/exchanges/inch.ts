@@ -89,7 +89,7 @@ export const getInchPortfolioItem = async (
   const { chainId } = network
 
   // Addresses
-  const asset = `${symbol}<>${ETH.toUpperCase()}`
+  const asset = `${symbol} - ${ETH.toUpperCase()}`
   const inchPoolAddress = getInchPoolAddress(symbol, chainId) as string
 
   // Contracts

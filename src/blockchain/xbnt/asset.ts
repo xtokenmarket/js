@@ -22,7 +22,7 @@ export const getXBntAsset = async (
 
   return {
     aum,
-    mandate: 'Staking Module; Buchanan Mandate',
+    mandate: 'Dynamic Allocator; Buchanan Mandate',
     price: priceUsd,
     symbol,
   }

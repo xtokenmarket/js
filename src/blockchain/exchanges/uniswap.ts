@@ -141,7 +141,7 @@ export const getUniswapPortfolioItem = async (
   const { chainId } = network
 
   // Addresses
-  const asset = `${symbol}<>${ETH.toUpperCase()}`
+  const asset = `${symbol} - ${ETH.toUpperCase()}`
   const uniswapPoolAddress = getUniswapPoolAddress(symbol, chainId) as string
 
   // Contracts
