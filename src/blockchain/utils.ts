@@ -8,6 +8,7 @@ import {
   AAVE,
   Abi,
   ADDRESSES,
+  BNT,
   EXCHANGE_RATES,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
@@ -21,6 +22,8 @@ import {
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
   X_AAVE_B_BALANCER_POOL,
+  X_BNT_A,
+  X_BNT_A_BANCOR_POOL,
   X_INCH_A,
   X_INCH_A_INCH_POOL,
   X_INCH_B,
@@ -44,6 +47,7 @@ const { formatEther, parseEther } = ethers.utils
 const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
+    case BNT:
     case INCH:
     case KNC:
       return Abi.ERC20 as ContractInterface
@@ -62,6 +66,8 @@ const getAbi = (contractName: IContracts) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return Abi.xAAVE as ContractInterface
+    case X_BNT_A:
+      return Abi.xBNT as ContractInterface
     case X_INCH_A:
     case X_INCH_B:
       return Abi.xINCH as ContractInterface
@@ -106,6 +112,35 @@ export const getBalancerPoolContract = (
   if (!address) return null
 
   return new ethers.Contract(address, Abi.BalancerPool, getSigner(provider))
+}
+
+export const getBancorPoolAddress = (
+  symbol: ITokenSymbols,
+  chainId: number
+) => {
+  let address
+  switch (symbol) {
+    case X_BNT_A:
+      address = ADDRESSES[X_BNT_A_BANCOR_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+
+export const getBancorPoolContract = (
+  symbol: ITokenSymbols,
+  provider: BaseProvider,
+  chainId: number
+) => {
+  if (!provider || !symbol) return null
+
+  const address = getBancorPoolAddress(symbol, chainId)
+
+  if (!address) return null
+
+  return new ethers.Contract(address, Abi.BancorSmartToken, getSigner(provider))
 }
 
 export const getContract = (
@@ -179,6 +214,8 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return AAVE
+    case X_BNT_A:
+      return BNT
     case X_INCH_A:
     case X_INCH_B:
       return INCH

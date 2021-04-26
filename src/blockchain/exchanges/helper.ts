@@ -68,6 +68,7 @@ export const getBalances = async (
       provider
     )
     const underlyingBalance = await underlyingContract.balanceOf(poolAddress)
+
     underlyingVal = underlyingBalance.mul(underlyingPrice).div(DEC_18)
 
     underlying = {
