@@ -6,8 +6,9 @@
 export { XToken } from './xToken'
 
 // Helper methods
-export { getXAavePrices } from './blockchain/xaave/prices'
-export { getXBntPrices } from './blockchain/xbnt/prices'
-export { getXInchPrices } from './blockchain/xinch/prices'
-export { getXKncPrices } from './blockchain/xknc/prices'
-export { getXSnxPrices } from './blockchain/xsnx/prices'
+export { getXAavePrices } from './blockchain/xaave'
+export { getXBntPrices } from './blockchain/xbnt'
+export { getXInchPrices } from './blockchain/xinch'
+export { getXKncPrices } from './blockchain/xknc'
+export { getXSnxPrices } from './blockchain/xsnx'
+export { getXU3LPPrices } from './blockchain/xu3lp'

@@ -4,7 +4,9 @@
   "language": "en",
   "words": [
     "aave",
+    "ABDK",
     "bignumber",
+    "bignumberish",
     "bitjson",
     "bitauth",
     "cimg",
@@ -28,6 +30,7 @@
     "staker",
     "synthetix",
     "transpiled",
+    "twap",
     "twei",
     "typedoc",
     "untracked",
@@ -42,7 +45,8 @@
     "xkncb",
     "xsnx",
     "xsnxa",
-    "xtoken"
+    "xtoken",
+    "xu3lp"
   ],
   "flagWords": [],
   "ignorePaths": [

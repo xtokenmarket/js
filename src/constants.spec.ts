@@ -10,6 +10,11 @@ export const provider = new ethers.providers.InfuraProvider(
   '01a0666704244d44812fc70d214a913b'
 )
 
+export const kovanProvider = new ethers.providers.InfuraProvider(
+  'kovan',
+  '01a0666704244d44812fc70d214a913b'
+)
+
 export const ropstenProvider = new ethers.providers.InfuraProvider(
   'ropsten',
   '01a0666704244d44812fc70d214a913b'

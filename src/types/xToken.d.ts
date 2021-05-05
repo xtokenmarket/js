@@ -24,6 +24,9 @@ import {
   UNISWAP_V2_PAIR,
   X_BNT_A,
   BNT,
+  X_U3LP_A,
+  DAI,
+  USDC,
 } from '@xtoken/abis'
 import { Exchange } from '../constants'
 
@@ -39,6 +42,8 @@ export type IContracts =
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_V2_PAIR
   | ITokenSymbols
+  | ILPTokenSymbols
+  | IStableAssets
 
 export type ITokenSymbols =
   | typeof X_AAVE_A
@@ -50,6 +55,10 @@ export type ITokenSymbols =
   | typeof X_KNC_B
   | typeof X_SNX_A
 
+export type ILPTokenSymbols = typeof X_U3LP_A
+
+export type IStableAssets = typeof DAI | typeof USDC
+
 export type ITradeType = typeof BUY | typeof SELL
 
 interface IAsset {
@@ -57,6 +66,12 @@ interface IAsset {
   mandate: string
   price: number
   symbol: ITokenSymbols
+}
+
+interface ILPAsset {
+  aum: number
+  price: number
+  symbol: ILPTokenSymbols
 }
 
 interface ITokenBalance {
@@ -88,6 +103,13 @@ export interface IPortfolioItem {
   value: string
 }
 
+export interface ILPPortfolioItem {
+  price: string
+  quantity: string
+  symbol: ILPTokenSymbols
+  value: string
+}
+
 export interface ITokenPrices {
   aum: number
   priceEth: number
@@ -105,3 +127,10 @@ export interface IReturns {
   best: IReturn
   estimates: Array<IReturn>
 }
+
+export interface IU3LPToken {
+  0: IStableAssets
+  1: IStableAssets
+}
+
+export type IU3LPAssetId = 0 | 1
