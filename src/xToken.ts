@@ -23,14 +23,11 @@ import {
   getBancorEstimatedQuantity,
   getBancorPortfolioItem,
 } from './blockchain/exchanges/bancor'
+import { getInchEstimatedQuantity } from './blockchain/exchanges/inch'
 import {
-  getInchEstimatedQuantity,
-  getInchPortfolioItem,
-} from './blockchain/exchanges/inch'
-import {
-  // getUniswapEstimatedQuantity,
-  getUniswapPortfolioItem,
-} from './blockchain/exchanges/uniswap'
+  getKyberEstimatedQuantity,
+  getKyberPortfolioItem,
+} from './blockchain/exchanges/kyber'
 import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
@@ -271,19 +268,15 @@ export class XToken {
         tradeType,
         this.provider
       )
-    } else if ([X_KNC_A, X_KNC_B].includes(symbol)) {
-      dexSource = Exchange.UNISWAP
-
-      // TODO: Enable after Kyber V3 upgrade fixes
-      /*dexExpectedQty = await getUniswapEstimatedQuantity(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+    } else if (symbol === X_KNC_A) {
+      dexSource = Exchange.KYBER
+      dexExpectedQty = await getKyberEstimatedQuantity(
         tradeWithEth ? ETH : symbol,
         symbol,
         amount,
         tradeType,
         this.provider
-      )*/
+      )
     } else if (symbol === X_BNT_A) {
       dexSource = Exchange.BANCOR
       dexExpectedQty = await getBancorEstimatedQuantity(
@@ -486,10 +479,7 @@ export class XToken {
       getBalancerPortfolioItem(X_SNX_A, address, this.provider),
       getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
       getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
-      getInchPortfolioItem(X_INCH_A, address, this.provider),
-      getInchPortfolioItem(X_INCH_B, address, this.provider),
-      getUniswapPortfolioItem(X_KNC_A, address, this.provider),
-      getUniswapPortfolioItem(X_KNC_B, address, this.provider),
+      getKyberPortfolioItem(X_KNC_A, address, this.provider),
       getBancorPortfolioItem(X_BNT_A, address, this.provider),
     ])
   }
