@@ -1,4 +1,5 @@
 import { BigNumber } from 'ethers'
+import { parseEther } from 'ethers/lib/utils'
 
 export const formatNumber = (val: string, digits = 4) => {
   const n = Number(val)
@@ -15,5 +16,5 @@ export const getPercentage = (amount: BigNumber, percent: number) => {
  */
 export const getTWAP = (twap: BigNumber) => {
   twap = twap.mul(10000).div(BigNumber.from(2).pow(64))
-  return twap.toNumber() / 10000
+  return parseEther((twap.toNumber() / 10000).toString())
 }

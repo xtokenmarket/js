@@ -5,6 +5,8 @@
     "node_modules/@xtoken/abis/build/main/constants.d.ts"
   ],
   "exclude": ["**/*+(__factory|.spec|helper).ts"],
+  "excludeExternals": true,
   "excludePrivate": true,
+  "externalPattern": ["src/blockchain/utils.ts"],
   "hideGenerator": true
 }

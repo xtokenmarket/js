@@ -12,3 +12,6 @@ export { getXInchPrices } from './blockchain/xinch'
 export { getXKncPrices } from './blockchain/xknc'
 export { getXSnxPrices } from './blockchain/xsnx'
 export { getXU3LPPrices } from './blockchain/xu3lp'
+
+// Utility methods
+export * from './blockchain/utils'

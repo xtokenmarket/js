@@ -1,8 +1,8 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { BigNumberish } from 'ethers'
+import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
-import { DEC_18, DEFAULT_PRICES } from '../../constants'
+import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
 import { KyberProxy, XU3LP } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
@@ -36,15 +36,13 @@ export const getXU3LPPrices = async (
 ): Promise<ITokenPrices> => {
   try {
     const [
-      token0Price,
-      token1Price,
+      { token0Price, token1Price },
       stakedTokenBalances,
       bufferTokenBalances,
       xu3lpTotalSupply,
       ethUsdcPrice,
     ] = await Promise.all([
-      xu3lpContract.getAsset0Price(),
-      xu3lpContract.getAsset1Price(),
+      getXU3LPTokenPrices(xu3lpContract),
       xu3lpContract.getStakedTokenBalance(),
       xu3lpContract.getBufferTokenBalance(),
       xu3lpContract.totalSupply(),
@@ -58,15 +56,8 @@ export const getXU3LPPrices = async (
       bufferTokenBalances.amount1
     )
 
-    const token0PriceTWAP = getTWAP(token0Price)
-    const token1PriceTWAP = getTWAP(token1Price)
-
-    const token0Value = token0Balance.mul(
-      parseEther(token0PriceTWAP.toString())
-    )
-    const token1Value = token1Balance.mul(
-      parseEther(token1PriceTWAP.toString())
-    )
+    const token0Value = token0Balance.mul(token0Price)
+    const token1Value = token1Balance.mul(token1Price)
 
     const aum = token0Value.add(token1Value).div(DEC_18)
     const priceUsd = aum.mul(DEC_18).div(xu3lpTotalSupply as BigNumberish)
@@ -80,5 +71,30 @@ export const getXU3LPPrices = async (
   } catch (e) {
     console.error('Error while fetching token price:', e)
     return DEFAULT_PRICES
+  }
+}
+
+export const getXU3LPTokenPrices = async (
+  xu3lpContract: XU3LP
+): Promise<{
+  readonly token0Price: BigNumber
+  readonly token1Price: BigNumber
+}> => {
+  try {
+    const [token0PriceRaw, token1PriceRaw] = await Promise.all([
+      xu3lpContract.getAsset0Price(),
+      xu3lpContract.getAsset1Price(),
+    ])
+
+    const token0Price = getTWAP(token0PriceRaw)
+    const token1Price = getTWAP(token1PriceRaw)
+
+    return {
+      token0Price,
+      token1Price,
+    }
+  } catch (e) {
+    console.error('Error while fetching token price:', e)
+    return DEFAULT_TOKEN_PRICES
   }
 }

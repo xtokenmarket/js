@@ -52,6 +52,20 @@ const expectedQty = await xToken.getExpectedQuantityOnMint(X_KNC_A, true, '1') /
 yarn watch:build
 ```
 
+### Link
+
+Link `@xtoken/js` package via [yarn](https://classic.yarnpkg.com/en/docs/cli/link/) for local development and testing the integration on the UI
+
+```sh
+$ cd js
+$ yarn link # @xtoken/js package will be linked to the local copy
+
+$ cd cafe
+$ yarn link @xtoken/js # This will create a symlink named cafe/node_modules/@xtoken/js that links to the local copy of the xToken js project
+
+$ yarn unlink # To unlink the installed package
+```
+
 ### Tests
 
 ```sh

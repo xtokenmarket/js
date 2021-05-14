@@ -53,7 +53,7 @@ import {
 
 const { formatEther, parseEther } = ethers.utils
 
-const getAbi = (contractName: IContracts) => {
+export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
     case BNT:

@@ -38,6 +38,11 @@ export const DEFAULT_PORTFOLIO_ITEM = Object.freeze({
   tokenEquivalent: '0',
 })
 
+export const DEFAULT_TOKEN_PRICES = Object.freeze({
+  token0Price: parseEther('0'),
+  token1Price: parseEther('0'),
+})
+
 // BNT->ETH path
 export const BNT_ETH_PATH = [
   ADDRESSES[BNT][1],

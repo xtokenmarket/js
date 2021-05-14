@@ -367,10 +367,13 @@ export class XToken {
    * ```typescript
    * // Get expected quantity of ETH when selling 100 xAAVEa
    * const expectedQty = await xToken.getExpectedQuantityOnBurn('xAAVEa', true, '100')
+   *
+   * // Get expected quantity of USDC when selling 100 xU3LPa
+   * const expectedQty = await xToken.burn('xU3LPa', true, '100') // true = outputAsset `1`
    * ```
    *
    * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
-   * @param {boolean} sellForEth True, if selling the xToken for ETH
+   * @param {boolean} sellForEth True, if selling the xToken for ETH or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Quantity of the xToken to be traded
    * @returns Expected quantity for selling the given xToken
    */
@@ -418,7 +421,12 @@ export class XToken {
       case X_SNX_A:
         return getExpectedQuantityOnBurnXSnx(amount, this.provider)
       case X_U3LP_A:
-        return getExpectedQuantityOnBurnXU3LP(symbol, amount, this.provider)
+        return getExpectedQuantityOnBurnXU3LP(
+          symbol,
+          sellForEth ? 1 : 0,
+          amount,
+          this.provider
+        )
     }
   }
 
@@ -427,10 +435,13 @@ export class XToken {
    * ```typescript
    * // Get expected quantity of xAAVEa for minting 1 ETH
    * const expectedQty = await xToken.getExpectedQuantityOnMint('xAAVEa', true, '1')
+   *
+   * // Get expected quantity of xU3LPa for minting 1 DAI
+   * const expectedQty = await xToken.getExpectedQuantityOnMint('xU3LPa', false, '1') // false = inputAsset `0`
    * ```
    *
    * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to be minted
-   * @param {boolean} tradeWithEth True, if buying the xToken with ETH
+   * @param {boolean} tradeWithEth True, if buying the xToken with ETH or Token0/Token1 `inputAsset` in boolean value
    * @param {string} amount Quantity of the token to be traded
    * @returns Expected quantity of xToken upon minting
    */
@@ -482,7 +493,12 @@ export class XToken {
           this.provider
         )
       case X_U3LP_A:
-        return getExpectedQuantityOnMintXU3LP(symbol, amount, this.provider)
+        return getExpectedQuantityOnMintXU3LP(
+          symbol,
+          tradeWithEth ? 1 : 0,
+          amount,
+          this.provider
+        )
     }
   }
 
