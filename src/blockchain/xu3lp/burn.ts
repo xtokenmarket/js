@@ -53,7 +53,8 @@ export const getExpectedQuantityOnBurnXU3LP = async (
     getXU3LPTokenPrices(xu3lpContract),
   ])
 
-  const tokenPrice = outputAsset ? token1Price : token0Price
+  // Get amount in asset0 or asset1 terms
+  const tokenPrice = !outputAsset ? token1Price : token0Price
 
   const BURN_FEE = parseFees(burnFee)
   const expectedQty = inputAmount

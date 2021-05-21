@@ -13,6 +13,9 @@ import {
   X_KNC_B,
   X_SNX_A,
   X_U3LP_A,
+  X_U3LP_B,
+  X_U3LP_C,
+  X_U3LP_D,
 } from '@xtoken/abis'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
@@ -159,6 +162,9 @@ export class XToken {
       case X_SNX_A:
         return approveXSnx(value, this.provider)
       case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
         return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
     }
   }
@@ -193,7 +199,13 @@ export class XToken {
     }
     const value = parseEther(amount)
 
-    if (symbol !== X_KNC_A && symbol !== X_KNC_B && symbol !== X_U3LP_A) {
+    if (
+      ![X_KNC_A, X_KNC_B, X_U3LP_A, X_U3LP_B, X_U3LP_C, X_U3LP_D].includes(
+        symbol
+      )
+    ) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const maxRedeemable = parseEther(await this.getMaxRedeemable(symbol))
 
       if (value.gt(maxRedeemable)) {
@@ -218,6 +230,9 @@ export class XToken {
       case X_SNX_A:
         return burnXSnx(value, this.provider)
       case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
         return burnXU3LP(symbol, sellForEth ? 1 : 0, value, this.provider)
     }
   }
@@ -421,6 +436,9 @@ export class XToken {
       case X_SNX_A:
         return getExpectedQuantityOnBurnXSnx(amount, this.provider)
       case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
         return getExpectedQuantityOnBurnXU3LP(
           symbol,
           sellForEth ? 1 : 0,
@@ -493,6 +511,9 @@ export class XToken {
           this.provider
         )
       case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
         return getExpectedQuantityOnMintXU3LP(
           symbol,
           tradeWithEth ? 1 : 0,
@@ -625,7 +646,12 @@ export class XToken {
    * @returns Returns list of all the xU3LP tokens along with their asset details, AUM & USD price
    */
   public async getXLPAssets(): Promise<readonly ILPAsset[]> {
-    return Promise.all([getXU3LPAsset(X_U3LP_A, this.provider)])
+    return Promise.all([
+      getXU3LPAsset(X_U3LP_A, this.provider),
+      getXU3LPAsset(X_U3LP_B, this.provider),
+      getXU3LPAsset(X_U3LP_C, this.provider),
+      getXU3LPAsset(X_U3LP_D, this.provider),
+    ])
   }
 
   /**
@@ -675,6 +701,9 @@ export class XToken {
       case X_SNX_A:
         return mintXSnx(tradeWithEth, value, this.provider)
       case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
   }

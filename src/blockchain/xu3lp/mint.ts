@@ -1,13 +1,14 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
+import { USDC, USDT } from '@xtoken/abis'
 import { BigNumberish, ethers } from 'ethers'
 
 import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
 import { XU3LP } from '../../types'
 import { ILPTokenSymbols, IU3LPAssetId } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getSignerAddress, parseFees } from '../utils'
+import { getLPTokenSymbol, getSignerAddress, parseFees } from '../utils'
 
 import { getXU3LPContracts } from './helper'
 import { getXU3LPTokenPrices } from './prices'
@@ -58,6 +59,7 @@ export const getExpectedQuantityOnMintXU3LP = async (
     getXU3LPTokenPrices(xu3lpContract),
   ])
 
+  // Get amount in asset1 or asset0 terms
   const tokenPrice = inputAsset ? token1Price : token0Price
 
   const MINT_FEE = parseFees(mintFee)
@@ -81,6 +83,7 @@ export const mintXU3LP = async (
     token1Contract,
     xu3lpContract,
   } = await getXU3LPContracts(symbol, provider)
+  const assets = getLPTokenSymbol(symbol)
   const tokenContract = inputAsset === 0 ? token0Contract : token1Contract
 
   const address = await getSignerAddress(provider)
@@ -89,6 +92,11 @@ export const mintXU3LP = async (
     xu3lpContract,
     address
   )
+
+  // Parse 18 decimals `amount` to 6 decimals
+  if ([USDC, USDT].includes(assets[inputAsset])) {
+    amount = amount.div('1000000000000')
+  }
 
   if (approvedAmount.lt(amount)) {
     return Promise.reject(new Error('Please approve the tokens before minting'))

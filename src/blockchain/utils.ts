@@ -15,11 +15,15 @@ import {
   INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
+  S_ETH,
+  S_USD,
   SNX,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
   UNISWAP_V2_PAIR,
   USDC,
+  USDT,
+  WETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
@@ -38,6 +42,9 @@ import {
   X_SNX_A,
   X_SNX_A_BALANCER_POOL,
   X_U3LP_A,
+  X_U3LP_B,
+  X_U3LP_C,
+  X_U3LP_D,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
@@ -60,7 +67,11 @@ export const getAbi = (contractName: IContracts) => {
     case INCH:
     case KNC:
     case DAI:
+    case S_ETH:
+    case S_USD:
     case USDC:
+    case USDT:
+    case WETH:
       return Abi.ERC20 as ContractInterface
     case EXCHANGE_RATES:
       return Abi.ExchangeRates as ContractInterface
@@ -88,6 +99,9 @@ export const getAbi = (contractName: IContracts) => {
     case X_SNX_A:
       return Abi.xSNX as ContractInterface
     case X_U3LP_A:
+    case X_U3LP_B:
+    case X_U3LP_C:
+    case X_U3LP_D:
       return Abi.xU3LP as ContractInterface
   }
 }
@@ -271,6 +285,12 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
   switch (symbol) {
     case X_U3LP_A:
       return { 0: DAI, 1: USDC }
+    case X_U3LP_B:
+      return { 0: USDC, 1: USDT }
+    case X_U3LP_C:
+      return { 0: S_USD, 1: USDC }
+    case X_U3LP_D:
+      return { 0: S_ETH, 1: WETH }
   }
 }
 
