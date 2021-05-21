@@ -27,9 +27,9 @@ interface XBNTInterface extends ethers.utils.Interface {
     'adminActiveTimestamp()': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
-    'approveVbnt(address)': FunctionFragment
+    'approveVbnt()': FunctionFragment
     'balanceOf(address)': FunctionFragment
-    'burn(uint256,bool,address[],uint256)': FunctionFragment
+    'burn(uint256,bool,uint256)': FunctionFragment
     'calculateMintAmount(uint256,uint256)': FunctionFragment
     'changeGovernanceAddress(address)': FunctionFragment
     'changeLiquidityProviderImplementation(address)': FunctionFragment
@@ -55,9 +55,10 @@ interface XBNTInterface extends ethers.utils.Interface {
     'getStakingRewardsContract()': FunctionFragment
     'getTargetBufferBalance()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)': FunctionFragment
+    'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)': FunctionFragment
+    'lastLockedBlock(address)': FunctionFragment
     'lowestActiveProxyIndex()': FunctionFragment
-    'mint(address[],uint256)': FunctionFragment
+    'mint(uint256)': FunctionFragment
     'mintWithToken(uint256)': FunctionFragment
     'name()': FunctionFragment
     'nextProxyIndex()': FunctionFragment
@@ -71,6 +72,7 @@ interface XBNTInterface extends ethers.utils.Interface {
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
     'setManager(address)': FunctionFragment
     'setManager2(address)': FunctionFragment
+    'setProtocolMinter(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalAllocatedNav()': FunctionFragment
     'totalSupply()': FunctionFragment
@@ -99,11 +101,14 @@ interface XBNTInterface extends ethers.utils.Interface {
     functionFragment: 'approve',
     values: [string, BigNumberish]
   ): string
-  encodeFunctionData(functionFragment: 'approveVbnt', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'approveVbnt',
+    values?: undefined
+  ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
   encodeFunctionData(
     functionFragment: 'burn',
-    values: [BigNumberish, boolean, string[], BigNumberish]
+    values: [BigNumberish, boolean, BigNumberish]
   ): string
   encodeFunctionData(
     functionFragment: 'calculateMintAmount',
@@ -208,6 +213,8 @@ interface XBNTInterface extends ethers.utils.Interface {
       string,
       string,
       string,
+      string,
+      BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
@@ -215,13 +222,14 @@ interface XBNTInterface extends ethers.utils.Interface {
     ]
   ): string
   encodeFunctionData(
+    functionFragment: 'lastLockedBlock',
+    values: [string]
+  ): string
+  encodeFunctionData(
     functionFragment: 'lowestActiveProxyIndex',
     values?: undefined
   ): string
-  encodeFunctionData(
-    functionFragment: 'mint',
-    values: [string[], BigNumberish]
-  ): string
+  encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithToken',
     values: [BigNumberish]
@@ -259,6 +267,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'setManager', values: [string]): string
   encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'setProtocolMinter',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'totalAllocatedNav',
@@ -403,6 +415,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'lastLockedBlock',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'lowestActiveProxyIndex',
     data: BytesLike
   ): Result
@@ -441,6 +457,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'setProtocolMinter',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'totalAllocatedNav',
@@ -556,15 +576,9 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    approveVbnt(
-      _toApprove: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
+    approveVbnt(overrides?: Overrides): Promise<ContractTransaction>
 
-    'approveVbnt(address)'(
-      _toApprove: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
+    'approveVbnt()'(overrides?: Overrides): Promise<ContractTransaction>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -576,15 +590,13 @@ export class XBNT extends Contract {
     burn(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'burn(uint256,bool,address[],uint256)'(
+    'burn(uint256,bool,uint256)'(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
@@ -824,39 +836,51 @@ export class XBNT extends Contract {
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)'(
+    'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)'(
       _bnt: string,
       _vbnt: string,
       _contractRegistry: string,
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
 
     lowestActiveProxyIndex(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'lowestActiveProxyIndex()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     mint(
-      path: string[],
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    'mint(address[],uint256)'(
-      path: string[],
+    'mint(uint256)'(
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
@@ -958,6 +982,16 @@ export class XBNT extends Contract {
 
     'setManager2(address)'(
       _manager2: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setProtocolMinter(
+      _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setProtocolMinter(address)'(
+      _protocolMinter: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1082,15 +1116,9 @@ export class XBNT extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  approveVbnt(
-    _toApprove: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
+  approveVbnt(overrides?: Overrides): Promise<ContractTransaction>
 
-  'approveVbnt(address)'(
-    _toApprove: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
+  'approveVbnt()'(overrides?: Overrides): Promise<ContractTransaction>
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1102,15 +1130,13 @@ export class XBNT extends Contract {
   burn(
     redeemAmount: BigNumberish,
     redeemForEth: boolean,
-    path: string[],
     minReturn: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'burn(uint256,bool,address[],uint256)'(
+  'burn(uint256,bool,uint256)'(
     redeemAmount: BigNumberish,
     redeemForEth: boolean,
-    path: string[],
     minReturn: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
@@ -1346,39 +1372,48 @@ export class XBNT extends Contract {
     _bancorGovernance: string,
     _proxyFactory: string,
     _liquidityProviderImplementation: string,
+    _protocolMinter: string,
     _mintFeeDivisor: BigNumberish,
     _burnFeeDivisor: BigNumberish,
     _claimFeeDivisor: BigNumberish,
+    _initialMint: BigNumberish,
     _symbol: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)'(
+  'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)'(
     _bnt: string,
     _vbnt: string,
     _contractRegistry: string,
     _bancorGovernance: string,
     _proxyFactory: string,
     _liquidityProviderImplementation: string,
+    _protocolMinter: string,
     _mintFeeDivisor: BigNumberish,
     _burnFeeDivisor: BigNumberish,
     _claimFeeDivisor: BigNumberish,
+    _initialMint: BigNumberish,
     _symbol: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'lastLockedBlock(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
 
   lowestActiveProxyIndex(overrides?: CallOverrides): Promise<BigNumber>
 
   'lowestActiveProxyIndex()'(overrides?: CallOverrides): Promise<BigNumber>
 
   mint(
-    path: string[],
     minReturn: BigNumberish,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  'mint(address[],uint256)'(
-    path: string[],
+  'mint(uint256)'(
     minReturn: BigNumberish,
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
@@ -1478,6 +1513,16 @@ export class XBNT extends Contract {
 
   'setManager2(address)'(
     _manager2: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setProtocolMinter(
+    _protocolMinter: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setProtocolMinter(address)'(
+    _protocolMinter: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1602,12 +1647,9 @@ export class XBNT extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
-    approveVbnt(_toApprove: string, overrides?: CallOverrides): Promise<void>
+    approveVbnt(overrides?: CallOverrides): Promise<void>
 
-    'approveVbnt(address)'(
-      _toApprove: string,
-      overrides?: CallOverrides
-    ): Promise<void>
+    'approveVbnt()'(overrides?: CallOverrides): Promise<void>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1619,15 +1661,13 @@ export class XBNT extends Contract {
     burn(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'burn(uint256,bool,address[],uint256)'(
+    'burn(uint256,bool,uint256)'(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
@@ -1857,39 +1897,45 @@ export class XBNT extends Contract {
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)'(
+    'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)'(
       _bnt: string,
       _vbnt: string,
       _contractRegistry: string,
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: CallOverrides
     ): Promise<void>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
 
     lowestActiveProxyIndex(overrides?: CallOverrides): Promise<BigNumber>
 
     'lowestActiveProxyIndex()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    mint(
-      path: string[],
-      minReturn: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
+    mint(minReturn: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    'mint(address[],uint256)'(
-      path: string[],
+    'mint(uint256)'(
       minReturn: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
@@ -1985,6 +2031,16 @@ export class XBNT extends Contract {
 
     'setManager2(address)'(
       _manager2: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setProtocolMinter(
+      _protocolMinter: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setProtocolMinter(address)'(
+      _protocolMinter: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2158,12 +2214,9 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    approveVbnt(_toApprove: string, overrides?: Overrides): Promise<BigNumber>
+    approveVbnt(overrides?: Overrides): Promise<BigNumber>
 
-    'approveVbnt(address)'(
-      _toApprove: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
+    'approveVbnt()'(overrides?: Overrides): Promise<BigNumber>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2175,15 +2228,13 @@ export class XBNT extends Contract {
     burn(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'burn(uint256,bool,address[],uint256)'(
+    'burn(uint256,bool,uint256)'(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
@@ -2389,25 +2440,36 @@ export class XBNT extends Contract {
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)'(
+    'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)'(
       _bnt: string,
       _vbnt: string,
       _contractRegistry: string,
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
+    ): Promise<BigNumber>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>
 
     lowestActiveProxyIndex(overrides?: CallOverrides): Promise<BigNumber>
@@ -2415,13 +2477,11 @@ export class XBNT extends Contract {
     'lowestActiveProxyIndex()'(overrides?: CallOverrides): Promise<BigNumber>
 
     mint(
-      path: string[],
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    'mint(address[],uint256)'(
-      path: string[],
+    'mint(uint256)'(
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<BigNumber>
@@ -2517,6 +2577,16 @@ export class XBNT extends Contract {
 
     'setManager2(address)'(
       _manager2: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setProtocolMinter(
+      _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setProtocolMinter(address)'(
+      _protocolMinter: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2646,15 +2716,9 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    approveVbnt(
-      _toApprove: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
+    approveVbnt(overrides?: Overrides): Promise<PopulatedTransaction>
 
-    'approveVbnt(address)'(
-      _toApprove: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
+    'approveVbnt()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     balanceOf(
       account: string,
@@ -2669,15 +2733,13 @@ export class XBNT extends Contract {
     burn(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'burn(uint256,bool,address[],uint256)'(
+    'burn(uint256,bool,uint256)'(
       redeemAmount: BigNumberish,
       redeemForEth: boolean,
-      path: string[],
       minReturn: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
@@ -2907,25 +2969,39 @@ export class XBNT extends Contract {
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,string)'(
+    'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)'(
       _bnt: string,
       _vbnt: string,
       _contractRegistry: string,
       _bancorGovernance: string,
       _proxyFactory: string,
       _liquidityProviderImplementation: string,
+      _protocolMinter: string,
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       _symbol: string,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     lowestActiveProxyIndex(
@@ -2937,13 +3013,11 @@ export class XBNT extends Contract {
     ): Promise<PopulatedTransaction>
 
     mint(
-      path: string[],
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    'mint(address[],uint256)'(
-      path: string[],
+    'mint(uint256)'(
       minReturn: BigNumberish,
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
@@ -3045,6 +3119,16 @@ export class XBNT extends Contract {
 
     'setManager2(address)'(
       _manager2: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setProtocolMinter(
+      _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setProtocolMinter(address)'(
+      _protocolMinter: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

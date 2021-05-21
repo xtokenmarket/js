@@ -22,12 +22,12 @@ import { ITokenPrices } from '../../types/xToken'
  * ```
  *
  * @param {XKNC} xkncContract xKNCa/xKNCb token contract
- * @param {Contract} _kncContract KNC token contract
+ * @param {Contract} kncContract KNC token contract
  * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export declare const getXKncPrices: (
   xkncContract: XKNC,
-  _kncContract: Contract,
+  kncContract: Contract,
   kyberProxyContract: KyberProxy
 ) => Promise<ITokenPrices>

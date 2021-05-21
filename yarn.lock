@@ -984,8 +984,8 @@
   integrity sha512-MtybtkUPSyysqLY2U210NBDeCHX+ltHt3oADGdjqoThZaFRDKwM6k1Nb3F0A3hk5hwuQvytFWhrWHOEq6nVJ8Q==
 
 "@xtoken/abis@xtokenmarket/abis#feature/xU3LP":
-  version "0.1.11"
-  resolved "https://codeload.github.com/xtokenmarket/abis/tar.gz/0328fe341077db158b0231512e5ff688d1739337"
+  version "0.1.13"
+  resolved "https://codeload.github.com/xtokenmarket/abis/tar.gz/3b06dfcca867f580a015fce43474d37bf16691f4"
 
 JSONStream@^1.0.4:
   version "1.3.5"

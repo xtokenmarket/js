@@ -1,6 +1,6 @@
 'use strict'
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.XU3LP__factory = exports.XSNX__factory = exports.XKNC__factory = exports.XINCH__factory = exports.XBNT__factory = exports.XAAVE__factory = exports.UniswapV3Pool__factory = exports.UniswapV2Pair__factory = exports.TradeAccounting__factory = exports.Synthetix__factory = exports.KyberProxy__factory = exports.KyberGovernance__factory = exports.InchLiquidityProtocol__factory = exports.ExchangeRates__factory = exports.ERC20__factory = exports.BancorSmartToken__factory = exports.BancorNetwork__factory = exports.BancorContractRegistry__factory = exports.BalancerPool__factory = exports.AddressResolver__factory = exports.AaveGovernanceV2__factory = void 0
+exports.XU3LP__factory = exports.XSNX__factory = exports.XKNC__factory = exports.XINCH__factory = exports.XBNT__factory = exports.XAAVE__factory = exports.UniswapV3Pool__factory = exports.UniswapV2Pair__factory = exports.TradeAccounting__factory = exports.Synthetix__factory = exports.MerkleClaim__factory = exports.KyberProxy__factory = exports.KyberGovernance__factory = exports.InchLiquidityProtocol__factory = exports.ExchangeRates__factory = exports.ERC20__factory = exports.DMMPool__factory = exports.BancorSmartToken__factory = exports.BancorNetwork__factory = exports.BancorContractRegistry__factory = exports.BalancerPool__factory = exports.AddressResolver__factory = exports.AaveGovernanceV2__factory = void 0
 var AaveGovernanceV2__factory_1 = require('./factories/AaveGovernanceV2__factory')
 Object.defineProperty(exports, 'AaveGovernanceV2__factory', {
   enumerable: true,
@@ -43,6 +43,13 @@ Object.defineProperty(exports, 'BancorSmartToken__factory', {
     return BancorSmartToken__factory_1.BancorSmartToken__factory
   },
 })
+var DMMPool__factory_1 = require('./factories/DMMPool__factory')
+Object.defineProperty(exports, 'DMMPool__factory', {
+  enumerable: true,
+  get: function () {
+    return DMMPool__factory_1.DMMPool__factory
+  },
+})
 var ERC20__factory_1 = require('./factories/ERC20__factory')
 Object.defineProperty(exports, 'ERC20__factory', {
   enumerable: true,
@@ -76,6 +83,13 @@ Object.defineProperty(exports, 'KyberProxy__factory', {
   enumerable: true,
   get: function () {
     return KyberProxy__factory_1.KyberProxy__factory
+  },
+})
+var MerkleClaim__factory_1 = require('./factories/MerkleClaim__factory')
+Object.defineProperty(exports, 'MerkleClaim__factory', {
+  enumerable: true,
+  get: function () {
+    return MerkleClaim__factory_1.MerkleClaim__factory
   },
 })
 var Synthetix__factory_1 = require('./factories/Synthetix__factory')
@@ -148,4 +162,4 @@ Object.defineProperty(exports, 'XU3LP__factory', {
     return XU3LP__factory_1.XU3LP__factory
   },
 })
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvdHlwZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBeUJBLG1GQUFpRjtBQUF4RSxzSUFBQSx5QkFBeUIsT0FBQTtBQUNsQyxpRkFBK0U7QUFBdEUsb0lBQUEsd0JBQXdCLE9BQUE7QUFDakMsMkVBQXlFO0FBQWhFLDhIQUFBLHFCQUFxQixPQUFBO0FBQzlCLCtGQUE2RjtBQUFwRixrSkFBQSwrQkFBK0IsT0FBQTtBQUN4Qyw2RUFBMkU7QUFBbEUsZ0lBQUEsc0JBQXNCLE9BQUE7QUFDL0IsbUZBQWlGO0FBQXhFLHNJQUFBLHlCQUF5QixPQUFBO0FBQ2xDLDZEQUEyRDtBQUFsRCxnSEFBQSxjQUFjLE9BQUE7QUFDdkIsNkVBQTJFO0FBQWxFLGdJQUFBLHNCQUFzQixPQUFBO0FBQy9CLDZGQUEyRjtBQUFsRixnSkFBQSw4QkFBOEIsT0FBQTtBQUN2QyxpRkFBK0U7QUFBdEUsb0lBQUEsd0JBQXdCLE9BQUE7QUFDakMsdUVBQXFFO0FBQTVELDBIQUFBLG1CQUFtQixPQUFBO0FBQzVCLHFFQUFtRTtBQUExRCx3SEFBQSxrQkFBa0IsT0FBQTtBQUMzQixpRkFBK0U7QUFBdEUsb0lBQUEsd0JBQXdCLE9BQUE7QUFDakMsNkVBQTJFO0FBQWxFLGdJQUFBLHNCQUFzQixPQUFBO0FBQy9CLDZFQUEyRTtBQUFsRSxnSUFBQSxzQkFBc0IsT0FBQTtBQUMvQiw2REFBMkQ7QUFBbEQsZ0hBQUEsY0FBYyxPQUFBO0FBQ3ZCLDJEQUF5RDtBQUFoRCw4R0FBQSxhQUFhLE9BQUE7QUFDdEIsNkRBQTJEO0FBQWxELGdIQUFBLGNBQWMsT0FBQTtBQUN2QiwyREFBeUQ7QUFBaEQsOEdBQUEsYUFBYSxPQUFBO0FBQ3RCLDJEQUF5RDtBQUFoRCw4R0FBQSxhQUFhLE9BQUE7QUFDdEIsNkRBQTJEO0FBQWxELGdIQUFBLGNBQWMsT0FBQSJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvdHlwZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBMkJBLG1GQUFpRjtBQUF4RSxzSUFBQSx5QkFBeUIsT0FBQTtBQUNsQyxpRkFBK0U7QUFBdEUsb0lBQUEsd0JBQXdCLE9BQUE7QUFDakMsMkVBQXlFO0FBQWhFLDhIQUFBLHFCQUFxQixPQUFBO0FBQzlCLCtGQUE2RjtBQUFwRixrSkFBQSwrQkFBK0IsT0FBQTtBQUN4Qyw2RUFBMkU7QUFBbEUsZ0lBQUEsc0JBQXNCLE9BQUE7QUFDL0IsbUZBQWlGO0FBQXhFLHNJQUFBLHlCQUF5QixPQUFBO0FBQ2xDLGlFQUErRDtBQUF0RCxvSEFBQSxnQkFBZ0IsT0FBQTtBQUN6Qiw2REFBMkQ7QUFBbEQsZ0hBQUEsY0FBYyxPQUFBO0FBQ3ZCLDZFQUEyRTtBQUFsRSxnSUFBQSxzQkFBc0IsT0FBQTtBQUMvQiw2RkFBMkY7QUFBbEYsZ0pBQUEsOEJBQThCLE9BQUE7QUFDdkMsaUZBQStFO0FBQXRFLG9JQUFBLHdCQUF3QixPQUFBO0FBQ2pDLHVFQUFxRTtBQUE1RCwwSEFBQSxtQkFBbUIsT0FBQTtBQUM1Qix5RUFBdUU7QUFBOUQsNEhBQUEsb0JBQW9CLE9BQUE7QUFDN0IscUVBQW1FO0FBQTFELHdIQUFBLGtCQUFrQixPQUFBO0FBQzNCLGlGQUErRTtBQUF0RSxvSUFBQSx3QkFBd0IsT0FBQTtBQUNqQyw2RUFBMkU7QUFBbEUsZ0lBQUEsc0JBQXNCLE9BQUE7QUFDL0IsNkVBQTJFO0FBQWxFLGdJQUFBLHNCQUFzQixPQUFBO0FBQy9CLDZEQUEyRDtBQUFsRCxnSEFBQSxjQUFjLE9BQUE7QUFDdkIsMkRBQXlEO0FBQWhELDhHQUFBLGFBQWEsT0FBQTtBQUN0Qiw2REFBMkQ7QUFBbEQsZ0hBQUEsY0FBYyxPQUFBO0FBQ3ZCLDJEQUF5RDtBQUFoRCw4R0FBQSxhQUFhLE9BQUE7QUFDdEIsMkRBQXlEO0FBQWhELDhHQUFBLGFBQWEsT0FBQTtBQUN0Qiw2REFBMkQ7QUFBbEQsZ0hBQUEsY0FBYyxPQUFBIn0=

@@ -39,6 +39,7 @@ interface XKNCInterface extends ethers.utils.Interface {
     'getRewardDistributor()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(string,string,address,address,address,address,uint256,uint256,uint256)': FunctionFragment
+    'lastLockedBlock(address)': FunctionFragment
     'mandate()': FunctionFragment
     'migrateV3(address,address,address,address)': FunctionFragment
     'mint(uint256)': FunctionFragment
@@ -137,6 +138,10 @@ interface XKNCInterface extends ethers.utils.Interface {
       BigNumberish
     ]
   ): string
+  encodeFunctionData(
+    functionFragment: 'lastLockedBlock',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'mandate', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'migrateV3',
@@ -229,6 +234,10 @@ interface XKNCInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'lastLockedBlock',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'mandate', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'migrateV3', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
@@ -481,6 +490,16 @@ export class XKNC extends Contract {
       claimFee: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
 
     mandate(overrides?: CallOverrides): Promise<[string]>
 
@@ -824,6 +843,13 @@ export class XKNC extends Contract {
     claimFee: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'lastLockedBlock(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
 
   mandate(overrides?: CallOverrides): Promise<string>
 
@@ -1173,6 +1199,13 @@ export class XKNC extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     mandate(overrides?: CallOverrides): Promise<string>
 
     'mandate()'(overrides?: CallOverrides): Promise<string>
@@ -1518,6 +1551,13 @@ export class XKNC extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     mandate(overrides?: CallOverrides): Promise<BigNumber>
 
     'mandate()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1860,6 +1900,16 @@ export class XKNC extends Contract {
       burnFee: BigNumberish,
       claimFee: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     mandate(overrides?: CallOverrides): Promise<PopulatedTransaction>

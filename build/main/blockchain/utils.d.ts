@@ -51,6 +51,15 @@ export declare const getInchPoolContract: (
   provider: BaseProvider,
   chainId: number
 ) => Contract | null
+export declare const getKyberPoolAddress: (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  chainId: number
+) => string | null
+export declare const getKyberPoolContract: (
+  symbol: typeof X_KNC_A | typeof X_KNC_B,
+  provider: BaseProvider,
+  chainId: number
+) => Contract | null
 export declare const getTokenSymbol: (
   symbol: ITokenSymbols
 ) => 'aave' | 'bnt' | 'inch' | 'knc' | 'snx'

@@ -23,45 +23,60 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface XSNXInterface extends ethers.utils.Interface {
   functions: {
+    'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
+    'balanceOf(address)': FunctionFragment
     'burn(uint256)': FunctionFragment
+    'decimals()': FunctionFragment
     'decreaseAllowance(address,uint256)': FunctionFragment
+    'feeDivisors()': FunctionFragment
+    'getClaimFeeDivisor()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(string,string,uint8)': FunctionFragment
+    'isOwner()': FunctionFragment
+    'lastLockedBlock(address)': FunctionFragment
     'mint(uint256)': FunctionFragment
     'mintWithSnx(uint256)': FunctionFragment
+    'name()': FunctionFragment
+    'owner()': FunctionFragment
     'pause()': FunctionFragment
+    'paused()': FunctionFragment
+    'pauser()': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
+    'symbol()': FunctionFragment
+    'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
     'unpause()': FunctionFragment
     'withdrawFees()': FunctionFragment
     'withdrawNativeToken()': FunctionFragment
-    'allowance(address,address)': FunctionFragment
-    'balanceOf(address)': FunctionFragment
-    'decimals()': FunctionFragment
-    'feeDivisors()': FunctionFragment
-    'getClaimFeeDivisor()': FunctionFragment
-    'isOwner()': FunctionFragment
-    'name()': FunctionFragment
-    'owner()': FunctionFragment
-    'paused()': FunctionFragment
-    'pauser()': FunctionFragment
-    'symbol()': FunctionFragment
-    'totalSupply()': FunctionFragment
     'withdrawableEthFees()': FunctionFragment
   }
 
   encodeFunctionData(
+    functionFragment: 'allowance',
+    values: [string, string]
+  ): string
+  encodeFunctionData(
     functionFragment: 'approve',
     values: [string, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
   encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'decreaseAllowance',
     values: [string, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'feeDivisors',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getClaimFeeDivisor',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'increaseAllowance',
@@ -71,12 +86,21 @@ interface XSNXInterface extends ethers.utils.Interface {
     functionFragment: 'initialize',
     values: [string, string, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'isOwner', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'lastLockedBlock',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithSnx',
     values: [BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'pauser', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
@@ -84,6 +108,11 @@ interface XSNXInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'setFeeDivisors',
     values: [BigNumberish, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'totalSupply',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'transfer',
@@ -107,38 +136,22 @@ interface XSNXInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
-    functionFragment: 'allowance',
-    values: [string, string]
-  ): string
-  encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
-  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'feeDivisors',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'getClaimFeeDivisor',
-    values?: undefined
-  ): string
-  encodeFunctionData(functionFragment: 'isOwner', values?: undefined): string
-  encodeFunctionData(functionFragment: 'name', values?: undefined): string
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
-  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
-  encodeFunctionData(functionFragment: 'pauser', values?: undefined): string
-  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'totalSupply',
-    values?: undefined
-  ): string
-  encodeFunctionData(
     functionFragment: 'withdrawableEthFees',
     values?: undefined
   ): string
 
+  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'decreaseAllowance',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'getClaimFeeDivisor',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -146,9 +159,18 @@ interface XSNXInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isOwner', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'lastLockedBlock',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mintWithSnx', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pauser', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
@@ -157,6 +179,8 @@ interface XSNXInterface extends ethers.utils.Interface {
     functionFragment: 'setFeeDivisors',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'transferFrom',
@@ -175,21 +199,6 @@ interface XSNXInterface extends ethers.utils.Interface {
     functionFragment: 'withdrawNativeToken',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'getClaimFeeDivisor',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'isOwner', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'pauser', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'withdrawableEthFees',
     data: BytesLike
@@ -230,6 +239,18 @@ export class XSNX extends Contract {
   interface: XSNXInterface
 
   functions: {
+    allowance(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'allowance(address,address)'(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -242,6 +263,13 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'balanceOf(address)'(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
     burn(
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
@@ -251,6 +279,10 @@ export class XSNX extends Contract {
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    decimals(overrides?: CallOverrides): Promise<[number]>
+
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
 
     decreaseAllowance(
       spender: string,
@@ -263,6 +295,30 @@ export class XSNX extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    feeDivisors(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
+
+    'feeDivisors()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
+
+    getClaimFeeDivisor(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     increaseAllowance(
       spender: string,
@@ -283,12 +339,7 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(address)'(
-      sender: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256)'(
+    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,uint256)'(
       _tradeAccountingAddress: string,
       _kyberProxyAddress: string,
       _snxAddress: string,
@@ -298,8 +349,28 @@ export class XSNX extends Contract {
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    'initialize(address)'(
+      sender: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    isOwner(overrides?: CallOverrides): Promise<[boolean]>
+
+    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
 
     mint(
       minRate: BigNumberish,
@@ -321,9 +392,25 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    name(overrides?: CallOverrides): Promise<[string]>
+
+    'name()'(overrides?: CallOverrides): Promise<[string]>
+
+    owner(overrides?: CallOverrides): Promise<[string]>
+
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
+
     pause(overrides?: Overrides): Promise<ContractTransaction>
 
     'pause()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    paused(overrides?: CallOverrides): Promise<[boolean]>
+
+    'paused()'(overrides?: CallOverrides): Promise<[boolean]>
+
+    pauser(overrides?: CallOverrides): Promise<[string]>
+
+    'pauser()'(overrides?: CallOverrides): Promise<[string]>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -342,6 +429,14 @@ export class XSNX extends Contract {
       claimFeeDivisor: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    symbol(overrides?: CallOverrides): Promise<[string]>
+
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
+
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transfer(
       recipient: string,
@@ -391,85 +486,22 @@ export class XSNX extends Contract {
 
     'withdrawNativeToken()'(overrides?: Overrides): Promise<ContractTransaction>
 
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    'allowance(address,address)'(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'balanceOf(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    decimals(overrides?: CallOverrides): Promise<[number]>
-
-    'decimals()'(overrides?: CallOverrides): Promise<[number]>
-
-    feeDivisors(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    'feeDivisors()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    getClaimFeeDivisor(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    isOwner(overrides?: CallOverrides): Promise<[boolean]>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<[boolean]>
-
-    name(overrides?: CallOverrides): Promise<[string]>
-
-    'name()'(overrides?: CallOverrides): Promise<[string]>
-
-    owner(overrides?: CallOverrides): Promise<[string]>
-
-    'owner()'(overrides?: CallOverrides): Promise<[string]>
-
-    paused(overrides?: CallOverrides): Promise<[boolean]>
-
-    'paused()'(overrides?: CallOverrides): Promise<[boolean]>
-
-    pauser(overrides?: CallOverrides): Promise<[string]>
-
-    'pauser()'(overrides?: CallOverrides): Promise<[string]>
-
-    symbol(overrides?: CallOverrides): Promise<[string]>
-
-    'symbol()'(overrides?: CallOverrides): Promise<[string]>
-
-    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
-
     withdrawableEthFees(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'withdrawableEthFees()'(overrides?: CallOverrides): Promise<[BigNumber]>
   }
+
+  allowance(
+    owner: string,
+    spender: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  'allowance(address,address)'(
+    owner: string,
+    spender: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
 
   approve(
     spender: string,
@@ -483,6 +515,13 @@ export class XSNX extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'balanceOf(address)'(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
   burn(
     tokensToRedeem: BigNumberish,
     overrides?: Overrides
@@ -492,6 +531,10 @@ export class XSNX extends Contract {
     tokensToRedeem: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  decimals(overrides?: CallOverrides): Promise<number>
+
+  'decimals()'(overrides?: CallOverrides): Promise<number>
 
   decreaseAllowance(
     spender: string,
@@ -504,6 +547,30 @@ export class XSNX extends Contract {
     subtractedValue: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  feeDivisors(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
+
+  'feeDivisors()'(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber] & {
+      mintFee: BigNumber
+      burnFee: BigNumber
+      claimFee: BigNumber
+    }
+  >
+
+  getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
+
+  'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
 
   increaseAllowance(
     spender: string,
@@ -524,12 +591,7 @@ export class XSNX extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(address)'(
-    sender: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'initialize(address,address,address,address,address,address,uint256,uint256,uint256)'(
+  'initialize(address,address,address,address,address,address,uint256,uint256,uint256,uint256)'(
     _tradeAccountingAddress: string,
     _kyberProxyAddress: string,
     _snxAddress: string,
@@ -539,8 +601,25 @@ export class XSNX extends Contract {
     _mintFeeDivisor: BigNumberish,
     _burnFeeDivisor: BigNumberish,
     _claimFeeDivisor: BigNumberish,
+    _initialMint: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  'initialize(address)'(
+    sender: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  isOwner(overrides?: CallOverrides): Promise<boolean>
+
+  'isOwner()'(overrides?: CallOverrides): Promise<boolean>
+
+  lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'lastLockedBlock(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
 
   mint(
     minRate: BigNumberish,
@@ -562,9 +641,25 @@ export class XSNX extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  name(overrides?: CallOverrides): Promise<string>
+
+  'name()'(overrides?: CallOverrides): Promise<string>
+
+  owner(overrides?: CallOverrides): Promise<string>
+
+  'owner()'(overrides?: CallOverrides): Promise<string>
+
   pause(overrides?: Overrides): Promise<ContractTransaction>
 
   'pause()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  paused(overrides?: CallOverrides): Promise<boolean>
+
+  'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+  pauser(overrides?: CallOverrides): Promise<string>
+
+  'pauser()'(overrides?: CallOverrides): Promise<string>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -583,6 +678,14 @@ export class XSNX extends Contract {
     claimFeeDivisor: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  symbol(overrides?: CallOverrides): Promise<string>
+
+  'symbol()'(overrides?: CallOverrides): Promise<string>
+
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+  'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
 
   transfer(
     recipient: string,
@@ -632,86 +735,23 @@ export class XSNX extends Contract {
 
   'withdrawNativeToken()'(overrides?: Overrides): Promise<ContractTransaction>
 
-  allowance(
-    owner: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  'allowance(address,address)'(
-    owner: string,
-    spender: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
-
-  'balanceOf(address)'(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  decimals(overrides?: CallOverrides): Promise<number>
-
-  'decimals()'(overrides?: CallOverrides): Promise<number>
-
-  feeDivisors(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-    }
-  >
-
-  'feeDivisors()'(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-    }
-  >
-
-  getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
-
-  'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
-
-  isOwner(overrides?: CallOverrides): Promise<boolean>
-
-  'isOwner()'(overrides?: CallOverrides): Promise<boolean>
-
-  name(overrides?: CallOverrides): Promise<string>
-
-  'name()'(overrides?: CallOverrides): Promise<string>
-
-  owner(overrides?: CallOverrides): Promise<string>
-
-  'owner()'(overrides?: CallOverrides): Promise<string>
-
-  paused(overrides?: CallOverrides): Promise<boolean>
-
-  'paused()'(overrides?: CallOverrides): Promise<boolean>
-
-  pauser(overrides?: CallOverrides): Promise<string>
-
-  'pauser()'(overrides?: CallOverrides): Promise<string>
-
-  symbol(overrides?: CallOverrides): Promise<string>
-
-  'symbol()'(overrides?: CallOverrides): Promise<string>
-
-  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
-
-  'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
-
   withdrawableEthFees(overrides?: CallOverrides): Promise<BigNumber>
 
   'withdrawableEthFees()'(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
+    allowance(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'allowance(address,address)'(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -724,12 +764,23 @@ export class XSNX extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'balanceOf(address)'(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     burn(tokensToRedeem: BigNumberish, overrides?: CallOverrides): Promise<void>
 
     'burn(uint256)'(
       tokensToRedeem: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    decimals(overrides?: CallOverrides): Promise<number>
+
+    'decimals()'(overrides?: CallOverrides): Promise<number>
 
     decreaseAllowance(
       spender: string,
@@ -742,6 +793,30 @@ export class XSNX extends Contract {
       subtractedValue: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>
+
+    feeDivisors(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
+
+    'feeDivisors()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber] & {
+        mintFee: BigNumber
+        burnFee: BigNumber
+        claimFee: BigNumber
+      }
+    >
+
+    getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -762,12 +837,7 @@ export class XSNX extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(address)'(
-      sender: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256)'(
+    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,uint256)'(
       _tradeAccountingAddress: string,
       _kyberProxyAddress: string,
       _snxAddress: string,
@@ -777,8 +847,25 @@ export class XSNX extends Contract {
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    'initialize(address)'(
+      sender: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    isOwner(overrides?: CallOverrides): Promise<boolean>
+
+    'isOwner()'(overrides?: CallOverrides): Promise<boolean>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
 
     mint(minRate: BigNumberish, overrides?: CallOverrides): Promise<void>
 
@@ -797,9 +884,25 @@ export class XSNX extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    name(overrides?: CallOverrides): Promise<string>
+
+    'name()'(overrides?: CallOverrides): Promise<string>
+
+    owner(overrides?: CallOverrides): Promise<string>
+
+    'owner()'(overrides?: CallOverrides): Promise<string>
+
     pause(overrides?: CallOverrides): Promise<void>
 
     'pause()'(overrides?: CallOverrides): Promise<void>
+
+    paused(overrides?: CallOverrides): Promise<boolean>
+
+    'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+    pauser(overrides?: CallOverrides): Promise<string>
+
+    'pauser()'(overrides?: CallOverrides): Promise<string>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -818,6 +921,14 @@ export class XSNX extends Contract {
       claimFeeDivisor: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    symbol(overrides?: CallOverrides): Promise<string>
+
+    'symbol()'(overrides?: CallOverrides): Promise<string>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
 
     transfer(
       recipient: string,
@@ -867,81 +978,6 @@ export class XSNX extends Contract {
 
     'withdrawNativeToken()'(overrides?: CallOverrides): Promise<void>
 
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'allowance(address,address)'(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
-
-    'balanceOf(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    decimals(overrides?: CallOverrides): Promise<number>
-
-    'decimals()'(overrides?: CallOverrides): Promise<number>
-
-    feeDivisors(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    'feeDivisors()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
-
-    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    isOwner(overrides?: CallOverrides): Promise<boolean>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<boolean>
-
-    name(overrides?: CallOverrides): Promise<string>
-
-    'name()'(overrides?: CallOverrides): Promise<string>
-
-    owner(overrides?: CallOverrides): Promise<string>
-
-    'owner()'(overrides?: CallOverrides): Promise<string>
-
-    paused(overrides?: CallOverrides): Promise<boolean>
-
-    'paused()'(overrides?: CallOverrides): Promise<boolean>
-
-    pauser(overrides?: CallOverrides): Promise<string>
-
-    'pauser()'(overrides?: CallOverrides): Promise<string>
-
-    symbol(overrides?: CallOverrides): Promise<string>
-
-    'symbol()'(overrides?: CallOverrides): Promise<string>
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
-
-    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
-
     withdrawableEthFees(overrides?: CallOverrides): Promise<BigNumber>
 
     'withdrawableEthFees()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -988,6 +1024,18 @@ export class XSNX extends Contract {
   }
 
   estimateGas: {
+    allowance(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'allowance(address,address)'(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -1000,6 +1048,13 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'balanceOf(address)'(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     burn(
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
@@ -1009,6 +1064,10 @@ export class XSNX extends Contract {
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    decimals(overrides?: CallOverrides): Promise<BigNumber>
+
+    'decimals()'(overrides?: CallOverrides): Promise<BigNumber>
 
     decreaseAllowance(
       spender: string,
@@ -1021,6 +1080,14 @@ export class XSNX extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    feeDivisors(overrides?: CallOverrides): Promise<BigNumber>
+
+    'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -1041,12 +1108,7 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(address)'(
-      sender: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256)'(
+    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,uint256)'(
       _tradeAccountingAddress: string,
       _kyberProxyAddress: string,
       _snxAddress: string,
@@ -1056,7 +1118,24 @@ export class XSNX extends Contract {
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'initialize(address)'(
+      sender: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    isOwner(overrides?: CallOverrides): Promise<BigNumber>
+
+    'isOwner()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>
 
     mint(
@@ -1079,9 +1158,25 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    name(overrides?: CallOverrides): Promise<BigNumber>
+
+    'name()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>
+
+    'owner()'(overrides?: CallOverrides): Promise<BigNumber>
+
     pause(overrides?: Overrides): Promise<BigNumber>
 
     'pause()'(overrides?: Overrides): Promise<BigNumber>
+
+    paused(overrides?: CallOverrides): Promise<BigNumber>
+
+    'paused()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    pauser(overrides?: CallOverrides): Promise<BigNumber>
+
+    'pauser()'(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -1100,6 +1195,14 @@ export class XSNX extends Contract {
       claimFeeDivisor: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    symbol(overrides?: CallOverrides): Promise<BigNumber>
+
+    'symbol()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
 
     transfer(
       recipient: string,
@@ -1149,71 +1252,24 @@ export class XSNX extends Contract {
 
     'withdrawNativeToken()'(overrides?: Overrides): Promise<BigNumber>
 
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'allowance(address,address)'(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
-
-    'balanceOf(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    decimals(overrides?: CallOverrides): Promise<BigNumber>
-
-    'decimals()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    feeDivisors(overrides?: CallOverrides): Promise<BigNumber>
-
-    'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    getClaimFeeDivisor(overrides?: CallOverrides): Promise<BigNumber>
-
-    'getClaimFeeDivisor()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    isOwner(overrides?: CallOverrides): Promise<BigNumber>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    name(overrides?: CallOverrides): Promise<BigNumber>
-
-    'name()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    owner(overrides?: CallOverrides): Promise<BigNumber>
-
-    'owner()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    paused(overrides?: CallOverrides): Promise<BigNumber>
-
-    'paused()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    pauser(overrides?: CallOverrides): Promise<BigNumber>
-
-    'pauser()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    symbol(overrides?: CallOverrides): Promise<BigNumber>
-
-    'symbol()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
-
-    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
-
     withdrawableEthFees(overrides?: CallOverrides): Promise<BigNumber>
 
     'withdrawableEthFees()'(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
+    allowance(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'allowance(address,address)'(
+      owner: string,
+      spender: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     approve(
       spender: string,
       amount: BigNumberish,
@@ -1226,6 +1282,16 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    balanceOf(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'balanceOf(address)'(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     burn(
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
@@ -1235,6 +1301,10 @@ export class XSNX extends Contract {
       tokensToRedeem: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'decimals()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     decreaseAllowance(
       spender: string,
@@ -1246,6 +1316,16 @@ export class XSNX extends Contract {
       spender: string,
       subtractedValue: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    feeDivisors(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    getClaimFeeDivisor(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getClaimFeeDivisor()'(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     increaseAllowance(
@@ -1267,12 +1347,7 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(address)'(
-      sender: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'initialize(address,address,address,address,address,address,uint256,uint256,uint256)'(
+    'initialize(address,address,address,address,address,address,uint256,uint256,uint256,uint256)'(
       _tradeAccountingAddress: string,
       _kyberProxyAddress: string,
       _snxAddress: string,
@@ -1282,7 +1357,27 @@ export class XSNX extends Contract {
       _mintFeeDivisor: BigNumberish,
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
+      _initialMint: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'initialize(address)'(
+      sender: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    isOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'isOwner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     mint(
@@ -1305,9 +1400,25 @@ export class XSNX extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    name(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'name()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'owner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     pause(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'pause()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    pauser(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'pauser()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
@@ -1326,6 +1437,14 @@ export class XSNX extends Contract {
       claimFeeDivisor: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'symbol()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     transfer(
       recipient: string,
@@ -1376,70 +1495,6 @@ export class XSNX extends Contract {
     'withdrawNativeToken()'(
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
-
-    allowance(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'allowance(address,address)'(
-      owner: string,
-      spender: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    balanceOf(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'balanceOf(address)'(
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'decimals()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    feeDivisors(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    getClaimFeeDivisor(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'getClaimFeeDivisor()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    isOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'isOwner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'name()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'owner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    pauser(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'pauser()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'symbol()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'totalSupply()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     withdrawableEthFees(
       overrides?: CallOverrides

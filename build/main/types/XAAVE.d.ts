@@ -51,6 +51,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'getStakedBalance()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(address,address,address,address,address,uint256,uint256,uint256,string,string)': FunctionFragment
+    'lastLockedBlock(address)': FunctionFragment
     'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
     'mintWithToken(uint256,address)': FunctionFragment
@@ -189,6 +190,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
       string,
       string
     ]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'lastLockedBlock',
+    values: [string]
   ): string
   encodeFunctionData(functionFragment: 'mandate', values?: undefined): string
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
@@ -353,6 +358,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'lastLockedBlock',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'mandate', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(
@@ -684,6 +693,16 @@ export class XAAVE extends Contract {
       _mandate: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
 
     mandate(overrides?: CallOverrides): Promise<[string]>
 
@@ -1127,6 +1146,13 @@ export class XAAVE extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'lastLockedBlock(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
   mandate(overrides?: CallOverrides): Promise<string>
 
   'mandate()'(overrides?: CallOverrides): Promise<string>
@@ -1564,6 +1590,13 @@ export class XAAVE extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     mandate(overrides?: CallOverrides): Promise<string>
 
     'mandate()'(overrides?: CallOverrides): Promise<string>
@@ -1989,6 +2022,13 @@ export class XAAVE extends Contract {
       _symbol: string,
       _mandate: string,
       overrides?: Overrides
+    ): Promise<BigNumber>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>
 
     mandate(overrides?: CallOverrides): Promise<BigNumber>
@@ -2426,6 +2466,16 @@ export class XAAVE extends Contract {
       _symbol: string,
       _mandate: string,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     mandate(overrides?: CallOverrides): Promise<PopulatedTransaction>

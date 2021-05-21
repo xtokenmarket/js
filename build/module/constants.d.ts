@@ -34,4 +34,3 @@ export declare const DEFAULT_TOKEN_PRICES: Readonly<{
   token1Price: BigNumber
 }>
 export declare const BNT_ETH_PATH: string[]
-export declare const ETH_BNT_PATH: string[]
