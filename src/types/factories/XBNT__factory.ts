@@ -339,13 +339,7 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_toApprove',
-        type: 'address',
-      },
-    ],
+    inputs: [],
     name: 'approveVbnt',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -381,11 +375,6 @@ const _abi = [
         internalType: 'bool',
         name: 'redeemForEth',
         type: 'bool',
-      },
-      {
-        internalType: 'address[]',
-        name: 'path',
-        type: 'address[]',
       },
       {
         internalType: 'uint256',
@@ -813,6 +802,11 @@ const _abi = [
         type: 'address',
       },
       {
+        internalType: 'address',
+        name: '_protocolMinter',
+        type: 'address',
+      },
+      {
         internalType: 'uint256',
         name: '_mintFeeDivisor',
         type: 'uint256',
@@ -828,6 +822,11 @@ const _abi = [
         type: 'uint256',
       },
       {
+        internalType: 'uint256',
+        name: '_initialMint',
+        type: 'uint256',
+      },
+      {
         internalType: 'string',
         name: '_symbol',
         type: 'string',
@@ -836,6 +835,25 @@ const _abi = [
     name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'lastLockedBlock',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -853,11 +871,6 @@ const _abi = [
   },
   {
     inputs: [
-      {
-        internalType: 'address[]',
-        name: 'path',
-        type: 'address[]',
-      },
       {
         internalType: 'uint256',
         name: 'minReturn',
@@ -1048,6 +1061,19 @@ const _abi = [
       },
     ],
     name: 'setManager2',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_protocolMinter',
+        type: 'address',
+      },
+    ],
+    name: 'setProtocolMinter',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

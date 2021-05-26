@@ -35,7 +35,7 @@ interface TradeAccountingInterface extends ethers.utils.Interface {
     'calculateSusdToBurnForRedemption(uint256,uint256,uint256,uint256)': FunctionFragment
     'calculateSusdToBurnToEclipseEscrowed(uint256)': FunctionFragment
     'calculateSusdToBurnToFixRatioExternal()': FunctionFragment
-    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)': FunctionFragment
+    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)': FunctionFragment
     'calculateTokensToMintWithSnx(uint256,uint256,uint256)': FunctionFragment
     'confirmCurveAddress(address)': FunctionFragment
     'getActiveSetAssetBalance()': FunctionFragment
@@ -111,7 +111,7 @@ interface TradeAccountingInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'calculateTokensToMintWithEth',
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish, boolean]
+    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(
     functionFragment: 'calculateTokensToMintWithSnx',
@@ -529,16 +529,14 @@ export class TradeAccounting extends Contract {
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
-    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
+    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)'(
       snxBalanceBefore: BigNumberish,
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
@@ -936,16 +934,14 @@ export class TradeAccounting extends Contract {
     ethContributed: BigNumberish,
     nonSnxAssetValue: BigNumberish,
     totalSupply: BigNumberish,
-    allocateToEth: boolean,
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
-  'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
+  'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)'(
     snxBalanceBefore: BigNumberish,
     ethContributed: BigNumberish,
     nonSnxAssetValue: BigNumberish,
     totalSupply: BigNumberish,
-    allocateToEth: boolean,
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
@@ -1325,16 +1321,14 @@ export class TradeAccounting extends Contract {
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
+    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)'(
       snxBalanceBefore: BigNumberish,
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -1730,16 +1724,14 @@ export class TradeAccounting extends Contract {
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
+    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)'(
       snxBalanceBefore: BigNumberish,
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -2102,16 +2094,14 @@ export class TradeAccounting extends Contract {
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256,bool)'(
+    'calculateTokensToMintWithEth(uint256,uint256,uint256,uint256)'(
       snxBalanceBefore: BigNumberish,
       ethContributed: BigNumberish,
       nonSnxAssetValue: BigNumberish,
       totalSupply: BigNumberish,
-      allocateToEth: boolean,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 

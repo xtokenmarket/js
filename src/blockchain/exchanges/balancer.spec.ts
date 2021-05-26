@@ -1,4 +1,4 @@
-import { BUY, ETH, SELL, X_AAVE_A, X_AAVE_B, X_SNX_A } from '@xtoken/abis'
+import { BUY, ETH, SELL, X_AAVE_A, X_AAVE_B } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider, testAddress } from '../../constants.spec'
@@ -56,7 +56,7 @@ test('Calculate expected quantity on mint of xAAVEb on Balancer', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate expected quantity on burn of xSNXa on Balancer', async (t) => {
+/*test('Calculate expected quantity on burn of xSNXa on Balancer', async (t) => {
   const expectedQty = await getBalancerEstimatedQuantity(
     X_SNX_A,
     X_SNX_A,
@@ -78,7 +78,7 @@ test('Calculate expected quantity on mint of xSNXa on Balancer', async (t) => {
   )
   console.log('[Balancer] Expected xSNXa qty for 1 ETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Get Balancer Portfolio of xAAVEa', async (t) => {
   const portfolio = await getBalancerPortfolioItem(
@@ -100,7 +100,7 @@ test('Get Balancer Portfolio of xAAVEb', async (t) => {
   t.true(Number(portfolio?.value) > 0)
 })
 
-test('Get Balancer Portfolio of xSNXa', async (t) => {
+/*test('Get Balancer Portfolio of xSNXa', async (t) => {
   const portfolio = await getBalancerPortfolioItem(
     X_SNX_A,
     testAddress,
@@ -108,4 +108,4 @@ test('Get Balancer Portfolio of xSNXa', async (t) => {
   )
   console.log('[Balancer] Portfolio value of xSNXa:', portfolio?.value)
   t.true(Number(portfolio?.value) > 0)
-})
+})*/

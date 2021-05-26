@@ -1,13 +1,13 @@
-import { BUY, ETH, SELL, X_BNT_A } from '@xtoken/abis'
+// import { BUY, ETH, SELL, X_BNT_A } from '@xtoken/abis'
 import test from 'ava'
 import { isAddress } from 'ethers/lib/utils'
 
-import { provider, testAddress } from '../../constants.spec'
+import { provider } from '../../constants.spec'
 
 import {
-  getBancorEstimatedQuantity,
+  // getBancorEstimatedQuantity,
   getBancorNetworkAddress,
-  getBancorPortfolioItem,
+  // getBancorPortfolioItem,
   getBntEthPrice,
 } from './bancor'
 
@@ -23,7 +23,7 @@ test('Get BNT ETH price', async (t) => {
   t.true(Number(minReturn) > 0)
 })
 
-test('Calculate expected quantity on burn of xBNTa with ETH on Bancor', async (t) => {
+/*test('Calculate expected quantity on burn of xBNTa with ETH on Bancor', async (t) => {
   const expectedQty = await getBancorEstimatedQuantity(
     ETH,
     X_BNT_A,
@@ -75,4 +75,4 @@ test('Get Bancor Portfolio of xBNTa', async (t) => {
   const portfolio = await getBancorPortfolioItem(X_BNT_A, testAddress, provider)
   console.log('[Bancor] Portfolio value of xBNTa:', portfolio?.value)
   t.true(Number(portfolio?.value) > 0)
-})
+})*/
