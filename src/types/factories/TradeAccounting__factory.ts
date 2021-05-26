@@ -346,11 +346,6 @@ const _abi = [
         name: 'totalSupply',
         type: 'uint256',
       },
-      {
-        internalType: 'bool',
-        name: 'allocateToEth',
-        type: 'bool',
-      },
     ],
     name: 'calculateTokensToMintWithEth',
     outputs: [

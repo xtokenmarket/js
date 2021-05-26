@@ -46,6 +46,7 @@ interface XINCHInterface extends ethers.utils.Interface {
     'governanceShareVote(uint256)': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(string,string,address,address,address,uint256,uint256,uint256)': FunctionFragment
+    'lastLockedBlock(address)': FunctionFragment
     'leftoverShareVote(uint256,uint256)': FunctionFragment
     'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
@@ -164,6 +165,10 @@ interface XINCHInterface extends ethers.utils.Interface {
       BigNumberish,
       BigNumberish
     ]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'lastLockedBlock',
+    values: [string]
   ): string
   encodeFunctionData(
     functionFragment: 'leftoverShareVote',
@@ -325,6 +330,10 @@ interface XINCHInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'lastLockedBlock',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'leftoverShareVote',
     data: BytesLike
@@ -668,6 +677,16 @@ export class XINCH extends Contract {
       _claimFeeDivisor: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
 
     leftoverShareVote(
       govShare: BigNumberish,
@@ -1137,6 +1156,13 @@ export class XINCH extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'lastLockedBlock(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
   leftoverShareVote(
     govShare: BigNumberish,
     refShare: BigNumberish,
@@ -1598,6 +1624,13 @@ export class XINCH extends Contract {
       _claimFeeDivisor: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
 
     leftoverShareVote(
       govShare: BigNumberish,
@@ -2062,6 +2095,13 @@ export class XINCH extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    lastLockedBlock(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     leftoverShareVote(
       govShare: BigNumberish,
       refShare: BigNumberish,
@@ -2515,6 +2555,16 @@ export class XINCH extends Contract {
       _burnFeeDivisor: BigNumberish,
       _claimFeeDivisor: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    lastLockedBlock(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'lastLockedBlock(address)'(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     leftoverShareVote(

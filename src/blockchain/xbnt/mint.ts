@@ -6,7 +6,6 @@ import { ethers } from 'ethers'
 
 import {
   DEC_18,
-  ETH_BNT_PATH,
   GAS_LIMIT_PERCENTAGE_DEFAULT,
   GAS_LIMIT_PERCENTAGE_ETH,
 } from '../../constants'
@@ -96,13 +95,13 @@ export const mintXBnt = async (
   if (tradeWithEth) {
     // Estimate `gasLimit`
     const gasLimit = getPercentage(
-      await xbntContract.estimateGas.mint(ETH_BNT_PATH, '1', {
+      await xbntContract.estimateGas.mint('1', {
         value: amount,
       }),
       GAS_LIMIT_PERCENTAGE_ETH
     )
 
-    return xbntContract.mint(ETH_BNT_PATH, '1', {
+    return xbntContract.mint('1', {
       gasLimit,
       value: amount,
     })

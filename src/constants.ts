@@ -40,10 +40,3 @@ export const BNT_ETH_PATH = [
   ADDRESSES[ETH_BNT_ANCHOR][1],
   ADDRESSES[ETH] as string,
 ]
-
-// ETH->BNT path
-export const ETH_BNT_PATH = [
-  ADDRESSES[ETH] as string,
-  ADDRESSES[ETH_BNT_ANCHOR][1],
-  ADDRESSES[BNT][1],
-]

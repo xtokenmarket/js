@@ -20,7 +20,7 @@ import {
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
 import {
-  getBancorEstimatedQuantity,
+  // getBancorEstimatedQuantity,
   getBancorPortfolioItem,
 } from './blockchain/exchanges/bancor'
 import { getInchEstimatedQuantity } from './blockchain/exchanges/inch'
@@ -246,7 +246,8 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
-    if ([X_AAVE_A, X_AAVE_B, X_SNX_A].includes(symbol)) {
+    // TODO: Fetch estimates for xSNXa and xBNTa pools
+    if ([X_AAVE_A, X_AAVE_B].includes(symbol)) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerEstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -277,7 +278,7 @@ export class XToken {
         tradeType,
         this.provider
       )
-    } else if (symbol === X_BNT_A) {
+    } /* else if (symbol === X_BNT_A) {
       dexSource = Exchange.BANCOR
       dexExpectedQty = await getBancorEstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -288,7 +289,7 @@ export class XToken {
         tradeType,
         this.provider
       )
-    }
+    }*/
 
     const dexReturn = {
       expectedQuantity: parseEther(dexExpectedQty).toString(),

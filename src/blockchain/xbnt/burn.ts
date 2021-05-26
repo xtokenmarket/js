@@ -5,7 +5,6 @@ import { ADDRESSES, BNT, ETH } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
 import {
-  BNT_ETH_PATH,
   DEC_18,
   GAS_LIMIT_PERCENTAGE_DEFAULT,
   GAS_LIMIT_PERCENTAGE_ETH,
@@ -29,11 +28,11 @@ export const burnXBnt = async (
 
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await xbntContract.estimateGas.burn(amount, sellForEth, BNT_ETH_PATH, '1'),
+    await xbntContract.estimateGas.burn(amount, sellForEth, '1'),
     sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return xbntContract.burn(amount, sellForEth, BNT_ETH_PATH, '1', {
+  return xbntContract.burn(amount, sellForEth, '1', {
     gasLimit,
   })
 }
