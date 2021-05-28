@@ -172,9 +172,12 @@ export const getBalancerPortfolioItem = async (
     getEthUsdcPrice(provider),
     getEthTokenPrice(underlyingAddress, true, provider),
   ])
-  const underlyingPrice = parseEther(underlyingEthPrice)
-    .mul(parseEther(ethUsdcPrice))
-    .div(DEC_18)
+  let underlyingPrice
+  if (tokenSymbol !== 'snx') {
+    underlyingPrice = parseEther(underlyingEthPrice)
+      .mul(parseEther(ethUsdcPrice))
+      .div(DEC_18)
+  }
 
   try {
     switch (symbol) {
