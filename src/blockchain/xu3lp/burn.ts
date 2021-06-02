@@ -9,7 +9,6 @@ import { getPercentage } from '../../utils'
 import { parseFees } from '../utils'
 
 import { getXU3LPContracts } from './helper'
-import { getXU3LPTokenPrices } from './prices'
 
 const { formatEther, parseEther } = ethers.utils
 
@@ -38,30 +37,24 @@ export const getExpectedQuantityOnBurnXU3LP = async (
   amount: string,
   provider: BaseProvider
 ) => {
-  const inputAmount = parseEther(amount)
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
-  const [
-    nav,
-    totalSupply,
-    { burnFee },
-    { token0Price, token1Price },
-  ] = await Promise.all([
+  const [nav, totalSupply, { burnFee }] = await Promise.all([
     xu3lpContract.getNav(),
     xu3lpContract.totalSupply(),
     xu3lpContract.feeDivisors(),
-    getXU3LPTokenPrices(xu3lpContract),
   ])
 
-  // Get amount in asset0 or asset1 terms
-  const tokenPrice = !outputAsset ? token1Price : token0Price
+  const getAmountInAssetTerms = !outputAsset
+    ? xu3lpContract.getAmountInAsset0Terms
+    : xu3lpContract.getAmountInAsset1Terms
 
   const BURN_FEE = parseFees(burnFee)
-  const expectedQty = inputAmount
-    .mul(tokenPrice)
+  const inputAmount = parseEther(amount)
     .mul(nav as BigNumberish)
     .div(totalSupply as BigNumberish)
-    .div(DEC_18)
+
+  const expectedQty = await getAmountInAssetTerms(inputAmount)
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
 }

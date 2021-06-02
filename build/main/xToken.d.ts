@@ -8,6 +8,10 @@ import {
   X_INCH_A,
   X_INCH_B,
   X_SNX_A,
+  X_U3LP_A,
+  X_U3LP_B,
+  X_U3LP_C,
+  X_U3LP_D,
 } from '@xtoken/abis'
 import {
   IAsset,
@@ -180,6 +184,7 @@ export declare class XToken {
    * ```
    *
    * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {IU3LPAssetId} outputAsset Sell for Token0/Token1
    * @returns Maximum redeemable tokens for the given xToken
    */
   getMaxRedeemable(
@@ -190,6 +195,11 @@ export declare class XToken {
       | typeof X_INCH_A
       | typeof X_INCH_B
       | typeof X_SNX_A
+      | typeof X_U3LP_A
+      | typeof X_U3LP_B
+      | typeof X_U3LP_C
+      | typeof X_U3LP_D,
+    outputAsset?: IU3LPAssetId
   ): Promise<string>
   /**
    * Returns balances along with prices for all the xTokens

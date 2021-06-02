@@ -1436,19 +1436,19 @@
         "signature": "58e513607dd9adb0c997b84aecf96248828bb54bf90e3ef6415eea3dfeeba530",
         "affectsGlobalScope": false
       },
-      "../src/blockchain/xu3lp/prices.ts": {
-        "version": "0ddfe9d815be2cc4aa45997bcb2f7d1e792a32857d9797c7d5dff8eb1d8c986d",
-        "signature": "2a57bf979fb94fedf1eec12ed580b1c182669e9ceeec73e1c259b5dd265bfc58",
-        "affectsGlobalScope": false
-      },
       "../src/blockchain/xu3lp/burn.ts": {
-        "version": "29a914338c852ecbf2c05d53e7040b5ae084898016ceade903ecbcc532b127f7",
+        "version": "ac7993cd80112e9f725b3248a2dd8e4548bede50a8fd791a95387831d56b91e8",
         "signature": "317ae9b5d4470236f6d1790c657bdf4e923021cac6258cfa51454b4bc37d4716",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/mint.ts": {
-        "version": "c46206fd8e51065e372d5e824412c250c57270d97b756dbccc2e2fb6338b2a39",
+        "version": "48e03ca84a61891efa68edb782b7a6daf024114ec0a2b7dd2ecf2a0dbc27729e",
         "signature": "f7e3bda3a7d719affd0043df4e93998fc6fd2026bb0d5f868452a138b46ac7ca",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/xu3lp/prices.ts": {
+        "version": "67fe7204d900bdc28599ce7fea8022400318fe99828eca534cb6a2525801d1d7",
+        "signature": "2a57bf979fb94fedf1eec12ed580b1c182669e9ceeec73e1c259b5dd265bfc58",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/index.ts": {
@@ -1461,9 +1461,14 @@
         "signature": "413ef6d9bb2eab07f5d3c06e105e643c6a568cd4be4b8fa27cbe5fdf3e9a50b3",
         "affectsGlobalScope": false
       },
+      "../src/blockchain/xu3lp/redeem.ts": {
+        "version": "2e88e6275f13aed447a6fea5b38522c2f09772b87e798ecd44c4b2bc8c2d4773",
+        "signature": "28d10cbc50fcc23d28ee280169ec9bbd9d015730d5ee5c995a6d6863e043d667",
+        "affectsGlobalScope": false
+      },
       "../src/xtoken.ts": {
-        "version": "c06642a547c60fe895172cf5f6149e610dd459067642a535758ffb2033676228",
-        "signature": "d212168dadc0aae8c7ec2dd3c62f2b56b614f94caa74c61e1e62dd67488f335c",
+        "version": "995e2b8b93ab8dca252c9cadb82b3b8df5cddfa4e9046d16295ce5718adc68b2",
+        "signature": "836be39df064ade526d71de2255e43750c37f51bfe0f93cb904d7ffcd4b1beb9",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -1653,6 +1658,11 @@
       },
       "../src/blockchain/xu3lp/prices.spec.ts": {
         "version": "2f641493149b44bc2d1178243ac4ee5ba68b0061c5a94e530e53a57332f26832",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/xu3lp/redeem.spec.ts": {
+        "version": "8df4dca8e20fe93a6d3ad8f29143fb19790cb55d03a024e4860198e42646c997",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       }
@@ -3085,7 +3095,6 @@
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xu3lp/helper.ts",
-        "../src/blockchain/xu3lp/prices.ts",
         "../src/constants.ts",
         "../src/types/xtoken.d.ts",
         "../src/utils/index.ts"
@@ -3117,7 +3126,6 @@
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xu3lp/helper.ts",
-        "../src/blockchain/xu3lp/prices.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts",
@@ -3153,6 +3161,19 @@
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts",
         "../src/utils/index.ts"
+      ],
+      "../src/blockchain/xu3lp/redeem.spec.ts": [
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ava/index.d.ts",
+        "../src/blockchain/xu3lp/redeem.ts",
+        "../src/constants.spec.ts"
+      ],
+      "../src/blockchain/xu3lp/redeem.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/blockchain/xu3lp/helper.ts",
+        "../src/types/xtoken.d.ts"
       ],
       "../src/constants.spec.ts": [
         "../node_modules/dotenv/types/index.d.ts",
@@ -3535,6 +3556,7 @@
         "../src/blockchain/xsnx/index.ts",
         "../src/blockchain/xu3lp/asset.ts",
         "../src/blockchain/xu3lp/index.ts",
+        "../src/blockchain/xu3lp/redeem.ts",
         "../src/constants.ts",
         "../src/types/xtoken.d.ts"
       ]
@@ -4544,6 +4566,10 @@
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
+      "../src/blockchain/xu3lp/redeem.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/constants.spec.ts": [
         "../node_modules/ethers/lib/index.d.ts"
       ],
@@ -5176,6 +5202,8 @@
       "../src/blockchain/xu3lp/portfolio.ts",
       "../src/blockchain/xu3lp/prices.spec.ts",
       "../src/blockchain/xu3lp/prices.ts",
+      "../src/blockchain/xu3lp/redeem.spec.ts",
+      "../src/blockchain/xu3lp/redeem.ts",
       "../src/constants.spec.ts",
       "../src/constants.ts",
       "../src/index.ts",

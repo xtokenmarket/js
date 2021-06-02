@@ -90,6 +90,7 @@ import {
   mintXU3LP,
 } from './blockchain/xu3lp'
 import { getXU3LPAsset } from './blockchain/xu3lp/asset'
+import { getMaximumRedeemableXU3LP } from './blockchain/xu3lp/redeem'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
@@ -199,13 +200,7 @@ export class XToken {
     }
     const value = parseEther(amount)
 
-    if (
-      ![X_KNC_A, X_KNC_B, X_U3LP_A, X_U3LP_B, X_U3LP_C, X_U3LP_D].includes(
-        symbol
-      )
-    ) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    if (symbol !== X_KNC_A && symbol !== X_KNC_B) {
       const maxRedeemable = parseEther(await this.getMaxRedeemable(symbol))
 
       if (value.gt(maxRedeemable)) {
@@ -556,6 +551,7 @@ export class XToken {
    * ```
    *
    * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {IU3LPAssetId} outputAsset Sell for Token0/Token1
    * @returns Maximum redeemable tokens for the given xToken
    */
   public async getMaxRedeemable(
@@ -566,6 +562,11 @@ export class XToken {
       | typeof X_INCH_A
       | typeof X_INCH_B
       | typeof X_SNX_A
+      | typeof X_U3LP_A
+      | typeof X_U3LP_B
+      | typeof X_U3LP_C
+      | typeof X_U3LP_D,
+    outputAsset?: IU3LPAssetId
   ): Promise<string> {
     switch (symbol) {
       case X_AAVE_A:
@@ -578,6 +579,15 @@ export class XToken {
         return getMaximumRedeemableXInch(symbol, this.provider)
       case X_SNX_A:
         return getMaximumRedeemableXSnx(this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+      case X_U3LP_D:
+        return getMaximumRedeemableXU3LP(
+          symbol,
+          outputAsset || 0,
+          this.provider
+        )
     }
   }
 

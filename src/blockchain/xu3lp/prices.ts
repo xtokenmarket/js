@@ -64,7 +64,7 @@ export const getXU3LPPrices = async (
     const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
 
     return {
-      aum: formatNumber(formatEther(aum), 0),
+      aum: formatNumber(formatEther(aum)),
       priceEth: formatNumber(formatEther(priceEth), 6),
       priceUsd: formatNumber(formatEther(priceUsd)),
     }
@@ -81,13 +81,13 @@ export const getXU3LPTokenPrices = async (
   readonly token1Price: BigNumber
 }> => {
   try {
-    const [token0PriceRaw, token1PriceRaw] = await Promise.all([
+    const [asset0Price, asset1Price] = await Promise.all([
       xu3lpContract.getAsset0Price(),
       xu3lpContract.getAsset1Price(),
     ])
 
-    const token0Price = getTWAP(token0PriceRaw)
-    const token1Price = getTWAP(token1PriceRaw)
+    const token0Price = getTWAP(asset0Price)
+    const token1Price = getTWAP(asset1Price)
 
     return {
       token0Price,

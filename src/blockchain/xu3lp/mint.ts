@@ -11,7 +11,6 @@ import { getPercentage } from '../../utils'
 import { getLPTokenSymbol, getSignerAddress, parseFees } from '../utils'
 
 import { getXU3LPContracts } from './helper'
-import { getXU3LPTokenPrices } from './prices'
 
 const { formatEther, parseEther } = ethers.utils
 
@@ -44,30 +43,24 @@ export const getExpectedQuantityOnMintXU3LP = async (
   amount: string,
   provider: BaseProvider
 ): Promise<string> => {
-  const inputAmount = parseEther(amount)
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
-  const [
-    nav,
-    totalSupply,
-    { mintFee },
-    { token0Price, token1Price },
-  ] = await Promise.all([
+  const [nav, totalSupply, { mintFee }] = await Promise.all([
     xu3lpContract.getNav(),
     xu3lpContract.totalSupply(),
     xu3lpContract.feeDivisors(),
-    getXU3LPTokenPrices(xu3lpContract),
   ])
 
-  // Get amount in asset1 or asset0 terms
-  const tokenPrice = inputAsset ? token1Price : token0Price
+  const getAmountInAssetTerms = inputAsset
+    ? xu3lpContract.getAmountInAsset0Terms
+    : xu3lpContract.getAmountInAsset1Terms
 
   const MINT_FEE = parseFees(mintFee)
-  const expectedQty = inputAmount
-    .mul(tokenPrice)
+  const inputAmount = parseEther(amount)
     .mul(totalSupply as BigNumberish)
     .div(nav as BigNumberish)
-    .div(DEC_18)
+
+  const expectedQty = await getAmountInAssetTerms(inputAmount)
 
   return formatEther(expectedQty.mul(MINT_FEE).div(DEC_18))
 }
