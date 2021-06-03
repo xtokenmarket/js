@@ -1,4 +1,4 @@
-import { X_U3LP_A, X_U3LP_B, X_U3LP_C, X_U3LP_D } from '@xtoken/abis'
+import { X_U3LP_A, X_U3LP_B, X_U3LP_C } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider } from '../../constants.spec'
@@ -71,7 +71,7 @@ test('Calculate xU3LPc expected quantity on mint with USDC', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate xU3LPd expected quantity on mint with sETH', async (t) => {
+/*test('Calculate xU3LPd expected quantity on mint with sETH', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXU3LP(
     X_U3LP_D,
     0,
@@ -91,4 +91,4 @@ test('Calculate xU3LPd expected quantity on mint with WETH', async (t) => {
   )
   console.log('Expected xU3LPd qty for 1000 WETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/

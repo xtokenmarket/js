@@ -1,4 +1,4 @@
-import { X_U3LP_A, X_U3LP_B, X_U3LP_C, X_U3LP_D } from '@xtoken/abis'
+import { X_U3LP_A, X_U3LP_B, X_U3LP_C } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider } from '../../constants.spec'
@@ -71,7 +71,7 @@ test('Calculate expected quantity of USDC on burn of xU3LPc', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate expected quantity of sETH on burn of xU3LPd', async (t) => {
+/*test('Calculate expected quantity of sETH on burn of xU3LPd', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXU3LP(
     X_U3LP_D,
     0,
@@ -91,4 +91,4 @@ test('Calculate expected quantity of WETH on burn of xU3LPd', async (t) => {
   )
   console.log('Expected qty of WETH for 1000 xU3LPd:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/

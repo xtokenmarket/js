@@ -27,7 +27,7 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  X_U3LP_D,
+  // X_U3LP_D,
   DAI,
   S_ETH,
   S_USD,
@@ -66,7 +66,7 @@ export type ILPTokenSymbols =
   | typeof X_U3LP_A
   | typeof X_U3LP_B
   | typeof X_U3LP_C
-  | typeof X_U3LP_D
+// | typeof X_U3LP_D
 
 export type IStableAssets =
   | typeof DAI
@@ -115,17 +115,17 @@ export interface ILiquidityPoolItem {
 export interface IPortfolioItem {
   price: string
   quantity: string
-  symbol: ITokenSymbols
-  tokenEquivalent: string
+  symbol: ITokenSymbols | ILPTokenSymbols
+  tokenEquivalent?: string
   value: string
 }
 
-export interface ILPPortfolioItem {
+/*export interface ILPPortfolioItem {
   price: string
   quantity: string
   symbol: ILPTokenSymbols
   value: string
-}
+}*/
 
 export interface ITokenPrices {
   aum: number

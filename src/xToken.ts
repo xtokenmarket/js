@@ -15,7 +15,7 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  X_U3LP_D,
+  // X_U3LP_D,
 } from '@xtoken/abis'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
@@ -87,6 +87,7 @@ import {
   burnXU3LP,
   getExpectedQuantityOnBurnXU3LP,
   getExpectedQuantityOnMintXU3LP,
+  getPortfolioItemXU3LP,
   mintXU3LP,
 } from './blockchain/xu3lp'
 import { getXU3LPAsset } from './blockchain/xu3lp/asset'
@@ -165,7 +166,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
     }
   }
@@ -227,7 +228,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return burnXU3LP(symbol, sellForEth ? 1 : 0, value, this.provider)
     }
   }
@@ -433,7 +434,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return getExpectedQuantityOnBurnXU3LP(
           symbol,
           sellForEth ? 1 : 0,
@@ -508,7 +509,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return getExpectedQuantityOnMintXU3LP(
           symbol,
           tradeWithEth ? 1 : 0,
@@ -564,8 +565,8 @@ export class XToken {
       | typeof X_SNX_A
       | typeof X_U3LP_A
       | typeof X_U3LP_B
-      | typeof X_U3LP_C
-      | typeof X_U3LP_D,
+      | typeof X_U3LP_C,
+    // | typeof X_U3LP_D,
     outputAsset?: IU3LPAssetId
   ): Promise<string> {
     switch (symbol) {
@@ -582,7 +583,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return getMaximumRedeemableXU3LP(
           symbol,
           outputAsset || 0,
@@ -620,6 +621,9 @@ export class XToken {
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
       getPortfolioItemXBnt(X_BNT_A, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
     ])
   }
 
@@ -660,7 +664,7 @@ export class XToken {
       getXU3LPAsset(X_U3LP_A, this.provider),
       getXU3LPAsset(X_U3LP_B, this.provider),
       getXU3LPAsset(X_U3LP_C, this.provider),
-      getXU3LPAsset(X_U3LP_D, this.provider),
+      // getXU3LPAsset(X_U3LP_D, this.provider),
     ])
   }
 
@@ -713,7 +717,7 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-      case X_U3LP_D:
+        // case X_U3LP_D:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
   }

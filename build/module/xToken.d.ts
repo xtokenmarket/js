@@ -11,7 +11,6 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  X_U3LP_D,
 } from '@xtoken/abis'
 import {
   IAsset,
@@ -197,8 +196,7 @@ export declare class XToken {
       | typeof X_SNX_A
       | typeof X_U3LP_A
       | typeof X_U3LP_B
-      | typeof X_U3LP_C
-      | typeof X_U3LP_D,
+      | typeof X_U3LP_C,
     outputAsset?: IU3LPAssetId
   ): Promise<string>
   /**

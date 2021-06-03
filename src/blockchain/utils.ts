@@ -44,7 +44,7 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  X_U3LP_D,
+  // X_U3LP_D,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
@@ -101,7 +101,7 @@ export const getAbi = (contractName: IContracts) => {
     case X_U3LP_A:
     case X_U3LP_B:
     case X_U3LP_C:
-    case X_U3LP_D:
+      // case X_U3LP_D:
       return Abi.xU3LP as ContractInterface
   }
 }
@@ -289,8 +289,8 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
       return { 0: USDC, 1: USDT }
     case X_U3LP_C:
       return { 0: S_USD, 1: USDC }
-    case X_U3LP_D:
-      return { 0: S_ETH, 1: WETH }
+    // case X_U3LP_D:
+    //   return { 0: S_ETH, 1: WETH }
   }
 }
 

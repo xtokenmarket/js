@@ -1,7 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
 
 import { DEFAULT_LP_PORTFOLIO_ITEM } from '../../constants'
-import { ILPPortfolioItem, ILPTokenSymbols } from '../../types/xToken'
+import { ILPTokenSymbols, IPortfolioItem } from '../../types/xToken'
 import { getUserAvailableTokenBalance } from '../utils'
 
 import { getXU3LPContracts } from './helper'
@@ -11,7 +11,7 @@ export const getPortfolioItemXU3LP = async (
   symbol: ILPTokenSymbols,
   address: string,
   provider: BaseProvider
-): Promise<ILPPortfolioItem> => {
+): Promise<IPortfolioItem> => {
   try {
     const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
       symbol,

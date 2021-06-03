@@ -1,4 +1,4 @@
-import { X_U3LP_A, X_U3LP_B, X_U3LP_C, X_U3LP_D } from '@xtoken/abis'
+import { X_U3LP_A, X_U3LP_B, X_U3LP_C } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider, testAddress } from '../../constants.spec'
@@ -35,7 +35,7 @@ test('Get xU3LPc portfolio balance', async (t) => {
   t.true(Number(portfolioItem.quantity) > 0)
 })
 
-test('Get xU3LPd portfolio balance', async (t) => {
+/*test('Get xU3LPd portfolio balance', async (t) => {
   const portfolioItem = await getPortfolioItemXU3LP(
     X_U3LP_D,
     testAddress,
@@ -43,4 +43,4 @@ test('Get xU3LPd portfolio balance', async (t) => {
   )
   console.log('Portfolio balance xU3LPd:', portfolioItem.quantity)
   t.true(Number(portfolioItem.quantity) > 0)
-})
+})*/

@@ -1017,8 +1017,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "1fad6cea5ae1def4c713c7e189f4e039027b69dbae514a21a25311eb04960d76",
-        "signature": "1fad6cea5ae1def4c713c7e189f4e039027b69dbae514a21a25311eb04960d76",
+        "version": "1e360ec33e3bd609540e6af4c57cea032b0a39aacd9b3cbc3c38ae3611b621ad",
+        "signature": "1e360ec33e3bd609540e6af4c57cea032b0a39aacd9b3cbc3c38ae3611b621ad",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1027,7 +1027,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "721b05eae5cd4baaf7060af15f854b7fd5338b24432e8f7f608937e7c94d1aa3",
+        "version": "b38e62aea292c691bdae8d9ebc3409ff3a3286673c542f7ccd1bf08e93367491",
         "signature": "fbab5456be14d225dc5d60551e30804e42123b3753249d0165a1be956668a975",
         "affectsGlobalScope": false
       },
@@ -1451,9 +1451,14 @@
         "signature": "2a57bf979fb94fedf1eec12ed580b1c182669e9ceeec73e1c259b5dd265bfc58",
         "affectsGlobalScope": false
       },
+      "../src/blockchain/xu3lp/portfolio.ts": {
+        "version": "3ff8d429024581de3e472e2f1926254cfa60e89a5da29a9075f9b29ea3c00a42",
+        "signature": "540fc2307eb2678d0045203721c03c13c255a41475ac0c9084d67c058aa788d0",
+        "affectsGlobalScope": false
+      },
       "../src/blockchain/xu3lp/index.ts": {
-        "version": "9f8cb50fa810bd531a73a15a50719f42bf166e9fa085aed2705b410c39dc7584",
-        "signature": "d87b5d9d53cf0ce1490da6c7d3a98f75f41c941fa2dc0ce809e03f5914b5c6c7",
+        "version": "bfe4f329fb73847a0456be4a2fc61ded7e84d2ce56301328b1c3cbc804e5642f",
+        "signature": "6b148ff72efe32c69c931bcd9f57006f615ef4b9db010b0399de984e43f6e20d",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/asset.ts": {
@@ -1467,8 +1472,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "995e2b8b93ab8dca252c9cadb82b3b8df5cddfa4e9046d16295ce5718adc68b2",
-        "signature": "836be39df064ade526d71de2255e43750c37f51bfe0f93cb904d7ffcd4b1beb9",
+        "version": "6cb69d901bdfafb15423fa09f488e906751d40ab65ae88e756768eb791551362",
+        "signature": "16900fa35977283d6b1ae91ef4286493535fdd5eafbc3ec43d4ce9888a949906",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -1637,32 +1642,27 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/burn.spec.ts": {
-        "version": "d404a3bb01290277fbaa5d12ccbf12a949d43cd71f3da0ba54f98171eb6e8d1f",
+        "version": "25569bb397c957d33bb6242d9f00b24a81a03d430bfe6d9f11c09a13a75ee0c4",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/mint.spec.ts": {
-        "version": "718b0a32e91c49b3d80314ec70c5cb24ce194a52580b8dc84f57dd2a5424c7ef",
+        "version": "6e6ef821a07fde3dafed098ff8a0df09d0a8a8603ae0f0d1b9324474b4300a12",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
-      "../src/blockchain/xu3lp/portfolio.ts": {
-        "version": "382b2c37ddfad2059fd94d9d2820a0f1632da48959c2d9bb853e19b4516a01aa",
-        "signature": "448c30a57254bb01f18e7a3f8949608de06dcf08e289d81550ba34bc89a1eac9",
-        "affectsGlobalScope": false
-      },
       "../src/blockchain/xu3lp/portfolio.spec.ts": {
-        "version": "f3bdcea18e2d386ee06a23e5dbdbcd8a6c872636ed92c89e3c4e95335f9211f8",
+        "version": "35e36d153483d2bd581c1bb40f7165c8a3d3191d0bd2c50eabde456ad3bc65ef",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/prices.spec.ts": {
-        "version": "2f641493149b44bc2d1178243ac4ee5ba68b0061c5a94e530e53a57332f26832",
+        "version": "6b1df1d59a25b7c760dd53f715ba210aa474dc52d24aebf193b67b20865168e1",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/redeem.spec.ts": {
-        "version": "8df4dca8e20fe93a6d3ad8f29143fb19790cb55d03a024e4860198e42646c997",
+        "version": "0cf0252a1c9352d67dc1f8d738b9912ed174453e9b63733f21dffa66f9de5170",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       }
@@ -3110,6 +3110,7 @@
       "../src/blockchain/xu3lp/index.ts": [
         "../src/blockchain/xu3lp/burn.ts",
         "../src/blockchain/xu3lp/mint.ts",
+        "../src/blockchain/xu3lp/portfolio.ts",
         "../src/blockchain/xu3lp/prices.ts"
       ],
       "../src/blockchain/xu3lp/mint.spec.ts": [
@@ -4549,6 +4550,7 @@
       "../src/blockchain/xu3lp/index.ts": [
         "../src/blockchain/xu3lp/burn.ts",
         "../src/blockchain/xu3lp/mint.ts",
+        "../src/blockchain/xu3lp/portfolio.ts",
         "../src/blockchain/xu3lp/prices.ts"
       ],
       "../src/blockchain/xu3lp/mint.ts": [
