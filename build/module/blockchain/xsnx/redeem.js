@@ -1,0 +1,34 @@
+import { ADDRESSES, SNX, X_SNX_A_ADMIN } from '@xtoken/abis'
+import { formatBytes32String, formatEther } from 'ethers/lib/utils'
+import { DEC_18 } from '../../constants'
+import { getTokenBalance } from '../utils'
+import { getXSnxContracts } from './helper'
+export const getMaximumRedeemableXSnx = async (provider) => {
+  const {
+    network,
+    snxContract,
+    tradeAccountingContract,
+    xsnxContract,
+  } = await getXSnxContracts(provider)
+  const { chainId } = network
+  const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+  const snxAddress = ADDRESSES[SNX][chainId]
+  const [
+    availableEthBalance,
+    totalSupply,
+    snxBalanceOwned,
+    debtValue,
+  ] = await Promise.all([
+    tradeAccountingContract.getEthBalance(),
+    xsnxContract.totalSupply(),
+    getTokenBalance(snxAddress, xsnxAdminAddress, provider),
+    snxContract.debtBalanceOf(xsnxAdminAddress, formatBytes32String('sUSD')),
+  ])
+  const redeemTokenPrice = await tradeAccountingContract.calculateRedeemTokenPrice(
+    totalSupply,
+    snxBalanceOwned,
+    debtValue
+  )
+  return formatEther(availableEthBalance.mul(DEC_18).div(redeemTokenPrice))
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVkZWVtLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4veHNueC9yZWRlZW0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLFNBQVMsRUFBRSxHQUFHLEVBQUUsYUFBYSxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQzVELE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxXQUFXLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQTtBQUVuRSxPQUFPLEVBQUUsTUFBTSxFQUFFLE1BQU0saUJBQWlCLENBQUE7QUFFeEMsT0FBTyxFQUFFLGVBQWUsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUUxQyxPQUFPLEVBQUUsZ0JBQWdCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFM0MsTUFBTSxDQUFDLE1BQU0sd0JBQXdCLEdBQUcsS0FBSyxFQUFFLFFBQXNCLEVBQUUsRUFBRTtJQUN2RSxNQUFNLEVBQ0osT0FBTyxFQUNQLFdBQVcsRUFDWCx1QkFBdUIsRUFDdkIsWUFBWSxHQUNiLEdBQUcsTUFBTSxnQkFBZ0IsQ0FBQyxRQUFRLENBQUMsQ0FBQTtJQUNwQyxNQUFNLEVBQUUsT0FBTyxFQUFFLEdBQUcsT0FBTyxDQUFBO0lBRTNCLE1BQU0sZ0JBQWdCLEdBQUcsU0FBUyxDQUFDLGFBQWEsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxDQUFBO0lBQzFELE1BQU0sVUFBVSxHQUFHLFNBQVMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxPQUFPLENBQUMsQ0FBQTtJQUUxQyxNQUFNLENBQ0osbUJBQW1CLEVBQ25CLFdBQVcsRUFDWCxlQUFlLEVBQ2YsU0FBUyxFQUNWLEdBQUcsTUFBTSxPQUFPLENBQUMsR0FBRyxDQUFDO1FBQ3BCLHVCQUF1QixDQUFDLGFBQWEsRUFBRTtRQUN2QyxZQUFZLENBQUMsV0FBVyxFQUFFO1FBQzFCLGVBQWUsQ0FBQyxVQUFVLEVBQUUsZ0JBQWdCLEVBQUUsUUFBUSxDQUFDO1FBQ3RELFdBQXFCLENBQUMsYUFBYSxDQUNsQyxnQkFBZ0IsRUFDaEIsbUJBQW1CLENBQUMsTUFBTSxDQUFDLENBQzVCO0tBQ0YsQ0FBQyxDQUFBO0lBRUYsTUFBTSxnQkFBZ0IsR0FBRyxNQUFNLHVCQUF1QixDQUFDLHlCQUF5QixDQUM5RSxXQUFXLEVBQ1gsZUFBZSxFQUNmLFNBQVMsQ0FDVixDQUFBO0lBRUQsT0FBTyxXQUFXLENBQUMsbUJBQW1CLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUE7QUFDM0UsQ0FBQyxDQUFBIn0=

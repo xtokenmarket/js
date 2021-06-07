@@ -40,7 +40,7 @@
     "prepare-release": "run-s reset-hard test doc:html version doc:publish",
     "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/*.json'",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
   },
@@ -63,7 +63,7 @@
     "@types/node": "^14.14.27",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "@xtoken/abis": "0.1.13",
+    "@xtoken/abis": "xtokenmarket/abis#feature/xU3LP",
     "ava": "^3.15.0",
     "codecov": "^3.8.1",
     "copyfiles": "^2.4.1",

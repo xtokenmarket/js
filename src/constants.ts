@@ -27,11 +27,20 @@ export const DEFAULT_PRICES = Object.freeze({
   sellPriceEth: 0,
 })
 
-export const DEFAULT_PORTFOLIO_ITEM = Object.freeze({
+export const DEFAULT_LP_PORTFOLIO_ITEM = Object.freeze({
   price: '0',
   quantity: '0',
-  tokenEquivalent: '0',
   value: '0',
+})
+
+export const DEFAULT_PORTFOLIO_ITEM = Object.freeze({
+  ...DEFAULT_LP_PORTFOLIO_ITEM,
+  tokenEquivalent: '0',
+})
+
+export const DEFAULT_TOKEN_PRICES = Object.freeze({
+  token0Price: parseEther('0'),
+  token1Price: parseEther('0'),
 })
 
 // BNT->ETH path

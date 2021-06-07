@@ -12,6 +12,10 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
+  X_U3LP_A,
+  X_U3LP_B,
+  X_U3LP_C,
+  // X_U3LP_D,
 } from '@xtoken/abis'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
@@ -36,9 +40,9 @@ import {
   getExpectedQuantityOnMintXAave,
   getMaximumRedeemableXAave,
   getPortfolioItemXAave,
+  getXAaveAsset,
   mintXAave,
 } from './blockchain/xaave'
-import { getXAaveAsset } from './blockchain/xaave/asset'
 import {
   approveXBnt,
   burnXBnt,
@@ -46,9 +50,9 @@ import {
   getExpectedQuantityOnMintXBnt,
   getMaximumRedeemableXBnt,
   getPortfolioItemXBnt,
+  getXBntAsset,
   mintXBnt,
 } from './blockchain/xbnt'
-import { getXBntAsset } from './blockchain/xbnt/asset'
 import {
   approveXInch,
   burnXInch,
@@ -56,18 +60,18 @@ import {
   getExpectedQuantityOnMintXInch,
   getMaximumRedeemableXInch,
   getPortfolioItemXInch,
+  getXInchAsset,
   mintXInch,
 } from './blockchain/xinch'
-import { getXInchAsset } from './blockchain/xinch/asset'
 import {
   approveXKnc,
   burnXKnc,
   getExpectedQuantityOnBurnXKnc,
   getExpectedQuantityOnMintXKnc,
   getPortfolioItemXKnc,
+  getXKncAsset,
   mintXKnc,
 } from './blockchain/xknc'
-import { getXKncAsset } from './blockchain/xknc/asset'
 import {
   approveXSnx,
   burnXSnx,
@@ -75,17 +79,30 @@ import {
   getExpectedQuantityOnMintXSnx,
   getMaximumRedeemableXSnx,
   getPortfolioItemXSnx,
+  getXSnxAsset,
   mintXSnx,
 } from './blockchain/xsnx'
-import { getXSnxAsset } from './blockchain/xsnx/asset'
+import {
+  approveXU3LP,
+  burnXU3LP,
+  getExpectedQuantityOnBurnXU3LP,
+  getExpectedQuantityOnMintXU3LP,
+  getMaximumRedeemableXU3LP,
+  getPortfolioItemXU3LP,
+  getXU3LPAsset,
+  mintXU3LP,
+} from './blockchain/xu3lp'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
   ILiquidityPoolItem,
+  ILPAsset,
+  ILPTokenSymbols,
   IPortfolioItem,
   IReturns,
   ITokenSymbols,
   ITradeType,
+  IU3LPAssetId,
 } from './types/xToken'
 
 /**
@@ -120,13 +137,15 @@ export class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the token to be approved
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the token to be approved
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
+   * @param {IU3LPAssetId} inputAsset Token0/Token1
    * @returns A promise of the transaction response
    */
   public async approve(
-    symbol: ITokenSymbols,
-    amount?: string
+    symbol: ITokenSymbols | ILPTokenSymbols,
+    amount?: string,
+    inputAsset?: IU3LPAssetId
   ): Promise<ContractTransaction> {
     const value = amount ? parseEther(amount) : MAX_UINT
 
@@ -144,6 +163,11 @@ export class XToken {
         return approveXKnc(symbol, value, this.provider)
       case X_SNX_A:
         return approveXSnx(value, this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
     }
   }
 
@@ -155,16 +179,20 @@ export class XToken {
    * // Sell 1000 xAAVEa for ETH
    * const tx = await xToken.burn('xAAVEa', true, '1000')
    * await tx.wait() // Wait for transaction confirmation
+   *
+   * // Sell 1000 xU3LPa for USDC
+   * const tx = await xToken.burn('xU3LPa', true, '1000') // true = outputAsset `1`
+   * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the xToken to be sold
-   * @param {boolean} sellForEth Sell for ETH/Token
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to be sold
+   * @param {boolean} sellForEth Sell for ETH/Token or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Amount of xTokens to be sold,
    *                        cannot exceed max redeemable for xAAVEa/xAAVEb/xSNXa tokens
    * @returns A promise of the transaction response
    */
   public async burn(
-    symbol: ITokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     sellForEth: boolean,
     amount: string
   ): Promise<ContractTransaction> {
@@ -197,6 +225,11 @@ export class XToken {
         return burnXKnc(symbol, sellForEth, value, this.provider)
       case X_SNX_A:
         return burnXSnx(value, this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return burnXU3LP(symbol, sellForEth ? 1 : 0, value, this.provider)
     }
   }
 
@@ -214,7 +247,7 @@ export class XToken {
    * @returns Estimated quantities from available sources for trading the given xToken
    */
   public async getBestReturn(
-    symbol: ITokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     tradeWithEth: boolean,
     amount: string,
     tradeType: ITradeType
@@ -345,15 +378,18 @@ export class XToken {
    * ```typescript
    * // Get expected quantity of ETH when selling 100 xAAVEa
    * const expectedQty = await xToken.getExpectedQuantityOnBurn('xAAVEa', true, '100')
+   *
+   * // Get expected quantity of USDC when selling 100 xU3LPa
+   * const expectedQty = await xToken.burn('xU3LPa', true, '100') // true = outputAsset `1`
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the xToken to burn
-   * @param {boolean} sellForEth True, if selling the xToken for ETH
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
+   * @param {boolean} sellForEth True, if selling the xToken for ETH or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Quantity of the xToken to be traded
    * @returns Expected quantity for selling the given xToken
    */
   public async getExpectedQuantityOnBurn(
-    symbol: ITokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     sellForEth: boolean,
     amount: string
   ): Promise<string> {
@@ -395,6 +431,16 @@ export class XToken {
         )
       case X_SNX_A:
         return getExpectedQuantityOnBurnXSnx(amount, this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return getExpectedQuantityOnBurnXU3LP(
+          symbol,
+          sellForEth ? 1 : 0,
+          amount,
+          this.provider
+        )
     }
   }
 
@@ -403,15 +449,18 @@ export class XToken {
    * ```typescript
    * // Get expected quantity of xAAVEa for minting 1 ETH
    * const expectedQty = await xToken.getExpectedQuantityOnMint('xAAVEa', true, '1')
+   *
+   * // Get expected quantity of xU3LPa for minting 1 DAI
+   * const expectedQty = await xToken.getExpectedQuantityOnMint('xU3LPa', false, '1') // false = inputAsset `0`
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the xToken to be minted
-   * @param {boolean} tradeWithEth True, if buying the xToken with ETH
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to be minted
+   * @param {boolean} tradeWithEth True, if buying the xToken with ETH or Token0/Token1 `inputAsset` in boolean value
    * @param {string} amount Quantity of the token to be traded
    * @returns Expected quantity of xToken upon minting
    */
   public async getExpectedQuantityOnMint(
-    symbol: ITokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     tradeWithEth: boolean,
     amount: string
   ): Promise<string> {
@@ -457,6 +506,16 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return getExpectedQuantityOnMintXU3LP(
+          symbol,
+          tradeWithEth ? 1 : 0,
+          amount,
+          this.provider
+        )
     }
   }
 
@@ -493,6 +552,7 @@ export class XToken {
    * ```
    *
    * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {IU3LPAssetId} outputAsset Sell for Token0/Token1
    * @returns Maximum redeemable tokens for the given xToken
    */
   public async getMaxRedeemable(
@@ -503,6 +563,11 @@ export class XToken {
       | typeof X_INCH_A
       | typeof X_INCH_B
       | typeof X_SNX_A
+      | typeof X_U3LP_A
+      | typeof X_U3LP_B
+      | typeof X_U3LP_C,
+    // | typeof X_U3LP_D,
+    outputAsset?: IU3LPAssetId
   ): Promise<string> {
     switch (symbol) {
       case X_AAVE_A:
@@ -515,6 +580,15 @@ export class XToken {
         return getMaximumRedeemableXInch(symbol, this.provider)
       case X_SNX_A:
         return getMaximumRedeemableXSnx(this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return getMaximumRedeemableXU3LP(
+          symbol,
+          outputAsset || 0,
+          this.provider
+        )
     }
   }
 
@@ -547,6 +621,9 @@ export class XToken {
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
       getPortfolioItemXBnt(X_BNT_A, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
     ])
   }
 
@@ -574,6 +651,24 @@ export class XToken {
   }
 
   /**
+   * @example
+   * ```typescript
+   * // Get available xU3LP tokens list
+   * const xU3LPTokensList = await xToken.getXLPAssets()
+   * ```
+   *
+   * @returns Returns list of all the xU3LP tokens along with their asset details, AUM & USD price
+   */
+  public async getXLPAssets(): Promise<readonly ILPAsset[]> {
+    return Promise.all([
+      getXU3LPAsset(X_U3LP_A, this.provider),
+      getXU3LPAsset(X_U3LP_B, this.provider),
+      getXU3LPAsset(X_U3LP_C, this.provider),
+      // getXU3LPAsset(X_U3LP_D, this.provider),
+    ])
+  }
+
+  /**
    * Mint xToken for specified amount of ETH/Token
    *
    * @example
@@ -581,17 +676,21 @@ export class XToken {
    * // Buy xAAVEa for 1 ETH
    * const tx = await xToken.mint('xAAVEa', true, '1')
    * await tx.wait() // Wait for transaction confirmation
+   *
+   * // Buy xU3LPa for 1 DAI
+   * const tx = await xToken.mint('xU3LPa', false, '1') // false = inputAsset `0`
+   * await tx.wait() // Wait for transaction confirmation
    * ```
    *
    * @param {ITokenSymbols} symbol Symbol of the xToken to be minted
-   * @param {boolean} tradeWithEth Mint with ETH/Token
+   * @param {boolean} tradeWithEth Mint with ETH/Token or Token0/Token1 `inputAsset` in boolean value
    * @param {string} amount Quantity of token to be minted,
    *                        tokens need to be approved before minting using [[approve]] method
    * @param {string} affiliate Affiliate address to whom the affiliate fees should be sent to
    * @returns A promise of the transaction response
    */
   public async mint(
-    symbol: ITokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     tradeWithEth: boolean,
     amount: string,
     affiliate = AddressZero
@@ -615,6 +714,11 @@ export class XToken {
         return mintXKnc(symbol, tradeWithEth, value, this.provider)
       case X_SNX_A:
         return mintXSnx(tradeWithEth, value, this.provider)
+      case X_U3LP_A:
+      case X_U3LP_B:
+      case X_U3LP_C:
+        // case X_U3LP_D:
+        return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
   }
 }

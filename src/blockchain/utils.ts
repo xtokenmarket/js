@@ -9,15 +9,21 @@ import {
   Abi,
   ADDRESSES,
   BNT,
+  DAI,
   EXCHANGE_RATES,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
+  S_ETH,
+  S_USD,
   SNX,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
   UNISWAP_V2_PAIR,
+  USDC,
+  USDT,
+  WETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
@@ -35,22 +41,45 @@ import {
   X_KNC_B_UNISWAP_POOL,
   X_SNX_A,
   X_SNX_A_BALANCER_POOL,
+  X_U3LP_A,
+  X_U3LP_B,
+  X_U3LP_C,
+  // X_U3LP_D,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 
 import { ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'
-import { IContracts, ITokenSymbols } from '../types/xToken'
+import {
+  IContracts,
+  ILPTokenSymbols,
+  IStableAssets,
+  ITokenSymbols,
+  IU3LPToken,
+} from '../types/xToken'
 
 const { formatEther, parseEther } = ethers.utils
 
-const getAbi = (contractName: IContracts) => {
+export const capitalizeToken = (symbol: IStableAssets) => {
+  if (![S_ETH, S_USD].includes(symbol)) {
+    return symbol.toUpperCase()
+  }
+  return symbol
+}
+
+export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
     case BNT:
     case INCH:
     case KNC:
+    case DAI:
+    case S_ETH:
+    case S_USD:
+    case USDC:
+    case USDT:
+    case WETH:
       return Abi.ERC20 as ContractInterface
     case EXCHANGE_RATES:
       return Abi.ExchangeRates as ContractInterface
@@ -77,6 +106,11 @@ const getAbi = (contractName: IContracts) => {
       return Abi.xKNC as ContractInterface
     case X_SNX_A:
       return Abi.xSNX as ContractInterface
+    case X_U3LP_A:
+    case X_U3LP_B:
+    case X_U3LP_C:
+      // case X_U3LP_D:
+      return Abi.xU3LP as ContractInterface
   }
 }
 
@@ -252,6 +286,19 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
       return KNC
     case X_SNX_A:
       return SNX
+  }
+}
+
+export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
+  switch (symbol) {
+    case X_U3LP_A:
+      return { 0: DAI, 1: USDC }
+    case X_U3LP_B:
+      return { 0: USDC, 1: USDT }
+    case X_U3LP_C:
+      return { 0: S_USD, 1: USDC }
+    // case X_U3LP_D:
+    //   return { 0: S_ETH, 1: WETH }
   }
 }
 

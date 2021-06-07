@@ -1,0 +1,23 @@
+import { formatEther } from 'ethers/lib/utils'
+import { getXU3LPContracts } from './helper'
+export const getMaximumRedeemableXU3LP = async (
+  symbol,
+  outputAsset,
+  provider
+) => {
+  const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
+  const [bufferHoldings, nav, totalSupply] = await Promise.all([
+    xu3lpContract.getBufferBalance(),
+    xu3lpContract.getNav(),
+    xu3lpContract.totalSupply(),
+  ])
+  const getAmountInAssetTerms = outputAsset
+    ? xu3lpContract.getAmountInAsset0Terms
+    : xu3lpContract.getAmountInAsset1Terms
+  const amount = bufferHoldings.mul(totalSupply).div(nav)
+  const redeemable = await getAmountInAssetTerms(amount)
+  // Account for slippage buffer of 1%
+  const redeemableWithSlippage = redeemable.sub(redeemable.div(100))
+  return formatEther(redeemableWithSlippage)
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVkZWVtLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4veHUzbHAvcmVkZWVtLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQTtBQUk5QyxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFNUMsTUFBTSxDQUFDLE1BQU0seUJBQXlCLEdBQUcsS0FBSyxFQUM1QyxNQUF1QixFQUN2QixXQUF5QixFQUN6QixRQUFzQixFQUN0QixFQUFFO0lBQ0YsTUFBTSxFQUFFLGFBQWEsRUFBRSxHQUFHLE1BQU0saUJBQWlCLENBQUMsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBRW5FLE1BQU0sQ0FBQyxjQUFjLEVBQUUsR0FBRyxFQUFFLFdBQVcsQ0FBQyxHQUFHLE1BQU0sT0FBTyxDQUFDLEdBQUcsQ0FBQztRQUMzRCxhQUFhLENBQUMsZ0JBQWdCLEVBQUU7UUFDaEMsYUFBYSxDQUFDLE1BQU0sRUFBRTtRQUN0QixhQUFhLENBQUMsV0FBVyxFQUFFO0tBQzVCLENBQUMsQ0FBQTtJQUVGLE1BQU0scUJBQXFCLEdBQUcsV0FBVztRQUN2QyxDQUFDLENBQUMsYUFBYSxDQUFDLHNCQUFzQjtRQUN0QyxDQUFDLENBQUMsYUFBYSxDQUFDLHNCQUFzQixDQUFBO0lBRXhDLE1BQU0sTUFBTSxHQUFHLGNBQWM7U0FDMUIsR0FBRyxDQUFDLFdBQTJCLENBQUM7U0FDaEMsR0FBRyxDQUFDLEdBQW1CLENBQUMsQ0FBQTtJQUUzQixNQUFNLFVBQVUsR0FBRyxNQUFNLHFCQUFxQixDQUFDLE1BQU0sQ0FBQyxDQUFBO0lBRXRELG9DQUFvQztJQUNwQyxNQUFNLHNCQUFzQixHQUFHLFVBQVUsQ0FBQyxHQUFHLENBQUMsVUFBVSxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0lBRWxFLE9BQU8sV0FBVyxDQUFDLHNCQUFzQixDQUFDLENBQUE7QUFDNUMsQ0FBQyxDQUFBIn0=
