@@ -87,6 +87,7 @@ interface IAsset {
 
 interface ILPAsset {
   aum: number
+  mandate: string
   price: number
   symbol: ILPTokenSymbols
 }

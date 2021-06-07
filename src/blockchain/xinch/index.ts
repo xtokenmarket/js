@@ -3,6 +3,7 @@
  * @module xINCH
  */
 
+export * from './asset'
 export * from './burn'
 export * from './mint'
 export * from './portfolio'

@@ -40,9 +40,9 @@ import {
   getExpectedQuantityOnMintXAave,
   getMaximumRedeemableXAave,
   getPortfolioItemXAave,
+  getXAaveAsset,
   mintXAave,
 } from './blockchain/xaave'
-import { getXAaveAsset } from './blockchain/xaave/asset'
 import {
   approveXBnt,
   burnXBnt,
@@ -50,9 +50,9 @@ import {
   getExpectedQuantityOnMintXBnt,
   getMaximumRedeemableXBnt,
   getPortfolioItemXBnt,
+  getXBntAsset,
   mintXBnt,
 } from './blockchain/xbnt'
-import { getXBntAsset } from './blockchain/xbnt/asset'
 import {
   approveXInch,
   burnXInch,
@@ -60,18 +60,18 @@ import {
   getExpectedQuantityOnMintXInch,
   getMaximumRedeemableXInch,
   getPortfolioItemXInch,
+  getXInchAsset,
   mintXInch,
 } from './blockchain/xinch'
-import { getXInchAsset } from './blockchain/xinch/asset'
 import {
   approveXKnc,
   burnXKnc,
   getExpectedQuantityOnBurnXKnc,
   getExpectedQuantityOnMintXKnc,
   getPortfolioItemXKnc,
+  getXKncAsset,
   mintXKnc,
 } from './blockchain/xknc'
-import { getXKncAsset } from './blockchain/xknc/asset'
 import {
   approveXSnx,
   burnXSnx,
@@ -79,19 +79,19 @@ import {
   getExpectedQuantityOnMintXSnx,
   getMaximumRedeemableXSnx,
   getPortfolioItemXSnx,
+  getXSnxAsset,
   mintXSnx,
 } from './blockchain/xsnx'
-import { getXSnxAsset } from './blockchain/xsnx/asset'
 import {
   approveXU3LP,
   burnXU3LP,
   getExpectedQuantityOnBurnXU3LP,
   getExpectedQuantityOnMintXU3LP,
+  getMaximumRedeemableXU3LP,
   getPortfolioItemXU3LP,
+  getXU3LPAsset,
   mintXU3LP,
 } from './blockchain/xu3lp'
-import { getXU3LPAsset } from './blockchain/xu3lp/asset'
-import { getMaximumRedeemableXU3LP } from './blockchain/xu3lp/redeem'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,

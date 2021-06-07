@@ -6,9 +6,11 @@ import { KyberProxy } from '../types'
 import {
   IContracts,
   ILPTokenSymbols,
+  IStableAssets,
   ITokenSymbols,
   IU3LPToken,
 } from '../types/xToken'
+export declare const capitalizeToken: (symbol: IStableAssets) => string
 export declare const getAbi: (
   contractName: IContracts
 ) => ethers.ContractInterface

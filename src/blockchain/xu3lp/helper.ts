@@ -10,6 +10,7 @@ export const getXU3LPContracts = async (
   symbol: ILPTokenSymbols,
   provider: BaseProvider
 ) => {
+  const assets = getLPTokenSymbol(symbol)
   const network = await provider.getNetwork()
 
   const xu3lpContract = getContract(symbol, provider, network) as XU3LP
@@ -18,16 +19,8 @@ export const getXU3LPContracts = async (
     provider,
     network
   ) as KyberProxy
-  const token0Contract = getContract(
-    getLPTokenSymbol(symbol)[0],
-    provider,
-    network
-  ) as Contract
-  const token1Contract = getContract(
-    getLPTokenSymbol(symbol)[1],
-    provider,
-    network
-  ) as Contract
+  const token0Contract = getContract(assets[0], provider, network) as Contract
+  const token1Contract = getContract(assets[1], provider, network) as Contract
 
   if (
     !xu3lpContract ||

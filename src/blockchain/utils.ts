@@ -54,11 +54,19 @@ import { KyberProxy } from '../types'
 import {
   IContracts,
   ILPTokenSymbols,
+  IStableAssets,
   ITokenSymbols,
   IU3LPToken,
 } from '../types/xToken'
 
 const { formatEther, parseEther } = ethers.utils
+
+export const capitalizeToken = (symbol: IStableAssets) => {
+  if (![S_ETH, S_USD].includes(symbol)) {
+    return symbol.toUpperCase()
+  }
+  return symbol
+}
 
 export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
