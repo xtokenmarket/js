@@ -39,8 +39,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -109,6 +107,18 @@
 				</a>
 				<pre><code class="language-sh"><span style="color: #000000">yarn watch:build</span>
 </code></pre>
+				<a href="#link" id="link" style="color: inherit; text-decoration: none;">
+					<h3>Link</h3>
+				</a>
+				<p>Link <code>@xtoken/js</code> package via <a href="https://classic.yarnpkg.com/en/docs/cli/link/">yarn</a> for local development and testing the integration on the UI</p>
+				<pre><code class="language-sh"><span style="color: #000000">$ </span><span style="color: #795E26">cd</span><span style="color: #000000"> js</span>
+<span style="color: #000000">$ yarn link </span><span style="color: #008000"># @xtoken/js package will be linked to the local copy</span>
+
+<span style="color: #000000">$ </span><span style="color: #795E26">cd</span><span style="color: #000000"> cafe</span>
+<span style="color: #000000">$ yarn link @xtoken/js </span><span style="color: #008000"># This will create a symlink named cafe/node_modules/@xtoken/js that links to the local copy of the xToken js project</span>
+
+<span style="color: #000000">$ yarn unlink </span><span style="color: #008000"># To unlink the installed package</span>
+</code></pre>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h3>Tests</h3>
 				</a>
@@ -161,20 +171,14 @@
 					<li class=" ">
 						<a href="modules.html">Modules</a>
 					</li>
-					<li class="label tsd-is-external">
-						<span>Internals</span>
+					<li class=" tsd-kind-module">
+						<a href="modules/xtoken_constants.html">XToken <wbr>Constants</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/xtoken_js.html">XToken JS</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/xtoken_types.html">XToken <wbr>Types</a>
-					</li>
-					<li class="label tsd-is-external">
-						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-module tsd-is-external">
-						<a href="modules/xtoken_constants.html">XToken <wbr>Constants</a>
 					</li>
 				</ul>
 			</nav>
@@ -190,6 +194,7 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
