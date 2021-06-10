@@ -24,9 +24,10 @@ import {
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
 import {
-  // getBancorEstimatedQuantity,
-  getBancorPortfolioItem,
-} from './blockchain/exchanges/bancor'
+  getBalancerV2EstimatedQuantity,
+  getBalancerV2PortfolioItem,
+} from './blockchain/exchanges/balancerV2'
+import { getBancorPortfolioItem } from './blockchain/exchanges/bancor'
 import { getInchEstimatedQuantity } from './blockchain/exchanges/inch'
 import {
   getKyberEstimatedQuantity,
@@ -279,7 +280,6 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
-    // TODO: Fetch estimates for xSNXa and xBNTa pools
     if ([X_AAVE_A, X_AAVE_B].includes(symbol)) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerEstimatedQuantity(
@@ -311,9 +311,10 @@ export class XToken {
         tradeType,
         this.provider
       )
-    } /* else if (symbol === X_BNT_A) {
-      dexSource = Exchange.BANCOR
-      dexExpectedQty = await getBancorEstimatedQuantity(
+    } else if (symbol === X_SNX_A && tradeWithEth) {
+      // Fetch estimates only for xSNXa<>WETH trades
+      dexSource = Exchange.BALANCER
+      dexExpectedQty = await getBalancerV2EstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         tradeWithEth ? ETH : symbol,
@@ -322,7 +323,7 @@ export class XToken {
         tradeType,
         this.provider
       )
-    }*/
+    }
 
     const dexReturn = {
       expectedQuantity: parseEther(dexExpectedQty).toString(),
@@ -338,39 +339,6 @@ export class XToken {
       best: bestReturn,
       estimates: [xTokenReturn, dexReturn],
     }
-  }
-
-  /**
-   * @deprecated Will be removed in favor of [[getBestReturn]]
-   * @example
-   * ```typescript
-   * // Get expected quantity of xAAVEa when minting for 1 ETH
-   * const expectedQty = await xToken.getExpectedQuantityOnBalancer('eth', 'xAAVEa', '1', 'buy')
-   * ```
-   *
-   * @param {'eth' | 'xAAVEa' | 'xAAVEb' | 'xSNXa'} tokenIn 'eth' in case buying/selling for Ethereum, if not symbol of the xToken to burn/mint
-   * @param {'xAAVEa' | 'xAAVEb' | 'xSNXa'} symbol Symbol of the xToken to burn/mint
-   * @param {string} amount Quantity of the xToken to be traded
-   * @param {ITradeType} tradeType Buy/sell type of the trade
-   * @returns Expected quantity for the particular trade to be made on Balancer
-   */
-  public async getExpectedQuantityOnBalancer(
-    tokenIn: typeof ETH | typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
-    symbol: typeof X_AAVE_A | typeof X_AAVE_B | typeof X_SNX_A,
-    amount: string,
-    tradeType: ITradeType
-  ): Promise<string> {
-    if (+amount === 0 || isNaN(+amount)) {
-      return Promise.reject(new Error('Invalid value for amount'))
-    }
-
-    return getBalancerEstimatedQuantity(
-      tokenIn,
-      symbol,
-      amount,
-      tradeType,
-      this.provider
-    )
   }
 
   /**
@@ -536,7 +504,7 @@ export class XToken {
     }
 
     return Promise.all([
-      getBalancerPortfolioItem(X_SNX_A, address, this.provider),
+      getBalancerV2PortfolioItem(X_SNX_A, address, this.provider),
       getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
       getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
       getKyberPortfolioItem(X_KNC_A, address, this.provider),

@@ -40,7 +40,7 @@ import {
   X_KNC_B,
   X_KNC_B_UNISWAP_POOL,
   X_SNX_A,
-  X_SNX_A_BALANCER_POOL,
+  X_SNX_A_BALANCER_POOL_V2,
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
@@ -127,7 +127,7 @@ export const getBalancerPoolAddress = (
       address = ADDRESSES[X_AAVE_B_BALANCER_POOL][chainId]
       break
     case X_SNX_A:
-      address = ADDRESSES[X_SNX_A_BALANCER_POOL][chainId]
+      address = ADDRESSES[X_SNX_A_BALANCER_POOL_V2][chainId]
       break
     default:
       address = null
