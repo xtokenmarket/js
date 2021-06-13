@@ -17,7 +17,9 @@ export const getBalances = async (
   provider: BaseProvider,
   chainId: number,
   underlyingPrice?: BigNumber,
-  isWeth?: boolean
+  isWeth?: boolean,
+  xTokenBalance = BigNumber.from('0'),
+  ethBalance = BigNumber.from('0')
 ) => {
   // Addresses
   const xTokenAddress = ADDRESSES[symbol][chainId]
@@ -25,12 +27,14 @@ export const getBalances = async (
   // Contracts
   const xTokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
-  let xTokenBalance = BigNumber.from('0')
-  try {
-    // Balances
-    xTokenBalance = await xTokenContract.balanceOf(poolAddress)
-  } catch (e) {
-    console.error('Error while fetching user balance:', e)
+  // Ignore fetching xAsset balance in liquidity pool for xSNXa
+  if (xTokenBalance.isZero()) {
+    try {
+      // Balances
+      xTokenBalance = await xTokenContract.balanceOf(poolAddress)
+    } catch (e) {
+      console.error('Error while fetching user balance:', e)
+    }
   }
 
   // ETH price in USD
@@ -40,20 +44,18 @@ export const getBalances = async (
     .mul(parseEther(tokenPrice.toString()))
     .div(DEC_18)
 
-  let ethVal
-  let ethBalance
-
-  if (isWeth) {
-    const wethAddress = ADDRESSES[WETH][chainId]
-    const wethContract = new ethers.Contract(wethAddress, Abi.ERC20, provider)
-    const wethBalance = await wethContract.balanceOf(poolAddress)
-
-    ethBalance = wethBalance
-    ethVal = wethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
-  } else {
-    ethBalance = await provider.getBalance(poolAddress)
-    ethVal = ethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+  // Ignore fetching ETH/WETH balance in liquidity pool for xSNXa
+  if (ethBalance.isZero()) {
+    if (isWeth) {
+      const wethAddress = ADDRESSES[WETH][chainId]
+      const wethContract = new ethers.Contract(wethAddress, Abi.ERC20, provider)
+      ethBalance = await wethContract.balanceOf(poolAddress)
+    } else {
+      ethBalance = await provider.getBalance(poolAddress)
+    }
   }
+
+  const ethVal = ethBalance.mul(parseEther(ethUsdcPrice)).div(DEC_18)
 
   let underlying
   let underlyingVal = BigNumber.from('0')

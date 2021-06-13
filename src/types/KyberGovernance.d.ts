@@ -14,6 +14,7 @@ import {
   Contract,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   CallOverrides,
 } from '@ethersproject/contracts'
 import { BytesLike } from '@ethersproject/bytes'
@@ -22,17 +23,283 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface KyberGovernanceInterface extends ethers.utils.Interface {
   functions: {
+    'DOMAIN_TYPEHASH()': FunctionFragment
+    'NAME()': FunctionFragment
+    'VOTE_EMITTED_TYPEHASH()': FunctionFragment
+    'admin()': FunctionFragment
+    'authorizeExecutors(address[])': FunctionFragment
+    'authorizeVotingPowerStrategies(address[])': FunctionFragment
+    'cancel(uint256)': FunctionFragment
+    'claimAdmin()': FunctionFragment
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)': FunctionFragment
+    'createGenericProposal(address,address,string[],uint256,uint256,string)': FunctionFragment
+    'execute(uint256)': FunctionFragment
+    'getDaoOperator()': FunctionFragment
+    'getProposalById(uint256)': FunctionFragment
+    'getProposalState(uint256)': FunctionFragment
+    'getProposalVoteDataById(uint256)': FunctionFragment
+    'getProposalsCount()': FunctionFragment
+    'getVoteOnProposal(uint256,address)': FunctionFragment
+    'handleVotingPowerChanged(address,uint256,uint256[])': FunctionFragment
+    'isExecutorAuthorized(address)': FunctionFragment
+    'isVotingPowerStrategyAuthorized(address)': FunctionFragment
+    'pendingAdmin()': FunctionFragment
+    'queue(uint256)': FunctionFragment
     'submitVote(uint256,uint256)': FunctionFragment
+    'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)': FunctionFragment
+    'transferAdmin(address)': FunctionFragment
+    'transferAdminQuickly(address)': FunctionFragment
+    'transferDaoOperator(address)': FunctionFragment
+    'unauthorizeExecutors(address[])': FunctionFragment
+    'unauthorizeVotingPowerStrategies(address[])': FunctionFragment
   }
 
+  encodeFunctionData(
+    functionFragment: 'DOMAIN_TYPEHASH',
+    values?: undefined
+  ): string
+  encodeFunctionData(functionFragment: 'NAME', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'VOTE_EMITTED_TYPEHASH',
+    values?: undefined
+  ): string
+  encodeFunctionData(functionFragment: 'admin', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'authorizeExecutors',
+    values: [string[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'authorizeVotingPowerStrategies',
+    values: [string[]]
+  ): string
+  encodeFunctionData(functionFragment: 'cancel', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'claimAdmin', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'createBinaryProposal',
+    values: [
+      string,
+      string,
+      {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      BigNumberish,
+      BigNumberish,
+      string
+    ]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'createGenericProposal',
+    values: [string, string, string[], BigNumberish, BigNumberish, string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'execute',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getDaoOperator',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getProposalById',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getProposalState',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getProposalVoteDataById',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getProposalsCount',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getVoteOnProposal',
+    values: [BigNumberish, string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'handleVotingPowerChanged',
+    values: [string, BigNumberish, BigNumberish[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'isExecutorAuthorized',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'isVotingPowerStrategyAuthorized',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'pendingAdmin',
+    values?: undefined
+  ): string
+  encodeFunctionData(functionFragment: 'queue', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'submitVote',
     values: [BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(
+    functionFragment: 'submitVoteBySignature',
+    values: [BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'transferAdmin',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'transferAdminQuickly',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'transferDaoOperator',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'unauthorizeExecutors',
+    values: [string[]]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'unauthorizeVotingPowerStrategies',
+    values: [string[]]
+  ): string
 
+  decodeFunctionResult(
+    functionFragment: 'DOMAIN_TYPEHASH',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'NAME', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'VOTE_EMITTED_TYPEHASH',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'admin', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'authorizeExecutors',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'authorizeVotingPowerStrategies',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'cancel', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'claimAdmin', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'createBinaryProposal',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'createGenericProposal',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'execute', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'getDaoOperator',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getProposalById',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getProposalState',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getProposalVoteDataById',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getProposalsCount',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getVoteOnProposal',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'handleVotingPowerChanged',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'isExecutorAuthorized',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'isVotingPowerStrategyAuthorized',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'pendingAdmin',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'queue', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'submitVote', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'submitVoteBySignature',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'transferAdmin',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'transferAdminQuickly',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'transferDaoOperator',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'unauthorizeExecutors',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'unauthorizeVotingPowerStrategies',
+    data: BytesLike
+  ): Result
 
-  events: {}
+  events: {
+    'AdminClaimed(address,address)': EventFragment
+    'BinaryProposalCreated(uint256,address,address,address,address[],uint256[],string[],bytes[],bool[],uint256,uint256,string,uint256)': EventFragment
+    'DaoOperatorTransferred(address)': EventFragment
+    'ExecutorAuthorized(address)': EventFragment
+    'ExecutorUnauthorized(address)': EventFragment
+    'GenericProposalCreated(uint256,address,address,address,string[],uint256,uint256,string,uint256)': EventFragment
+    'ProposalCanceled(uint256)': EventFragment
+    'ProposalExecuted(uint256,address)': EventFragment
+    'ProposalQueued(uint256,uint256,address)': EventFragment
+    'TransferAdminPending(address)': EventFragment
+    'VoteEmitted(uint256,address,uint32,uint224)': EventFragment
+    'VotingPowerChanged(uint256,address,uint32,uint224,uint224)': EventFragment
+    'VotingPowerStrategyAuthorized(address)': EventFragment
+    'VotingPowerStrategyUnauthorized(address)': EventFragment
+  }
+
+  getEvent(nameOrSignatureOrTopic: 'AdminClaimed'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'BinaryProposalCreated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'DaoOperatorTransferred'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ExecutorAuthorized'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ExecutorUnauthorized'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'GenericProposalCreated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ProposalCanceled'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ProposalExecuted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ProposalQueued'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'TransferAdminPending'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'VoteEmitted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'VotingPowerChanged'): EventFragment
+  getEvent(
+    nameOrSignatureOrTopic: 'VotingPowerStrategyAuthorized'
+  ): EventFragment
+  getEvent(
+    nameOrSignatureOrTopic: 'VotingPowerStrategyUnauthorized'
+  ): EventFragment
 }
 
 export class KyberGovernance extends Contract {
@@ -49,6 +316,312 @@ export class KyberGovernance extends Contract {
   interface: KyberGovernanceInterface
 
   functions: {
+    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<[string]>
+
+    'DOMAIN_TYPEHASH()'(overrides?: CallOverrides): Promise<[string]>
+
+    NAME(overrides?: CallOverrides): Promise<[string]>
+
+    'NAME()'(overrides?: CallOverrides): Promise<[string]>
+
+    VOTE_EMITTED_TYPEHASH(overrides?: CallOverrides): Promise<[string]>
+
+    'VOTE_EMITTED_TYPEHASH()'(overrides?: CallOverrides): Promise<[string]>
+
+    admin(overrides?: CallOverrides): Promise<[string]>
+
+    'admin()'(overrides?: CallOverrides): Promise<[string]>
+
+    authorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'authorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    authorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'authorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    cancel(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'cancel(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    claimAdmin(overrides?: Overrides): Promise<ContractTransaction>
+
+    'claimAdmin()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    createBinaryProposal(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    createGenericProposal(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'createGenericProposal(address,address,string[],uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    execute(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<ContractTransaction>
+
+    'execute(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<ContractTransaction>
+
+    getDaoOperator(overrides?: CallOverrides): Promise<[string]>
+
+    'getDaoOperator()'(overrides?: CallOverrides): Promise<[string]>
+
+    getProposalById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        [
+          BigNumber,
+          number,
+          string,
+          string,
+          string,
+          string[],
+          BigNumber[],
+          string[],
+          string[],
+          boolean[],
+          string[],
+          BigNumber[],
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          string,
+          boolean,
+          boolean
+        ] & {
+          id: BigNumber
+          proposalType: number
+          creator: string
+          executor: string
+          strategy: string
+          targets: string[]
+          weiValues: BigNumber[]
+          signatures: string[]
+          calldatas: string[]
+          withDelegatecalls: boolean[]
+          options: string[]
+          voteCounts: BigNumber[]
+          totalVotes: BigNumber
+          maxVotingPower: BigNumber
+          startTime: BigNumber
+          endTime: BigNumber
+          executionTime: BigNumber
+          link: string
+          executed: boolean
+          canceled: boolean
+        }
+      ]
+    >
+
+    'getProposalById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        [
+          BigNumber,
+          number,
+          string,
+          string,
+          string,
+          string[],
+          BigNumber[],
+          string[],
+          string[],
+          boolean[],
+          string[],
+          BigNumber[],
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          string,
+          boolean,
+          boolean
+        ] & {
+          id: BigNumber
+          proposalType: number
+          creator: string
+          executor: string
+          strategy: string
+          targets: string[]
+          weiValues: BigNumber[]
+          signatures: string[]
+          calldatas: string[]
+          withDelegatecalls: boolean[]
+          options: string[]
+          voteCounts: BigNumber[]
+          totalVotes: BigNumber
+          maxVotingPower: BigNumber
+          startTime: BigNumber
+          endTime: BigNumber
+          executionTime: BigNumber
+          link: string
+          executed: boolean
+          canceled: boolean
+        }
+      ]
+    >
+
+    getProposalState(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[number]>
+
+    'getProposalState(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[number]>
+
+    getProposalVoteDataById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber[], string[]]>
+
+    'getProposalVoteDataById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber[], string[]]>
+
+    getProposalsCount(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'getProposalsCount()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    getVoteOnProposal(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [[number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }]
+    >
+
+    'getVoteOnProposal(uint256,address)'(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [[number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }]
+    >
+
+    handleVotingPowerChanged(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'handleVotingPowerChanged(address,uint256,uint256[])'(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    isExecutorAuthorized(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    'isExecutorAuthorized(address)'(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    isVotingPowerStrategyAuthorized(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    'isVotingPowerStrategyAuthorized(address)'(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    pendingAdmin(overrides?: CallOverrides): Promise<[string]>
+
+    'pendingAdmin()'(overrides?: CallOverrides): Promise<[string]>
+
+    queue(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'queue(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     submitVote(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
@@ -60,7 +633,377 @@ export class KyberGovernance extends Contract {
       optionBitMask: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    submitVoteBySignature(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)'(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    transferAdmin(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'transferAdmin(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    transferAdminQuickly(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'transferAdminQuickly(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    transferDaoOperator(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'transferDaoOperator(address)'(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    unauthorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'unauthorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    unauthorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'unauthorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
   }
+
+  DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>
+
+  'DOMAIN_TYPEHASH()'(overrides?: CallOverrides): Promise<string>
+
+  NAME(overrides?: CallOverrides): Promise<string>
+
+  'NAME()'(overrides?: CallOverrides): Promise<string>
+
+  VOTE_EMITTED_TYPEHASH(overrides?: CallOverrides): Promise<string>
+
+  'VOTE_EMITTED_TYPEHASH()'(overrides?: CallOverrides): Promise<string>
+
+  admin(overrides?: CallOverrides): Promise<string>
+
+  'admin()'(overrides?: CallOverrides): Promise<string>
+
+  authorizeExecutors(
+    executors: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'authorizeExecutors(address[])'(
+    executors: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  authorizeVotingPowerStrategies(
+    strategies: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'authorizeVotingPowerStrategies(address[])'(
+    strategies: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  cancel(
+    proposalId: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'cancel(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  claimAdmin(overrides?: Overrides): Promise<ContractTransaction>
+
+  'claimAdmin()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  createBinaryProposal(
+    executor: string,
+    strategy: string,
+    executionParams: {
+      targets: string[]
+      weiValues: BigNumberish[]
+      signatures: string[]
+      calldatas: BytesLike[]
+      withDelegatecalls: boolean[]
+    },
+    startTime: BigNumberish,
+    endTime: BigNumberish,
+    link: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
+    executor: string,
+    strategy: string,
+    executionParams: {
+      targets: string[]
+      weiValues: BigNumberish[]
+      signatures: string[]
+      calldatas: BytesLike[]
+      withDelegatecalls: boolean[]
+    },
+    startTime: BigNumberish,
+    endTime: BigNumberish,
+    link: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  createGenericProposal(
+    executor: string,
+    strategy: string,
+    options: string[],
+    startTime: BigNumberish,
+    endTime: BigNumberish,
+    link: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'createGenericProposal(address,address,string[],uint256,uint256,string)'(
+    executor: string,
+    strategy: string,
+    options: string[],
+    startTime: BigNumberish,
+    endTime: BigNumberish,
+    link: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  execute(
+    proposalId: BigNumberish,
+    overrides?: PayableOverrides
+  ): Promise<ContractTransaction>
+
+  'execute(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: PayableOverrides
+  ): Promise<ContractTransaction>
+
+  getDaoOperator(overrides?: CallOverrides): Promise<string>
+
+  'getDaoOperator()'(overrides?: CallOverrides): Promise<string>
+
+  getProposalById(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      number,
+      string,
+      string,
+      string,
+      string[],
+      BigNumber[],
+      string[],
+      string[],
+      boolean[],
+      string[],
+      BigNumber[],
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      boolean,
+      boolean
+    ] & {
+      id: BigNumber
+      proposalType: number
+      creator: string
+      executor: string
+      strategy: string
+      targets: string[]
+      weiValues: BigNumber[]
+      signatures: string[]
+      calldatas: string[]
+      withDelegatecalls: boolean[]
+      options: string[]
+      voteCounts: BigNumber[]
+      totalVotes: BigNumber
+      maxVotingPower: BigNumber
+      startTime: BigNumber
+      endTime: BigNumber
+      executionTime: BigNumber
+      link: string
+      executed: boolean
+      canceled: boolean
+    }
+  >
+
+  'getProposalById(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      number,
+      string,
+      string,
+      string,
+      string[],
+      BigNumber[],
+      string[],
+      string[],
+      boolean[],
+      string[],
+      BigNumber[],
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      boolean,
+      boolean
+    ] & {
+      id: BigNumber
+      proposalType: number
+      creator: string
+      executor: string
+      strategy: string
+      targets: string[]
+      weiValues: BigNumber[]
+      signatures: string[]
+      calldatas: string[]
+      withDelegatecalls: boolean[]
+      options: string[]
+      voteCounts: BigNumber[]
+      totalVotes: BigNumber
+      maxVotingPower: BigNumber
+      startTime: BigNumber
+      endTime: BigNumber
+      executionTime: BigNumber
+      link: string
+      executed: boolean
+      canceled: boolean
+    }
+  >
+
+  getProposalState(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<number>
+
+  'getProposalState(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<number>
+
+  getProposalVoteDataById(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber[], string[]]>
+
+  'getProposalVoteDataById(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber[], string[]]>
+
+  getProposalsCount(overrides?: CallOverrides): Promise<BigNumber>
+
+  'getProposalsCount()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  getVoteOnProposal(
+    proposalId: BigNumberish,
+    voter: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }
+  >
+
+  'getVoteOnProposal(uint256,address)'(
+    proposalId: BigNumberish,
+    voter: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }
+  >
+
+  handleVotingPowerChanged(
+    voter: string,
+    newVotingPower: BigNumberish,
+    proposalIds: BigNumberish[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'handleVotingPowerChanged(address,uint256,uint256[])'(
+    voter: string,
+    newVotingPower: BigNumberish,
+    proposalIds: BigNumberish[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  isExecutorAuthorized(
+    executor: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  'isExecutorAuthorized(address)'(
+    executor: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  isVotingPowerStrategyAuthorized(
+    strategy: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  'isVotingPowerStrategyAuthorized(address)'(
+    strategy: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  pendingAdmin(overrides?: CallOverrides): Promise<string>
+
+  'pendingAdmin()'(overrides?: CallOverrides): Promise<string>
+
+  queue(
+    proposalId: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'queue(uint256)'(
+    proposalId: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   submitVote(
     proposalId: BigNumberish,
@@ -74,7 +1017,368 @@ export class KyberGovernance extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  submitVoteBySignature(
+    proposalId: BigNumberish,
+    optionBitMask: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)'(
+    proposalId: BigNumberish,
+    optionBitMask: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  transferAdmin(
+    newAdmin: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'transferAdmin(address)'(
+    newAdmin: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  transferAdminQuickly(
+    newAdmin: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'transferAdminQuickly(address)'(
+    newAdmin: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  transferDaoOperator(
+    newDaoOperator: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'transferDaoOperator(address)'(
+    newDaoOperator: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  unauthorizeExecutors(
+    executors: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'unauthorizeExecutors(address[])'(
+    executors: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  unauthorizeVotingPowerStrategies(
+    strategies: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'unauthorizeVotingPowerStrategies(address[])'(
+    strategies: string[],
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   callStatic: {
+    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<string>
+
+    'DOMAIN_TYPEHASH()'(overrides?: CallOverrides): Promise<string>
+
+    NAME(overrides?: CallOverrides): Promise<string>
+
+    'NAME()'(overrides?: CallOverrides): Promise<string>
+
+    VOTE_EMITTED_TYPEHASH(overrides?: CallOverrides): Promise<string>
+
+    'VOTE_EMITTED_TYPEHASH()'(overrides?: CallOverrides): Promise<string>
+
+    admin(overrides?: CallOverrides): Promise<string>
+
+    'admin()'(overrides?: CallOverrides): Promise<string>
+
+    authorizeExecutors(
+      executors: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'authorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    authorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'authorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    cancel(proposalId: BigNumberish, overrides?: CallOverrides): Promise<void>
+
+    'cancel(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    claimAdmin(overrides?: CallOverrides): Promise<void>
+
+    'claimAdmin()'(overrides?: CallOverrides): Promise<void>
+
+    createBinaryProposal(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    createGenericProposal(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'createGenericProposal(address,address,string[],uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    execute(proposalId: BigNumberish, overrides?: CallOverrides): Promise<void>
+
+    'execute(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    getDaoOperator(overrides?: CallOverrides): Promise<string>
+
+    'getDaoOperator()'(overrides?: CallOverrides): Promise<string>
+
+    getProposalById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        number,
+        string,
+        string,
+        string,
+        string[],
+        BigNumber[],
+        string[],
+        string[],
+        boolean[],
+        string[],
+        BigNumber[],
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        boolean,
+        boolean
+      ] & {
+        id: BigNumber
+        proposalType: number
+        creator: string
+        executor: string
+        strategy: string
+        targets: string[]
+        weiValues: BigNumber[]
+        signatures: string[]
+        calldatas: string[]
+        withDelegatecalls: boolean[]
+        options: string[]
+        voteCounts: BigNumber[]
+        totalVotes: BigNumber
+        maxVotingPower: BigNumber
+        startTime: BigNumber
+        endTime: BigNumber
+        executionTime: BigNumber
+        link: string
+        executed: boolean
+        canceled: boolean
+      }
+    >
+
+    'getProposalById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        number,
+        string,
+        string,
+        string,
+        string[],
+        BigNumber[],
+        string[],
+        string[],
+        boolean[],
+        string[],
+        BigNumber[],
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        boolean,
+        boolean
+      ] & {
+        id: BigNumber
+        proposalType: number
+        creator: string
+        executor: string
+        strategy: string
+        targets: string[]
+        weiValues: BigNumber[]
+        signatures: string[]
+        calldatas: string[]
+        withDelegatecalls: boolean[]
+        options: string[]
+        voteCounts: BigNumber[]
+        totalVotes: BigNumber
+        maxVotingPower: BigNumber
+        startTime: BigNumber
+        endTime: BigNumber
+        executionTime: BigNumber
+        link: string
+        executed: boolean
+        canceled: boolean
+      }
+    >
+
+    getProposalState(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<number>
+
+    'getProposalState(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<number>
+
+    getProposalVoteDataById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber[], string[]]>
+
+    'getProposalVoteDataById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber[], string[]]>
+
+    getProposalsCount(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getProposalsCount()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getVoteOnProposal(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }
+    >
+
+    'getVoteOnProposal(uint256,address)'(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [number, BigNumber] & { optionBitMask: number; votingPower: BigNumber }
+    >
+
+    handleVotingPowerChanged(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'handleVotingPowerChanged(address,uint256,uint256[])'(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    isExecutorAuthorized(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    'isExecutorAuthorized(address)'(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    isVotingPowerStrategyAuthorized(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    'isVotingPowerStrategyAuthorized(address)'(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    pendingAdmin(overrides?: CallOverrides): Promise<string>
+
+    'pendingAdmin()'(overrides?: CallOverrides): Promise<string>
+
+    queue(proposalId: BigNumberish, overrides?: CallOverrides): Promise<void>
+
+    'queue(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     submitVote(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
@@ -86,11 +1390,350 @@ export class KyberGovernance extends Contract {
       optionBitMask: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
+
+    submitVoteBySignature(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)'(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    transferAdmin(newAdmin: string, overrides?: CallOverrides): Promise<void>
+
+    'transferAdmin(address)'(
+      newAdmin: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    transferAdminQuickly(
+      newAdmin: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'transferAdminQuickly(address)'(
+      newAdmin: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    transferDaoOperator(
+      newDaoOperator: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'transferDaoOperator(address)'(
+      newDaoOperator: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    unauthorizeExecutors(
+      executors: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'unauthorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    unauthorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'unauthorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: CallOverrides
+    ): Promise<void>
   }
 
-  filters: {}
+  filters: {
+    AdminClaimed(newAdmin: null, previousAdmin: null): EventFilter
+
+    BinaryProposalCreated(
+      proposalId: null,
+      creator: string | null,
+      executor: string | null,
+      strategy: string | null,
+      targets: null,
+      weiValues: null,
+      signatures: null,
+      calldatas: null,
+      withDelegatecalls: null,
+      startTime: null,
+      endTime: null,
+      link: null,
+      maxVotingPower: null
+    ): EventFilter
+
+    DaoOperatorTransferred(newDaoOperator: string | null): EventFilter
+
+    ExecutorAuthorized(executor: string | null): EventFilter
+
+    ExecutorUnauthorized(executor: string | null): EventFilter
+
+    GenericProposalCreated(
+      proposalId: null,
+      creator: string | null,
+      executor: string | null,
+      strategy: string | null,
+      options: null,
+      startTime: null,
+      endTime: null,
+      link: null,
+      maxVotingPower: null
+    ): EventFilter
+
+    ProposalCanceled(proposalId: null): EventFilter
+
+    ProposalExecuted(
+      proposalId: null,
+      initiatorExecution: string | null
+    ): EventFilter
+
+    ProposalQueued(
+      proposalId: BigNumberish | null,
+      executionTime: null,
+      initiatorQueueing: string | null
+    ): EventFilter
+
+    TransferAdminPending(pendingAdmin: null): EventFilter
+
+    VoteEmitted(
+      proposalId: BigNumberish | null,
+      voter: string | null,
+      voteOptions: BigNumberish | null,
+      votingPower: null
+    ): EventFilter
+
+    VotingPowerChanged(
+      proposalId: BigNumberish | null,
+      voter: string | null,
+      voteOptions: BigNumberish | null,
+      oldVotingPower: null,
+      newVotingPower: null
+    ): EventFilter
+
+    VotingPowerStrategyAuthorized(strategy: string | null): EventFilter
+
+    VotingPowerStrategyUnauthorized(strategy: string | null): EventFilter
+  }
 
   estimateGas: {
+    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>
+
+    'DOMAIN_TYPEHASH()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    NAME(overrides?: CallOverrides): Promise<BigNumber>
+
+    'NAME()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    VOTE_EMITTED_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>
+
+    'VOTE_EMITTED_TYPEHASH()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    admin(overrides?: CallOverrides): Promise<BigNumber>
+
+    'admin()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    authorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'authorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    authorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'authorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    cancel(proposalId: BigNumberish, overrides?: Overrides): Promise<BigNumber>
+
+    'cancel(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    claimAdmin(overrides?: Overrides): Promise<BigNumber>
+
+    'claimAdmin()'(overrides?: Overrides): Promise<BigNumber>
+
+    createBinaryProposal(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    createGenericProposal(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'createGenericProposal(address,address,string[],uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    execute(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<BigNumber>
+
+    'execute(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<BigNumber>
+
+    getDaoOperator(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getDaoOperator()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getProposalById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getProposalById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    getProposalState(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getProposalState(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    getProposalVoteDataById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getProposalVoteDataById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    getProposalsCount(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getProposalsCount()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getVoteOnProposal(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getVoteOnProposal(uint256,address)'(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    handleVotingPowerChanged(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'handleVotingPowerChanged(address,uint256,uint256[])'(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    isExecutorAuthorized(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'isExecutorAuthorized(address)'(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    isVotingPowerStrategyAuthorized(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'isVotingPowerStrategyAuthorized(address)'(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    pendingAdmin(overrides?: CallOverrides): Promise<BigNumber>
+
+    'pendingAdmin()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    queue(proposalId: BigNumberish, overrides?: Overrides): Promise<BigNumber>
+
+    'queue(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     submitVote(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
@@ -100,11 +1743,294 @@ export class KyberGovernance extends Contract {
     'submitVote(uint256,uint256)'(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    submitVoteBySignature(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)'(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    transferAdmin(newAdmin: string, overrides?: Overrides): Promise<BigNumber>
+
+    'transferAdmin(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    transferAdminQuickly(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'transferAdminQuickly(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    transferDaoOperator(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'transferDaoOperator(address)'(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    unauthorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'unauthorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    unauthorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'unauthorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
       overrides?: Overrides
     ): Promise<BigNumber>
   }
 
   populateTransaction: {
+    DOMAIN_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'DOMAIN_TYPEHASH()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    NAME(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'NAME()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    VOTE_EMITTED_TYPEHASH(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'VOTE_EMITTED_TYPEHASH()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    admin(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'admin()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    authorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'authorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    authorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'authorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    cancel(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'cancel(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    claimAdmin(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'claimAdmin()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    createBinaryProposal(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      executionParams: {
+        targets: string[]
+        weiValues: BigNumberish[]
+        signatures: string[]
+        calldatas: BytesLike[]
+        withDelegatecalls: boolean[]
+      },
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    createGenericProposal(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'createGenericProposal(address,address,string[],uint256,uint256,string)'(
+      executor: string,
+      strategy: string,
+      options: string[],
+      startTime: BigNumberish,
+      endTime: BigNumberish,
+      link: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    execute(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<PopulatedTransaction>
+
+    'execute(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: PayableOverrides
+    ): Promise<PopulatedTransaction>
+
+    getDaoOperator(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getDaoOperator()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    getProposalById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getProposalById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getProposalState(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getProposalState(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getProposalVoteDataById(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getProposalVoteDataById(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getProposalsCount(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getProposalsCount()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getVoteOnProposal(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getVoteOnProposal(uint256,address)'(
+      proposalId: BigNumberish,
+      voter: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    handleVotingPowerChanged(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'handleVotingPowerChanged(address,uint256,uint256[])'(
+      voter: string,
+      newVotingPower: BigNumberish,
+      proposalIds: BigNumberish[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    isExecutorAuthorized(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'isExecutorAuthorized(address)'(
+      executor: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    isVotingPowerStrategyAuthorized(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'isVotingPowerStrategyAuthorized(address)'(
+      strategy: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    pendingAdmin(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'pendingAdmin()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    queue(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'queue(uint256)'(
+      proposalId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     submitVote(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
@@ -114,6 +2040,74 @@ export class KyberGovernance extends Contract {
     'submitVote(uint256,uint256)'(
       proposalId: BigNumberish,
       optionBitMask: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    submitVoteBySignature(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'submitVoteBySignature(uint256,uint256,uint8,bytes32,bytes32)'(
+      proposalId: BigNumberish,
+      optionBitMask: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    transferAdmin(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'transferAdmin(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    transferAdminQuickly(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'transferAdminQuickly(address)'(
+      newAdmin: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    transferDaoOperator(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'transferDaoOperator(address)'(
+      newDaoOperator: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    unauthorizeExecutors(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'unauthorizeExecutors(address[])'(
+      executors: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    unauthorizeVotingPowerStrategies(
+      strategies: string[],
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'unauthorizeVotingPowerStrategies(address[])'(
+      strategies: string[],
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
   }

@@ -99,13 +99,3 @@ test('Get Balancer Portfolio of xAAVEb', async (t) => {
   console.log('[Balancer] Portfolio value of xAAVEb:', portfolio?.value)
   t.true(Number(portfolio?.value) > 0)
 })
-
-/*test('Get Balancer Portfolio of xSNXa', async (t) => {
-  const portfolio = await getBalancerPortfolioItem(
-    X_SNX_A,
-    testAddress,
-    provider
-  )
-  console.log('[Balancer] Portfolio value of xSNXa:', portfolio?.value)
-  t.true(Number(portfolio?.value) > 0)
-})*/
