@@ -1,12 +1,14 @@
 import { BaseProvider } from '@ethersproject/providers'
+import { USDC } from '@xtoken/abis'
 import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
 import { KyberProxy, XU3LP } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
 import { getEthUsdcPrice } from '../exchanges/uniswap'
+import { getLPTokenSymbol } from '../utils'
 
 /**
  * @example
@@ -36,18 +38,22 @@ export const getXU3LPPrices = async (
 ): Promise<ITokenPrices> => {
   try {
     const [
+      symbol,
       { token0Price, token1Price },
       stakedTokenBalances,
       bufferTokenBalances,
       xu3lpTotalSupply,
       ethUsdcPrice,
     ] = await Promise.all([
+      xu3lpContract.symbol(),
       getXU3LPTokenPrices(xu3lpContract),
       xu3lpContract.getStakedTokenBalance(),
       xu3lpContract.getBufferTokenBalance(),
       xu3lpContract.totalSupply(),
       getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])
+
+    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols)
 
     const token0Balance = stakedTokenBalances.amount0.add(
       bufferTokenBalances.amount0
@@ -56,8 +62,12 @@ export const getXU3LPPrices = async (
       bufferTokenBalances.amount1
     )
 
-    const token0Value = token0Balance.mul(token0Price)
-    const token1Value = token1Balance.mul(token1Price)
+    const token0Value = token0Balance.mul(
+      assets[0] !== USDC ? token0Price : DEC_18
+    )
+    const token1Value = token1Balance.mul(
+      assets[1] !== USDC ? token1Price : DEC_18
+    )
 
     const aum = token0Value.add(token1Value).div(DEC_18)
     const priceUsd = aum.mul(DEC_18).div(xu3lpTotalSupply as BigNumberish)
