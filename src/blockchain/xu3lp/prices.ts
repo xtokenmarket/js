@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { USDC } from '@xtoken/abis'
+import { USDC, X_U3LP_E } from '@xtoken/abis'
 import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -7,7 +7,7 @@ import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
 import { KyberProxy, XU3LP } from '../../types'
 import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
-import { getEthUsdcPrice } from '../exchanges/uniswap'
+import { getBtcUsdcPrice, getEthUsdcPrice } from '../exchanges/uniswap'
 import { getLPTokenSymbol } from '../utils'
 
 /**
@@ -73,8 +73,17 @@ export const getXU3LPPrices = async (
     const priceUsd = aum.mul(DEC_18).div(xu3lpTotalSupply as BigNumberish)
     const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
 
+    let priceBtc = BigNumber.from('0')
+    if (symbol === X_U3LP_E) {
+      const btcUsdcPrice = await getBtcUsdcPrice(
+        kyberProxyContract.provider as BaseProvider
+      )
+      priceBtc = priceUsd.mul(DEC_18).div(parseEther(btcUsdcPrice))
+    }
+
     return {
-      aum: formatNumber(formatEther(aum)),
+      aum: formatNumber(formatEther(aum), 0),
+      priceBtc: priceBtc.isZero() ? 0 : formatNumber(formatEther(priceBtc), 6),
       priceEth: formatNumber(formatEther(priceEth), 6),
       priceUsd: formatNumber(formatEther(priceUsd)),
     }

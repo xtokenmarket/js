@@ -17,7 +17,7 @@ export const getXInchAsset = async (
   } = await getXInchContracts(symbol, provider)
   const { chainId } = network
 
-  const { aum, priceUsd } = await getXInchPrices(
+  const { aum, priceEth, priceUsd } = await getXInchPrices(
     xinchContract,
     kyberProxyContract,
     chainId
@@ -29,6 +29,7 @@ export const getXInchAsset = async (
       symbol === X_INCH_A ? 'Buchanan' : 'Samuelson'
     } Mandate`,
     price: priceUsd,
+    priceEth,
     symbol,
   }
 }

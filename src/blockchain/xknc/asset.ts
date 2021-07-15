@@ -16,7 +16,7 @@ export const getXKncAsset = async (
     xkncContract,
   } = await getXKncContracts(symbol, provider)
 
-  const { aum, priceUsd } = await getXKncPrices(
+  const { aum, priceEth, priceUsd } = await getXKncPrices(
     xkncContract,
     kncContract,
     kyberProxyContract
@@ -28,6 +28,7 @@ export const getXKncAsset = async (
       symbol === X_KNC_A ? 'staker rewards' : 'reserve rebates'
     }`,
     price: priceUsd,
+    priceEth,
     symbol,
   }
 }

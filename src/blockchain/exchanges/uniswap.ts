@@ -16,6 +16,7 @@ import {
   BUY,
   ETH,
   USDC,
+  WBTC,
   WETH as WETH_SYMBOL,
   X_KNC_A,
   X_KNC_B,
@@ -36,6 +37,24 @@ import { getXKncContracts } from '../xknc/helper'
 import { getBalances } from './helper'
 
 const { formatEther, parseEther } = ethers.utils
+
+export const getBtcUsdcPrice = async (
+  provider: BaseProvider
+): Promise<string> => {
+  const network = await provider.getNetwork()
+  const { chainId } = network
+
+  const usdcAddress = ADDRESSES[USDC][chainId]
+  const usdcToken = new Token(ChainId.MAINNET, usdcAddress, 6)
+
+  const wbtcAddress = ADDRESSES[WBTC][chainId]
+  const wbtcToken = new Token(ChainId.MAINNET, wbtcAddress, 8)
+
+  const pair = await Fetcher.fetchPairData(usdcToken, wbtcToken, provider)
+  const route = new Route([pair], wbtcToken)
+
+  return route.midPrice.toSignificant(6)
+}
 
 export const getEthUsdcPrice = async (
   provider: BaseProvider

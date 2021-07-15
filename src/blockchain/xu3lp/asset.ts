@@ -16,7 +16,7 @@ export const getXU3LPAsset = async (
     provider
   )
 
-  const { aum, priceUsd } = await getXU3LPPrices(
+  const { aum, priceBtc, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
     kyberProxyContract
   )
@@ -27,6 +27,8 @@ export const getXU3LPAsset = async (
       assets[1]
     )}`,
     price: priceUsd,
+    priceBtc,
+    priceEth,
     symbol,
   }
 }

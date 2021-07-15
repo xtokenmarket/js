@@ -50,7 +50,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'getBufferTokenBalance()': FunctionFragment
     'getLiquidityForAmounts(uint256,uint256)': FunctionFragment
     'getNav()': FunctionFragment
+<<<<<<< HEAD
     'getPositionLiquidity()': FunctionFragment
+=======
+    'getObservationTime()': FunctionFragment
+>>>>>>> ae1666f (Added new xU3LP contracts)
     'getStakedBalance()': FunctionFragment
     'getStakedTokenBalance()': FunctionFragment
     'getTargetBufferTokenBalance()': FunctionFragment
@@ -74,7 +78,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'setFeeDivisors(tuple)': FunctionFragment
     'setMaxTwapDeviationDivisor(uint256)': FunctionFragment
     'setTwapPeriod(uint32)': FunctionFragment
+<<<<<<< HEAD
     'setxTokenManager(address)': FunctionFragment
+=======
+>>>>>>> ae1666f (Added new xU3LP contracts)
     'symbol()': FunctionFragment
     'token0DecimalMultiplier()': FunctionFragment
     'token0Decimals()': FunctionFragment
@@ -194,7 +201,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'getNav', values?: undefined): string
   encodeFunctionData(
+<<<<<<< HEAD
     functionFragment: 'getPositionLiquidity',
+=======
+    functionFragment: 'getObservationTime',
+>>>>>>> ae1666f (Added new xU3LP contracts)
     values?: undefined
   ): string
   encodeFunctionData(
@@ -286,10 +297,13 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'setTwapPeriod',
     values: [BigNumberish]
   ): string
+<<<<<<< HEAD
   encodeFunctionData(
     functionFragment: 'setxTokenManager',
     values: [string]
   ): string
+=======
+>>>>>>> ae1666f (Added new xU3LP contracts)
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'token0DecimalMultiplier',
@@ -432,7 +446,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'getNav', data: BytesLike): Result
   decodeFunctionResult(
+<<<<<<< HEAD
     functionFragment: 'getPositionLiquidity',
+=======
+    functionFragment: 'getObservationTime',
+>>>>>>> ae1666f (Added new xU3LP contracts)
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -500,10 +518,13 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'setTwapPeriod',
     data: BytesLike
   ): Result
+<<<<<<< HEAD
   decodeFunctionResult(
     functionFragment: 'setxTokenManager',
     data: BytesLike
   ): Result
+=======
+>>>>>>> ae1666f (Added new xU3LP contracts)
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'token0DecimalMultiplier',
@@ -871,6 +892,7 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
+<<<<<<< HEAD
     getPositionLiquidity(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { liquidity: BigNumber }>
@@ -878,6 +900,11 @@ export class XU3LP extends Contract {
     'getPositionLiquidity()'(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { liquidity: BigNumber }>
+=======
+    getObservationTime(overrides?: CallOverrides): Promise<[number]>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<[number]>
+>>>>>>> ae1666f (Added new xU3LP contracts)
 
     getStakedBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -1098,6 +1125,16 @@ export class XU3LP extends Contract {
 
     'setxTokenManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1469,9 +1506,15 @@ export class XU3LP extends Contract {
 
   'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+<<<<<<< HEAD
   getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
   'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+=======
+  getObservationTime(overrides?: CallOverrides): Promise<number>
+
+  'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+>>>>>>> ae1666f (Added new xU3LP contracts)
 
   getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1689,6 +1732,16 @@ export class XU3LP extends Contract {
 
   'setxTokenManager(address)'(
     _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setTwapPeriod(
+    newPeriod: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setTwapPeriod(uint32)'(
+    newPeriod: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -2058,9 +2111,15 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+<<<<<<< HEAD
     getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
     'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+=======
+    getObservationTime(overrides?: CallOverrides): Promise<number>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+>>>>>>> ae1666f (Added new xU3LP contracts)
 
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2275,6 +2334,16 @@ export class XU3LP extends Contract {
 
     'setxTokenManager(address)'(
       _manager: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2636,9 +2705,15 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+<<<<<<< HEAD
     getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
     'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+=======
+    getObservationTime(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<BigNumber>
+>>>>>>> ae1666f (Added new xU3LP contracts)
 
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2838,6 +2913,16 @@ export class XU3LP extends Contract {
 
     'setxTokenManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -3193,6 +3278,7 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+<<<<<<< HEAD
     getPositionLiquidity(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
@@ -3203,6 +3289,16 @@ export class XU3LP extends Contract {
 
     getStakedBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+=======
+    getObservationTime(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getObservationTime()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getStakedBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+>>>>>>> ae1666f (Added new xU3LP contracts)
     'getStakedBalance()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
@@ -3414,6 +3510,16 @@ export class XU3LP extends Contract {
 
     'setxTokenManager(address)'(
       _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

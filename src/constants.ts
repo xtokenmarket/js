@@ -22,6 +22,7 @@ export enum Exchange {
 // Default values
 export const DEFAULT_PRICES = Object.freeze({
   aum: 0,
+  priceBtc: 0,
   priceEth: 0,
   priceUsd: 0,
   sellPriceEth: 0,
