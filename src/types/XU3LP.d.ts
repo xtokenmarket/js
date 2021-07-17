@@ -32,6 +32,7 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'burn(uint8,uint256)': FunctionFragment
     'calculateMintAmount(uint256,uint256)': FunctionFragment
     'calculatePoolMintedAmounts(uint256,uint256)': FunctionFragment
+    'collect()': FunctionFragment
     'decimals()': FunctionFragment
     'decreaseAllowance(address,uint256)': FunctionFragment
     'emergencyUnstake(uint256,uint256)': FunctionFragment
@@ -45,9 +46,9 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'getBufferToken1Balance()': FunctionFragment
     'getBufferTokenBalance()': FunctionFragment
     'getNav()': FunctionFragment
+    'getObservationTime()': FunctionFragment
     'getStakedBalance()': FunctionFragment
     'getStakedTokenBalance()': FunctionFragment
-    'getTargetBufferBalance()': FunctionFragment
     'getTargetBufferTokenBalance()': FunctionFragment
     'getTicks()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
@@ -67,6 +68,7 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'setManager(address)': FunctionFragment
     'setManager2(address)': FunctionFragment
     'setMaxTwapDeviationDivisor(uint256)': FunctionFragment
+    'setTwapPeriod(uint32)': FunctionFragment
     'symbol()': FunctionFragment
     'token0DecimalMultiplier()': FunctionFragment
     'token0Decimals()': FunctionFragment
@@ -122,6 +124,7 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'calculatePoolMintedAmounts',
     values: [BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'collect', values?: undefined): string
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'decreaseAllowance',
@@ -169,15 +172,15 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'getNav', values?: undefined): string
   encodeFunctionData(
+    functionFragment: 'getObservationTime',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'getStakedBalance',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'getStakedTokenBalance',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'getTargetBufferBalance',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -245,6 +248,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(
     functionFragment: 'setMaxTwapDeviationDivisor',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setTwapPeriod',
     values: [BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
@@ -328,6 +335,7 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'calculatePoolMintedAmounts',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'collect', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'decreaseAllowance',
@@ -372,15 +380,15 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'getNav', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'getObservationTime',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'getStakedBalance',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'getStakedTokenBalance',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'getTargetBufferBalance',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -427,6 +435,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setMaxTwapDeviationDivisor',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'setTwapPeriod',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
@@ -484,24 +496,22 @@ interface XU3LPInterface extends ethers.utils.Interface {
 
   events: {
     'Approval(address,address,uint256)': EventFragment
+    'FeeCollected(uint256,uint256)': EventFragment
     'FeeDivisorsSet(uint256,uint256,uint256)': EventFragment
     'FeeWithdraw(uint256,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
-    'PositionInitialized(int24,int24)': EventFragment
-    'PositionMigrated(int24,int24)': EventFragment
     'Rebalance()': EventFragment
     'Transfer(address,address,uint256)': EventFragment
     'Unpaused(address)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'FeeCollected'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FeeDivisorsSet'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FeeWithdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PositionInitialized'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PositionMigrated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Rebalance'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
@@ -638,6 +648,10 @@ export class XU3LP extends Contract {
       }
     >
 
+    collect(overrides?: Overrides): Promise<ContractTransaction>
+
+    'collect()'(overrides?: Overrides): Promise<ContractTransaction>
+
     decimals(overrides?: CallOverrides): Promise<[number]>
 
     'decimals()'(overrides?: CallOverrides): Promise<[number]>
@@ -750,6 +764,10 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
+    getObservationTime(overrides?: CallOverrides): Promise<[number]>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<[number]>
+
     getStakedBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
@@ -765,10 +783,6 @@ export class XU3LP extends Contract {
     ): Promise<
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
-
-    getTargetBufferBalance(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getTargetBufferTokenBalance(
       overrides?: CallOverrides
@@ -961,6 +975,16 @@ export class XU3LP extends Contract {
 
     'setMaxTwapDeviationDivisor(uint256)'(
       newDeviationDivisor: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1180,6 +1204,10 @@ export class XU3LP extends Contract {
     }
   >
 
+  collect(overrides?: Overrides): Promise<ContractTransaction>
+
+  'collect()'(overrides?: Overrides): Promise<ContractTransaction>
+
   decimals(overrides?: CallOverrides): Promise<number>
 
   'decimals()'(overrides?: CallOverrides): Promise<number>
@@ -1284,6 +1312,10 @@ export class XU3LP extends Contract {
 
   'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+  getObservationTime(overrides?: CallOverrides): Promise<number>
+
+  'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+
   getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
   'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1299,10 +1331,6 @@ export class XU3LP extends Contract {
   ): Promise<
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
-
-  getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
-
-  'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
 
   getTargetBufferTokenBalance(
     overrides?: CallOverrides
@@ -1492,6 +1520,16 @@ export class XU3LP extends Contract {
 
   'setMaxTwapDeviationDivisor(uint256)'(
     newDeviationDivisor: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setTwapPeriod(
+    newPeriod: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setTwapPeriod(uint32)'(
+    newPeriod: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1709,6 +1747,10 @@ export class XU3LP extends Contract {
       }
     >
 
+    collect(overrides?: CallOverrides): Promise<void>
+
+    'collect()'(overrides?: CallOverrides): Promise<void>
+
     decimals(overrides?: CallOverrides): Promise<number>
 
     'decimals()'(overrides?: CallOverrides): Promise<number>
@@ -1813,6 +1855,10 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getObservationTime(overrides?: CallOverrides): Promise<number>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1828,10 +1874,6 @@ export class XU3LP extends Contract {
     ): Promise<
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
-
-    getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
-
-    'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getTargetBufferTokenBalance(
       overrides?: CallOverrides
@@ -2018,6 +2060,16 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     symbol(overrides?: CallOverrides): Promise<string>
 
     'symbol()'(overrides?: CallOverrides): Promise<string>
@@ -2124,6 +2176,8 @@ export class XU3LP extends Contract {
       value: null
     ): EventFilter
 
+    FeeCollected(token0Fee: null, token1Fee: null): EventFilter
+
     FeeDivisorsSet(mintFee: null, burnFee: null, claimFee: null): EventFilter
 
     FeeWithdraw(token0Fee: null, token1Fee: null): EventFilter
@@ -2134,10 +2188,6 @@ export class XU3LP extends Contract {
     ): EventFilter
 
     Paused(account: null): EventFilter
-
-    PositionInitialized(tickLower: null, tickUpper: null): EventFilter
-
-    PositionMigrated(tickLower: null, tickUpper: null): EventFilter
 
     Rebalance(): EventFilter
 
@@ -2254,6 +2304,10 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    collect(overrides?: Overrides): Promise<BigNumber>
+
+    'collect()'(overrides?: Overrides): Promise<BigNumber>
+
     decimals(overrides?: CallOverrides): Promise<BigNumber>
 
     'decimals()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -2334,6 +2388,10 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getObservationTime(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getObservationTime()'(overrides?: CallOverrides): Promise<BigNumber>
+
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -2341,10 +2399,6 @@ export class XU3LP extends Contract {
     getStakedTokenBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getStakedTokenBalance()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
-
-    'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getTargetBufferTokenBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2518,6 +2572,16 @@ export class XU3LP extends Contract {
 
     'setMaxTwapDeviationDivisor(uint256)'(
       newDeviationDivisor: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2735,6 +2799,10 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    collect(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'collect()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'decimals()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -2829,6 +2897,12 @@ export class XU3LP extends Contract {
 
     'getNav()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    getObservationTime(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getObservationTime()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     getStakedBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getStakedBalance()'(
@@ -2840,14 +2914,6 @@ export class XU3LP extends Contract {
     ): Promise<PopulatedTransaction>
 
     'getStakedTokenBalance()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    getTargetBufferBalance(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'getTargetBufferBalance()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -3034,6 +3100,16 @@ export class XU3LP extends Contract {
 
     'setMaxTwapDeviationDivisor(uint256)'(
       newDeviationDivisor: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setTwapPeriod(
+      newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setTwapPeriod(uint32)'(
+      newPeriod: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

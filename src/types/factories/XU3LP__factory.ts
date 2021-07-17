@@ -45,6 +45,25 @@ const _abi = [
       {
         indexed: false,
         internalType: 'uint256',
+        name: 'token0Fee',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'token1Fee',
+        type: 'uint256',
+      },
+    ],
+    name: 'FeeCollected',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
         name: 'mintFee',
         type: 'uint256',
       },
@@ -113,44 +132,6 @@ const _abi = [
       },
     ],
     name: 'Paused',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'int24',
-        name: 'tickLower',
-        type: 'int24',
-      },
-      {
-        indexed: false,
-        internalType: 'int24',
-        name: 'tickUpper',
-        type: 'int24',
-      },
-    ],
-    name: 'PositionInitialized',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'int24',
-        name: 'tickLower',
-        type: 'int24',
-      },
-      {
-        indexed: false,
-        internalType: 'int24',
-        name: 'tickUpper',
-        type: 'int24',
-      },
-    ],
-    name: 'PositionMigrated',
     type: 'event',
   },
   {
@@ -404,6 +385,13 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'collect',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'decimals',
     outputs: [
       {
@@ -616,6 +604,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getObservationTime',
+    outputs: [
+      {
+        internalType: 'uint32',
+        name: '',
+        type: 'uint32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getStakedBalance',
     outputs: [
       {
@@ -639,19 +640,6 @@ const _abi = [
       {
         internalType: 'uint256',
         name: 'amount1',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getTargetBufferBalance',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
         type: 'uint256',
       },
     ],
@@ -1014,6 +1002,19 @@ const _abi = [
       },
     ],
     name: 'setMaxTwapDeviationDivisor',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: 'newPeriod',
+        type: 'uint32',
+      },
+    ],
+    name: 'setTwapPeriod',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
