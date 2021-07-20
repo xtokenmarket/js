@@ -13,8 +13,8 @@ export const getMaximumRedeemableXU3LP = async (
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
   const getBufferBalance = outputAsset
-    ? xu3lpContract.getBufferToken0Balance
-    : xu3lpContract.getBufferToken1Balance
+    ? xu3lpContract.getBufferToken1Balance
+    : xu3lpContract.getBufferToken0Balance
 
   const bufferHoldings = await getBufferBalance()
 
