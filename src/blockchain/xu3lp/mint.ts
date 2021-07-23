@@ -51,16 +51,15 @@ export const getExpectedQuantityOnMintXU3LP = async (
     xu3lpContract.feeDivisors(),
   ])
 
-  const getAmountInAssetTerms = inputAsset
-    ? xu3lpContract.getAmountInAsset0Terms
-    : xu3lpContract.getAmountInAsset1Terms
-
   const MINT_FEE = parseFees(mintFee)
-  const inputAmount = parseEther(amount)
+  let expectedQty = parseEther(amount)
     .mul(totalSupply as BigNumberish)
     .div(nav as BigNumberish)
 
-  const expectedQty = await getAmountInAssetTerms(inputAmount)
+  // Get amount in `asset1` terms for token 0
+  if (!inputAsset) {
+    expectedQty = await xu3lpContract.getAmountInAsset1Terms(expectedQty)
+  }
 
   return formatEther(expectedQty.mul(MINT_FEE).div(DEC_18))
 }

@@ -45,16 +45,15 @@ export const getExpectedQuantityOnBurnXU3LP = async (
     xu3lpContract.feeDivisors(),
   ])
 
-  const getAmountInAssetTerms = !outputAsset
-    ? xu3lpContract.getAmountInAsset0Terms
-    : xu3lpContract.getAmountInAsset1Terms
-
   const BURN_FEE = parseFees(burnFee)
-  const inputAmount = parseEther(amount)
+  let expectedQty = parseEther(amount)
     .mul(nav as BigNumberish)
     .div(totalSupply as BigNumberish)
 
-  const expectedQty = await getAmountInAssetTerms(inputAmount)
+  // Get amount in `asset0` terms for token 0
+  if (!outputAsset) {
+    expectedQty = await xu3lpContract.getAmountInAsset0Terms(expectedQty)
+  }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
 }
