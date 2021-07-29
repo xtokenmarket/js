@@ -822,6 +822,31 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: 'toToken',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'minKyberRate',
+        type: 'uint256',
+      },
+    ],
+    name: 'swapEtherToToken',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        internalType: 'address',
         name: 'fromToken',
         type: 'address',
       },

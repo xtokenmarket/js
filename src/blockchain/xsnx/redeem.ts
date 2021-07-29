@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, SNX, X_SNX_A_ADMIN } from '@xtoken/abis'
+import { ADDRESSES, SNX, X_SNX_ADMIN } from '@xtoken/abis'
 import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
 import { DEC_18 } from '../../constants'
@@ -17,7 +17,7 @@ export const getMaximumRedeemableXSnx = async (provider: BaseProvider) => {
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
-  const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+  const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
   const snxAddress = ADDRESSES[SNX][chainId]
 
   const [

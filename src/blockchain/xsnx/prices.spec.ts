@@ -1,4 +1,4 @@
-import { ADDRESSES, X_SNX_A_ADMIN } from '@xtoken/abis'
+import { ADDRESSES, X_SNX_ADMIN } from '@xtoken/abis'
 import test from 'ava'
 import { Contract } from 'ethers'
 
@@ -18,7 +18,7 @@ test('Get xSNXa prices', async (t) => {
   } = await getXSnxContracts(provider)
   const { chainId } = network
 
-  const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+  const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
   const exchangeRatesContract = await getExchangeRateContract(provider)
 
   const { aum, priceEth, priceUsd } = await getXSnxPrices(

@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, X_SNX_A_ADMIN } from '@xtoken/abis'
+import { ADDRESSES, X_SNX_ADMIN } from '@xtoken/abis'
 import { Contract } from 'ethers'
 import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -26,7 +26,7 @@ export const getPortfolioItemXSnx = async (
     } = await getXSnxContracts(provider)
     const { chainId } = network
 
-    const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+    const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
     const exchangeRatesContract = (await getExchangeRateContract(
       provider
     )) as ExchangeRates

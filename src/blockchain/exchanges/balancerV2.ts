@@ -11,7 +11,7 @@ import {
   TRADE_ACCOUNTING,
   WETH,
   X_SNX_A,
-  X_SNX_A_ADMIN,
+  X_SNX_ADMIN,
 } from '@xtoken/abis'
 import { Contract, ethers } from 'ethers'
 
@@ -158,7 +158,7 @@ export const getBalancerV2PortfolioItem = async (
   try {
     switch (symbol) {
       case X_SNX_A: {
-        const xsnxAdminAddress = ADDRESSES[X_SNX_A_ADMIN][chainId]
+        const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
 
         const tradeAccountingContract = getContract(
           TRADE_ACCOUNTING,

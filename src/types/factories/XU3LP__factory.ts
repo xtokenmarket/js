@@ -231,6 +231,29 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
+        name: 'minReturn',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: '_0for1',
+        type: 'bool',
+      },
+      {
+        internalType: 'bytes',
+        name: '_oneInchData',
+        type: 'bytes',
+      },
+    ],
+    name: 'adminSwapOneInch',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
         name: 'amount0',
         type: 'uint256',
       },
@@ -290,6 +313,13 @@ const _abi = [
         type: 'bool',
       },
     ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'approveOneInch',
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -507,6 +537,30 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
+      },
+    ],
+    name: 'getAmountsForLiquidity',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'getAsset0Price',
     outputs: [
@@ -590,6 +644,30 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    name: 'getLiquidityForAmounts',
+    outputs: [
+      {
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'getNav',
     outputs: [
@@ -604,12 +682,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getObservationTime',
+    name: 'getPositionLiquidity',
     outputs: [
       {
-        internalType: 'uint32',
-        name: '',
-        type: 'uint32',
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
       },
     ],
     stateMutability: 'view',
@@ -734,17 +812,17 @@ const _abi = [
         type: 'address',
       },
       {
-        internalType: 'contract IUniswapV3Pool',
+        internalType: 'address',
         name: '_pool',
         type: 'address',
       },
       {
-        internalType: 'contract ISwapRouter',
+        internalType: 'address',
         name: '_router',
         type: 'address',
       },
       {
-        internalType: 'contract INonfungiblePositionManager',
+        internalType: 'address',
         name: '_positionManager',
         type: 'address',
       },
@@ -918,6 +996,32 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'poolAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'positionManagerAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'rebalance',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -935,6 +1039,19 @@ const _abi = [
     name: 'resetTwap',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'routerAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -970,32 +1087,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_manager',
-        type: 'address',
-      },
-    ],
-    name: 'setManager',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_manager2',
-        type: 'address',
-      },
-    ],
-    name: 'setManager2',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint256',
         name: 'newDeviationDivisor',
         type: 'uint256',
@@ -1015,6 +1106,19 @@ const _abi = [
       },
     ],
     name: 'setTwapPeriod',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IxTokenManager',
+        name: '_manager',
+        type: 'address',
+      },
+    ],
+    name: 'setxTokenManager',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
