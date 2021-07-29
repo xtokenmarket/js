@@ -25,9 +25,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'adminActiveTimestamp()': FunctionFragment
     'adminStake(uint256,uint256)': FunctionFragment
     'adminSwap(uint256,bool)': FunctionFragment
+    'adminSwapOneInch(uint256,bool,bytes)': FunctionFragment
     'adminUnstake(uint256,uint256)': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
+    'approveOneInch()': FunctionFragment
     'balanceOf(address)': FunctionFragment
     'burn(uint8,uint256)': FunctionFragment
     'calculateMintAmount(uint256,uint256)': FunctionFragment
@@ -39,14 +41,16 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'feeDivisors()': FunctionFragment
     'getAmountInAsset0Terms(uint256)': FunctionFragment
     'getAmountInAsset1Terms(uint256)': FunctionFragment
+    'getAmountsForLiquidity(uint128)': FunctionFragment
     'getAsset0Price()': FunctionFragment
     'getAsset1Price()': FunctionFragment
     'getBufferBalance()': FunctionFragment
     'getBufferToken0Balance()': FunctionFragment
     'getBufferToken1Balance()': FunctionFragment
     'getBufferTokenBalance()': FunctionFragment
+    'getLiquidityForAmounts(uint256,uint256)': FunctionFragment
     'getNav()': FunctionFragment
-    'getObservationTime()': FunctionFragment
+    'getPositionLiquidity()': FunctionFragment
     'getStakedBalance()': FunctionFragment
     'getStakedTokenBalance()': FunctionFragment
     'getTargetBufferTokenBalance()': FunctionFragment
@@ -61,14 +65,16 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
+    'poolAddress()': FunctionFragment
+    'positionManagerAddress()': FunctionFragment
     'rebalance()': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'resetTwap()': FunctionFragment
+    'routerAddress()': FunctionFragment
     'setFeeDivisors(tuple)': FunctionFragment
-    'setManager(address)': FunctionFragment
-    'setManager2(address)': FunctionFragment
     'setMaxTwapDeviationDivisor(uint256)': FunctionFragment
     'setTwapPeriod(uint32)': FunctionFragment
+    'setxTokenManager(address)': FunctionFragment
     'symbol()': FunctionFragment
     'token0DecimalMultiplier()': FunctionFragment
     'token0Decimals()': FunctionFragment
@@ -100,6 +106,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values: [BigNumberish, boolean]
   ): string
   encodeFunctionData(
+    functionFragment: 'adminSwapOneInch',
+    values: [BigNumberish, boolean, BytesLike]
+  ): string
+  encodeFunctionData(
     functionFragment: 'adminUnstake',
     values: [BigNumberish, BigNumberish]
   ): string
@@ -110,6 +120,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'approve',
     values: [string, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'approveOneInch',
+    values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
   encodeFunctionData(
@@ -147,6 +161,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string
   encodeFunctionData(
+    functionFragment: 'getAmountsForLiquidity',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
     functionFragment: 'getAsset0Price',
     values?: undefined
   ): string
@@ -170,9 +188,13 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'getBufferTokenBalance',
     values?: undefined
   ): string
+  encodeFunctionData(
+    functionFragment: 'getLiquidityForAmounts',
+    values: [BigNumberish, BigNumberish]
+  ): string
   encodeFunctionData(functionFragment: 'getNav', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'getObservationTime',
+    functionFragment: 'getPositionLiquidity',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -232,6 +254,14 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'poolAddress',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'positionManagerAddress',
+    values?: undefined
+  ): string
   encodeFunctionData(functionFragment: 'rebalance', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
@@ -239,13 +269,15 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'resetTwap', values?: undefined): string
   encodeFunctionData(
+    functionFragment: 'routerAddress',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'setFeeDivisors',
     values: [
       { mintFee: BigNumberish; burnFee: BigNumberish; claimFee: BigNumberish }
     ]
   ): string
-  encodeFunctionData(functionFragment: 'setManager', values: [string]): string
-  encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(
     functionFragment: 'setMaxTwapDeviationDivisor',
     values: [BigNumberish]
@@ -253,6 +285,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'setTwapPeriod',
     values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setxTokenManager',
+    values: [string]
   ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
@@ -320,11 +356,19 @@ interface XU3LPInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'adminStake', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'adminSwap', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'adminSwapOneInch',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'adminUnstake',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'approveOneInch',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(
@@ -355,6 +399,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
+    functionFragment: 'getAmountsForLiquidity',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'getAsset0Price',
     data: BytesLike
   ): Result
@@ -378,9 +426,13 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'getBufferTokenBalance',
     data: BytesLike
   ): Result
+  decodeFunctionResult(
+    functionFragment: 'getLiquidityForAmounts',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'getNav', data: BytesLike): Result
   decodeFunctionResult(
-    functionFragment: 'getObservationTime',
+    functionFragment: 'getPositionLiquidity',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -421,6 +473,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'poolAddress', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'positionManagerAddress',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'rebalance', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
@@ -428,17 +485,23 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'resetTwap', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'routerAddress',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'setFeeDivisors',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setMaxTwapDeviationDivisor',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'setTwapPeriod',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'setxTokenManager',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
@@ -559,6 +622,20 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    adminSwapOneInch(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminSwapOneInch(uint256,bool,bytes)'(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     adminUnstake(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -594,6 +671,10 @@ export class XU3LP extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    approveOneInch(overrides?: Overrides): Promise<ContractTransaction>
+
+    'approveOneInch()'(overrides?: Overrides): Promise<ContractTransaction>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -720,6 +801,20 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    getAmountsForLiquidity(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getAmountsForLiquidity(uint128)'(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
     getAsset0Price(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getAsset0Price()'(overrides?: CallOverrides): Promise<[BigNumber]>
@@ -760,13 +855,29 @@ export class XU3LP extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
+    getLiquidityForAmounts(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
+
+    'getLiquidityForAmounts(uint256,uint256)'(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
+
     getNav(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getNav()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getObservationTime(overrides?: CallOverrides): Promise<[number]>
+    getPositionLiquidity(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
 
-    'getObservationTime()'(overrides?: CallOverrides): Promise<[number]>
+    'getPositionLiquidity()'(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
 
     getStakedBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -918,6 +1029,14 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
+    poolAddress(overrides?: CallOverrides): Promise<[string]>
+
+    'poolAddress()'(overrides?: CallOverrides): Promise<[string]>
+
+    positionManagerAddress(overrides?: CallOverrides): Promise<[string]>
+
+    'positionManagerAddress()'(overrides?: CallOverrides): Promise<[string]>
+
     rebalance(overrides?: Overrides): Promise<ContractTransaction>
 
     'rebalance()'(overrides?: Overrides): Promise<ContractTransaction>
@@ -929,6 +1048,10 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    routerAddress(overrides?: CallOverrides): Promise<[string]>
+
+    'routerAddress()'(overrides?: CallOverrides): Promise<[string]>
 
     setFeeDivisors(
       _feeDivisors: {
@@ -945,26 +1068,6 @@ export class XU3LP extends Contract {
         burnFee: BigNumberish
         claimFee: BigNumberish
       },
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -985,6 +1088,16 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1115,6 +1228,20 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  adminSwapOneInch(
+    minReturn: BigNumberish,
+    _0for1: boolean,
+    _oneInchData: BytesLike,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminSwapOneInch(uint256,bool,bytes)'(
+    minReturn: BigNumberish,
+    _0for1: boolean,
+    _oneInchData: BytesLike,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   adminUnstake(
     amount0: BigNumberish,
     amount1: BigNumberish,
@@ -1150,6 +1277,10 @@ export class XU3LP extends Contract {
     amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  approveOneInch(overrides?: Overrides): Promise<ContractTransaction>
+
+  'approveOneInch()'(overrides?: Overrides): Promise<ContractTransaction>
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1276,6 +1407,20 @@ export class XU3LP extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  getAmountsForLiquidity(
+    liquidity: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
+  'getAmountsForLiquidity(uint128)'(
+    liquidity: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
   getAsset0Price(overrides?: CallOverrides): Promise<BigNumber>
 
   'getAsset0Price()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1308,13 +1453,25 @@ export class XU3LP extends Contract {
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
 
+  getLiquidityForAmounts(
+    amount0: BigNumberish,
+    amount1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  'getLiquidityForAmounts(uint256,uint256)'(
+    amount0: BigNumberish,
+    amount1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
   getNav(overrides?: CallOverrides): Promise<BigNumber>
 
   'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
-  getObservationTime(overrides?: CallOverrides): Promise<number>
+  getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
-  'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+  'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
   getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1463,6 +1620,14 @@ export class XU3LP extends Contract {
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
 
+  poolAddress(overrides?: CallOverrides): Promise<string>
+
+  'poolAddress()'(overrides?: CallOverrides): Promise<string>
+
+  positionManagerAddress(overrides?: CallOverrides): Promise<string>
+
+  'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
+
   rebalance(overrides?: Overrides): Promise<ContractTransaction>
 
   'rebalance()'(overrides?: Overrides): Promise<ContractTransaction>
@@ -1474,6 +1639,10 @@ export class XU3LP extends Contract {
   resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
   'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  routerAddress(overrides?: CallOverrides): Promise<string>
+
+  'routerAddress()'(overrides?: CallOverrides): Promise<string>
 
   setFeeDivisors(
     _feeDivisors: {
@@ -1490,26 +1659,6 @@ export class XU3LP extends Contract {
       burnFee: BigNumberish
       claimFee: BigNumberish
     },
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  setManager(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager(address)'(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  setManager2(
-    _manager2: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager2(address)'(
-    _manager2: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1530,6 +1679,16 @@ export class XU3LP extends Contract {
 
   'setTwapPeriod(uint32)'(
     newPeriod: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setxTokenManager(
+    _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setxTokenManager(address)'(
+    _manager: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1658,6 +1817,20 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    adminSwapOneInch(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'adminSwapOneInch(uint256,bool,bytes)'(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     adminUnstake(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -1693,6 +1866,10 @@ export class XU3LP extends Contract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>
+
+    approveOneInch(overrides?: CallOverrides): Promise<void>
+
+    'approveOneInch()'(overrides?: CallOverrides): Promise<void>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1819,6 +1996,20 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    getAmountsForLiquidity(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getAmountsForLiquidity(uint128)'(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
     getAsset0Price(overrides?: CallOverrides): Promise<BigNumber>
 
     'getAsset0Price()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1851,13 +2042,25 @@ export class XU3LP extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
+    getLiquidityForAmounts(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getLiquidityForAmounts(uint256,uint256)'(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     getNav(overrides?: CallOverrides): Promise<BigNumber>
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    getObservationTime(overrides?: CallOverrides): Promise<number>
+    getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
-    'getObservationTime()'(overrides?: CallOverrides): Promise<number>
+    'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2006,6 +2209,14 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
 
+    poolAddress(overrides?: CallOverrides): Promise<string>
+
+    'poolAddress()'(overrides?: CallOverrides): Promise<string>
+
+    positionManagerAddress(overrides?: CallOverrides): Promise<string>
+
+    'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
+
     rebalance(overrides?: CallOverrides): Promise<void>
 
     'rebalance()'(overrides?: CallOverrides): Promise<void>
@@ -2017,6 +2228,10 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: CallOverrides): Promise<void>
 
     'resetTwap()'(overrides?: CallOverrides): Promise<void>
+
+    routerAddress(overrides?: CallOverrides): Promise<string>
+
+    'routerAddress()'(overrides?: CallOverrides): Promise<string>
 
     setFeeDivisors(
       _feeDivisors: {
@@ -2033,20 +2248,6 @@ export class XU3LP extends Contract {
         burnFee: BigNumberish
         claimFee: BigNumberish
       },
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    setManager(_manager: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    setManager2(_manager2: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager2(address)'(
-      _manager2: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2067,6 +2268,13 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setxTokenManager(_manager: string, overrides?: CallOverrides): Promise<void>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2225,6 +2433,20 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    adminSwapOneInch(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'adminSwapOneInch(uint256,bool,bytes)'(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     adminUnstake(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -2260,6 +2482,10 @@ export class XU3LP extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    approveOneInch(overrides?: Overrides): Promise<BigNumber>
+
+    'approveOneInch()'(overrides?: Overrides): Promise<BigNumber>
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2360,6 +2586,16 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    getAmountsForLiquidity(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getAmountsForLiquidity(uint128)'(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     getAsset0Price(overrides?: CallOverrides): Promise<BigNumber>
 
     'getAsset0Price()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -2384,13 +2620,25 @@ export class XU3LP extends Contract {
 
     'getBufferTokenBalance()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getLiquidityForAmounts(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getLiquidityForAmounts(uint256,uint256)'(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     getNav(overrides?: CallOverrides): Promise<BigNumber>
 
     'getNav()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    getObservationTime(overrides?: CallOverrides): Promise<BigNumber>
+    getPositionLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
-    'getObservationTime()'(overrides?: CallOverrides): Promise<BigNumber>
+    'getPositionLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2521,6 +2769,14 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    poolAddress(overrides?: CallOverrides): Promise<BigNumber>
+
+    'poolAddress()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    positionManagerAddress(overrides?: CallOverrides): Promise<BigNumber>
+
+    'positionManagerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
+
     rebalance(overrides?: Overrides): Promise<BigNumber>
 
     'rebalance()'(overrides?: Overrides): Promise<BigNumber>
@@ -2532,6 +2788,10 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<BigNumber>
 
     'resetTwap()'(overrides?: Overrides): Promise<BigNumber>
+
+    routerAddress(overrides?: CallOverrides): Promise<BigNumber>
+
+    'routerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
 
     setFeeDivisors(
       _feeDivisors: {
@@ -2548,20 +2808,6 @@ export class XU3LP extends Contract {
         burnFee: BigNumberish
         claimFee: BigNumberish
       },
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setManager(_manager: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setManager2(_manager2: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager2(address)'(
-      _manager2: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2582,6 +2828,16 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2717,6 +2973,20 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    adminSwapOneInch(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminSwapOneInch(uint256,bool,bytes)'(
+      minReturn: BigNumberish,
+      _0for1: boolean,
+      _oneInchData: BytesLike,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     adminUnstake(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -2752,6 +3022,10 @@ export class XU3LP extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    approveOneInch(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'approveOneInch()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     balanceOf(
       account: string,
@@ -2855,6 +3129,16 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    getAmountsForLiquidity(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getAmountsForLiquidity(uint128)'(
+      liquidity: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     getAsset0Price(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getAsset0Price()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -2893,13 +3177,27 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    getLiquidityForAmounts(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getLiquidityForAmounts(uint256,uint256)'(
+      amount0: BigNumberish,
+      amount1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     getNav(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getNav()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getObservationTime(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    getPositionLiquidity(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
 
-    'getObservationTime()'(
+    'getPositionLiquidity()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -3043,6 +3341,18 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    poolAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'poolAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    positionManagerAddress(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'positionManagerAddress()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     rebalance(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'rebalance()'(overrides?: Overrides): Promise<PopulatedTransaction>
@@ -3054,6 +3364,10 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    routerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'routerAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     setFeeDivisors(
       _feeDivisors: {
@@ -3070,26 +3384,6 @@ export class XU3LP extends Contract {
         burnFee: BigNumberish
         claimFee: BigNumberish
       },
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -3110,6 +3404,16 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

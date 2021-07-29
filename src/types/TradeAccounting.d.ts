@@ -58,6 +58,7 @@ interface TradeAccountingInterface extends ethers.utils.Interface {
     'setAdminInstanceAddress(address)': FunctionFragment
     'setCurve(address,int128,int128)': FunctionFragment
     'shouldAllocateEthToEthReserve(uint256,uint256,uint256)': FunctionFragment
+    'swapEtherToToken(address,uint256,uint256)': FunctionFragment
     'swapTokenToEther(address,uint256,uint256,uint256)': FunctionFragment
     'swapTokenToToken(address,uint256,address,uint256,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
@@ -206,6 +207,10 @@ interface TradeAccountingInterface extends ethers.utils.Interface {
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(
+    functionFragment: 'swapEtherToToken',
+    values: [string, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(
     functionFragment: 'swapTokenToEther',
     values: [string, BigNumberish, BigNumberish, BigNumberish]
   ): string
@@ -348,6 +353,10 @@ interface TradeAccountingInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'setCurve', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'shouldAllocateEthToEthReserve',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'swapEtherToToken',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -746,6 +755,20 @@ export class TradeAccounting extends Contract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { allocateToEth: boolean }>
 
+    swapEtherToToken(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'swapEtherToToken(address,uint256,uint256)'(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     swapTokenToEther(
       fromToken: string,
       amount: BigNumberish,
@@ -1139,6 +1162,20 @@ export class TradeAccounting extends Contract {
     overrides?: CallOverrides
   ): Promise<boolean>
 
+  swapEtherToToken(
+    toToken: string,
+    amount: BigNumberish,
+    minKyberRate: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'swapEtherToToken(address,uint256,uint256)'(
+    toToken: string,
+    amount: BigNumberish,
+    minKyberRate: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   swapTokenToEther(
     fromToken: string,
     amount: BigNumberish,
@@ -1528,6 +1565,20 @@ export class TradeAccounting extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
+    swapEtherToToken(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'swapEtherToToken(address,uint256,uint256)'(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     swapTokenToEther(
       fromToken: string,
       amount: BigNumberish,
@@ -1901,6 +1952,20 @@ export class TradeAccounting extends Contract {
       ethBalBefore: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    swapEtherToToken(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'swapEtherToToken(address,uint256,uint256)'(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
     ): Promise<BigNumber>
 
     swapTokenToEther(
@@ -2289,6 +2354,20 @@ export class TradeAccounting extends Contract {
       ethBalBefore: BigNumberish,
       totalSupply: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    swapEtherToToken(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'swapEtherToToken(address,uint256,uint256)'(
+      toToken: string,
+      amount: BigNumberish,
+      minKyberRate: BigNumberish,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     swapTokenToEther(
