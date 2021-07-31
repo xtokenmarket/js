@@ -669,16 +669,12 @@ const _abi = [
   },
   {
     inputs: [],
-<<<<<<< HEAD
     name: 'getNav',
-=======
-    name: 'getObservationTime',
->>>>>>> ae1666f (Added new xU3LP contracts)
     outputs: [
       {
-        internalType: 'uint32',
+        internalType: 'uint256',
         name: '',
-        type: 'uint32',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -686,7 +682,6 @@ const _abi = [
   },
   {
     inputs: [],
-<<<<<<< HEAD
     name: 'getPositionLiquidity',
     outputs: [
       {
@@ -703,11 +698,6 @@ const _abi = [
     name: 'getStakedBalance',
     outputs: [
       {
-=======
-    name: 'getStakedBalance',
-    outputs: [
-      {
->>>>>>> ae1666f (Added new xU3LP contracts)
         internalType: 'uint256',
         name: '',
         type: 'uint256',
@@ -1129,19 +1119,6 @@ const _abi = [
       },
     ],
     name: 'setxTokenManager',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint32',
-        name: 'newPeriod',
-        type: 'uint32',
-      },
-    ],
-    name: 'setTwapPeriod',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

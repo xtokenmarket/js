@@ -97,16 +97,16 @@ test('Get xU3LPe prices', async (t) => {
     provider
   )
 
-  const { aum, priceEth, priceUsd } = await getXU3LPPrices(
+  const { aum, priceBtc, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
     kyberProxyContract
   )
 
   console.log('xU3LPe aum:', aum)
-  console.log('xU3LPe priceEth:', priceEth)
+  console.log('xU3LPe priceBtc:', priceBtc)
   console.log('xU3LPe priceUsd:', priceUsd)
   t.true(aum > 0)
-  t.true(priceEth > 0)
+  t.true(Number(priceBtc) > 0)
   t.true(priceUsd > 0)
 })
 

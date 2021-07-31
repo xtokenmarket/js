@@ -1,0 +1,25 @@
+import { capitalizeToken, getLPTokenSymbol } from '../utils'
+import { getXU3LPContracts } from './helper'
+import { getXU3LPPrices } from './prices'
+export const getXU3LPAsset = async (symbol, provider) => {
+  const assets = getLPTokenSymbol(symbol)
+  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
+    symbol,
+    provider
+  )
+  const { aum, priceBtc, priceEth, priceUsd } = await getXU3LPPrices(
+    xu3lpContract,
+    kyberProxyContract
+  )
+  return {
+    aum,
+    mandate: `Maximize Yield: ${capitalizeToken(assets[0])}-${capitalizeToken(
+      assets[1]
+    )}`,
+    price: priceUsd,
+    priceBtc,
+    priceEth,
+    symbol,
+  }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXNzZXQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi94dTNscC9hc3NldC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSxPQUFPLEVBQUUsZUFBZSxFQUFFLGdCQUFnQixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRTVELE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUM1QyxPQUFPLEVBQUUsY0FBYyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXpDLE1BQU0sQ0FBQyxNQUFNLGFBQWEsR0FBRyxLQUFLLEVBQ2hDLE1BQXVCLEVBQ3ZCLFFBQXNCLEVBQ0gsRUFBRTtJQUNyQixNQUFNLE1BQU0sR0FBRyxnQkFBZ0IsQ0FBQyxNQUFNLENBQUMsQ0FBQTtJQUN2QyxNQUFNLEVBQUUsa0JBQWtCLEVBQUUsYUFBYSxFQUFFLEdBQUcsTUFBTSxpQkFBaUIsQ0FDbkUsTUFBTSxFQUNOLFFBQVEsQ0FDVCxDQUFBO0lBRUQsTUFBTSxFQUFFLEdBQUcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLFFBQVEsRUFBRSxHQUFHLE1BQU0sY0FBYyxDQUNoRSxhQUFhLEVBQ2Isa0JBQWtCLENBQ25CLENBQUE7SUFFRCxPQUFPO1FBQ0wsR0FBRztRQUNILE9BQU8sRUFBRSxtQkFBbUIsZUFBZSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQyxJQUFJLGVBQWUsQ0FDdkUsTUFBTSxDQUFDLENBQUMsQ0FBQyxDQUNWLEVBQUU7UUFDSCxLQUFLLEVBQUUsUUFBUTtRQUNmLFFBQVE7UUFDUixRQUFRO1FBQ1IsTUFBTTtLQUNQLENBQUE7QUFDSCxDQUFDLENBQUEifQ==

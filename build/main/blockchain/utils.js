@@ -1,0 +1,316 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.getSignerAddress = exports.getSigner = exports.getUniswapPoolContract = exports.getUniswapPoolAddress = exports.getExchangeRateContract = exports.getUserAvailableTokenBalance = exports.getTokenBalance = exports.parseFees = exports.getLPTokenSymbol = exports.getTokenSymbol = exports.getKyberPoolContract = exports.getKyberPoolAddress = exports.getInchPoolContract = exports.getInchPoolAddress = exports.getExpectedRate = exports.getContract = exports.getBancorPoolContract = exports.getBancorPoolAddress = exports.getBalancerPoolContract = exports.getBalancerPoolAddress = exports.getAbi = exports.capitalizeToken = void 0
+const abis_1 = require('@xtoken/abis')
+const ethers_1 = require('ethers')
+const constants_1 = require('../constants')
+const { formatEther, parseEther } = ethers_1.ethers.utils
+const capitalizeToken = (symbol) => {
+  if (![abis_1.S_ETH, abis_1.S_USD].includes(symbol)) {
+    return symbol.toUpperCase()
+  }
+  return symbol
+}
+exports.capitalizeToken = capitalizeToken
+const getAbi = (contractName) => {
+  switch (contractName) {
+    case abis_1.AAVE:
+    case abis_1.BNT:
+    case abis_1.BUSD:
+    case abis_1.INCH:
+    case abis_1.KNC:
+    case abis_1.DAI:
+    case abis_1.FRAX:
+    case abis_1.REN_BTC:
+    case abis_1.S_ETH:
+    case abis_1.S_USD:
+    case abis_1.USDC:
+    case abis_1.USDT:
+    case abis_1.UST:
+    case abis_1.WBTC:
+    case abis_1.WETH:
+      return abis_1.Abi.ERC20
+    case abis_1.EXCHANGE_RATES:
+      return abis_1.Abi.ExchangeRates
+    case abis_1.INCH_LIQUIDITY_PROTOCOL:
+      return abis_1.Abi.InchLiquidityProtocol
+    case abis_1.KYBER_PROXY:
+      return abis_1.Abi.KyberProxy
+    case abis_1.SNX:
+      return abis_1.Abi.Synthetix
+    case abis_1.TRADE_ACCOUNTING:
+      return abis_1.Abi.TradeAccounting
+    case abis_1.UNISWAP_V2_PAIR:
+      return abis_1.Abi.UniswapV2Pair
+    case abis_1.X_AAVE_A:
+    case abis_1.X_AAVE_B:
+      return abis_1.Abi.xAAVE
+    case abis_1.X_BNT_A:
+      return abis_1.Abi.xBNT
+    case abis_1.X_INCH_A:
+    case abis_1.X_INCH_B:
+      return abis_1.Abi.xINCH
+    case abis_1.X_KNC_A:
+    case abis_1.X_KNC_B:
+      return abis_1.Abi.xKNC
+    case abis_1.X_SNX_A:
+      return abis_1.Abi.xSNX
+    case abis_1.X_U3LP_A:
+    case abis_1.X_U3LP_B:
+    case abis_1.X_U3LP_C:
+    case abis_1.X_U3LP_D:
+    case abis_1.X_U3LP_E:
+    case abis_1.X_U3LP_F:
+    case abis_1.X_U3LP_G:
+    case abis_1.X_U3LP_H:
+      return abis_1.Abi.xU3LP
+  }
+}
+exports.getAbi = getAbi
+const getBalancerPoolAddress = (symbol, chainId) => {
+  let address
+  switch (symbol) {
+    case abis_1.X_AAVE_A:
+      address = abis_1.ADDRESSES[abis_1.X_AAVE_A_BALANCER_POOL][chainId]
+      break
+    case abis_1.X_AAVE_B:
+      address = abis_1.ADDRESSES[abis_1.X_AAVE_B_BALANCER_POOL][chainId]
+      break
+    case abis_1.X_SNX_A:
+      address = abis_1.ADDRESSES[abis_1.X_SNX_A_BALANCER_POOL_V2][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+exports.getBalancerPoolAddress = getBalancerPoolAddress
+const getBalancerPoolContract = (symbol, provider, chainId) => {
+  if (!provider || !symbol) return null
+  const address = exports.getBalancerPoolAddress(symbol, chainId)
+  if (!address) return null
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.BalancerPool,
+    exports.getSigner(provider)
+  )
+}
+exports.getBalancerPoolContract = getBalancerPoolContract
+const getBancorPoolAddress = (symbol, chainId) => {
+  let address
+  switch (symbol) {
+    case abis_1.X_BNT_A:
+      address = abis_1.ADDRESSES[abis_1.X_BNT_A_BANCOR_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+exports.getBancorPoolAddress = getBancorPoolAddress
+const getBancorPoolContract = (symbol, provider, chainId) => {
+  if (!provider || !symbol) return null
+  const address = exports.getBancorPoolAddress(symbol, chainId)
+  if (!address) return null
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.BancorSmartToken,
+    exports.getSigner(provider)
+  )
+}
+exports.getBancorPoolContract = getBancorPoolContract
+const getContract = (contractName, provider, network) => {
+  if (!provider) return null
+  const address = abis_1.ADDRESSES[contractName][network.chainId]
+  if (!address) return null
+  return new ethers_1.ethers.Contract(
+    address,
+    exports.getAbi(contractName),
+    exports.getSigner(provider)
+  )
+}
+exports.getContract = getContract
+const getExpectedRate = async (
+  kyberProxyContract,
+  inputAsset,
+  outputAsset,
+  amount,
+  isMinRate = false
+) => {
+  if (isMinRate) {
+    return constants_1.ZERO_NUMBER
+  }
+  const { expectedRate } = await kyberProxyContract.getExpectedRate(
+    inputAsset,
+    outputAsset,
+    amount
+  )
+  return expectedRate
+}
+exports.getExpectedRate = getExpectedRate
+const getInchPoolAddress = (symbol, chainId) => {
+  let address
+  switch (symbol) {
+    case abis_1.X_INCH_A:
+      address = abis_1.ADDRESSES[abis_1.X_INCH_A_INCH_POOL][chainId]
+      break
+    case abis_1.X_INCH_B:
+      address = abis_1.ADDRESSES[abis_1.X_INCH_B_INCH_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+exports.getInchPoolAddress = getInchPoolAddress
+const getInchPoolContract = (symbol, provider, chainId) => {
+  if (!provider || !symbol) return null
+  const address = exports.getInchPoolAddress(symbol, chainId)
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.InchLiquidityProtocol,
+    exports.getSigner(provider)
+  )
+}
+exports.getInchPoolContract = getInchPoolContract
+const getKyberPoolAddress = (symbol, chainId) => {
+  let address
+  switch (symbol) {
+    case abis_1.X_KNC_A:
+      address = abis_1.ADDRESSES[abis_1.X_KNC_A_KYBER_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+exports.getKyberPoolAddress = getKyberPoolAddress
+const getKyberPoolContract = (symbol, provider, chainId) => {
+  if (!provider || !symbol) return null
+  const address = exports.getKyberPoolAddress(symbol, chainId)
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.DMMPool,
+    exports.getSigner(provider)
+  )
+}
+exports.getKyberPoolContract = getKyberPoolContract
+const getTokenSymbol = (symbol) => {
+  switch (symbol) {
+    case abis_1.X_AAVE_A:
+    case abis_1.X_AAVE_B:
+      return abis_1.AAVE
+    case abis_1.X_BNT_A:
+      return abis_1.BNT
+    case abis_1.X_INCH_A:
+    case abis_1.X_INCH_B:
+      return abis_1.INCH
+    case abis_1.X_KNC_A:
+    case abis_1.X_KNC_B:
+      return abis_1.KNC
+    case abis_1.X_SNX_A:
+      return abis_1.SNX
+  }
+}
+exports.getTokenSymbol = getTokenSymbol
+const getLPTokenSymbol = (symbol) => {
+  switch (symbol) {
+    case abis_1.X_U3LP_A:
+      return { 0: abis_1.DAI, 1: abis_1.USDC }
+    case abis_1.X_U3LP_B:
+      return { 0: abis_1.USDC, 1: abis_1.USDT }
+    case abis_1.X_U3LP_C:
+      return { 0: abis_1.S_USD, 1: abis_1.USDC }
+    case abis_1.X_U3LP_D:
+      return { 0: abis_1.S_ETH, 1: abis_1.WETH }
+    case abis_1.X_U3LP_E:
+      return { 0: abis_1.WBTC, 1: abis_1.REN_BTC }
+    case abis_1.X_U3LP_F:
+      return { 0: abis_1.UST, 1: abis_1.USDT }
+    case abis_1.X_U3LP_G:
+      return { 0: abis_1.FRAX, 1: abis_1.USDC }
+    case abis_1.X_U3LP_H:
+      return { 0: abis_1.BUSD, 1: abis_1.USDT }
+  }
+}
+exports.getLPTokenSymbol = getLPTokenSymbol
+const parseFees = (fee) => {
+  return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
+}
+exports.parseFees = parseFees
+const getTokenBalance = async (tokenAddress, userAddress, provider) => {
+  const contract = new ethers_1.ethers.Contract(
+    tokenAddress,
+    abis_1.Abi.ERC20,
+    provider
+  )
+  return contract.balanceOf(userAddress)
+}
+exports.getTokenBalance = getTokenBalance
+const getUserAvailableTokenBalance = async (contract, address) => {
+  let balance
+  if (contract.address === abis_1.ADDRESSES[abis_1.SNX][1]) {
+    balance = await contract.transferableSynthetix(address)
+  } else {
+    balance = await contract.balanceOf(address)
+  }
+  return Math.floor(Number(formatEther(balance.toString())) * 10000) / 10000
+}
+exports.getUserAvailableTokenBalance = getUserAvailableTokenBalance
+const getExchangeRateContract = async (provider) => {
+  if (!provider) return null
+  const resolver = new ethers_1.ethers.Contract(
+    abis_1.ADDRESSES[abis_1.SYNTHETIX_ADDRESS_RESOLVER][1],
+    abis_1.Abi.AddressResolver,
+    provider
+  )
+  const address = resolver.getAddress(
+    ethers_1.ethers.utils.formatBytes32String('ExchangeRates')
+  )
+  if (!address) return null
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.ExchangeRates,
+    exports.getSigner(provider)
+  )
+}
+exports.getExchangeRateContract = getExchangeRateContract
+const getUniswapPoolAddress = (symbol, chainId) => {
+  let address
+  switch (symbol) {
+    case abis_1.X_KNC_A:
+      address = abis_1.ADDRESSES[abis_1.X_KNC_A_UNISWAP_POOL][chainId]
+      break
+    case abis_1.X_KNC_B:
+      address = abis_1.ADDRESSES[abis_1.X_KNC_B_UNISWAP_POOL][chainId]
+      break
+    default:
+      address = null
+  }
+  return address
+}
+exports.getUniswapPoolAddress = getUniswapPoolAddress
+const getUniswapPoolContract = (symbol, provider, chainId) => {
+  if (!provider || !symbol) return null
+  const address = exports.getUniswapPoolAddress(symbol, chainId)
+  return new ethers_1.ethers.Contract(
+    address,
+    abis_1.Abi.UniswapV2Pair,
+    exports.getSigner(provider)
+  )
+}
+exports.getUniswapPoolContract = getUniswapPoolContract
+const getSigner = (provider) => {
+  try {
+    return provider.getSigner()
+  } catch (e) {
+    return provider
+  }
+}
+exports.getSigner = getSigner
+const getSignerAddress = async (provider) => {
+  const signer = provider.getSigner()
+  return signer.getAddress()
+}
+exports.getSignerAddress = getSignerAddress
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXRpbHMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi91dGlscy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFNQSx1Q0FrRHFCO0FBQ3JCLG1DQUEwQztBQUcxQyw0Q0FBMEM7QUFVMUMsTUFBTSxFQUFFLFdBQVcsRUFBRSxVQUFVLEVBQUUsR0FBRyxlQUFNLENBQUMsS0FBSyxDQUFBO0FBRXpDLE1BQU0sZUFBZSxHQUFHLENBQUMsTUFBcUIsRUFBRSxFQUFFO0lBQ3ZELElBQUksQ0FBQyxDQUFDLFlBQUssRUFBRSxZQUFLLENBQUMsQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLEVBQUU7UUFDcEMsT0FBTyxNQUFNLENBQUMsV0FBVyxFQUFFLENBQUE7S0FDNUI7SUFDRCxPQUFPLE1BQU0sQ0FBQTtBQUNmLENBQUMsQ0FBQTtBQUxZLFFBQUEsZUFBZSxtQkFLM0I7QUFFTSxNQUFNLE1BQU0sR0FBRyxDQUFDLFlBQXdCLEVBQUUsRUFBRTtJQUNqRCxRQUFRLFlBQVksRUFBRTtRQUNwQixLQUFLLFdBQUksQ0FBQztRQUNWLEtBQUssVUFBRyxDQUFDO1FBQ1QsS0FBSyxXQUFJLENBQUM7UUFDVixLQUFLLFdBQUksQ0FBQztRQUNWLEtBQUssVUFBRyxDQUFDO1FBQ1QsS0FBSyxVQUFHLENBQUM7UUFDVCxLQUFLLFdBQUksQ0FBQztRQUNWLEtBQUssY0FBTyxDQUFDO1FBQ2IsS0FBSyxZQUFLLENBQUM7UUFDWCxLQUFLLFlBQUssQ0FBQztRQUNYLEtBQUssV0FBSSxDQUFDO1FBQ1YsS0FBSyxXQUFJLENBQUM7UUFDVixLQUFLLFVBQUcsQ0FBQztRQUNULEtBQUssV0FBSSxDQUFDO1FBQ1YsS0FBSyxXQUFJO1lBQ1AsT0FBTyxVQUFHLENBQUMsS0FBMEIsQ0FBQTtRQUN2QyxLQUFLLHFCQUFjO1lBQ2pCLE9BQU8sVUFBRyxDQUFDLGFBQWtDLENBQUE7UUFDL0MsS0FBSyw4QkFBdUI7WUFDMUIsT0FBTyxV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

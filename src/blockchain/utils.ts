@@ -346,14 +346,12 @@ export const getUserAvailableTokenBalance = async (
   address: string
 ) => {
   let balance
-
-  // TODO: Update the check to not be dependent upon `chainId`
   if (contract.address === ADDRESSES[SNX][1]) {
     balance = await contract.transferableSynthetix(address)
   } else {
     balance = await contract.balanceOf(address)
   }
-  return Math.floor(Number(formatEther(balance.toString())) * 1000) / 1000
+  return Math.floor(Number(formatEther(balance.toString())) * 10000) / 10000
 }
 
 export const getExchangeRateContract = async (provider: BaseProvider) => {

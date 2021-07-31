@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { USDC, X_U3LP_E } from '@xtoken/abis'
+import { USDC, X_U3LP_D, X_U3LP_E } from '@xtoken/abis'
 import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -69,20 +69,28 @@ export const getXU3LPPrices = async (
       assets[1] !== USDC ? token1Price : DEC_18
     )
 
-    const aum = token0Value.add(token1Value).div(DEC_18)
-    const priceUsd = aum.mul(DEC_18).div(xu3lpTotalSupply as BigNumberish)
-    const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
+    const aum = token0Value.add(token1Value)
 
     let priceBtc = BigNumber.from('0')
-    if (symbol === X_U3LP_E) {
+    let priceEth = BigNumber.from('0')
+    let priceUsd
+
+    if (symbol === X_U3LP_D) {
+      priceEth = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceUsd = priceEth.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+    } else if (symbol === X_U3LP_E) {
       const btcUsdcPrice = await getBtcUsdcPrice(
         kyberProxyContract.provider as BaseProvider
       )
-      priceBtc = priceUsd.mul(DEC_18).div(parseEther(btcUsdcPrice))
+      priceBtc = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceUsd = priceBtc.mul(parseEther(btcUsdcPrice)).div(DEC_18)
+    } else {
+      priceUsd = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
     }
 
     return {
-      aum: formatNumber(formatEther(aum), 0),
+      aum: formatNumber(formatEther(aum.div(DEC_18))),
       priceBtc: priceBtc.isZero() ? 0 : formatNumber(formatEther(priceBtc), 6),
       priceEth: formatNumber(formatEther(priceEth), 6),
       priceUsd: formatNumber(formatEther(priceUsd)),
