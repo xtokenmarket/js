@@ -28,6 +28,7 @@ import {
   X_U3LP_B,
   X_U3LP_C,
   // X_U3LP_D,
+  XTK_MANAGEMENT_STAKING_MODULE,
   DAI,
   S_ETH,
   S_USD,
@@ -48,6 +49,7 @@ export type IContracts =
   | typeof SNX
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_V2_PAIR
+  | typeof XTK_MANAGEMENT_STAKING_MODULE
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets

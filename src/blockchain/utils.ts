@@ -44,6 +44,7 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
+  XTK_MANAGEMENT_STAKING_MODULE,
   // X_U3LP_D,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
@@ -111,6 +112,8 @@ export const getAbi = (contractName: IContracts) => {
     case X_U3LP_C:
       // case X_U3LP_D:
       return Abi.xU3LP as ContractInterface
+    case XTK_MANAGEMENT_STAKING_MODULE:
+      return Abi.XTKManagementStakingModule as ContractInterface
   }
 }
 
