@@ -71,7 +71,7 @@ import {
 const { formatEther, parseEther } = ethers.utils
 
 export const capitalizeToken = (symbol: IStableAssets) => {
-  if (![S_ETH, S_USD].includes(symbol)) {
+  if (![REN_BTC, S_ETH, S_USD].includes(symbol)) {
     return symbol.toUpperCase()
   }
   return symbol
