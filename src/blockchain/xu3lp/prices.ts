@@ -69,7 +69,7 @@ export const getXU3LPPrices = async (
       assets[1] !== USDC ? token1Price : DEC_18
     )
 
-    const aum = token0Value.add(token1Value)
+    let aum = token0Value.add(token1Value)
 
     let priceBtc = BigNumber.from('0')
     let priceEth = BigNumber.from('0')
@@ -78,12 +78,18 @@ export const getXU3LPPrices = async (
     if (symbol === X_U3LP_D) {
       priceEth = aum.div(xu3lpTotalSupply as BigNumberish)
       priceUsd = priceEth.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+
+      // Convert AUM to USD from ETH
+      aum = aum.mul(parseEther(ethUsdcPrice)).div(DEC_18)
     } else if (symbol === X_U3LP_E) {
       const btcUsdcPrice = await getBtcUsdcPrice(
         kyberProxyContract.provider as BaseProvider
       )
       priceBtc = aum.div(xu3lpTotalSupply as BigNumberish)
       priceUsd = priceBtc.mul(parseEther(btcUsdcPrice)).div(DEC_18)
+
+      // Convert AUM to USD from BTC
+      aum = aum.mul(parseEther(btcUsdcPrice)).div(DEC_18)
     } else {
       priceUsd = aum.div(xu3lpTotalSupply as BigNumberish)
       priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))

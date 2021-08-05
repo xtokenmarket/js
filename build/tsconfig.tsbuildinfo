@@ -1522,7 +1522,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/prices.ts": {
-        "version": "b5eb84ab6d9a4f7305bea1bd29139ce771477a54aac929a6b816e1788fd91cd5",
+        "version": "25d4fe5b3d7d8039244704eb8a98e06ada0c93a222935fc42f9b6655339ce0b7",
         "signature": "2a57bf979fb94fedf1eec12ed580b1c182669e9ceeec73e1c259b5dd265bfc58",
         "affectsGlobalScope": false
       },
