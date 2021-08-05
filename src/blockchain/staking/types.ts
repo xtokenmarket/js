@@ -1,6 +1,6 @@
-export interface ITransactionHistory {
-  time: number
-  txHash: string
-  label: string
-  value: string
+export type ITransactionHistory = {
+  readonly time: number
+  readonly txHash: string
+  readonly label: string
+  readonly value: string
 }
