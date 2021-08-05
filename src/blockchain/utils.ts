@@ -4,6 +4,7 @@ import {
   JsonRpcProvider,
   Network,
 } from '@ethersproject/providers'
+import { formatUnits } from 'ethers/lib/utils'
 import {
   AAVE,
   Abi,
@@ -392,3 +393,9 @@ export const getSignerAddress = async (provider: BaseProvider) => {
   const signer = (provider as JsonRpcProvider).getSigner()
   return signer.getAddress()
 }
+
+export const formatBigNumber = (
+  value: BigNumber,
+  decimals: number,
+  precision = 2
+): string => Number(formatUnits(value, decimals)).toFixed(precision)

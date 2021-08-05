@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers'
 import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
@@ -93,6 +94,7 @@ import {
   getXU3LPAsset,
   mintXU3LP,
 } from './blockchain/xu3lp'
+import { stakeXtk, unstakeXXtkA } from './blockchain/staking'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
@@ -690,5 +692,13 @@ export class XToken {
         // case X_U3LP_D:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
+  }
+
+  public async stakeXtk(amount: BigNumber) {
+    return stakeXtk(this.provider, amount)
+  }
+
+  public async unstakeXXtkA(amount: BigNumber) {
+    return unstakeXXtkA(this.provider, amount)
   }
 }
