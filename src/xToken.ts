@@ -1,4 +1,3 @@
-import { BigNumber } from 'ethers'
 import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
@@ -18,6 +17,7 @@ import {
   X_U3LP_C,
   // X_U3LP_D,
 } from '@xtoken/abis'
+import { BigNumber } from 'ethers'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
 import {
