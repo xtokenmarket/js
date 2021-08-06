@@ -35,7 +35,7 @@ export const getXTKUntakeHistory = async (
     const iface = new Interface(Abi.XTKManagementStakingModule)
 
     const promises = logs.map(async (log) => {
-      const block: Block = await provider!.getBlock(log.blockNumber)
+      const block: Block = await provider.getBlock(log.blockNumber)
       const parsed = iface.parseLog(log)
       const { xtkAmount } = parsed.args
       // eslint-disable-next-line functional/immutable-data
