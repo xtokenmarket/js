@@ -4,7 +4,6 @@ import {
   JsonRpcProvider,
   Network,
 } from '@ethersproject/providers'
-import { formatUnits } from 'ethers/lib/utils'
 import {
   AAVE,
   Abi,
@@ -50,6 +49,7 @@ import {
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
+import { formatUnits } from 'ethers/lib/utils'
 
 import { ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'

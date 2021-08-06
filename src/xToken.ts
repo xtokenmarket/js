@@ -34,6 +34,7 @@ import {
   getKyberEstimatedQuantity,
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
+import { stakeXtk, unstakeXXtkA } from './blockchain/staking'
 import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
@@ -94,7 +95,6 @@ import {
   getXU3LPAsset,
   mintXU3LP,
 } from './blockchain/xu3lp'
-import { stakeXtk, unstakeXXtkA } from './blockchain/staking'
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
