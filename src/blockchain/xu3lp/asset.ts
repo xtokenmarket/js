@@ -10,7 +10,9 @@ export const getXU3LPAsset = async (
   symbol: ILPTokenSymbols,
   provider: BaseProvider
 ): Promise<ILPAsset> => {
-  const assets = getLPTokenSymbol(symbol)
+  const tokens = getLPTokenSymbol(symbol)
+  const assets = `${capitalizeToken(tokens[0])}-${capitalizeToken(tokens[1])}`
+
   const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
     symbol,
     provider
@@ -22,10 +24,9 @@ export const getXU3LPAsset = async (
   )
 
   return {
+    assets,
     aum,
-    mandate: `Maximize Yield: ${capitalizeToken(assets[0])}-${capitalizeToken(
-      assets[1]
-    )}`,
+    mandate: `Maximize Yield: ${assets}`,
     price: priceUsd,
     priceBtc,
     priceEth,

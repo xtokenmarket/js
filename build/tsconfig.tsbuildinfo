@@ -1097,8 +1097,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "582d9287c367f1dace0569a566adf6c536bdf15ff4aaac941966e1dbd14f74d9",
-        "signature": "582d9287c367f1dace0569a566adf6c536bdf15ff4aaac941966e1dbd14f74d9",
+        "version": "00d2e340e8c04a0493ab16f70ecac4969453ea53df15766410e7f5c744e93908",
+        "signature": "00d2e340e8c04a0493ab16f70ecac4969453ea53df15766410e7f5c744e93908",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1527,7 +1527,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xu3lp/asset.ts": {
-        "version": "3abfdbc10d1a38c5b8faddb8e596b8aefb79da940cab2691b165889587bef59d",
+        "version": "d7f5be93c2748105cd1aac7863fd5fdcba40a5543442ff45fedc26b5e595541d",
         "signature": "413ef6d9bb2eab07f5d3c06e105e643c6a568cd4be4b8fa27cbe5fdf3e9a50b3",
         "affectsGlobalScope": false
       },

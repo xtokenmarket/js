@@ -105,6 +105,7 @@ interface IAsset {
 }
 
 interface ILPAsset extends Omit<IAsset, 'symbol'> {
+  assets: string
   priceBtc?: number
   symbol: ILPTokenSymbols
 }
