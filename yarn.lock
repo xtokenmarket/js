@@ -983,9 +983,10 @@
   resolved "https://registry.yarnpkg.com/@uniswap/v2-core/-/v2-core-1.0.1.tgz#af8f508bf183204779938969e2e54043e147d425"
   integrity sha512-MtybtkUPSyysqLY2U210NBDeCHX+ltHt3oADGdjqoThZaFRDKwM6k1Nb3F0A3hk5hwuQvytFWhrWHOEq6nVJ8Q==
 
-"@xtoken/abis@xtokenmarket/abis#feature/xU3LP":
-  version "0.1.17"
-  resolved "https://codeload.github.com/xtokenmarket/abis/tar.gz/41b407cf5ed7c86e1e3996c28ce1e6a972563553"
+"@xtoken/abis@0.1.18":
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/@xtoken/abis/-/abis-0.1.18.tgz#d234c6fb3d0ec1aa5c5b49fd1cca83c1b1ba1c88"
+  integrity sha512-WyFObLMQnixgLWzZASk52G7tM2G5fJEdh3xsH/YwW9s/OagcMkhDvtcEAvzWm4OXrSFT1Kfqqp+lQjeO6b8iJw==
 
 JSONStream@^1.0.4:
   version "1.3.5"
