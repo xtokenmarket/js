@@ -8,7 +8,7 @@ import { IStakeHistory } from '../../types/xToken'
 
 import { getXtkStakingContract } from './helper'
 
-const STAKING_HISTORY_BLOCK = 12838146
+const STAKING_HISTORY_START_BLOCK = 12838146
 
 const getXtkTranasctionHistory = async (
   provider: BaseProvider,
@@ -27,7 +27,7 @@ const getXtkTranasctionHistory = async (
     const filter = stakingContract.filters[transactionName](account, null, null)
     const logs: readonly Log[] = await stakingContract.queryFilter(
       filter,
-      STAKING_HISTORY_BLOCK
+      STAKING_HISTORY_START_BLOCK
     )
     const iface = new Interface(Abi.XTKManagementStakingModule)
 
