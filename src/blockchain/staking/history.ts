@@ -10,7 +10,7 @@ import { getXtkStakingContract } from './helper'
 
 const STAKING_HISTORY_START_BLOCK = 12838146
 
-const getXtkTranasctionHistory = async (
+const getXtkTransactionHistory = async (
   provider: BaseProvider,
   account: string,
   transactionName: keyof XTKManagementStakingModule['filters'],
@@ -51,7 +51,7 @@ export const getXtkStakeHistory = async (
   // eslint-disable-next-line functional/no-return-void
   onError?: (err: Error) => void
 ) => {
-  const transactionHistory = await getXtkTranasctionHistory(
+  const transactionHistory = await getXtkTransactionHistory(
     provider,
     account,
     'Stake',
@@ -75,7 +75,7 @@ export const getXtkUnstakeHistory = async (
   // eslint-disable-next-line functional/no-return-void
   onError?: (err: Error) => void
 ) => {
-  const transactionHistory = await getXtkTranasctionHistory(
+  const transactionHistory = await getXtkTransactionHistory(
     provider,
     account,
     'UnStake',
