@@ -1,19 +1,12 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
 
-import { getContract } from '../utils'
+import { getXtkStakingContract } from './helper'
 
 export const unstakeXXtkA = async (
   provider: BaseProvider,
   amount: BigNumber
 ) => {
-  const network = await provider.getNetwork()
-  const stakingContract = getContract(
-    'xtkManagementStakingModule',
-    provider,
-    network
-  )
-  if (!stakingContract) return null
-
+  const stakingContract = await getXtkStakingContract(provider)
   return stakingContract.unstake(amount)
 }
