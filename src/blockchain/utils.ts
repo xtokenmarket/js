@@ -320,7 +320,7 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
     case X_U3LP_E:
       return { 0: WBTC, 1: REN_BTC }
     case X_U3LP_F:
-      return { 0: UST, 1: USDT }
+      return { 0: UST, 1: USDC }
     case X_U3LP_G:
       return { 0: FRAX, 1: USDC }
     case X_U3LP_H:
