@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { USDC, USDT } from '@xtoken/abis'
+import { REN_BTC, USDC, USDT, WBTC } from '@xtoken/abis'
 import { BigNumberish, ethers } from 'ethers'
 
 import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
@@ -85,9 +85,12 @@ export const mintXU3LP = async (
     address
   )
 
-  // Parse 18 decimals `amount` to 6 decimals
   if ([USDC, USDT].includes(assets[inputAsset])) {
+    // Parse 18 decimals `amount` to 6 decimals
     amount = amount.div('1000000000000')
+  } else if ([REN_BTC, WBTC].includes(assets[inputAsset])) {
+    // Parse 18 decimals `amount` to 8 decimals
+    amount = amount.div('10000000000')
   }
 
   if (approvedAmount.lt(amount)) {

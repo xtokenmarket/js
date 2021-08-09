@@ -15,7 +15,7 @@ export const getXBntAsset = async (
     provider
   )
 
-  const { aum, priceUsd } = await getXBntPrices(
+  const { aum, priceEth, priceUsd } = await getXBntPrices(
     xbntContract,
     kyberProxyContract
   )
@@ -24,6 +24,7 @@ export const getXBntAsset = async (
     aum,
     mandate: 'Dynamic Allocator; Buchanan Mandate',
     price: priceUsd,
+    priceEth,
     symbol,
   }
 }

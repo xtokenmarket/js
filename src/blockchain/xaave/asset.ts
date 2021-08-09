@@ -17,7 +17,7 @@ export const getXAaveAsset = async (
   } = await getXAaveContracts(symbol, provider)
   const { chainId } = network
 
-  const { aum, priceUsd } = await getXAavePrices(
+  const { aum, priceEth, priceUsd } = await getXAavePrices(
     xaaveContract,
     kyberProxyContract,
     chainId
@@ -29,6 +29,7 @@ export const getXAaveAsset = async (
       symbol === X_AAVE_A ? 'Buchanan' : 'Samuelson'
     } Mandate`,
     price: priceUsd,
+    priceEth,
     symbol,
   }
 }

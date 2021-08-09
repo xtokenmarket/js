@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { USDC } from '@xtoken/abis'
+import { USDC, X_U3LP_D, X_U3LP_E } from '@xtoken/abis'
 import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
@@ -7,7 +7,7 @@ import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
 import { KyberProxy, XU3LP } from '../../types'
 import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
-import { getEthUsdcPrice } from '../exchanges/uniswap'
+import { getBtcUsdcPrice, getEthUsdcPrice } from '../exchanges/uniswap'
 import { getLPTokenSymbol } from '../utils'
 
 /**
@@ -69,12 +69,35 @@ export const getXU3LPPrices = async (
       assets[1] !== USDC ? token1Price : DEC_18
     )
 
-    const aum = token0Value.add(token1Value).div(DEC_18)
-    const priceUsd = aum.mul(DEC_18).div(xu3lpTotalSupply as BigNumberish)
-    const priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
+    let aum = token0Value.add(token1Value)
+
+    let priceBtc = BigNumber.from('0')
+    let priceEth = BigNumber.from('0')
+    let priceUsd
+
+    if (symbol === X_U3LP_D) {
+      priceEth = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceUsd = priceEth.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+
+      // Convert AUM to USD from ETH
+      aum = aum.mul(parseEther(ethUsdcPrice)).div(DEC_18)
+    } else if (symbol === X_U3LP_E) {
+      const btcUsdcPrice = await getBtcUsdcPrice(
+        kyberProxyContract.provider as BaseProvider
+      )
+      priceBtc = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceUsd = priceBtc.mul(parseEther(btcUsdcPrice)).div(DEC_18)
+
+      // Convert AUM to USD from BTC
+      aum = aum.mul(parseEther(btcUsdcPrice)).div(DEC_18)
+    } else {
+      priceUsd = aum.div(xu3lpTotalSupply as BigNumberish)
+      priceEth = priceUsd.mul(DEC_18).div(parseEther(ethUsdcPrice))
+    }
 
     return {
-      aum: formatNumber(formatEther(aum)),
+      aum: formatNumber(formatEther(aum.div(DEC_18))),
+      priceBtc: priceBtc.isZero() ? 0 : formatNumber(formatEther(priceBtc), 6),
       priceEth: formatNumber(formatEther(priceEth), 6),
       priceUsd: formatNumber(formatEther(priceUsd)),
     }

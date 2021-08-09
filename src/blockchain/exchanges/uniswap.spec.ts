@@ -4,10 +4,17 @@ import test from 'ava'
 import { provider, testAddress } from '../../constants.spec'
 
 import {
+  getBtcUsdcPrice,
   getEthUsdcPrice,
   // getUniswapEstimatedQuantity,
   getUniswapPortfolioItem,
 } from './uniswap'
+
+test('Get BTC<>USDC rate', async (t) => {
+  const btcUsdcRate = await getBtcUsdcPrice(provider)
+  console.log('[Uniswap] BTC<>USDC rate:', btcUsdcRate)
+  t.true(Number(btcUsdcRate) > 0)
+})
 
 test('Get ETH<>USDC rate', async (t) => {
   const ethUsdcRate = await getEthUsdcPrice(provider)
