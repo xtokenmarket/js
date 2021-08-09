@@ -7,6 +7,8 @@ export const unstakeXXtkA = async (
   provider: BaseProvider,
   amount: BigNumber
 ) => {
+  if (amount.lte(BigNumber.from(0))) return
+
   const stakingContract = await getXtkStakingContract(provider)
   return stakingContract.unstake(amount)
 }

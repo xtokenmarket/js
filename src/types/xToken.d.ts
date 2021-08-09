@@ -154,3 +154,10 @@ export interface IU3LPToken {
 }
 
 export type IU3LPAssetId = 0 | 1
+
+export type IStakeHistory = {
+  readonly time: number
+  readonly txHash: string
+  readonly label: string
+  readonly value: string
+}
