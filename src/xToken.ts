@@ -707,16 +707,16 @@ export class XToken {
     return unstakeXXtkA(this.provider, amount)
   }
 
-  // eslint-disable-next-line functional/no-return-void
   public async getXtkStakeHistory(
     account: string,
+    // eslint-disable-next-line functional/no-return-void
     onError?: (error: Error) => void
   ) {
     return getXtkStakeHistory(this.provider, account, onError)
   }
-  // eslint-disable-next-line functional/no-return-void
   public async getXtkUnstakeHistory(
     account: string,
+    // eslint-disable-next-line functional/no-return-void
     onError?: (error: Error) => void
   ) {
     return getXtkUnstakeHistory(this.provider, account, onError)
