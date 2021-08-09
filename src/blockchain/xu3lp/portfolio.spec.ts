@@ -2,8 +2,8 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  X_U3LP_D,
-  X_U3LP_E,
+  // X_U3LP_D,
+  // X_U3LP_E,
   X_U3LP_F,
   X_U3LP_G,
   X_U3LP_H,
@@ -44,7 +44,7 @@ test('Get xU3LPc portfolio balance', async (t) => {
   t.true(Number(portfolioItem.quantity) > 0)
 })
 
-test('Get xU3LPd portfolio balance', async (t) => {
+/*test('Get xU3LPd portfolio balance', async (t) => {
   const portfolioItem = await getPortfolioItemXU3LP(
     X_U3LP_D,
     testAddress,
@@ -62,7 +62,7 @@ test('Get xU3LPe portfolio balance', async (t) => {
   )
   console.log('Portfolio balance xU3LPe:', portfolioItem.quantity)
   t.true(Number(portfolioItem.quantity) > 0)
-})
+})*/
 
 test('Get xU3LPf portfolio balance', async (t) => {
   const portfolioItem = await getPortfolioItemXU3LP(
