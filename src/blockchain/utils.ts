@@ -49,7 +49,6 @@ import {
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
-import { formatUnits } from 'ethers/lib/utils'
 
 import { ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'
@@ -393,9 +392,3 @@ export const getSignerAddress = async (provider: BaseProvider) => {
   const signer = (provider as JsonRpcProvider).getSigner()
   return signer.getAddress()
 }
-
-export const formatBigNumber = (
-  value: BigNumber,
-  decimals: number,
-  precision = 2
-): string => Number(formatUnits(value, decimals)).toFixed(precision)
