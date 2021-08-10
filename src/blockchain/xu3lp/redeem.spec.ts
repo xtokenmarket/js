@@ -77,15 +77,15 @@ test('Get maximum redeemable xU3LPe when burning to renBTC', async (t) => {
   t.true(Number(maxRedeemable) > 0)
 })
 
-test('Get maximum redeemable xU3LPf when burning to UST', async (t) => {
+test('Get maximum redeemable xU3LPf when burning to USDC', async (t) => {
   const maxRedeemable = await getMaximumRedeemableXU3LP(X_U3LP_F, 0, provider)
-  console.log('Maximum redeemable xU3LPf when burning to UST:', maxRedeemable)
+  console.log('Maximum redeemable xU3LPf when burning to USDC:', maxRedeemable)
   t.true(Number(maxRedeemable) > 0)
 })
 
-test('Get maximum redeemable xU3LPf when burning to USDT', async (t) => {
+test('Get maximum redeemable xU3LPf when burning to UST', async (t) => {
   const maxRedeemable = await getMaximumRedeemableXU3LP(X_U3LP_F, 1, provider)
-  console.log('Maximum redeemable xU3LPf when burning to USDT:', maxRedeemable)
+  console.log('Maximum redeemable xU3LPf when burning to UST:', maxRedeemable)
   t.true(Number(maxRedeemable) > 0)
 })
 

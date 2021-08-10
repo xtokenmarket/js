@@ -17,6 +17,14 @@ yarn add @xtoken/abis
 yarn add ethers@5.0.30
 ```
 
+## Environment
+
+We need to set up an environment variable for test address that'd be used to validate portfolio balances across all xAssets while running tests.
+
+```sh
+cp .env.sample .env # Fill in the TEST_ADDRESS variable
+```
+
 ## Documentation
 
 GitHub pages: [https://xtokenmarket.github.io/js](https://xtokenmarket.github.io/js/)

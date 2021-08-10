@@ -124,25 +124,25 @@ test('Calculate expected quantity of renBTC on burn of xU3LPe', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate expected quantity of UST on burn of xU3LPf', async (t) => {
+test('Calculate expected quantity of USDC on burn of xU3LPf', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXU3LP(
     X_U3LP_F,
     0,
     '1000',
     provider
   )
-  console.log('Expected qty of UST for 1000 xU3LPf:', expectedQty)
+  console.log('Expected qty of USDC for 1000 xU3LPf:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate expected quantity of USDT on burn of xU3LPf', async (t) => {
+test('Calculate expected quantity of UST on burn of xU3LPf', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXU3LP(
     X_U3LP_F,
     1,
     '1000',
     provider
   )
-  console.log('Expected qty of USDT for 1000 xU3LPf:', expectedQty)
+  console.log('Expected qty of UST for 1000 xU3LPf:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })
 

@@ -124,25 +124,25 @@ test('Calculate xU3LPe expected quantity on mint with renBTC', async (t) => {
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate xU3LPf expected quantity on mint with UST', async (t) => {
+test('Calculate xU3LPf expected quantity on mint with USDC', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXU3LP(
     X_U3LP_F,
     0,
     '1000',
     provider
   )
-  console.log('Expected xU3LPf qty for 1000 UST:', expectedQty)
+  console.log('Expected xU3LPf qty for 1000 USDC:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })
 
-test('Calculate xU3LPf expected quantity on mint with USDT', async (t) => {
+test('Calculate xU3LPf expected quantity on mint with UST', async (t) => {
   const expectedQty = await getExpectedQuantityOnMintXU3LP(
     X_U3LP_F,
     1,
     '1000',
     provider
   )
-  console.log('Expected xU3LPf qty for 1000 USDT:', expectedQty)
+  console.log('Expected xU3LPf qty for 1000 UST:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })
 
