@@ -21,7 +21,6 @@ import {
   X_U3LP_G,
   X_U3LP_H,
 } from '@xtoken/abis'
-import { BigNumber } from 'ethers'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
 import {
