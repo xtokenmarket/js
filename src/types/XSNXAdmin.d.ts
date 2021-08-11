@@ -255,7 +255,7 @@ export class XSNXAdmin extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'callFunction(address,tuple,bytes)'(
+    'callFunction(address,(address,uint256),bytes)'(
       sender: string,
       accountInfo: { owner: string; number: BigNumberish },
       data: BytesLike,
@@ -517,7 +517,7 @@ export class XSNXAdmin extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'callFunction(address,tuple,bytes)'(
+  'callFunction(address,(address,uint256),bytes)'(
     sender: string,
     accountInfo: { owner: string; number: BigNumberish },
     data: BytesLike,
@@ -779,7 +779,7 @@ export class XSNXAdmin extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'callFunction(address,tuple,bytes)'(
+    'callFunction(address,(address,uint256),bytes)'(
       sender: string,
       accountInfo: { owner: string; number: BigNumberish },
       data: BytesLike,
@@ -1050,7 +1050,7 @@ export class XSNXAdmin extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'callFunction(address,tuple,bytes)'(
+    'callFunction(address,(address,uint256),bytes)'(
       sender: string,
       accountInfo: { owner: string; number: BigNumberish },
       data: BytesLike,
@@ -1310,7 +1310,7 @@ export class XSNXAdmin extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'callFunction(address,tuple,bytes)'(
+    'callFunction(address,(address,uint256),bytes)'(
       sender: string,
       accountInfo: { owner: string; number: BigNumberish },
       data: BytesLike,

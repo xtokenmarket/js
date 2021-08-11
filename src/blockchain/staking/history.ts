@@ -1,28 +1,24 @@
 import { Block, Log } from '@ethersproject/abstract-provider'
 import { BaseProvider } from '@ethersproject/providers'
 import { Abi } from '@xtoken/abis'
-import { formatUnits, Interface, LogDescription } from 'ethers/lib/utils'
+import { formatUnits, Interface } from 'ethers/lib/utils'
 
-import { XTKManagementStakingModule } from '../../types'
 import { IStakeHistory } from '../../types/xToken'
 
 import { getXtkStakingContract } from './helper'
 
 const STAKING_HISTORY_START_BLOCK = 12838146
 
-const getXtkTransactionHistory = async (
+const getHistory = async (
   provider: BaseProvider,
   account: string,
-  transactionName: keyof XTKManagementStakingModule['filters'],
-  formatTransactionData: (
-    block: Block,
-    log: Log,
-    parsedLog: LogDescription
-  ) => IStakeHistory,
+  type: 'stake' | 'unstake',
   // eslint-disable-next-line functional/no-return-void
   onError?: (err: Error) => void
-) => {
+): Promise<readonly IStakeHistory[]> => {
   const stakingContract = await getXtkStakingContract(provider)
+  const transactionName = type === 'stake' ? 'Stake' : 'UnStake'
+  const label = type === 'stake' ? 'Stake' : 'Unstake'
   try {
     const filter = stakingContract.filters[transactionName](account, null, null)
     const logs: readonly Log[] = await stakingContract.queryFilter(
@@ -34,7 +30,13 @@ const getXtkTransactionHistory = async (
     const promises = logs.map(async (log) => {
       const block: Block = await provider.getBlock(log.blockNumber)
       const parsedLog = iface.parseLog(log)
-      return formatTransactionData(block, log, parsedLog)
+      const { xtkAmount } = parsedLog.args
+      return {
+        time: block.timestamp,
+        label,
+        value: Number(formatUnits(xtkAmount, 18)).toFixed(2),
+        txHash: log.transactionHash,
+      }
     })
     return Promise.all(promises)
   } catch (err) {
@@ -51,22 +53,8 @@ export const getXtkStakeHistory = async (
   // eslint-disable-next-line functional/no-return-void
   onError?: (err: Error) => void
 ) => {
-  const transactionHistory = await getXtkTransactionHistory(
-    provider,
-    account,
-    'Stake',
-    (block, log, parsedLog) => {
-      const { xtkAmount } = parsedLog.args
-      return {
-        time: block.timestamp,
-        value: Number(formatUnits(xtkAmount, 18)).toFixed(2),
-        label: 'Stake',
-        txHash: log.transactionHash,
-      }
-    },
-    onError
-  )
-  return transactionHistory
+  const stakeHistory = await getHistory(provider, account, 'stake', onError)
+  return stakeHistory
 }
 
 export const getXtkUnstakeHistory = async (
@@ -75,20 +63,6 @@ export const getXtkUnstakeHistory = async (
   // eslint-disable-next-line functional/no-return-void
   onError?: (err: Error) => void
 ) => {
-  const transactionHistory = await getXtkTransactionHistory(
-    provider,
-    account,
-    'UnStake',
-    (block, log, parsedLog) => {
-      const { xtkAmount } = parsedLog.args
-      return {
-        time: block.timestamp,
-        value: Number(formatUnits(xtkAmount, 18)).toFixed(2),
-        label: 'Unstake',
-        txHash: log.transactionHash,
-      }
-    },
-    onError
-  )
-  return transactionHistory
+  const unstakeHistory = await getHistory(provider, account, 'unstake', onError)
+  return unstakeHistory
 }

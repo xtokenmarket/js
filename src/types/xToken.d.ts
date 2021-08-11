@@ -15,6 +15,7 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
+  XTK_MANAGEMENT_STAKING_MODULE,
   BUY,
   SELL,
   INCH,
@@ -27,13 +28,21 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  // X_U3LP_D,
-  XTK_MANAGEMENT_STAKING_MODULE,
+  X_U3LP_D,
+  X_U3LP_E,
+  X_U3LP_F,
+  X_U3LP_G,
+  X_U3LP_H,
+  BUSD,
   DAI,
+  FRAX,
+  REN_BTC,
   S_ETH,
   S_USD,
   USDC,
   USDT,
+  UST,
+  WBTC,
   WETH,
 } from '@xtoken/abis'
 import { Exchange } from '../constants'
@@ -68,14 +77,23 @@ export type ILPTokenSymbols =
   | typeof X_U3LP_A
   | typeof X_U3LP_B
   | typeof X_U3LP_C
-// | typeof X_U3LP_D
+  | typeof X_U3LP_D
+  | typeof X_U3LP_E
+  | typeof X_U3LP_F
+  | typeof X_U3LP_G
+  | typeof X_U3LP_H
 
 export type IStableAssets =
+  | typeof BUSD
   | typeof DAI
+  | typeof FRAX
+  | typeof REN_BTC
   | typeof S_ETH
   | typeof S_USD
   | typeof USDC
   | typeof USDT
+  | typeof UST
+  | typeof WBTC
   | typeof WETH
 
 export type ITradeType = typeof BUY | typeof SELL
@@ -84,13 +102,13 @@ interface IAsset {
   aum: number
   mandate: string
   price: number
+  priceEth: number
   symbol: ITokenSymbols
 }
 
-interface ILPAsset {
-  aum: number
-  mandate: string
-  price: number
+interface ILPAsset extends Omit<IAsset, 'symbol'> {
+  assets: string
+  priceBtc?: number
   symbol: ILPTokenSymbols
 }
 
@@ -132,6 +150,7 @@ export interface IPortfolioItem {
 
 export interface ITokenPrices {
   aum: number
+  priceBtc?: number
   priceEth: number
   priceUsd: number
   sellPriceEth?: number

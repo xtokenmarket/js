@@ -26,7 +26,7 @@ export const getXSnxAsset = async (
     provider
   )) as ExchangeRates
 
-  const { aum, priceUsd } = await getXSnxPrices(
+  const { aum, priceEth, priceUsd } = await getXSnxPrices(
     xsnxContract,
     xsnxAdminAddress,
     tradeAccountingContract,
@@ -37,8 +37,9 @@ export const getXSnxAsset = async (
 
   return {
     aum,
-    mandate: 'Aggressive staker; cautious ETH bull',
+    mandate: 'Aggressive staker; ETH bull',
     price: priceUsd,
+    priceEth,
     symbol,
   }
 }

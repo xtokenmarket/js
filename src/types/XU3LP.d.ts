@@ -947,7 +947,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,address,address,address,(uint256,uint256,uint256),uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
@@ -1062,7 +1062,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'setFeeDivisors(tuple)'(
+    'setFeeDivisors((uint256,uint256,uint256))'(
       _feeDivisors: {
         mintFee: BigNumberish
         burnFee: BigNumberish
@@ -1541,7 +1541,7 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+  'initialize(string,int24,int24,address,address,address,address,address,(uint256,uint256,uint256),uint256,uint8,uint8)'(
     _symbol: string,
     _tickLower: BigNumberish,
     _tickUpper: BigNumberish,
@@ -1653,7 +1653,7 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'setFeeDivisors(tuple)'(
+  'setFeeDivisors((uint256,uint256,uint256))'(
     _feeDivisors: {
       mintFee: BigNumberish
       burnFee: BigNumberish
@@ -2130,7 +2130,7 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,address,address,address,(uint256,uint256,uint256),uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
@@ -2242,7 +2242,7 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'setFeeDivisors(tuple)'(
+    'setFeeDivisors((uint256,uint256,uint256))'(
       _feeDivisors: {
         mintFee: BigNumberish
         burnFee: BigNumberish
@@ -2690,7 +2690,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,address,address,address,(uint256,uint256,uint256),uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
@@ -2802,7 +2802,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'setFeeDivisors(tuple)'(
+    'setFeeDivisors((uint256,uint256,uint256))'(
       _feeDivisors: {
         mintFee: BigNumberish
         burnFee: BigNumberish
@@ -3259,7 +3259,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,address,address,address,(uint256,uint256,uint256),uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
@@ -3378,7 +3378,7 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'setFeeDivisors(tuple)'(
+    'setFeeDivisors((uint256,uint256,uint256))'(
       _feeDivisors: {
         mintFee: BigNumberish
         burnFee: BigNumberish

@@ -15,7 +15,11 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
-  // X_U3LP_D,
+  X_U3LP_D,
+  X_U3LP_E,
+  X_U3LP_F,
+  X_U3LP_G,
+  X_U3LP_H,
 } from '@xtoken/abis'
 import { BigNumber } from 'ethers'
 import { isAddress, parseEther } from 'ethers/lib/utils'
@@ -174,7 +178,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
     }
   }
@@ -238,7 +246,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return burnXU3LP(symbol, sellForEth ? 1 : 0, value, this.provider)
     }
   }
@@ -411,7 +423,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return getExpectedQuantityOnBurnXU3LP(
           symbol,
           sellForEth ? 1 : 0,
@@ -486,7 +502,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return getExpectedQuantityOnMintXU3LP(
           symbol,
           tradeWithEth ? 1 : 0,
@@ -528,7 +548,7 @@ export class XToken {
    * const maxRedeemable = await xToken.getMaxRedeemable('xAAVEa')
    * ```
    *
-   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa'} symbol Symbol of the xToken
+   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa' | ILPTokenSymbols} symbol Symbol of the xToken
    * @param {IU3LPAssetId} outputAsset Sell for Token0/Token1
    * @returns Maximum redeemable tokens for the given xToken
    */
@@ -542,8 +562,12 @@ export class XToken {
       | typeof X_SNX_A
       | typeof X_U3LP_A
       | typeof X_U3LP_B
-      | typeof X_U3LP_C,
-    // | typeof X_U3LP_D,
+      | typeof X_U3LP_C
+      | typeof X_U3LP_D
+      | typeof X_U3LP_E
+      | typeof X_U3LP_F
+      | typeof X_U3LP_G
+      | typeof X_U3LP_H,
     outputAsset?: IU3LPAssetId
   ): Promise<string> {
     switch (symbol) {
@@ -560,7 +584,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return getMaximumRedeemableXU3LP(
           symbol,
           outputAsset || 0,
@@ -601,6 +629,11 @@ export class XToken {
       getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_D, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_E, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_F, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_G, address, this.provider),
+      getPortfolioItemXU3LP(X_U3LP_H, address, this.provider),
     ])
   }
 
@@ -616,14 +649,14 @@ export class XToken {
    */
   public async getXAssets(): Promise<readonly IAsset[]> {
     return Promise.all([
-      getXKncAsset(X_KNC_A, this.provider),
-      getXKncAsset(X_KNC_B, this.provider),
-      getXSnxAsset(X_SNX_A, this.provider),
-      getXAaveAsset(X_AAVE_A, this.provider),
-      getXAaveAsset(X_AAVE_B, this.provider),
+      getXBntAsset(X_BNT_A, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
-      getXBntAsset(X_BNT_A, this.provider),
+      getXAaveAsset(X_AAVE_A, this.provider),
+      getXAaveAsset(X_AAVE_B, this.provider),
+      getXSnxAsset(X_SNX_A, this.provider),
+      getXKncAsset(X_KNC_A, this.provider),
+      getXKncAsset(X_KNC_B, this.provider),
     ])
   }
 
@@ -638,10 +671,14 @@ export class XToken {
    */
   public async getXLPAssets(): Promise<readonly ILPAsset[]> {
     return Promise.all([
-      getXU3LPAsset(X_U3LP_A, this.provider),
-      getXU3LPAsset(X_U3LP_B, this.provider),
+      getXU3LPAsset(X_U3LP_H, this.provider),
+      getXU3LPAsset(X_U3LP_G, this.provider),
+      getXU3LPAsset(X_U3LP_F, this.provider),
+      getXU3LPAsset(X_U3LP_E, this.provider),
+      getXU3LPAsset(X_U3LP_D, this.provider),
       getXU3LPAsset(X_U3LP_C, this.provider),
-      // getXU3LPAsset(X_U3LP_D, this.provider),
+      getXU3LPAsset(X_U3LP_B, this.provider),
+      getXU3LPAsset(X_U3LP_A, this.provider),
     ])
   }
 
@@ -694,7 +731,11 @@ export class XToken {
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
-        // case X_U3LP_D:
+      case X_U3LP_D:
+      case X_U3LP_E:
+      case X_U3LP_F:
+      case X_U3LP_G:
+      case X_U3LP_H:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
   }

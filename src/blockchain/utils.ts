@@ -9,12 +9,15 @@ import {
   Abi,
   ADDRESSES,
   BNT,
+  BUSD,
   DAI,
   EXCHANGE_RATES,
+  FRAX,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
+  REN_BTC,
   S_ETH,
   S_USD,
   SNX,
@@ -23,6 +26,8 @@ import {
   UNISWAP_V2_PAIR,
   USDC,
   USDT,
+  UST,
+  WBTC,
   WETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
@@ -44,8 +49,12 @@ import {
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
+  X_U3LP_D,
+  X_U3LP_E,
+  X_U3LP_F,
+  X_U3LP_G,
+  X_U3LP_H,
   XTK_MANAGEMENT_STAKING_MODULE,
-  // X_U3LP_D,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
@@ -63,7 +72,7 @@ import {
 const { formatEther, parseEther } = ethers.utils
 
 export const capitalizeToken = (symbol: IStableAssets) => {
-  if (![S_ETH, S_USD].includes(symbol)) {
+  if (![REN_BTC, S_ETH, S_USD].includes(symbol)) {
     return symbol.toUpperCase()
   }
   return symbol
@@ -73,13 +82,18 @@ export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
     case BNT:
+    case BUSD:
     case INCH:
     case KNC:
     case DAI:
+    case FRAX:
+    case REN_BTC:
     case S_ETH:
     case S_USD:
     case USDC:
     case USDT:
+    case UST:
+    case WBTC:
     case WETH:
       return Abi.ERC20 as ContractInterface
     case EXCHANGE_RATES:
@@ -110,7 +124,11 @@ export const getAbi = (contractName: IContracts) => {
     case X_U3LP_A:
     case X_U3LP_B:
     case X_U3LP_C:
-      // case X_U3LP_D:
+    case X_U3LP_D:
+    case X_U3LP_E:
+    case X_U3LP_F:
+    case X_U3LP_G:
+    case X_U3LP_H:
       return Abi.xU3LP as ContractInterface
     case XTK_MANAGEMENT_STAKING_MODULE:
       return Abi.XTKManagementStakingModule as ContractInterface
@@ -300,8 +318,16 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
       return { 0: USDC, 1: USDT }
     case X_U3LP_C:
       return { 0: S_USD, 1: USDC }
-    // case X_U3LP_D:
-    //   return { 0: S_ETH, 1: WETH }
+    case X_U3LP_D:
+      return { 0: S_ETH, 1: WETH }
+    case X_U3LP_E:
+      return { 0: WBTC, 1: REN_BTC }
+    case X_U3LP_F:
+      return { 0: USDC, 1: UST }
+    case X_U3LP_G:
+      return { 0: FRAX, 1: USDC }
+    case X_U3LP_H:
+      return { 0: BUSD, 1: USDT }
   }
 }
 
@@ -323,14 +349,12 @@ export const getUserAvailableTokenBalance = async (
   address: string
 ) => {
   let balance
-
-  // TODO: Update the check to not be dependent upon `chainId`
   if (contract.address === ADDRESSES[SNX][1]) {
     balance = await contract.transferableSynthetix(address)
   } else {
     balance = await contract.balanceOf(address)
   }
-  return Math.floor(Number(formatEther(balance.toString())) * 1000) / 1000
+  return Math.floor(Number(formatEther(balance.toString())) * 10000) / 10000
 }
 
 export const getExchangeRateContract = async (provider: BaseProvider) => {
