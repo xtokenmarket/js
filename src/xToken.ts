@@ -740,11 +740,11 @@ export class XToken {
     }
   }
 
-  public async stakeXtk(amount: BigNumber) {
+  public async stakeXtk(amount: string) {
     return stakeXtk(this.provider, amount)
   }
 
-  public async unstakeXXtkA(amount: BigNumber) {
+  public async unstakeXXtkA(amount: string) {
     return unstakeXXtkA(this.provider, amount)
   }
 
