@@ -9,7 +9,7 @@ import { getSignerAddress, toTitleCase } from '../utils'
 
 import { getXtkStakingContract } from './helper'
 
-const STAKING_HISTORY_START_BLOCK = 12838146
+const fromBlock = 12838146
 
 export const getXtkHistory = async (
   type: IHistoryType,
@@ -22,7 +22,7 @@ export const getXtkHistory = async (
     const filter = stakingContract.filters[type](account, null, null)
     const logs: readonly Log[] = await stakingContract.queryFilter(
       filter,
-      STAKING_HISTORY_START_BLOCK
+      fromBlock
     )
     const iface = new Interface(Abi.XTKManagementStakingModule)
 
