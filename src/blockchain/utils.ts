@@ -416,3 +416,7 @@ export const getSignerAddress = async (provider: BaseProvider) => {
   const signer = (provider as JsonRpcProvider).getSigner()
   return signer.getAddress()
 }
+
+export const toTitleCase = (text: string) => {
+  return text[0].toUpperCase() + text.slice(1).toLowerCase()
+}

@@ -1,11 +1,12 @@
 import test from 'ava'
 
-import { provider, testAddress } from '../../constants.spec'
+import { STAKE, UNSTAKE } from '../../constants'
+import { provider } from '../../constants.spec'
 
-import { getXtkStakeHistory, getXtkUnstakeHistory } from './history'
+import { getXtkHistory } from './history'
 
 test('Get Staking history', async (t) => {
-  const stakeHistory = await getXtkStakeHistory(provider, testAddress)
+  const stakeHistory = await getXtkHistory(STAKE, provider)
   const expectedFirstEntry = {
     time: 1627025156,
     label: 'Stake',
@@ -18,7 +19,7 @@ test('Get Staking history', async (t) => {
 })
 
 test('Get Unstaking history', async (t) => {
-  const unstakeHistory = await getXtkUnstakeHistory(provider, testAddress)
+  const unstakeHistory = await getXtkHistory(UNSTAKE, provider)
   const expectedFirstEntry = {
     time: 1627092463,
     label: 'Unstake',

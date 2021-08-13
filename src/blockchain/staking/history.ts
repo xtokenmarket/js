@@ -1,26 +1,25 @@
 import { Block, Log } from '@ethersproject/abstract-provider'
 import { BaseProvider } from '@ethersproject/providers'
 import { Abi } from '@xtoken/abis'
-import { formatUnits, Interface } from 'ethers/lib/utils'
+import { formatEther, Interface } from 'ethers/lib/utils'
 
-import { IStakeHistory } from '../../types/xToken'
+import { IHistoryType, IStakeHistory } from '../../types/xToken'
+import { formatNumber } from '../../utils'
+import { getSignerAddress, toTitleCase } from '../utils'
 
 import { getXtkStakingContract } from './helper'
 
 const STAKING_HISTORY_START_BLOCK = 12838146
 
-const getHistory = async (
-  provider: BaseProvider,
-  account: string,
-  type: 'stake' | 'unstake',
-  // eslint-disable-next-line functional/no-return-void
-  onError?: (err: Error) => void
+export const getXtkHistory = async (
+  type: IHistoryType,
+  provider: BaseProvider
 ): Promise<readonly IStakeHistory[]> => {
   const stakingContract = await getXtkStakingContract(provider)
-  const transactionName = type === 'stake' ? 'Stake' : 'UnStake'
-  const label = type === 'stake' ? 'Stake' : 'Unstake'
+  const account = await getSignerAddress(provider)
+  const label = toTitleCase(type)
   try {
-    const filter = stakingContract.filters[transactionName](account, null, null)
+    const filter = stakingContract.filters[type](account, null, null)
     const logs: readonly Log[] = await stakingContract.queryFilter(
       filter,
       STAKING_HISTORY_START_BLOCK
@@ -34,35 +33,12 @@ const getHistory = async (
       return {
         time: block.timestamp,
         label,
-        value: Number(formatUnits(xtkAmount, 18)).toFixed(2),
+        value: formatNumber(formatEther(xtkAmount), 2).toString(),
         txHash: log.transactionHash,
       }
     })
     return Promise.all(promises)
   } catch (err) {
-    if (onError) {
-      onError(err)
-    }
-    return []
+    return Promise.reject(err)
   }
-}
-
-export const getXtkStakeHistory = async (
-  provider: BaseProvider,
-  account: string,
-  // eslint-disable-next-line functional/no-return-void
-  onError?: (err: Error) => void
-) => {
-  const stakeHistory = await getHistory(provider, account, 'stake', onError)
-  return stakeHistory
-}
-
-export const getXtkUnstakeHistory = async (
-  provider: BaseProvider,
-  account: string,
-  // eslint-disable-next-line functional/no-return-void
-  onError?: (err: Error) => void
-) => {
-  const unstakeHistory = await getHistory(provider, account, 'unstake', onError)
-  return unstakeHistory
 }

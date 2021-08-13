@@ -37,12 +37,7 @@ import {
   getKyberEstimatedQuantity,
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
-import {
-  getXtkStakeHistory,
-  getXtkUnstakeHistory,
-  stakeXtk,
-  unstakeXXtkA,
-} from './blockchain/staking'
+import { getXtkHistory, stakeXtk, unstakeXXtkA } from './blockchain/staking'
 import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
@@ -106,6 +101,7 @@ import {
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
+  IHistoryType,
   ILiquidityPoolItem,
   ILPAsset,
   ILPTokenSymbols,
@@ -747,18 +743,7 @@ export class XToken {
     return unstakeXXtkA(this.provider, amount)
   }
 
-  public async getXtkStakeHistory(
-    account: string,
-    // eslint-disable-next-line functional/no-return-void
-    onError?: (error: Error) => void
-  ) {
-    return getXtkStakeHistory(this.provider, account, onError)
-  }
-  public async getXtkUnstakeHistory(
-    account: string,
-    // eslint-disable-next-line functional/no-return-void
-    onError?: (error: Error) => void
-  ) {
-    return getXtkUnstakeHistory(this.provider, account, onError)
+  public async getXtkHistory(type: IHistoryType) {
+    return getXtkHistory(type, this.provider)
   }
 }

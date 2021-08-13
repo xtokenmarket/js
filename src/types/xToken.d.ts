@@ -45,7 +45,7 @@ import {
   WBTC,
   WETH,
 } from '@xtoken/abis'
-import { Exchange } from '../constants'
+import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
   | typeof AAVE
@@ -180,3 +180,5 @@ export type IStakeHistory = {
   readonly label: string
   readonly value: string
 }
+
+export type IHistoryType = typeof STAKE | typeof UNSTAKE
