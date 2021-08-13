@@ -4,7 +4,7 @@ import { provider, testAddress } from '../../constants.spec'
 
 import { getXtkStakeHistory, getXtkUnstakeHistory } from './history'
 
-test('Gets the correct staking history', async (t) => {
+test('Get Staking history', async (t) => {
   const stakeHistory = await getXtkStakeHistory(provider, testAddress)
   const expectedFirstEntry = {
     time: 1627025156,
@@ -17,9 +17,8 @@ test('Gets the correct staking history', async (t) => {
   t.deepEqual(firstEntry, expectedFirstEntry)
 })
 
-test('Gets the correct unstaking history', async (t) => {
+test('Get Unstaking history', async (t) => {
   const unstakeHistory = await getXtkUnstakeHistory(provider, testAddress)
-  console.log('history:', unstakeHistory)
   const expectedFirstEntry = {
     time: 1627092463,
     label: 'Unstake',
