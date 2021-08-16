@@ -33,7 +33,7 @@ export const getXtkHistory = async (
       return {
         time: block.timestamp,
         label,
-        value: `${formatNumber(formatEther(xtkAmount), 2)}`,
+        value: `${formatNumber(formatEther(xtkAmount), 2).toFixed(2)}`,
         txHash: log.transactionHash,
       }
     })
