@@ -5,7 +5,7 @@ import { formatEther, Interface } from 'ethers/lib/utils'
 
 import { IHistoryType, IStakeHistory } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import { getSignerAddress, toTitleCase } from '../utils'
+import { toTitleCase } from '../utils'
 
 import { getXtkStakingContract } from './helper'
 
@@ -13,10 +13,10 @@ const fromBlock = 12838146
 
 export const getXtkHistory = async (
   type: IHistoryType,
+  account: string,
   provider: BaseProvider
 ): Promise<readonly IStakeHistory[]> => {
   const stakingContract = await getXtkStakingContract(provider)
-  const account = await getSignerAddress(provider)
   const label = toTitleCase(type)
   try {
     const filter = stakingContract.filters[type](account, null, null)
@@ -33,7 +33,7 @@ export const getXtkHistory = async (
       return {
         time: block.timestamp,
         label,
-        value: formatNumber(formatEther(xtkAmount), 2).toString(),
+        value: `${formatNumber(formatEther(xtkAmount), 2)}`,
         txHash: log.transactionHash,
       }
     })

@@ -4,7 +4,7 @@ import { parseEther } from 'ethers/lib/utils'
 
 import { getXtkStakingContract } from './helper'
 
-export const unstakeXXtkA = async (provider: BaseProvider, amount: string) => {
+export const unstakeXXtkA = async (amount: string, provider: BaseProvider) => {
   const bnAmount = parseEther(amount)
   if (bnAmount.lte(BigNumber.from(0))) {
     return Promise.reject(new Error('Received invalid staking amount'))

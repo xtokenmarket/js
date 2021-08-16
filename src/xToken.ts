@@ -736,14 +736,20 @@ export class XToken {
   }
 
   public async stakeXtk(amount: string) {
-    return stakeXtk(this.provider, amount)
+    return stakeXtk(amount, this.provider)
   }
 
   public async unstakeXXtkA(amount: string) {
-    return unstakeXXtkA(this.provider, amount)
+    return unstakeXXtkA(amount, this.provider)
   }
 
   public async getXtkHistory(type: IHistoryType) {
-    return getXtkHistory(type, this.provider)
+    const address = await getSignerAddress(this.provider)
+    if (!address || !isAddress(address)) {
+      return Promise.reject(
+        new Error('Tried getting XTK staking history with invalid user address')
+      )
+    }
+    return getXtkHistory(type, address, this.provider)
   }
 }
