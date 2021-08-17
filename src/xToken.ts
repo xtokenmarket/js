@@ -735,20 +735,63 @@ export class XToken {
     }
   }
 
+  /**
+   * Stake XTK
+   *
+   * @example
+   * ```typescript
+   * // Stake 10 XTK
+   * const tx = await xToken.stakeXtk('10')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Quantity of token to be staked,
+   *                        tokens need to be approved before staking using [[approve]] method
+   * @returns A promise of the transaction response
+   */
   public async stakeXtk(amount: string) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
     return stakeXtk(amount, this.provider)
   }
 
+  /**
+   * Unstake xXTKa to get back XTK
+   *
+   * @example
+   * ```typescript
+   * // Unstake 10 xXTKa
+   * const tx = await xToken.unstakeXXtkA('10')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Quantity of token to be unstaked
+   * @returns A promise of the transaction response
+   */
   public async unstakeXXtkA(amount: string) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
     return unstakeXXtkA(amount, this.provider)
   }
 
+  /**
+   * Get Stake/Unstake history of XTK
+   *
+   * @example
+   * ```typescript
+   * // Stake history of XTK
+   * const history = await xToken.getXtkHistory('Stake')
+   * ```
+   *
+   * @param {IHistoryType} type Get Stake/Unstake history of XTK
+   * @returns Returns list of all Stake/Unstake history of XTK
+   */
   public async getXtkHistory(type: IHistoryType) {
     const address = await getSignerAddress(this.provider)
     if (!address || !isAddress(address)) {
-      return Promise.reject(
-        new Error('Tried getting XTK staking history with invalid user address')
-      )
+      return Promise.reject(new Error('Invalid user address'))
     }
     return getXtkHistory(type, address, this.provider)
   }

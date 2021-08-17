@@ -16,29 +16,28 @@ export const getXtkHistory = async (
   account: string,
   provider: BaseProvider
 ): Promise<readonly IStakeHistory[]> => {
-  const stakingContract = await getXtkStakingContract(provider)
   const label = toTitleCase(type)
-  try {
-    const filter = stakingContract.filters[type](account, null, null)
-    const logs: readonly Log[] = await stakingContract.queryFilter(
-      filter,
-      fromBlock
-    )
-    const iface = new Interface(Abi.XTKManagementStakingModule)
+  const stakingContract = await getXtkStakingContract(provider)
 
-    const promises = logs.map(async (log) => {
-      const block: Block = await provider.getBlock(log.blockNumber)
-      const parsedLog = iface.parseLog(log)
-      const { xtkAmount } = parsedLog.args
-      return {
-        time: block.timestamp,
-        label,
-        value: `${formatNumber(formatEther(xtkAmount), 2).toFixed(2)}`,
-        txHash: log.transactionHash,
-      }
-    })
-    return Promise.all(promises)
-  } catch (err) {
-    return Promise.reject(err)
-  }
+  const filter = stakingContract.filters[type](account, null, null)
+  const logs: readonly Log[] = await stakingContract.queryFilter(
+    filter,
+    fromBlock
+  )
+  const iface = new Interface(Abi.XTKManagementStakingModule)
+
+  const promises = logs.map(async (log) => {
+    const block: Block = await provider.getBlock(log.blockNumber)
+    const parsedLog = iface.parseLog(log)
+    const { xtkAmount } = parsedLog.args
+
+    return {
+      time: block.timestamp,
+      label,
+      value: `${formatNumber(formatEther(xtkAmount), 2).toFixed(2)}`,
+      txHash: log.transactionHash,
+    }
+  })
+
+  return Promise.all(promises)
 }

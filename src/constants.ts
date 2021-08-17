@@ -54,5 +54,9 @@ export const BNT_ETH_PATH = [
 export const X_SNX_A_BALANCER_V2_POOL_ID =
   '0xea39581977325c0833694d51656316ef8a926a62000200000000000000000036'
 
+// Staking
 export const STAKE = 'Stake'
 export const UNSTAKE = 'UnStake'
+
+// TODO: Create error constants for invalid inputs
+// For example: `Invalid user address` / `Invalid value for amount`

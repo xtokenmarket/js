@@ -1,15 +1,12 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 
 import { getXtkStakingContract } from './helper'
 
-export const stakeXtk = async (amount: string, provider: BaseProvider) => {
-  const bnAmount = parseEther(amount)
-  if (bnAmount.lte(BigNumber.from(0))) {
-    return Promise.reject(new Error('Received invalid staking amount'))
-  }
+// TODO: Add `approve` tokens method
 
+export const stakeXtk = async (amount: string, provider: BaseProvider) => {
   const stakingContract = await getXtkStakingContract(provider)
-  return stakingContract.stake(bnAmount)
+  // TODO: Add check if tokens have been pre-approved or not
+  return stakingContract.stake(parseEther(amount))
 }
