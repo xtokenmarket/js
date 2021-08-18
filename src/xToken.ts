@@ -752,6 +752,7 @@ export class XToken {
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
    * @returns A promise of the transaction response
    */
+  // TODO: add spender address
   public async approveXtk(amount?: string) {
     const value = amount ? parseEther(amount) : MAX_UINT
     return approveXtk(value, this.provider)
