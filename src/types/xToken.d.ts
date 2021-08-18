@@ -15,6 +15,7 @@ import {
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
+  XTK_MANAGEMENT_STAKING_MODULE,
   BUY,
   SELL,
   INCH,
@@ -44,7 +45,7 @@ import {
   WBTC,
   WETH,
 } from '@xtoken/abis'
-import { Exchange } from '../constants'
+import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
   | typeof AAVE
@@ -57,6 +58,7 @@ export type IContracts =
   | typeof SNX
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_V2_PAIR
+  | typeof XTK_MANAGEMENT_STAKING_MODULE
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets
@@ -171,3 +173,12 @@ export interface IU3LPToken {
 }
 
 export type IU3LPAssetId = 0 | 1
+
+export type IStakeHistory = {
+  readonly time: number
+  readonly txHash: string
+  readonly label: string
+  readonly value: string
+}
+
+export type IHistoryType = typeof STAKE | typeof UNSTAKE

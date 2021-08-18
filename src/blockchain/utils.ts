@@ -54,6 +54,7 @@ import {
   X_U3LP_F,
   X_U3LP_G,
   X_U3LP_H,
+  XTK_MANAGEMENT_STAKING_MODULE,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
@@ -129,6 +130,8 @@ export const getAbi = (contractName: IContracts) => {
     case X_U3LP_G:
     case X_U3LP_H:
       return Abi.xU3LP as ContractInterface
+    case XTK_MANAGEMENT_STAKING_MODULE:
+      return Abi.XTKManagementStakingModule as ContractInterface
   }
 }
 
@@ -412,4 +415,8 @@ export const getSigner = (provider: BaseProvider) => {
 export const getSignerAddress = async (provider: BaseProvider) => {
   const signer = (provider as JsonRpcProvider).getSigner()
   return signer.getAddress()
+}
+
+export const toTitleCase = (text: string) => {
+  return text[0].toUpperCase() + text.slice(1).toLowerCase()
 }

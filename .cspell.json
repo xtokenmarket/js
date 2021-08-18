@@ -47,7 +47,10 @@
     "xsnx",
     "xsnxa",
     "xtoken",
-    "xu3lp"
+    "xu3lp",
+    "unstake",
+    "unstaked",
+    "unstaking"
   ],
   "flagWords": [],
   "ignorePaths": [

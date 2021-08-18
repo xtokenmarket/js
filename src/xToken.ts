@@ -37,6 +37,12 @@ import {
   getKyberEstimatedQuantity,
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
+import {
+  approveXtk,
+  getXtkHistory,
+  stakeXtk,
+  unstakeXXtkA,
+} from './blockchain/staking'
 import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
@@ -100,6 +106,7 @@ import {
 import { Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
+  IHistoryType,
   ILiquidityPoolItem,
   ILPAsset,
   ILPTokenSymbols,
@@ -731,5 +738,84 @@ export class XToken {
       case X_U3LP_H:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
+  }
+
+  /**
+   * Approve specified amount of XTK by staking contract
+   *
+   * @example
+   * ```typescript
+   * const tx = await xToken.approveXtk('100') // Approve 100 XTK tokens for staking
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
+   * @returns A promise of the transaction response
+   */
+  // TODO: add spender address
+  public async approveXtk(amount?: string) {
+    const value = amount ? parseEther(amount) : MAX_UINT
+    return approveXtk(value, this.provider)
+  }
+
+  /**
+   * Stake XTK
+   *
+   * @example
+   * ```typescript
+   * // Stake 10 XTK
+   * const tx = await xToken.stakeXtk('10')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Quantity of token to be staked,
+   *                        tokens need to be approved before staking using [[approve]] method
+   * @returns A promise of the transaction response
+   */
+  public async stakeXtk(amount: string) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+    return stakeXtk(amount, this.provider)
+  }
+
+  /**
+   * Unstake xXTKa to get back XTK
+   *
+   * @example
+   * ```typescript
+   * // Unstake 10 xXTKa
+   * const tx = await xToken.unstakeXXtkA('10')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Quantity of token to be unstaked
+   * @returns A promise of the transaction response
+   */
+  public async unstakeXXtkA(amount: string) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+    return unstakeXXtkA(amount, this.provider)
+  }
+
+  /**
+   * Get Stake/Unstake history of XTK
+   *
+   * @example
+   * ```typescript
+   * // Stake history of XTK
+   * const history = await xToken.getXtkHistory('Stake')
+   * ```
+   *
+   * @param {IHistoryType} type Get Stake/Unstake history of XTK
+   * @returns Returns list of all Stake/Unstake history of XTK
+   */
+  public async getXtkHistory(type: IHistoryType) {
+    const address = await getSignerAddress(this.provider)
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error('Invalid user address'))
+    }
+    return getXtkHistory(type, address, this.provider)
   }
 }
