@@ -2,6 +2,7 @@ import { BaseProvider } from '@ethersproject/providers'
 import { Abi, ADDRESSES, XTK_MANAGEMENT_STAKING_MODULE } from '@xtoken/abis'
 import { BigNumber, Contract } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
+
 import { getSignerAddress } from '../utils'
 
 import { getXtkStakingContract } from './helper'
