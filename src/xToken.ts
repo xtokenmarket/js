@@ -37,7 +37,12 @@ import {
   getKyberEstimatedQuantity,
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
-import { getXtkHistory, stakeXtk, unstakeXXtkA } from './blockchain/staking'
+import {
+  approveXtk,
+  getXtkHistory,
+  stakeXtk,
+  unstakeXXtkA,
+} from './blockchain/staking'
 import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
@@ -733,6 +738,23 @@ export class XToken {
       case X_U3LP_H:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
     }
+  }
+
+  /**
+   * Approve specified amount of XTK by staking contract
+   *
+   * @example
+   * ```typescript
+   * const tx = await xToken.approveXtk('100') // Approve 100 XTK tokens for staking
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
+   * @returns A promise of the transaction response
+   */
+  public async approveXtk(amount?: string) {
+    const value = amount ? parseEther(amount) : MAX_UINT
+    return approveXtk(value, this.provider)
   }
 
   /**
