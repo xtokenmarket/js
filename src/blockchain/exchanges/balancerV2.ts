@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { AddressZero, HashZero, One, Zero } from '@ethersproject/constants'
+import { AddressZero, HashZero, One, Two, Zero } from '@ethersproject/constants'
 import { BaseProvider } from '@ethersproject/providers'
 import {
   Abi,
@@ -15,7 +15,11 @@ import {
 } from '@xtoken/abis'
 import { Contract, ethers } from 'ethers'
 
-import { DEC_18, X_SNX_A_BALANCER_V2_POOL_ID } from '../../constants'
+import {
+  DEC_18,
+  SNX_BALANCER_V2_POOL_ID,
+  X_SNX_A_BALANCER_V2_POOL_ID,
+} from '../../constants'
 import {
   BalancerPool,
   BalancerV2Vault,
@@ -53,21 +57,16 @@ export const getBalancerV2EstimatedQuantity = async (
     const network = await provider.getNetwork()
     const { chainId } = network
 
+    const isEth = tokenIn === ETH
+    const isBuy = tradeType === BUY
+
     // Addresses
     const snxAddress = ADDRESSES[SNX][chainId]
     const wethAddress = ADDRESSES[WETH][chainId]
     const xsnxAddress = ADDRESSES[symbol][chainId]
 
-    let tokenInAddress: string
-    let tokenOutAddress: string
-
-    if (tradeType === BUY) {
-      tokenInAddress = tokenIn === ETH ? wethAddress : snxAddress
-      tokenOutAddress = xsnxAddress
-    } else {
-      tokenInAddress = xsnxAddress
-      tokenOutAddress = tokenIn === ETH ? wethAddress : snxAddress
-    }
+    const tokenInAddress = isBuy ? wethAddress : xsnxAddress
+    const tokenOutAddress = isBuy ? xsnxAddress : wethAddress
 
     const balancerV2VaultContract = getBalancerV2VaultContract(
       provider,
@@ -84,35 +83,57 @@ export const getBalancerV2EstimatedQuantity = async (
     const swap = {
       poolId: X_SNX_A_BALANCER_V2_POOL_ID,
       kind: 0, // SwapKind.GIVEN_IN
-      assetIn: tokenInAddress,
-      assetOut: tokenOutAddress,
       amount: parseEther(amount),
       userData: HashZero,
     }
 
-    const assets = [swap.assetIn, swap.assetOut]
+    let assets = [tokenInAddress, tokenOutAddress]
+    if (!isEth) {
+      assets = [...assets, snxAddress]
+    }
 
     const batchSwapStep = {
       poolId: swap.poolId,
       kind: swap.kind,
       assetInIndex: Zero,
       assetOutIndex: One,
-      amount: swap.amount,
+      amount: !isEth && isBuy ? Zero : swap.amount,
       userData: swap.userData,
     }
 
+    let batchSwapStep2
+    if (!isEth) {
+      batchSwapStep2 = {
+        poolId: SNX_BALANCER_V2_POOL_ID,
+        kind: 0, // SwapKind.GIVEN_IN
+        assetInIndex: isBuy ? Two : One,
+        assetOutIndex: isBuy ? Zero : Two,
+        amount: isBuy ? swap.amount : Zero,
+        userData: swap.userData,
+      }
+    }
+
+    const batchSwapSteps = !isEth
+      ? isBuy
+        ? [batchSwapStep2, batchSwapStep]
+        : [batchSwapStep, batchSwapStep2]
+      : [batchSwapStep]
+
     const result = await balancerV2VaultContract.callStatic.queryBatchSwap(
       swap.kind,
-      [batchSwapStep],
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      batchSwapSteps,
       assets,
       funds
     )
 
     return formatNumber(
-      formatEther(result[1]).replace('-', ''),
-      tradeType === BUY ? 0 : 3
+      formatEther(result[!isEth && !isBuy ? 2 : 1]).replace('-', ''),
+      4
     ).toString()
   } catch (e) {
+    console.error('Error while fetching Balancer V2 estimate:', e)
     return '0'
   }
 }

@@ -332,8 +332,7 @@ export class XToken {
         tradeType,
         this.provider
       )
-    } else if (symbol === X_SNX_A && tradeWithEth) {
-      // Fetch estimates only for xSNXa<>WETH trades
+    } else if (symbol === X_SNX_A) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerV2EstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

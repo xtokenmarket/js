@@ -32,6 +32,30 @@ test('Calculate expected quantity on mint of xSNXa on Balancer V2', async (t) =>
   t.true(Number(expectedQty) > 0)
 })
 
+test('Calculate expected quantity of SNX on burn of xSNXa on Balancer V2', async (t) => {
+  const expectedQty = await getBalancerV2EstimatedQuantity(
+    X_SNX_A,
+    X_SNX_A,
+    '100',
+    SELL,
+    provider
+  )
+  console.log('[BalancerV2] Expected SNX qty for 100 xSNXa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
+test('Calculate expected quantity of xSNXa on mint of SNX on Balancer V2', async (t) => {
+  const expectedQty = await getBalancerV2EstimatedQuantity(
+    X_SNX_A,
+    X_SNX_A,
+    '10',
+    BUY,
+    provider
+  )
+  console.log('[BalancerV2] Expected xSNXa qty for 10 SNX:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
 test('Get Balancer V2 Portfolio of xSNXa', async (t) => {
   const portfolio = await getBalancerV2PortfolioItem(
     X_SNX_A,
