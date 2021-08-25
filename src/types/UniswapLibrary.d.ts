@@ -540,7 +540,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getBufferTokenBalance((address,address,uint256,uint256,uint8,uint8))'(
+    'getBufferTokenBalance(tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -644,7 +644,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getStakedTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getStakedTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -690,7 +690,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getTargetBufferTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getTargetBufferTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -1014,7 +1014,7 @@ export class UniswapLibrary extends Contract {
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
 
-  'getBufferTokenBalance((address,address,uint256,uint256,uint8,uint8))'(
+  'getBufferTokenBalance(tuple)'(
     tokenDetails: {
       token0: string
       token1: string
@@ -1112,7 +1112,7 @@ export class UniswapLibrary extends Contract {
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
 
-  'getStakedTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+  'getStakedTokenBalance(tuple,tuple)'(
     tokenDetails: {
       token0: string
       token1: string
@@ -1158,7 +1158,7 @@ export class UniswapLibrary extends Contract {
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
 
-  'getTargetBufferTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+  'getTargetBufferTokenBalance(tuple,tuple)'(
     tokenDetails: {
       token0: string
       token1: string
@@ -1482,7 +1482,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getBufferTokenBalance((address,address,uint256,uint256,uint8,uint8))'(
+    'getBufferTokenBalance(tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -1586,7 +1586,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getStakedTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getStakedTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -1632,7 +1632,7 @@ export class UniswapLibrary extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    'getTargetBufferTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getTargetBufferTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -1943,7 +1943,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'getBufferTokenBalance((address,address,uint256,uint256,uint8,uint8))'(
+    'getBufferTokenBalance(tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -2043,7 +2043,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'getStakedTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getStakedTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -2085,7 +2085,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'getTargetBufferTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getTargetBufferTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -2392,7 +2392,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    'getBufferTokenBalance((address,address,uint256,uint256,uint8,uint8))'(
+    'getBufferTokenBalance(tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -2495,7 +2495,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    'getStakedTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getStakedTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string
@@ -2537,7 +2537,7 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    'getTargetBufferTokenBalance((address,address,uint256,uint256,uint8,uint8),(uint24,uint160,uint160,uint256,address,address,address))'(
+    'getTargetBufferTokenBalance(tuple,tuple)'(
       tokenDetails: {
         token0: string
         token1: string

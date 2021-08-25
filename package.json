@@ -38,7 +38,7 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx -e .idea -e .env && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test doc:html version doc:publish",
-    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/*.json'",
+    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/**/*.json'",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/",
     "prepare": "husky install",
     "prepublishOnly": "pinst --disable",
