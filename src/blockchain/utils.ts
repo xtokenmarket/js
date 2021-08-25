@@ -23,6 +23,21 @@ import {
   INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
+  LENDING_COMPTROLLER,
+  LENDING_LIQUIDITY_POOL,
+  LENDING_LPT,
+  LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_A_PRICE,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_AAVE_B_PRICE,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_A_PRICE,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_INCH_B_PRICE,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_A_PRICE,
+  LENDING_X_KNC_B_MARKET,
+  LENDING_X_KNC_B_PRICE,
   REN_BTC,
   S_ETH,
   S_USD,
@@ -180,6 +195,28 @@ export const getAbi = (contractName: IContracts) => {
     case X_SNX_A_SNX_CLR:
     case XTK_ETH_CLR:
       return Abi.xAssetCLR as ContractInterface
+    case LENDING_COMPTROLLER:
+      return Abi.Comptroller as ContractInterface
+    case LENDING_LIQUIDITY_POOL:
+      return Abi.LiquidityPool as ContractInterface
+    case LENDING_LPT:
+      return Abi.LPT as ContractInterface
+    case LENDING_X_AAVE_A_MARKET:
+    case LENDING_X_AAVE_B_MARKET:
+    case LENDING_X_INCH_A_MARKET:
+    case LENDING_X_INCH_B_MARKET:
+    case LENDING_X_KNC_A_MARKET:
+    case LENDING_X_KNC_B_MARKET:
+      return Abi.Market as ContractInterface
+    case LENDING_X_AAVE_A_PRICE:
+    case LENDING_X_AAVE_B_PRICE:
+      return Abi.xAAVEPrice as ContractInterface
+    case LENDING_X_INCH_A_PRICE:
+    case LENDING_X_INCH_B_PRICE:
+      return Abi.xINCHPrice as ContractInterface
+    case LENDING_X_KNC_A_PRICE:
+    case LENDING_X_KNC_B_PRICE:
+      return Abi.xKNCPrice as ContractInterface
   }
 }
 

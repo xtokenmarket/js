@@ -553,6 +553,101 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+<<<<<<< HEAD
+=======
+    getStakedTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getStakedTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    getTargetBufferTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getTargetBufferTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+>>>>>>> 3abf28d (Integrate Lending Contracts)
     getTickFromPrice(
       price: BigNumberish,
       overrides?: CallOverrides
@@ -907,6 +1002,101 @@ export class UniswapLibrary extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+<<<<<<< HEAD
+=======
+  getStakedTokenBalance(
+    tokenDetails: {
+      token0: string
+      token1: string
+      token0DecimalMultiplier: BigNumberish
+      token1DecimalMultiplier: BigNumberish
+      token0Decimals: BigNumberish
+      token1Decimals: BigNumberish
+    },
+    positionDetails: {
+      poolFee: BigNumberish
+      priceLower: BigNumberish
+      priceUpper: BigNumberish
+      tokenId: BigNumberish
+      positionManager: string
+      router: string
+      pool: string
+    },
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
+  'getStakedTokenBalance(tuple,tuple)'(
+    tokenDetails: {
+      token0: string
+      token1: string
+      token0DecimalMultiplier: BigNumberish
+      token1DecimalMultiplier: BigNumberish
+      token0Decimals: BigNumberish
+      token1Decimals: BigNumberish
+    },
+    positionDetails: {
+      poolFee: BigNumberish
+      priceLower: BigNumberish
+      priceUpper: BigNumberish
+      tokenId: BigNumberish
+      positionManager: string
+      router: string
+      pool: string
+    },
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
+  getTargetBufferTokenBalance(
+    tokenDetails: {
+      token0: string
+      token1: string
+      token0DecimalMultiplier: BigNumberish
+      token1DecimalMultiplier: BigNumberish
+      token0Decimals: BigNumberish
+      token1Decimals: BigNumberish
+    },
+    positionDetails: {
+      poolFee: BigNumberish
+      priceLower: BigNumberish
+      priceUpper: BigNumberish
+      tokenId: BigNumberish
+      positionManager: string
+      router: string
+      pool: string
+    },
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
+  'getTargetBufferTokenBalance(tuple,tuple)'(
+    tokenDetails: {
+      token0: string
+      token1: string
+      token0DecimalMultiplier: BigNumberish
+      token1DecimalMultiplier: BigNumberish
+      token0Decimals: BigNumberish
+      token1Decimals: BigNumberish
+    },
+    positionDetails: {
+      poolFee: BigNumberish
+      priceLower: BigNumberish
+      priceUpper: BigNumberish
+      tokenId: BigNumberish
+      positionManager: string
+      router: string
+      pool: string
+    },
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+  >
+
+>>>>>>> 3abf28d (Integrate Lending Contracts)
   getTickFromPrice(
     price: BigNumberish,
     overrides?: CallOverrides
@@ -1267,6 +1457,101 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+<<<<<<< HEAD
+=======
+    getStakedTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getStakedTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    getTargetBufferTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+    'getTargetBufferTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >
+
+>>>>>>> 3abf28d (Integrate Lending Contracts)
     getTickFromPrice(
       price: BigNumberish,
       overrides?: CallOverrides
@@ -1612,6 +1897,93 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+<<<<<<< HEAD
+=======
+    getStakedTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getStakedTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    getTargetBufferTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'getTargetBufferTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+>>>>>>> 3abf28d (Integrate Lending Contracts)
     getTickFromPrice(
       price: BigNumberish,
       overrides?: CallOverrides
@@ -1958,6 +2330,93 @@ export class UniswapLibrary extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+<<<<<<< HEAD
+=======
+    getStakedTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getStakedTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getTargetBufferTokenBalance(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getTargetBufferTokenBalance(tuple,tuple)'(
+      tokenDetails: {
+        token0: string
+        token1: string
+        token0DecimalMultiplier: BigNumberish
+        token1DecimalMultiplier: BigNumberish
+        token0Decimals: BigNumberish
+        token1Decimals: BigNumberish
+      },
+      positionDetails: {
+        poolFee: BigNumberish
+        priceLower: BigNumberish
+        priceUpper: BigNumberish
+        tokenId: BigNumberish
+        positionManager: string
+        router: string
+        pool: string
+      },
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+>>>>>>> 3abf28d (Integrate Lending Contracts)
     getTickFromPrice(
       price: BigNumberish,
       overrides?: CallOverrides
