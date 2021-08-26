@@ -9,6 +9,13 @@ import { getMarkets, Markets } from './helper'
 
 // --- Market functions ---
 
+/**
+ * Add xAsset collateral to a Lending Market
+ * @param marketName name of the market
+ * @param amount amount without decimals
+ * @param provider
+ * @returns
+ */
 export const collateralize = async (
   marketName: Markets,
   amount: string,
@@ -31,7 +38,14 @@ export const collateralize = async (
   return market.collateralize(inputAmount)
 }
 
-export const withdraw = async (
+/**
+ * Withdraw xAsset collateral from a Lending Market
+ * @param marketName name of the market
+ * @param amount amount without decimals
+ * @param provider
+ * @returns
+ */
+export const withdrawCollateral = async (
   marketName: Markets,
   amount: string,
   provider: BaseProvider
@@ -42,6 +56,13 @@ export const withdraw = async (
   return market.withdraw(inputAmount)
 }
 
+/**
+ * Get xAsset collateral deposited in a Lending Market for an address
+ * @param marketName name of the market
+ * @param provider
+ * @param address optional address - checks current signer if not provided
+ * @returns
+ */
 export const getCollateral = async (
   marketName: Markets,
   provider: BaseProvider,
@@ -55,6 +76,13 @@ export const getCollateral = async (
   return market.collateral(address)
 }
 
+/**
+ * Get borrowing limit for an address in a Lending Market
+ * @param marketName name of the market
+ * @param provider
+ * @param address optional address - checks current signer if not provided
+ * @returns
+ */
 export const getBorrowingLimit = async (
   marketName: Markets,
   provider: BaseProvider,
