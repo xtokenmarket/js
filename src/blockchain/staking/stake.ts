@@ -3,14 +3,14 @@ import { Abi, ADDRESSES, XTK_MANAGEMENT_STAKING_MODULE } from '@xtoken/abis'
 import { BigNumber, Contract } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 
-import { getSignerAddress } from '../utils'
+import { getSigner, getSignerAddress } from '../utils'
 
 import { getXtkStakingContract } from './helper'
 
 const XTK_ADDRESS = '0x7f3edcdd180dbe4819bd98fee8929b5cedb3adeb'
 
 export const approveXtk = async (amount: BigNumber, provider: BaseProvider) => {
-  const contract = new Contract(XTK_ADDRESS, Abi.ERC20, provider)
+  const contract = new Contract(XTK_ADDRESS, Abi.ERC20, getSigner(provider))
   const network = await provider.getNetwork()
 
   return contract.approve(
