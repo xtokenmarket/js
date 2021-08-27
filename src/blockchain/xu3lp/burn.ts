@@ -4,7 +4,7 @@ import { BaseProvider } from '@ethersproject/providers'
 import { BigNumberish, ethers } from 'ethers'
 
 import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
-import { ILPTokenSymbols, IU3LPAssetId } from '../../types/xToken'
+import { IAssetId, ILPTokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
 import { parseFees } from '../utils'
 
@@ -14,7 +14,7 @@ const { formatEther, parseEther } = ethers.utils
 
 export const burnXU3LP = async (
   symbol: ILPTokenSymbols,
-  outputAsset: IU3LPAssetId,
+  outputAsset: IAssetId,
   amount: BigNumber,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {
@@ -33,7 +33,7 @@ export const burnXU3LP = async (
 
 export const getExpectedQuantityOnBurnXU3LP = async (
   symbol: ILPTokenSymbols,
-  outputAsset: IU3LPAssetId,
+  outputAsset: IAssetId,
   amount: string,
   provider: BaseProvider
 ) => {

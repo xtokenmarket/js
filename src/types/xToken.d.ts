@@ -44,24 +44,38 @@ import {
   UST,
   WBTC,
   WETH,
+  AAVE_X_AAVE_A_CLR,
+  BNT_X_BNT_A_CLR,
+  INCH_X_INCH_A_CLR,
+  INCH_X_INCH_B_CLR,
+  X_AAVE_B_AAVE_CLR,
+  X_KNC_A_KNC_CLR,
+  X_KNC_B_KNC_CLR,
+  X_SNX_A_SNX_CLR,
+  UNISWAP_LIBRARY,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
-  | typeof AAVE
-  | typeof BNT
   | typeof EXCHANGE_RATES
-  | typeof INCH
   | typeof INCH_LIQUIDITY_PROTOCOL
-  | typeof KNC
   | typeof KYBER_PROXY
-  | typeof SNX
   | typeof TRADE_ACCOUNTING
+  | typeof UNISWAP_LIBRARY
   | typeof UNISWAP_V2_PAIR
   | typeof XTK_MANAGEMENT_STAKING_MODULE
+  | INativeAssets
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets
+  | IXAssetCLR
+
+export type INativeAssets =
+  | typeof AAVE
+  | typeof BNT
+  | typeof INCH
+  | typeof KNC
+  | typeof SNX
 
 export type ITokenSymbols =
   | typeof X_AAVE_A
@@ -95,6 +109,16 @@ export type IStableAssets =
   | typeof UST
   | typeof WBTC
   | typeof WETH
+
+export type IXAssetCLR =
+  | typeof AAVE_X_AAVE_A_CLR
+  | typeof BNT_X_BNT_A_CLR
+  | typeof INCH_X_INCH_A_CLR
+  | typeof INCH_X_INCH_B_CLR
+  | typeof X_AAVE_B_AAVE_CLR
+  | typeof X_KNC_A_KNC_CLR
+  | typeof X_KNC_B_KNC_CLR
+  | typeof X_SNX_A_SNX_CLR
 
 export type ITradeType = typeof BUY | typeof SELL
 
@@ -158,7 +182,7 @@ export interface ITokenPrices {
 }
 
 export interface IReturn {
-  expectedQuantity: string
+  expectedQuantity: string | ICLRBurnQty
   source: Exchange
 }
 
@@ -172,7 +196,7 @@ export interface IU3LPToken {
   1: IStableAssets
 }
 
-export type IU3LPAssetId = 0 | 1
+export type IAssetId = 0 | 1
 
 export type IStakeHistory = {
   readonly time: number
@@ -182,3 +206,13 @@ export type IStakeHistory = {
 }
 
 export type IHistoryType = typeof STAKE | typeof UNSTAKE
+
+export interface ICLRToken {
+  0: INativeAssets | ITokenSymbols
+  1: INativeAssets | ITokenSymbols
+}
+
+export interface ICLRBurnQty {
+  0: string
+  1: string
+}

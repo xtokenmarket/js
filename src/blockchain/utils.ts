@@ -6,15 +6,19 @@ import {
 } from '@ethersproject/providers'
 import {
   AAVE,
+  AAVE_X_AAVE_A_CLR,
   Abi,
   ADDRESSES,
   BNT,
+  BNT_X_BNT_A_CLR,
   BUSD,
   DAI,
   EXCHANGE_RATES,
   FRAX,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
+  INCH_X_INCH_A_CLR,
+  INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
   REN_BTC,
@@ -23,6 +27,7 @@ import {
   SNX,
   SYNTHETIX_ADDRESS_RESOLVER,
   TRADE_ACCOUNTING,
+  UNISWAP_LIBRARY,
   UNISWAP_V2_PAIR,
   USDC,
   USDT,
@@ -32,6 +37,7 @@ import {
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
+  X_AAVE_B_AAVE_CLR,
   X_AAVE_B_BALANCER_POOL,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
@@ -40,12 +46,15 @@ import {
   X_INCH_B,
   X_INCH_B_INCH_POOL,
   X_KNC_A,
+  X_KNC_A_KNC_CLR,
   X_KNC_A_KYBER_POOL,
   X_KNC_A_UNISWAP_POOL,
   X_KNC_B,
+  X_KNC_B_KNC_CLR,
   X_KNC_B_UNISWAP_POOL,
   X_SNX_A,
   X_SNX_A_BALANCER_POOL_V2,
+  X_SNX_A_SNX_CLR,
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
@@ -62,11 +71,13 @@ import { ContractInterface } from 'ethers/lib/ethers'
 import { ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'
 import {
+  ICLRToken,
   IContracts,
   ILPTokenSymbols,
   IStableAssets,
   ITokenSymbols,
   IU3LPToken,
+  IXAssetCLR,
 } from '../types/xToken'
 
 const { formatEther, parseEther } = ethers.utils
@@ -106,6 +117,8 @@ export const getAbi = (contractName: IContracts) => {
       return Abi.Synthetix as ContractInterface
     case TRADE_ACCOUNTING:
       return Abi.TradeAccounting as ContractInterface
+    case UNISWAP_LIBRARY:
+      return Abi.UniswapLibrary as ContractInterface
     case UNISWAP_V2_PAIR:
       return Abi.UniswapV2Pair as ContractInterface
     case X_AAVE_A:
@@ -132,6 +145,15 @@ export const getAbi = (contractName: IContracts) => {
       return Abi.xU3LP as ContractInterface
     case XTK_MANAGEMENT_STAKING_MODULE:
       return Abi.XTKManagementStakingModule as ContractInterface
+    case AAVE_X_AAVE_A_CLR:
+    case BNT_X_BNT_A_CLR:
+    case INCH_X_INCH_A_CLR:
+    case INCH_X_INCH_B_CLR:
+    case X_AAVE_B_AAVE_CLR:
+    case X_KNC_A_KNC_CLR:
+    case X_KNC_B_KNC_CLR:
+    case X_SNX_A_SNX_CLR:
+      return Abi.xAssetCLR as ContractInterface
   }
 }
 
@@ -197,6 +219,27 @@ export const getBancorPoolContract = (
   if (!address) return null
 
   return new ethers.Contract(address, Abi.BancorSmartToken, getSigner(provider))
+}
+
+export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
+  switch (symbol) {
+    case AAVE_X_AAVE_A_CLR:
+      return { 0: AAVE, 1: X_AAVE_A }
+    case BNT_X_BNT_A_CLR:
+      return { 0: BNT, 1: X_BNT_A }
+    case INCH_X_INCH_A_CLR:
+      return { 0: INCH, 1: X_INCH_A }
+    case INCH_X_INCH_B_CLR:
+      return { 0: INCH, 1: X_INCH_B }
+    case X_AAVE_B_AAVE_CLR:
+      return { 0: X_AAVE_B, 1: AAVE }
+    case X_KNC_A_KNC_CLR:
+      return { 0: X_KNC_A, 1: KNC }
+    case X_KNC_B_KNC_CLR:
+      return { 0: X_KNC_B, 1: KNC }
+    case X_SNX_A_SNX_CLR:
+      return { 0: X_SNX_A, 1: SNX }
+  }
 }
 
 export const getContract = (
@@ -415,6 +458,19 @@ export const getSigner = (provider: BaseProvider) => {
 export const getSignerAddress = async (provider: BaseProvider) => {
   const signer = (provider as JsonRpcProvider).getSigner()
   return signer.getAddress()
+}
+
+export const isXAssetCLRSymbol = async (symbol: string) => {
+  return [
+    AAVE_X_AAVE_A_CLR,
+    BNT_X_BNT_A_CLR,
+    INCH_X_INCH_A_CLR,
+    INCH_X_INCH_B_CLR,
+    X_AAVE_B_AAVE_CLR,
+    X_KNC_A_KNC_CLR,
+    X_KNC_B_KNC_CLR,
+    X_SNX_A_SNX_CLR,
+  ].includes(symbol)
 }
 
 export const toTitleCase = (text: string) => {
