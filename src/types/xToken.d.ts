@@ -182,7 +182,7 @@ export interface ITokenPrices {
 }
 
 export interface IReturn {
-  expectedQuantity: string | ICLRBurnQty
+  expectedQuantity: string | ICLRBurnQty | ICLRMintQty
   source: Exchange
 }
 
@@ -215,4 +215,8 @@ export interface ICLRToken {
 export interface ICLRBurnQty {
   0: string
   1: string
+}
+
+export interface ICLRMintQty extends ICLRBurnQty {
+  expectedQty: string
 }

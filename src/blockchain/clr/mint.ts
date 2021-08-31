@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 
 import { GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
 import { XAssetCLR } from '../../types'
-import { IAssetId, IXAssetCLR } from '../../types/xToken'
+import { IAssetId, ICLRMintQty, IXAssetCLR } from '../../types/xToken'
 import { getPercentage } from '../../utils'
 import { getSignerAddress } from '../utils'
 
@@ -41,7 +41,7 @@ export const getExpectedQuantityOnMintXAssetCLR = async (
   inputAsset: IAssetId,
   amount: string,
   provider: BaseProvider
-): Promise<string> => {
+): Promise<ICLRMintQty> => {
   const inputAmount = parseEther(amount)
   const { xAssetCLRContract } = await getXAssetCLRContracts(symbol, provider)
 
@@ -61,7 +61,11 @@ export const getExpectedQuantityOnMintXAssetCLR = async (
 
   const expectedQty = liquidityAmount.mul(totalSupply).div(totalLiquidity)
 
-  return formatEther(expectedQty)
+  return {
+    0: formatEther(amount0Minted),
+    1: formatEther(amount1Minted),
+    expectedQty: formatEther(expectedQty),
+  }
 }
 
 export const getPoolRatioXAssetCLR = async (

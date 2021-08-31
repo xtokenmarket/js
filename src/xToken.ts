@@ -37,6 +37,7 @@ import {
   getExpectedQuantityOnBurnXAssetCLR,
   getExpectedQuantityOnMintXAssetCLR,
   getMaximumRedeemableXAssetCLR,
+  getPoolRatioXAssetCLR,
 } from './blockchain/clr'
 import {
   getBalancerEstimatedQuantity,
@@ -123,6 +124,7 @@ import {
   IAsset,
   IAssetId,
   ICLRBurnQty,
+  ICLRMintQty,
   IHistoryType,
   ILiquidityPoolItem,
   ILPAsset,
@@ -502,7 +504,7 @@ export class XToken {
     symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
     tradeWithEth: boolean,
     amount: string
-  ): Promise<string> {
+  ): Promise<string | ICLRMintQty> {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
@@ -894,5 +896,21 @@ export class XToken {
       return Promise.reject(new Error('Invalid user address'))
     }
     return getXtkHistory(type, address, this.provider)
+  }
+
+  /**
+   * Get xAssetCLR pool deposit ratio
+   *
+   * @example
+   * ```typescript
+   * // Pool deposit ratio for AAVE-xAAVEa CLR
+   * const history = await xToken.getPoolRatio('AAVE-xAAVEa-CLR')
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of xAssetCLR
+   * @returns Returns ratio of liquidity deposited in the pool
+   */
+  public async getPoolRatio(symbol: IXAssetCLR) {
+    return getPoolRatioXAssetCLR(symbol, this.provider)
   }
 }

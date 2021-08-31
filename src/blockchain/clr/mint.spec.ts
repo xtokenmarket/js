@@ -9,7 +9,7 @@ import {
 } from './mint'
 
 test(`Calculate ${AAVE_X_AAVE_A_CLR} expected quantity on mint with AAVE`, async (t) => {
-  const expectedQty = await getExpectedQuantityOnMintXAssetCLR(
+  const { expectedQty } = await getExpectedQuantityOnMintXAssetCLR(
     AAVE_X_AAVE_A_CLR,
     0,
     '10',
@@ -20,7 +20,7 @@ test(`Calculate ${AAVE_X_AAVE_A_CLR} expected quantity on mint with AAVE`, async
 })
 
 test(`Calculate ${AAVE_X_AAVE_A_CLR} expected quantity on mint with xAAVEa`, async (t) => {
-  const expectedQty = await getExpectedQuantityOnMintXAssetCLR(
+  const { expectedQty } = await getExpectedQuantityOnMintXAssetCLR(
     AAVE_X_AAVE_A_CLR,
     1,
     '1000',
