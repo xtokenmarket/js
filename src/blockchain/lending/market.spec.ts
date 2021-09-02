@@ -1,128 +1,133 @@
+import {
+  LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_B_MARKET,
+} from '@xtoken/abis'
 import test from 'ava'
 
-import { provider } from '../../constants.spec'
+import { oneAddress, provider } from '../../constants.spec'
 
-import { Markets } from './helper'
 import { getBorrowingLimit, getCollateral } from './market'
 
-const oneAddress = '0x0000000000000000000000000000000000000001'
-
-test('Check Borrowing limit for xAAVEa market', async (t) => {
+test('Get borrowing limit for xAAVEa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xAAVEaMarket,
+    LENDING_X_AAVE_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xAAVEa Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xAAVEa Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check Borrowing limit for xAAVEb market', async (t) => {
+test('Get borrowing limit for xAAVEb market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xAAVEbMarket,
+    LENDING_X_AAVE_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xAAVEb Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xAAVEb Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check Borrowing limit for xINCHa market', async (t) => {
+test('Get borrowing limit for xINCHa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xINCHaMarket,
+    LENDING_X_INCH_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xINCHa Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xINCHa Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check Borrowing limit for xINCHb market', async (t) => {
+test('Get borrowing limit for xINCHb market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xINCHbMarket,
+    LENDING_X_INCH_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xINCHb Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xINCHb Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check Borrowing limit for xKNCa market', async (t) => {
+test('Get borrowing limit for xKNCa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xKNCaMarket,
+    LENDING_X_KNC_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xKNCa Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xKNCa Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check Borrowing limit for xKNCb market', async (t) => {
+test('Get borrowing limit for xKNCb market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
-    Markets.xKNCbMarket,
+    LENDING_X_KNC_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xKNCb Borrowing Limit:', borrowingLimit.toString())
-  t.true(borrowingLimit.eq(0))
+  console.log('[Lending] xKNCb Borrowing Limit:', borrowingLimit)
+  t.true(Number(borrowingLimit) === 0)
 })
 
-test('Check collateral for xAAVEa market', async (t) => {
+test('Get collateral for xAAVEa market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xAAVEaMarket,
+    LENDING_X_AAVE_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xAAVEa Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xAAVEa Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })
 
-test('Check collateral for xAAVEb market', async (t) => {
+test('Get collateral for xAAVEb market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xAAVEbMarket,
+    LENDING_X_AAVE_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xAAVEb Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xAAVEb Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })
 
-test('Check collateral for xINCHa market', async (t) => {
+test('Get collateral for xINCHa market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xINCHaMarket,
+    LENDING_X_INCH_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xINCHa Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xINCHa Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })
 
-test('Check collateral for xINCHb market', async (t) => {
+test('Get collateral for xINCHb market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xINCHbMarket,
+    LENDING_X_INCH_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xINCHb Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xINCHb Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })
 
-test('Check collateral for xKNCa market', async (t) => {
+test('Get collateral for xKNCa market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xKNCaMarket,
+    LENDING_X_KNC_A_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xKNCa Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xKNCa Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })
 
-test('Check collateral for xKNCb market', async (t) => {
+test('Get collateral for xKNCb market', async (t) => {
   const collateral = await getCollateral(
-    Markets.xKNCbMarket,
+    LENDING_X_KNC_B_MARKET,
     provider,
     oneAddress
   )
-  console.log('[Lending] xKNCb Collateral:', collateral.toString())
-  t.true(collateral.eq(0))
+  console.log('[Lending] xKNCb Collateral:', collateral)
+  t.true(Number(collateral) === 0)
 })

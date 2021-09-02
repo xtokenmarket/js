@@ -1,44 +1,15 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { parseEther, parseUnits } from '@ethersproject/units'
-import { Abi, ADDRESSES, LENDING_LIQUIDITY_POOL } from '@xtoken/abis'
-import { BigNumber, Contract } from 'ethers'
+import { formatEther } from '@ethersproject/units'
+import { ADDRESSES, LENDING_LIQUIDITY_POOL, USDC } from '@xtoken/abis'
+import { BigNumber } from 'ethers'
 
-import { getSignerAddress } from '../utils'
+import { Errors } from '../../constants'
+import { getContract, getSignerAddress } from '../utils'
 
-import { getLiquidityPool } from './helper'
+import { getLiquidityPoolContract } from './helper'
 
-// --- Liquidity Pool functions ---
-
-/**
- * Supply USDC to Liquidity Pool
- * @param amount amount of USDC without decimals
- * @param provider
- * @returns
- */
-export const supply = async (amount: string, provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  const inputAmount = parseUnits(amount, 6)
-  const address = await getSignerAddress(provider)
-  const approvedAmount = await getApprovedAmountUSDC(address, provider)
-  if (approvedAmount.lt(inputAmount)) {
-    return Promise.reject(
-      new Error('Please approve the tokens before supplying')
-    )
-  }
-  return liquidityPool.supply(inputAmount)
-}
-
-/**
- * Withdraw USDC from Liquidity Pool
- * @param amount amount of LPT without decimals
- * @param provider
- * @returns
- */
-export const withdraw = async (amount: string, provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  const inputAmount = parseUnits(amount, 6)
-  return liquidityPool.withdraw(inputAmount)
-}
+const CONTRACT_ERROR = new Error(Errors.CONTRACT_INITIALIZATION_FAILED)
+const TOKEN_APPROVE_ERROR = new Error(Errors.TOKENS_NOT_APPROVED)
 
 /**
  * Borrow USDC from Liquidity Pool
@@ -46,10 +17,9 @@ export const withdraw = async (amount: string, provider: BaseProvider) => {
  * @param provider
  * @returns
  */
-export const borrow = async (amount: string, provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  const inputAmount = parseUnits(amount, 6)
-  return liquidityPool.borrow(inputAmount)
+export const borrow = async (amount: BigNumber, provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  return liquidityPoolContract.borrow(amount)
 }
 
 /**
@@ -58,65 +28,88 @@ export const borrow = async (amount: string, provider: BaseProvider) => {
  * @param provider
  * @returns
  */
-export const repay = async (amount: string, provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  const inputAmount = parseUnits(amount, 6)
+export const repay = async (amount: BigNumber, provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
   const address = await getSignerAddress(provider)
-  const approvedAmount = await getApprovedAmountUSDC(address, provider)
-  if (approvedAmount.lt(inputAmount)) {
-    return Promise.reject(
-      new Error('Please approve the tokens before repaying')
-    )
+  const approvedAmount = await _getApprovedAmountUSDC(address, provider)
+  if (approvedAmount.lt(amount)) {
+    return Promise.reject(TOKEN_APPROVE_ERROR)
   }
-  return liquidityPool.repay(inputAmount)
+  return liquidityPoolContract.repay(amount)
 }
 
-export const getOptimalUtilizationRate = async (provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  return liquidityPool.getOptimalUtilizationRate()
+/**
+ * Supply USDC to Liquidity Pool
+ * @param amount amount of USDC without decimals
+ * @param provider
+ * @returns
+ */
+export const supply = async (amount: BigNumber, provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const address = await getSignerAddress(provider)
+  const approvedAmount = await _getApprovedAmountUSDC(address, provider)
+  if (approvedAmount.lt(amount)) {
+    return Promise.reject(TOKEN_APPROVE_ERROR)
+  }
+  return liquidityPoolContract.supply(amount)
 }
 
-export const getLPTValue = async (provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  return liquidityPool.getLPTValue()
+/**
+ * Withdraw USDC from Liquidity Pool
+ * @param amount amount of LPT without decimals
+ * @param provider
+ * @returns
+ */
+export const withdraw = async (amount: BigNumber, provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  return liquidityPoolContract.withdraw(amount)
 }
 
 export const getLPTBaseValue = async (provider: BaseProvider) => {
-  const liquidityPool = await getLiquidityPool(provider)
-  return liquidityPool.getLPTBaseValue()
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const lptBaseValue = await liquidityPoolContract.getLPTBaseValue()
+  return formatEther(lptBaseValue)
 }
 
-// --- USDC Approval for supplying and loan repayment ---
+export const getLPTValue = async (provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const lptValue = await liquidityPoolContract.getLPTValue()
+  return formatEther(lptValue)
+}
 
-export const approveUSDC = async (
+export const getOptimalUtilizationRate = async (provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const optimalUtilizationRate = await liquidityPoolContract.getOptimalUtilizationRate()
+  return optimalUtilizationRate.toString()
+}
+
+export const approveUsdc = async (
   amount: BigNumber,
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
-  const contract = new Contract(
-    ADDRESSES['USDC'][network.chainId],
-    Abi.ERC20,
-    provider
-  )
+  const usdcContract = getContract(USDC, provider, network)
+  if (!usdcContract) {
+    return Promise.reject(CONTRACT_ERROR)
+  }
 
-  return contract.approve(
+  return usdcContract.approve(
     ADDRESSES[LENDING_LIQUIDITY_POOL][network.chainId],
     amount
   )
 }
 
-const getApprovedAmountUSDC = async (
+const _getApprovedAmountUSDC = async (
   address: string,
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
-  const contract = new Contract(
-    ADDRESSES['USDC'][network.chainId],
-    Abi.ERC20,
-    provider
-  )
+  const usdcContract = getContract(USDC, provider, network)
+  if (!usdcContract) {
+    return Promise.reject(CONTRACT_ERROR)
+  }
 
-  return contract.allowance(
+  return usdcContract.allowance(
     address,
     ADDRESSES[LENDING_LIQUIDITY_POOL][network.chainId]
   )

@@ -8,22 +8,20 @@ import {
   getOptimalUtilizationRate,
 } from './liquidityPool'
 
-// cSpell:disable
-
-test('Check Optimal Utilization Rate', async (t) => {
-  const utilizationRate = await getOptimalUtilizationRate(provider)
-  console.log('[Lending] Utilization rate:', utilizationRate.toString())
-  t.true(utilizationRate.eq(80))
+test('Get optimal utilization rate', async (t) => {
+  const optimalUtilizationRate = await getOptimalUtilizationRate(provider)
+  console.log('[Lending] Utilization rate:', optimalUtilizationRate)
+  t.true(Number(optimalUtilizationRate) === 80)
 })
 
-test('Check LPT Value', async (t) => {
-  const lptvalue = await getLPTValue(provider)
-  console.log('[Lending] LPT Value:', lptvalue.toString())
-  t.true(lptvalue.gt(0))
+test('Get LPT value', async (t) => {
+  const lptValue = await getLPTValue(provider)
+  console.log('[Lending] LPT Value:', lptValue)
+  t.true(Number(lptValue) === 10)
 })
 
-test('Check Base LPT Value', async (t) => {
-  const lptbasevalue = await getLPTBaseValue(provider)
-  console.log('[Lending] LPT Base Value:', lptbasevalue.toString())
-  t.true(lptbasevalue.gt(0))
+test('Get base LPT value', async (t) => {
+  const lptBaseValue = await getLPTBaseValue(provider)
+  console.log('[Lending] LPT Base Value:', lptBaseValue)
+  t.true(Number(lptBaseValue) === 10)
 })

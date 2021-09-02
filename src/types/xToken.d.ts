@@ -9,6 +9,7 @@ import {
   ALPHA,
   BNT,
   BNT_X_BNT_A_CLR,
+  BORROW,
   BUSD,
   BUY,
   DAI,
@@ -37,10 +38,12 @@ import {
   LENDING_X_KNC_B_MARKET,
   LENDING_X_KNC_B_PRICE,
   REN_BTC,
+  REPAY,
   S_ETH,
   S_USD,
   SELL,
   SNX,
+  SUPPLY,
   TRADE_ACCOUNTING,
   UNISWAP_LIBRARY,
   UNISWAP_V2_PAIR,
@@ -49,6 +52,7 @@ import {
   UST,
   WBTC,
   WETH,
+  WITHDRAW,
   X_AAVE_A,
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
@@ -88,25 +92,11 @@ export type IContracts =
   | typeof XTK
   | typeof XTK_MANAGEMENT_STAKING_MODULE
   | INativeAssets
-  | typeof LENDING_COMPTROLLER
-  | typeof LENDING_LIQUIDITY_POOL
-  | typeof LENDING_LPT
-  | typeof LENDING_X_AAVE_A_MARKET
-  | typeof LENDING_X_AAVE_A_PRICE
-  | typeof LENDING_X_AAVE_B_MARKET
-  | typeof LENDING_X_AAVE_B_PRICE
-  | typeof LENDING_X_INCH_A_MARKET
-  | typeof LENDING_X_INCH_A_PRICE
-  | typeof LENDING_X_INCH_B_MARKET
-  | typeof LENDING_X_INCH_B_PRICE
-  | typeof LENDING_X_KNC_A_MARKET
-  | typeof LENDING_X_KNC_A_PRICE
-  | typeof LENDING_X_KNC_B_MARKET
-  | typeof LENDING_X_KNC_B_PRICE
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets
   | IXAssetCLR
+  | ILendingContracts
 
 export type INativeAssets =
   | typeof AAVE
@@ -161,6 +151,29 @@ export type IXAssetCLR =
   | typeof X_KNC_B_KNC_CLR
   | typeof X_SNX_A_SNX_CLR
   | typeof XTK_ETH_CLR
+
+export type ILendingContracts =
+  | typeof LENDING_COMPTROLLER
+  | typeof LENDING_LIQUIDITY_POOL
+  | typeof LENDING_LPT
+  | ILendingMarket
+  | ILendingPricing
+
+export type ILendingMarket =
+  | typeof LENDING_X_AAVE_A_MARKET
+  | typeof LENDING_X_AAVE_B_MARKET
+  | typeof LENDING_X_INCH_A_MARKET
+  | typeof LENDING_X_INCH_B_MARKET
+  | typeof LENDING_X_KNC_A_MARKET
+  | typeof LENDING_X_KNC_B_MARKET
+
+export type ILendingPricing =
+  | typeof LENDING_X_AAVE_A_PRICE
+  | typeof LENDING_X_AAVE_B_PRICE
+  | typeof LENDING_X_INCH_A_PRICE
+  | typeof LENDING_X_INCH_B_PRICE
+  | typeof LENDING_X_KNC_A_PRICE
+  | typeof LENDING_X_KNC_B_PRICE
 
 export type ITradeType = typeof BUY | typeof SELL
 
@@ -263,3 +276,9 @@ export interface ICLRBurnQty {
 export interface ICLRMintQty extends ICLRBurnQty {
   expectedQty: string
 }
+
+export type ILendingType =
+  | typeof BORROW
+  | typeof REPAY
+  | typeof SUPPLY
+  | typeof WITHDRAW
