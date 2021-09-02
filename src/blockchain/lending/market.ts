@@ -1,13 +1,29 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { parseEther } from '@ethersproject/units'
-import { Abi, ADDRESSES, LENDING_LIQUIDITY_POOL } from '@xtoken/abis'
+import { formatEther, parseEther } from '@ethersproject/units'
+import {
+  Abi,
+  ADDRESSES,
+  LENDING_LIQUIDITY_POOL,
+  LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_B_MARKET,
+  X_AAVE_A,
+  X_AAVE_B,
+  X_INCH_A,
+  X_INCH_B,
+  X_KNC_A,
+  X_KNC_B,
+} from '@xtoken/abis'
 import { BigNumber, Contract } from 'ethers'
 
-import { getSignerAddress } from '../utils'
+import { Errors } from '../../constants'
+import { ILendingMarket } from '../../types/xToken'
+import { getContract, getSignerAddress } from '../utils'
 
-import { getMarkets, Markets } from './helper'
-
-// --- Market functions ---
+import { getMarketContracts } from './helper'
 
 /**
  * Add xAsset collateral to a Lending Market
@@ -17,12 +33,12 @@ import { getMarkets, Markets } from './helper'
  * @returns
  */
 export const collateralize = async (
-  marketName: Markets,
+  marketName: ILendingMarket,
   amount: string,
   provider: BaseProvider
 ) => {
-  const markets = await getMarkets(provider)
-  const market = markets[marketName]
+  const marketContracts = await getMarketContracts(provider)
+  const marketContract = marketContracts[marketName]
   const inputAmount = parseEther(amount)
   const address = await getSignerAddress(provider)
   const approvedAmount = await getApprovedAmountXAsset(
@@ -35,7 +51,7 @@ export const collateralize = async (
       new Error('Please approve the tokens before adding collateral')
     )
   }
-  return market.collateralize(inputAmount)
+  return marketContract.collateralize(inputAmount)
 }
 
 /**
@@ -46,14 +62,14 @@ export const collateralize = async (
  * @returns
  */
 export const withdrawCollateral = async (
-  marketName: Markets,
+  marketName: ILendingMarket,
   amount: string,
   provider: BaseProvider
 ) => {
-  const markets = await getMarkets(provider)
-  const market = markets[marketName]
+  const marketContracts = await getMarketContracts(provider)
+  const marketContract = marketContracts[marketName]
   const inputAmount = parseEther(amount)
-  return market.withdraw(inputAmount)
+  return marketContract.withdraw(inputAmount)
 }
 
 /**
@@ -64,16 +80,17 @@ export const withdrawCollateral = async (
  * @returns
  */
 export const getCollateral = async (
-  marketName: Markets,
+  marketName: ILendingMarket,
   provider: BaseProvider,
   address?: string
 ) => {
-  const markets = await getMarkets(provider)
-  const market = markets[marketName]
+  const marketContracts = await getMarketContracts(provider)
+  const marketContract = marketContracts[marketName]
   if (!address) {
     address = await getSignerAddress(provider)
   }
-  return market.collateral(address)
+  const collateral = await marketContract.collateral(address)
+  return formatEther(collateral)
 }
 
 /**
@@ -84,21 +101,20 @@ export const getCollateral = async (
  * @returns
  */
 export const getBorrowingLimit = async (
-  marketName: Markets,
+  marketName: ILendingMarket,
   provider: BaseProvider,
   address?: string
 ) => {
-  const markets = await getMarkets(provider)
-  const market = markets[marketName]
+  const marketContracts = await getMarketContracts(provider)
+  const marketContract = marketContracts[marketName]
   if (!address) {
     address = await getSignerAddress(provider)
   }
-  return market.borrowingLimit(address)
+  const borrowingLimit = await marketContract.borrowingLimit(address)
+  return formatEther(borrowingLimit)
 }
 
 // cSpell:disable
-
-// -- Approval functions for collateralization of each xAsset ---
 
 export const approveXAAVEa = async (
   amount: BigNumber,
@@ -203,34 +219,38 @@ export const approveXKNCb = async (
 }
 
 const getApprovedAmountXAsset = async (
-  marketName: Markets,
+  marketName: ILendingMarket,
   address: string,
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
-  let marketAddress
-  switch (marketName) {
-    case Markets.xAAVEaMarket:
-      marketAddress = ADDRESSES['X_AAVE_A'][network.chainId]
-      break
-    case Markets.xAAVEbMarket:
-      marketAddress = ADDRESSES['X_AAVE_B'][network.chainId]
-      break
-    case Markets.xINCHaMarket:
-      marketAddress = ADDRESSES['X_INCH_A'][network.chainId]
-      break
-    case Markets.xINCHbMarket:
-      marketAddress = ADDRESSES['X_INCH_B'][network.chainId]
-      break
-    case Markets.xKNCaMarket:
-      marketAddress = ADDRESSES['X_KNC_A'][network.chainId]
-      break
-    case Markets.xKNCbMarket:
-      marketAddress = ADDRESSES['X_KNC_B'][network.chainId]
-  }
-  const contract = new Contract(marketAddress, Abi.ERC20, provider)
+  let xTokenContract
 
-  return contract.allowance(
+  switch (marketName) {
+    case LENDING_X_AAVE_A_MARKET:
+      xTokenContract = getContract(X_AAVE_A, provider, network)
+      break
+    case LENDING_X_AAVE_B_MARKET:
+      xTokenContract = getContract(X_AAVE_B, provider, network)
+      break
+    case LENDING_X_INCH_A_MARKET:
+      xTokenContract = getContract(X_INCH_A, provider, network)
+      break
+    case LENDING_X_INCH_B_MARKET:
+      xTokenContract = getContract(X_INCH_B, provider, network)
+      break
+    case LENDING_X_KNC_A_MARKET:
+      xTokenContract = getContract(X_KNC_A, provider, network)
+      break
+    case LENDING_X_KNC_B_MARKET:
+      xTokenContract = getContract(X_KNC_B, provider, network)
+  }
+
+  if (!xTokenContract) {
+    return Promise.reject(new Error(Errors.CONTRACT_INITIALIZATION_FAILED))
+  }
+
+  return xTokenContract.allowance(
     address,
     ADDRESSES[LENDING_LIQUIDITY_POOL][network.chainId]
   )

@@ -1,8 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
+import { formatEther } from 'ethers/lib/utils'
 
-import { getComptroller } from './helper'
-
-// --- Comptroller functions ---
+import { getComptrollerContract } from './helper'
 
 /**
  * Get Borrowing Capacity for an address
@@ -14,8 +13,9 @@ export const getBorrowingCapacity = async (
   address: string,
   provider: BaseProvider
 ) => {
-  const comptroller = await getComptroller(provider)
-  return comptroller.borrowingCapacity(address)
+  const comptroller = await getComptrollerContract(provider)
+  const borrowingCapacity = await comptroller.borrowingCapacity(address)
+  return formatEther(borrowingCapacity)
 }
 
 /**
@@ -28,8 +28,9 @@ export const getHealthRatio = async (
   address: string,
   provider: BaseProvider
 ) => {
-  const comptroller = await getComptroller(provider)
-  return comptroller.getHealthRatio(address)
+  const comptroller = await getComptrollerContract(provider)
+  const healthRatio = await comptroller.getHealthRatio(address)
+  return formatEther(healthRatio)
 }
 
 /**
@@ -38,6 +39,6 @@ export const getHealthRatio = async (
  * @returns
  */
 export const getAllMarkets = async (provider: BaseProvider) => {
-  const comptroller = await getComptroller(provider)
+  const comptroller = await getComptrollerContract(provider)
   return comptroller.getAllMarkets()
 }

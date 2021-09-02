@@ -17,6 +17,7 @@ import {
   LENDING_X_KNC_B_PRICE,
 } from '@xtoken/abis'
 
+import { Errors } from '../../constants'
 import {
   Comptroller,
   LiquidityPool,
@@ -26,191 +27,190 @@ import {
   XINCHPrice,
   XKNCPrice,
 } from '../../types'
+import { ILendingMarket, ILendingPricing } from '../../types/xToken'
 import { getContract } from '../utils'
 
-export const getComptroller = async (provider: BaseProvider) => {
+const CONTRACT_ERROR = new Error(Errors.CONTRACT_INITIALIZATION_FAILED)
+
+export const getComptrollerContract = async (provider: BaseProvider) => {
   const network = await provider.getNetwork()
-  const comptroller = getContract(
+  const comptrollerContract = getContract(
     LENDING_COMPTROLLER,
     provider,
     network
   ) as Comptroller
-  if (!comptroller) {
-    return Promise.reject(new Error('Could not create Comptroller Contract'))
+  if (!comptrollerContract) {
+    return Promise.reject(CONTRACT_ERROR)
   }
-  return comptroller
+  return comptrollerContract
 }
 
-export const getLiquidityPool = async (provider: BaseProvider) => {
+export const getLiquidityPoolContract = async (provider: BaseProvider) => {
   const network = await provider.getNetwork()
-  const liquidityPool = getContract(
+  const liquidityPoolContract = getContract(
     LENDING_LIQUIDITY_POOL,
     provider,
     network
   ) as LiquidityPool
-  if (!liquidityPool) {
-    return Promise.reject(new Error('Could not create LiquidityPool Contract'))
+  if (!liquidityPoolContract) {
+    return Promise.reject(CONTRACT_ERROR)
   }
-  return liquidityPool
+  return liquidityPoolContract
 }
 
-export const getLPT = async (provider: BaseProvider) => {
+export const getLPTContract = async (provider: BaseProvider) => {
   const network = await provider.getNetwork()
-  const lpt = getContract(LENDING_LPT, provider, network) as LPT
-  if (!lpt) {
-    return Promise.reject(new Error('Could not create LPT Contract'))
+  const lptContract = getContract(LENDING_LPT, provider, network) as LPT
+  if (!lptContract) {
+    return Promise.reject(CONTRACT_ERROR)
   }
-  return lpt
+  return lptContract
 }
 
-export const getMarkets = async (provider: BaseProvider) => {
+export const getMarketContracts = async (
+  provider: BaseProvider
+): Promise<Record<ILendingMarket, Market>> => {
   const network = await provider.getNetwork()
-  const xAAVEaMarket = getContract(
+
+  // xAAVE Market Contracts
+  const xAAVEaMarketContract = getContract(
     LENDING_X_AAVE_A_MARKET,
     provider,
     network
   ) as Market
-  if (!xAAVEaMarket) {
-    return Promise.reject(new Error('Could not create xAAVEaMarket Contract'))
-  }
-  const xAAVEbMarket = getContract(
+  const xAAVEbMarketContract = getContract(
     LENDING_X_AAVE_B_MARKET,
     provider,
     network
   ) as Market
-  if (!xAAVEbMarket) {
-    return Promise.reject(new Error('Could not create xAAVEbMarket Contract'))
-  }
-  const xINCHaMarket = getContract(
+
+  // xINCH Market Contracts
+  const xINCHaMarketContract = getContract(
     LENDING_X_INCH_A_MARKET,
     provider,
     network
   ) as Market
-  if (!xINCHaMarket) {
-    return Promise.reject(new Error('Could not create xINCHaMarket Contract'))
-  }
-  const xINCHbMarket = getContract(
+  const xINCHbMarketContract = getContract(
     LENDING_X_INCH_B_MARKET,
     provider,
     network
   ) as Market
-  if (!xINCHbMarket) {
-    return Promise.reject(new Error('Could not create xINCHbMarket Contract'))
-  }
-  const xKNCaMarket = getContract(
+
+  // xKNC Market Contracts
+  const xKNCaMarketContract = getContract(
     LENDING_X_KNC_A_MARKET,
     provider,
     network
   ) as Market
-  if (!xKNCaMarket) {
-    return Promise.reject(new Error('Could not create xKNCaMarket Contract'))
-  }
-  const xKNCbMarket = getContract(
+  const xKNCbMarketContract = getContract(
     LENDING_X_KNC_B_MARKET,
     provider,
     network
   ) as Market
-  if (!xKNCbMarket) {
-    return Promise.reject(new Error('Could not create xKNCbMarket Contract'))
+
+  if (
+    !xAAVEaMarketContract ||
+    !xAAVEbMarketContract ||
+    !xINCHaMarketContract ||
+    !xINCHbMarketContract ||
+    !xKNCaMarketContract ||
+    !xKNCbMarketContract
+  ) {
+    return Promise.reject(CONTRACT_ERROR)
   }
+
   return {
-    xAAVEaMarket: xAAVEaMarket,
-    xAAVEbMarket: xAAVEbMarket,
-    xINCHaMarket: xINCHaMarket,
-    xINCHbMarket: xINCHbMarket,
-    xKNCaMarket: xKNCaMarket,
-    xKNCbMarket: xKNCbMarket,
+    [LENDING_X_AAVE_A_MARKET]: xAAVEaMarketContract,
+    [LENDING_X_AAVE_B_MARKET]: xAAVEbMarketContract,
+    [LENDING_X_INCH_A_MARKET]: xINCHaMarketContract,
+    [LENDING_X_INCH_B_MARKET]: xINCHbMarketContract,
+    [LENDING_X_KNC_A_MARKET]: xKNCaMarketContract,
+    [LENDING_X_KNC_B_MARKET]: xKNCbMarketContract,
   }
 }
 
-export const getPricingContracts = async (provider: BaseProvider) => {
+export const getPricingContracts = async (
+  provider: BaseProvider
+): Promise<Record<ILendingPricing, XAAVEPrice | XINCHPrice | XKNCPrice>> => {
   const network = await provider.getNetwork()
-  const xAAVEaPrice = getContract(
+
+  // xAAVE Price Contracts
+  const xAAVEaPriceContract = getContract(
     LENDING_X_AAVE_A_PRICE,
     provider,
     network
   ) as XAAVEPrice
-  if (!xAAVEaPrice) {
-    return Promise.reject(new Error('Could not create xAAVEaPrice Contract'))
-  }
-  const xAAVEbPrice = getContract(
+  const xAAVEbPriceContract = getContract(
     LENDING_X_AAVE_B_PRICE,
     provider,
     network
   ) as XAAVEPrice
-  if (!xAAVEbPrice) {
-    return Promise.reject(new Error('Could not create xAAVEbPrice Contract'))
-  }
-  const xINCHaPrice = getContract(
+
+  // xINCH Price Contracts
+  const xINCHaPriceContract = getContract(
     LENDING_X_INCH_A_PRICE,
     provider,
     network
   ) as XINCHPrice
-  if (!xINCHaPrice) {
-    return Promise.reject(new Error('Could not create xINCHaPrice Contract'))
-  }
-  const xINCHbPrice = getContract(
+  const xINCHbPriceContract = getContract(
     LENDING_X_INCH_B_PRICE,
     provider,
     network
   ) as XINCHPrice
-  if (!xINCHbPrice) {
-    return Promise.reject(new Error('Could not create xINCHbPrice Contract'))
-  }
-  const xKNCaPrice = getContract(
+
+  // xKNC Price Contracts
+  const xKNCaPriceContract = getContract(
     LENDING_X_KNC_A_PRICE,
     provider,
     network
   ) as XKNCPrice
-  if (!xKNCaPrice) {
-    return Promise.reject(new Error('Could not create xKNCaPrice Contract'))
-  }
-  const xKNCbPrice = getContract(
+  const xKNCbPriceContract = getContract(
     LENDING_X_KNC_B_PRICE,
     provider,
     network
   ) as XKNCPrice
-  if (!xKNCbPrice) {
-    return Promise.reject(new Error('Could not create xKNCbPrice Contract'))
+
+  if (
+    !xAAVEaPriceContract ||
+    !xAAVEbPriceContract ||
+    !xINCHaPriceContract ||
+    !xINCHbPriceContract ||
+    !xKNCaPriceContract ||
+    !xKNCbPriceContract
+  ) {
+    return Promise.reject(CONTRACT_ERROR)
   }
+
   return {
-    xAAVEaPrice: xAAVEaPrice,
-    xAAVEbPrice: xAAVEbPrice,
-    xINCHaPrice: xINCHaPrice,
-    xINCHbPrice: xINCHbPrice,
-    xKNCaPrice: xKNCaPrice,
-    xKNCbPrice: xKNCbPrice,
+    [LENDING_X_AAVE_A_PRICE]: xAAVEaPriceContract,
+    [LENDING_X_AAVE_B_PRICE]: xAAVEbPriceContract,
+    [LENDING_X_INCH_A_PRICE]: xINCHaPriceContract,
+    [LENDING_X_INCH_B_PRICE]: xINCHbPriceContract,
+    [LENDING_X_KNC_A_PRICE]: xKNCaPriceContract,
+    [LENDING_X_KNC_B_PRICE]: xKNCbPriceContract,
   }
 }
 
-export const getContracts = async (provider: BaseProvider) => {
-  const comptroller = await getComptroller(provider)
-  const liquidityPool = await getLiquidityPool(provider)
-  const lpt = await getLPT(provider)
-  const markets = await getMarkets(provider)
-  const prices = await getPricingContracts(provider)
-  const baseLendingProtocol = {
-    comptroller: comptroller,
-    liquidityPool: liquidityPool,
-    lpt: lpt,
+export const getLendingContracts = async (provider: BaseProvider) => {
+  const [
+    comptrollerContract,
+    liquidityPoolContract,
+    lptContract,
+    marketContracts,
+    pricingContracts,
+  ] = await Promise.all([
+    getComptrollerContract(provider),
+    getLiquidityPoolContract(provider),
+    getLPTContract(provider),
+    getMarketContracts(provider),
+    getPricingContracts(provider),
+  ])
+
+  return {
+    comptrollerContract,
+    liquidityPoolContract,
+    lptContract,
+    marketContracts,
+    pricingContracts,
   }
-  return { ...baseLendingProtocol, ...markets, ...prices }
-}
-
-export const enum Markets {
-  xAAVEaMarket = 'xAAVEaMarket',
-  xAAVEbMarket = 'xAAVEbMarket',
-  xINCHaMarket = 'xINCHaMarket',
-  xINCHbMarket = 'xINCHbMarket',
-  xKNCaMarket = 'xKNCaMarket',
-  xKNCbMarket = 'xKNCbMarket',
-}
-
-export const enum Prices {
-  xAAVEaPrice = 'xAAVEaPrice',
-  xAAVEbPrice = 'xAAVEbPrice',
-  xINCHaPrice = 'xINCHaPrice',
-  xINCHbPrice = 'xINCHbPrice',
-  xKNCaPrice = 'xKNCaPrice',
-  xKNCbPrice = 'xKNCbPrice',
 }
