@@ -10,8 +10,6 @@ export const getMaximumRedeemableXAssetCLR = async (
   provider: BaseProvider
 ) => {
   const { xAssetCLRContract } = await getXAssetCLRContracts(symbol, provider)
-
   const totalLiquidity = await xAssetCLRContract.getTotalLiquidity()
-
   return formatEther(totalLiquidity)
 }

@@ -38,6 +38,7 @@ import {
   getExpectedQuantityOnMintXAssetCLR,
   getMaximumRedeemableXAssetCLR,
   getPoolRatioXAssetCLR,
+  mintXAssetCLR,
 } from './blockchain/clr'
 import {
   getBalancerEstimatedQuantity,
@@ -59,7 +60,7 @@ import {
   stakeXtk,
   unstakeXXtkA,
 } from './blockchain/staking'
-import { getSignerAddress, isXAssetCLRSymbol } from './blockchain/utils'
+import { getSignerAddress } from './blockchain/utils'
 import {
   approveXAave,
   burnXAave,
@@ -229,14 +230,14 @@ export class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols | IXAssetCLR} symbol Symbol of the xToken to be sold
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to be sold
    * @param {boolean} sellForEth Sell for ETH/Token or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Amount of xTokens to be sold,
    *                        cannot exceed max redeemable for xAAVEa/xAAVEb/xSNXa tokens
    * @returns A promise of the transaction response
    */
   public async burn(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     sellForEth: boolean,
     amount: string
   ): Promise<ContractTransaction> {
@@ -280,6 +281,44 @@ export class XToken {
       case X_U3LP_G:
       case X_U3LP_H:
         return burnXU3LP(symbol, sellForEth ? 1 : 0, value, this.provider)
+    }
+  }
+
+  /**
+   * Sell specified amount of xAssetCLR tokens
+   *
+   * @example
+   * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Sell 100 AAVE_X_AAVE_A_CLR
+   * const tx = await xToken.burnXAssetCLR(AAVE_X_AAVE_A_CLR, '100')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xAssetCLR to be sold
+   * @param {string} amount Amount of xAssetCLR tokens to be sold,
+   *                        cannot exceed max redeemable tokens
+   * @returns A promise of the transaction response
+   */
+  public async burnXAssetCLR(
+    symbol: IXAssetCLR,
+    amount: string
+  ): Promise<ContractTransaction> {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+    const value = parseEther(amount)
+
+    const maxRedeemable = parseEther(await this.getMaxRedeemable(symbol))
+
+    if (value.gt(maxRedeemable)) {
+      return Promise.reject(
+        new Error('Specified amount exceeds maximum redeemable tokens')
+      )
+    }
+
+    switch (symbol) {
       case AAVE_X_AAVE_A_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
@@ -299,14 +338,14 @@ export class XToken {
    * const return = await xToken.getBestReturn('xAAVEa', true, '100')
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the xToken to burn
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
    * @param {boolean} tradeWithEth True, if selling the xToken for ETH
    * @param {string} amount Quantity of the xToken to be traded
    * @param {ITradeType} tradeType Buy/sell type of the trade
    * @returns Estimated quantities from available sources for trading the given xToken
    */
   public async getBestReturn(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     tradeWithEth: boolean,
     amount: string,
     tradeType: ITradeType
@@ -314,11 +353,10 @@ export class XToken {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
-    const isXAssetCLR = isXAssetCLRSymbol(symbol)
 
     let dexExpectedQty = '0'
     let dexSource = Exchange.KYBER
-    let xTokenExpectedQty: string | ICLRBurnQty
+    let xTokenExpectedQty: string
 
     if (tradeType === BUY) {
       xTokenExpectedQty = await this.getExpectedQuantityOnMint(
@@ -335,9 +373,7 @@ export class XToken {
     }
 
     const xTokenReturn = {
-      expectedQuantity: isXAssetCLR
-        ? xTokenExpectedQty
-        : parseEther(xTokenExpectedQty as string).toString(),
+      expectedQuantity: parseEther(xTokenExpectedQty as string).toString(),
       source: Exchange.XTOKEN,
     }
 
@@ -411,16 +447,16 @@ export class XToken {
    * const expectedQty = await xToken.burn('xU3LPa', true, '100') // true = outputAsset `1`
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols | IXAssetCLR} symbol Symbol of the xToken to burn
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
    * @param {boolean} sellForEth True, if selling the xToken for ETH or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Quantity of the xToken to be traded
    * @returns Expected quantity for selling the given xToken / underlying assets in case of xAssetCLR
    */
   public async getExpectedQuantityOnBurn(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     sellForEth: boolean,
     amount: string
-  ): Promise<string | ICLRBurnQty> {
+  ): Promise<string> {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
@@ -473,15 +509,6 @@ export class XToken {
           amount,
           this.provider
         )
-      case AAVE_X_AAVE_A_CLR:
-      case BNT_X_BNT_A_CLR:
-      case INCH_X_INCH_A_CLR:
-      case INCH_X_INCH_B_CLR:
-      case X_AAVE_B_AAVE_CLR:
-      case X_KNC_A_KNC_CLR:
-      case X_KNC_B_KNC_CLR:
-      case X_SNX_A_SNX_CLR:
-        return getExpectedQuantityOnBurnXAssetCLR(symbol, amount, this.provider)
     }
   }
 
@@ -501,10 +528,10 @@ export class XToken {
    * @returns Expected quantity of xToken upon minting
    */
   public async getExpectedQuantityOnMint(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols,
     tradeWithEth: boolean,
     amount: string
-  ): Promise<string | ICLRMintQty> {
+  ): Promise<string> {
     if (+amount === 0 || isNaN(+amount)) {
       return Promise.reject(new Error('Invalid value for amount'))
     }
@@ -556,20 +583,6 @@ export class XToken {
       case X_U3LP_G:
       case X_U3LP_H:
         return getExpectedQuantityOnMintXU3LP(
-          symbol,
-          tradeWithEth ? 1 : 0,
-          amount,
-          this.provider
-        )
-      case AAVE_X_AAVE_A_CLR:
-      case BNT_X_BNT_A_CLR:
-      case INCH_X_INCH_A_CLR:
-      case INCH_X_INCH_B_CLR:
-      case X_AAVE_B_AAVE_CLR:
-      case X_KNC_A_KNC_CLR:
-      case X_KNC_B_KNC_CLR:
-      case X_SNX_A_SNX_CLR:
-        return getExpectedQuantityOnMintXAssetCLR(
           symbol,
           tradeWithEth ? 1 : 0,
           amount,
@@ -719,6 +732,51 @@ export class XToken {
   /**
    * @example
    * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Get estimated quantity of minting AAVE_X_AAVE_A_CLR for 100 xAAVEa
+   * const return = await xToken.getTradeEstimateXAssetCLR(AAVE_X_AAVE_A_CLR, 1, '100')
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xToken to burn
+   * @param {IAssetId} tradeAsset True, if selling the xToken for ETH
+   * @param {string} amount Quantity of the xToken to be traded
+   * @param {ITradeType} tradeType Buy/sell type of the trade
+   * @returns Estimated quantity for trading the given xAssetCLR
+   */
+  public async getTradeEstimateXAssetCLR(
+    symbol: IXAssetCLR,
+    tradeAsset: IAssetId,
+    amount: string,
+    tradeType: ITradeType
+  ): Promise<ICLRBurnQty | ICLRMintQty> {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+
+    let expectedQty
+
+    if (tradeType === BUY) {
+      expectedQty = await getExpectedQuantityOnMintXAssetCLR(
+        symbol,
+        tradeAsset,
+        amount,
+        this.provider
+      )
+    } else {
+      expectedQty = await getExpectedQuantityOnBurnXAssetCLR(
+        symbol,
+        amount,
+        this.provider
+      )
+    }
+
+    return expectedQty
+  }
+
+  /**
+   * @example
+   * ```typescript
    * // Get available xTokens list
    * const xTokensList = await xToken.getXAssets()
    * ```
@@ -816,6 +874,47 @@ export class XToken {
       case X_U3LP_G:
       case X_U3LP_H:
         return mintXU3LP(symbol, tradeWithEth ? 1 : 0, value, this.provider)
+    }
+  }
+
+  /**
+   * Mint xAssetCLR token for specified amount of Token0/Token1
+   *
+   * @example
+   * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Buy AAVE_X_AAVE_A_CLR for 1 AAVE
+   * const tx = await xToken.mintXAssetCLR(AAVE_X_AAVE_A_CLR, 0, '1')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xAssetCLR to be minted
+   * @param {IAssetId} inputAsset Mint with Token0/Token1 `inputAsset`
+   * @param {string} amount Quantity of xAssetCLR token to be minted,
+   *                        tokens need to be approved before minting using [[approve]] method
+   * @returns A promise of the transaction response
+   */
+  public async mintXAssetCLR(
+    symbol: IXAssetCLR,
+    inputAsset: IAssetId,
+    amount: string
+  ): Promise<ContractTransaction> {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error('Invalid value for amount'))
+    }
+    const value = parseEther(amount)
+
+    switch (symbol) {
+      case AAVE_X_AAVE_A_CLR:
+      case BNT_X_BNT_A_CLR:
+      case INCH_X_INCH_A_CLR:
+      case INCH_X_INCH_B_CLR:
+      case X_AAVE_B_AAVE_CLR:
+      case X_KNC_A_KNC_CLR:
+      case X_KNC_B_KNC_CLR:
+      case X_SNX_A_SNX_CLR:
+        return mintXAssetCLR(symbol, inputAsset, value, this.provider)
     }
   }
 
