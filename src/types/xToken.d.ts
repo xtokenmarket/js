@@ -35,6 +35,7 @@ import {
   X_U3LP_H,
   BUSD,
   DAI,
+  ETH,
   FRAX,
   REN_BTC,
   S_ETH,
@@ -53,16 +54,20 @@ import {
   X_KNC_B_KNC_CLR,
   X_SNX_A_SNX_CLR,
   UNISWAP_LIBRARY,
+  XTK_ETH_CLR,
+  XTK,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
+  | typeof ETH
   | typeof EXCHANGE_RATES
   | typeof INCH_LIQUIDITY_PROTOCOL
   | typeof KYBER_PROXY
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_LIBRARY
   | typeof UNISWAP_V2_PAIR
+  | typeof XTK
   | typeof XTK_MANAGEMENT_STAKING_MODULE
   | INativeAssets
   | ITokenSymbols
@@ -119,6 +124,7 @@ export type IXAssetCLR =
   | typeof X_KNC_A_KNC_CLR
   | typeof X_KNC_B_KNC_CLR
   | typeof X_SNX_A_SNX_CLR
+  | typeof XTK_ETH_CLR
 
 export type ITradeType = typeof BUY | typeof SELL
 
@@ -208,8 +214,8 @@ export type IStakeHistory = {
 export type IHistoryType = typeof STAKE | typeof UNSTAKE
 
 export interface ICLRToken {
-  0: INativeAssets | ITokenSymbols
-  1: INativeAssets | ITokenSymbols
+  0: INativeAssets | ITokenSymbols | typeof XTK
+  1: INativeAssets | ITokenSymbols | typeof WETH
 }
 
 export interface ICLRBurnQty {

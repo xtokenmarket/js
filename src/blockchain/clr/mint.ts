@@ -81,6 +81,7 @@ export const getPoolRatioXAssetCLR = async (
     xAssetCLRContract.poolAddress(),
     xAssetCLRContract.getStakedTokenBalance(),
   ])
+
   const midPrice = _formatPoolPrice(
     await uniswapLibraryContract.getPoolPrice(poolAddress)
   )
@@ -136,9 +137,9 @@ const _formatPoolPrice = (poolPrice: BigNumber) => {
     (
       poolPrice
         .pow(2)
-        .mul(1e4)
+        .mul(1e8)
         .shr(96 * 2)
-        .toNumber() / 1e4
+        .toNumber() / 1e8
     ).toString()
   )
 }

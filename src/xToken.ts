@@ -28,6 +28,7 @@ import {
   X_U3LP_F,
   X_U3LP_G,
   X_U3LP_H,
+  XTK_ETH_CLR,
 } from '@xtoken/abis'
 import { isAddress, parseEther } from 'ethers/lib/utils'
 
@@ -60,7 +61,7 @@ import {
   stakeXtk,
   unstakeXXtkA,
 } from './blockchain/staking'
-import { getSignerAddress } from './blockchain/utils'
+import { getSignerAddress, getXAssetPrices } from './blockchain/utils'
 import {
   approveXAave,
   burnXAave,
@@ -132,6 +133,7 @@ import {
   ILPTokenSymbols,
   IPortfolioItem,
   IReturns,
+  ITokenPrices,
   ITokenSymbols,
   ITradeType,
   IXAssetCLR,
@@ -212,6 +214,7 @@ export class XToken {
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
+      case XTK_ETH_CLR:
         return approveXAssetCLR(symbol, value, inputAsset || 0, this.provider)
     }
   }
@@ -318,17 +321,7 @@ export class XToken {
       )
     }
 
-    switch (symbol) {
-      case AAVE_X_AAVE_A_CLR:
-      case BNT_X_BNT_A_CLR:
-      case INCH_X_INCH_A_CLR:
-      case INCH_X_INCH_B_CLR:
-      case X_AAVE_B_AAVE_CLR:
-      case X_KNC_A_KNC_CLR:
-      case X_KNC_B_KNC_CLR:
-      case X_SNX_A_SNX_CLR:
-        return burnXAssetCLR(symbol, value, this.provider)
-    }
+    return burnXAssetCLR(symbol, value, this.provider)
   }
 
   /**
@@ -650,7 +643,8 @@ export class XToken {
       | typeof X_AAVE_B_AAVE_CLR
       | typeof X_KNC_A_KNC_CLR
       | typeof X_KNC_B_KNC_CLR
-      | typeof X_SNX_A_SNX_CLR,
+      | typeof X_SNX_A_SNX_CLR
+      | typeof XTK_ETH_CLR,
     outputAsset?: IAssetId
   ): Promise<string> {
     switch (symbol) {
@@ -685,6 +679,7 @@ export class XToken {
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
+      case XTK_ETH_CLR:
         return getMaximumRedeemableXAssetCLR(symbol, this.provider)
     }
   }
@@ -772,6 +767,22 @@ export class XToken {
     }
 
     return expectedQty
+  }
+
+  /**
+   * @example
+   * ```typescript
+   * import { X_AAVE_A } from '@xtoken/abis'
+   *
+   * // Get xAAVEa asset price
+   * const xTokensList = await xToken.getXAssetPrices(X_AAVE_A)
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to fetch prices of
+   * @returns A promise of the xAsset prices in ETH/USD along with AUM
+   */
+  public async getXAssetPrices(symbol: ITokenSymbols): Promise<ITokenPrices> {
+    return getXAssetPrices(symbol, this.provider)
   }
 
   /**
@@ -904,18 +915,7 @@ export class XToken {
       return Promise.reject(new Error('Invalid value for amount'))
     }
     const value = parseEther(amount)
-
-    switch (symbol) {
-      case AAVE_X_AAVE_A_CLR:
-      case BNT_X_BNT_A_CLR:
-      case INCH_X_INCH_A_CLR:
-      case INCH_X_INCH_B_CLR:
-      case X_AAVE_B_AAVE_CLR:
-      case X_KNC_A_KNC_CLR:
-      case X_KNC_B_KNC_CLR:
-      case X_SNX_A_SNX_CLR:
-        return mintXAssetCLR(symbol, inputAsset, value, this.provider)
-    }
+    return mintXAssetCLR(symbol, inputAsset, value, this.provider)
   }
 
   /**
