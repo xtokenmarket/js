@@ -17,7 +17,10 @@ const TOKEN_APPROVE_ERROR = new Error(Errors.TOKENS_NOT_APPROVED)
  * @param provider
  * @returns
  */
-export const borrow = async (amount: BigNumber, provider: BaseProvider) => {
+export const borrowLiquidity = async (
+  amount: BigNumber,
+  provider: BaseProvider
+) => {
   const liquidityPoolContract = await getLiquidityPoolContract(provider)
   return liquidityPoolContract.borrow(amount)
 }
@@ -28,7 +31,10 @@ export const borrow = async (amount: BigNumber, provider: BaseProvider) => {
  * @param provider
  * @returns
  */
-export const repay = async (amount: BigNumber, provider: BaseProvider) => {
+export const repayLiquidity = async (
+  amount: BigNumber,
+  provider: BaseProvider
+) => {
   const liquidityPoolContract = await getLiquidityPoolContract(provider)
   const address = await getSignerAddress(provider)
   const approvedAmount = await _getApprovedAmountUSDC(address, provider)
@@ -44,7 +50,10 @@ export const repay = async (amount: BigNumber, provider: BaseProvider) => {
  * @param provider
  * @returns
  */
-export const supply = async (amount: BigNumber, provider: BaseProvider) => {
+export const supplyLiquidity = async (
+  amount: BigNumber,
+  provider: BaseProvider
+) => {
   const liquidityPoolContract = await getLiquidityPoolContract(provider)
   const address = await getSignerAddress(provider)
   const approvedAmount = await _getApprovedAmountUSDC(address, provider)
@@ -60,7 +69,10 @@ export const supply = async (amount: BigNumber, provider: BaseProvider) => {
  * @param provider
  * @returns
  */
-export const withdraw = async (amount: BigNumber, provider: BaseProvider) => {
+export const withdrawLiquidity = async (
+  amount: BigNumber,
+  provider: BaseProvider
+) => {
   const liquidityPoolContract = await getLiquidityPoolContract(provider)
   return liquidityPoolContract.withdraw(amount)
 }

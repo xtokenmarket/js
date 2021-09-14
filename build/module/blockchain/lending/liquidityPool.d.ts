@@ -6,7 +6,7 @@ import { BigNumber } from 'ethers'
  * @param provider
  * @returns
  */
-export declare const borrow: (
+export declare const borrowLiquidity: (
   amount: BigNumber,
   provider: BaseProvider
 ) => Promise<import('ethers').ContractTransaction>
@@ -16,7 +16,7 @@ export declare const borrow: (
  * @param provider
  * @returns
  */
-export declare const repay: (
+export declare const repayLiquidity: (
   amount: BigNumber,
   provider: BaseProvider
 ) => Promise<import('ethers').ContractTransaction>
@@ -26,7 +26,7 @@ export declare const repay: (
  * @param provider
  * @returns
  */
-export declare const supply: (
+export declare const supplyLiquidity: (
   amount: BigNumber,
   provider: BaseProvider
 ) => Promise<import('ethers').ContractTransaction>
@@ -36,7 +36,7 @@ export declare const supply: (
  * @param provider
  * @returns
  */
-export declare const withdraw: (
+export declare const withdrawLiquidity: (
   amount: BigNumber,
   provider: BaseProvider
 ) => Promise<import('ethers').ContractTransaction>

@@ -277,8 +277,6 @@ export interface ICLRMintQty extends ICLRBurnQty {
   expectedQty: string
 }
 
-export type ILendingType =
-  | typeof BORROW
-  | typeof REPAY
-  | typeof SUPPLY
-  | typeof WITHDRAW
+export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
+
+export type ILendingType = typeof BORROW | typeof REPAY | ICollateralType

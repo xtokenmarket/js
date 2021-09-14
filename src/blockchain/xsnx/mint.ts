@@ -18,17 +18,20 @@ const { formatEther, parseEther } = ethers.utils
 
 export const approveXSnx = async (
   amount: BigNumber,
-  provider: BaseProvider
+  provider: BaseProvider,
+  spenderAddress?: string
 ): Promise<ContractTransaction> => {
   const { snxContract, xsnxContract } = await getXSnxContracts(provider)
 
+  const address = spenderAddress || xsnxContract.address
+
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await snxContract.estimateGas.approve(xsnxContract.address, amount),
+    await snxContract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return snxContract.approve(xsnxContract.address, amount, { gasLimit })
+  return snxContract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXSnx = async (

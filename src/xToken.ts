@@ -5,13 +5,11 @@ import { parseUnits } from '@ethersproject/units'
 import {
   AAVE_X_AAVE_A_CLR,
   BNT_X_BNT_A_CLR,
+  BORROW,
   BUY,
   ETH,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
-  BORROW,
-  BUY,
-  ETH,
   REPAY,
   SUPPLY,
   WITHDRAW,
@@ -50,6 +48,7 @@ import {
   getPoolRatioXAssetCLR,
   mintXAssetCLR,
 } from './blockchain/clr'
+import { approveErc20 } from './blockchain/erc20'
 import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
@@ -67,7 +66,7 @@ import {
 import { getUniswapV3EstimatedQty } from './blockchain/exchanges/uniswapV3'
 import {
   approveUsdc,
-  borrow,
+  borrowLiquidity,
   getAllMarkets,
   getBorrowingCapacity,
   getHealthRatio,
@@ -75,9 +74,11 @@ import {
   getLPTBaseValue,
   getLPTValue,
   getOptimalUtilizationRate,
-  repay,
-  supply,
-  withdraw,
+  repayLiquidity,
+  supplyCollateral,
+  supplyLiquidity,
+  withdrawCollateral,
+  withdrawLiquidity,
 } from './blockchain/lending'
 import {
   approveXtk,
@@ -161,7 +162,9 @@ import {
   IAssetId,
   ICLRBurnQty,
   ICLRMintQty,
+  ICollateralType,
   IHistoryType,
+  ILendingMarket,
   ILendingPricing,
   ILendingType,
   ILiquidityPoolItem,
@@ -169,6 +172,7 @@ import {
   ILPTokenSymbols,
   IPortfolioItem,
   IReturns,
+  IStableAssets,
   ITokenPrices,
   ITokenSymbols,
   ITradeType,
@@ -207,34 +211,40 @@ export class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols | IXAssetCLR} symbol Symbol of the token to be approved
+   * @param {ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR} symbol Symbol of the token to be approved
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
    * @param {IAssetId} inputAsset Token0/Token1
+   * @param {string} spenderAddress Spender address to be approved for the specified ERC20 token
    * @returns A promise of the transaction response
    */
   public async approve(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR,
     amount?: string,
-    inputAsset?: IAssetId
+    inputAsset?: IAssetId,
+    spenderAddress?: string
   ): Promise<ContractTransaction> {
     const value = amount ? parseEther(amount) : MAX_UINT
+
+    if (spenderAddress && !isAddress(spenderAddress)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
 
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return approveXAave(symbol, value, this.provider)
+        return approveXAave(symbol, value, this.provider, spenderAddress)
       case X_ALPHA_A:
-        return approveXAlpha(symbol, value, this.provider)
+        return approveXAlpha(symbol, value, this.provider, spenderAddress)
       case X_BNT_A:
-        return approveXBnt(symbol, value, this.provider)
+        return approveXBnt(symbol, value, this.provider, spenderAddress)
       case X_INCH_A:
       case X_INCH_B:
-        return approveXInch(symbol, value, this.provider)
+        return approveXInch(symbol, value, this.provider, spenderAddress)
       case X_KNC_A:
       case X_KNC_B:
-        return approveXKnc(symbol, value, this.provider)
+        return approveXKnc(symbol, value, this.provider, spenderAddress)
       case X_SNX_A:
-        return approveXSnx(value, this.provider)
+        return approveXSnx(value, this.provider, spenderAddress)
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
@@ -255,6 +265,11 @@ export class XToken {
       case X_SNX_A_SNX_CLR:
       case XTK_ETH_CLR:
         return approveXAssetCLR(symbol, value, inputAsset || 0, this.provider)
+      default:
+        if (!spenderAddress) {
+          return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+        }
+        return approveErc20(symbol, value, spenderAddress, this.provider)
     }
   }
 
@@ -399,6 +414,41 @@ export class XToken {
     }
 
     return burnXAssetCLR(symbol, value, this.provider)
+  }
+
+  /**
+   * @example
+   * ```typescript
+   * import { LENDING_X_AAVE_A_MARKET, SUPPLY } from '@xtoken/abis'
+   *
+   * // Add xAAVEa to Lending market
+   * const tx = await xToken.collateral(LENDING_X_AAVE_A_MARKET, '100', SUPPLY)
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * Add/remove xAsset collateral to a Lending Market
+   * @param {ILendingMarket} marketName Name of the market
+   * @param {string} amount Amount of xAsset to add/remove
+   * @param {ICollateralType} type Supply/Withdraw action to be performed on the provided collateral
+   * @returns A promise of the transaction response
+   */
+  public async collateral(
+    marketName: ILendingMarket,
+    amount: string,
+    type: ICollateralType
+  ) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
+    }
+
+    const value = parseEther(amount)
+
+    switch (type) {
+      case SUPPLY:
+        return supplyCollateral(marketName, value, this.provider)
+      case WITHDRAW:
+        return withdrawCollateral(marketName, value, this.provider)
+    }
   }
 
   /**
@@ -1015,13 +1065,13 @@ export class XToken {
 
     switch (type) {
       case BORROW:
-        return borrow(value, this.provider)
+        return borrowLiquidity(value, this.provider)
       case REPAY:
-        return repay(value, this.provider)
+        return repayLiquidity(value, this.provider)
       case SUPPLY:
-        return supply(value, this.provider)
+        return supplyLiquidity(value, this.provider)
       case WITHDRAW:
-        return withdraw(value, this.provider)
+        return withdrawLiquidity(value, this.provider)
     }
   }
 

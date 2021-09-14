@@ -18,7 +18,9 @@ import {
 } from '@xtoken/abis'
 import {
   IAsset,
+  ICollateralType,
   IHistoryType,
+  ILendingMarket,
   ILendingPricing,
   ILendingType,
   ILiquidityPoolItem,
@@ -26,6 +28,7 @@ import {
   ILPTokenSymbols,
   IPortfolioItem,
   IReturns,
+  IStableAssets,
   ITokenSymbols,
   ITradeType,
   IU3LPAssetId,
@@ -58,15 +61,17 @@ export declare class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the token to be approved
+   * @param {ITokenSymbols | ILPTokenSymbols | IStableAssets} symbol Symbol of the token to be approved
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
    * @param {IU3LPAssetId} inputAsset Token0/Token1
+   * @param {string} spenderAddress Spender address to be approved for the specified ERC20 token
    * @returns A promise of the transaction response
    */
   approve(
-    symbol: ITokenSymbols | ILPTokenSymbols,
+    symbol: ITokenSymbols | ILPTokenSymbols | IStableAssets,
     amount?: string,
-    inputAsset?: IU3LPAssetId
+    inputAsset?: IU3LPAssetId,
+    spenderAddress?: string
   ): Promise<ContractTransaction>
   /**
    * Approve specified amount of USDC by lending liquidity pool contract
@@ -118,6 +123,27 @@ export declare class XToken {
     symbol: ITokenSymbols | ILPTokenSymbols,
     sellForEth: boolean,
     amount: string
+  ): Promise<ContractTransaction>
+  /**
+   * @example
+   * ```typescript
+   * import { LENDING_X_AAVE_A_MARKET, SUPPLY } from '@xtoken/abis'
+   *
+   * // Add xAAVEa to Lending market
+   * const tx = await xToken.collateral(LENDING_X_AAVE_A_MARKET, '100', SUPPLY)
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * Add/remove xAsset collateral to a Lending Market
+   * @param {ILendingMarket} marketName Name of the market
+   * @param {string} amount Amount of xAsset to add/remove
+   * @param {ICollateralType} type Supply/Withdraw action to be performed on the provided collateral
+   * @returns A promise of the transaction response
+   */
+  collateral(
+    marketName: ILendingMarket,
+    amount: string,
+    type: ICollateralType
   ): Promise<ContractTransaction>
   /**
    * @example
