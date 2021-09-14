@@ -5,7 +5,8 @@ import { ITokenSymbols } from '../../types/xToken'
 export declare const approveXInch: (
   symbol: ITokenSymbols,
   amount: BigNumber,
-  provider: BaseProvider
+  provider: BaseProvider,
+  spenderAddress?: string | undefined
 ) => Promise<ContractTransaction>
 export declare const getExpectedQuantityOnMintXInch: (
   symbol: ITokenSymbols,

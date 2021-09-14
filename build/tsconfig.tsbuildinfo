@@ -1177,8 +1177,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "baac8a622f68e853c5d8631237a27f63411b5823c067fe36aa35c345ccbc9234",
-        "signature": "baac8a622f68e853c5d8631237a27f63411b5823c067fe36aa35c345ccbc9234",
+        "version": "e97edff297161aae2ba7caefbd5d4d3e400c1b39a8daaa3a8504615a2a16da04",
+        "signature": "e97edff297161aae2ba7caefbd5d4d3e400c1b39a8daaa3a8504615a2a16da04",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1189,6 +1189,16 @@
       "../src/blockchain/utils.ts": {
         "version": "6a78356958f19670c6436e0952bf96b66b724bf0ab8b565aa61c0669e0ee9b81",
         "signature": "6556c3874efdf201b872b614c3c129343367ed546a9661c967be93d050bf3539",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/approve.ts": {
+        "version": "6212b94615468ae7db847034822300e1e87a79b77f619bf0e52a2945d3331793",
+        "signature": "e54253ebee6e793775b1adc4fa26aeccadcc82b7e2162f8da6e65d9414048c4c",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/index.ts": {
+        "version": "eb14d3f984bec36def686f174e81715901a3156424fbc29487781054c9f018d1",
+        "signature": "49d859957c85132a15d546d0663e7dcc16920052e8164bb148878c9fcb592b59",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/helper.ts": {
@@ -1307,8 +1317,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/mint.ts": {
-        "version": "56ca992910b0c3dccf1508f6a6398197d8d0472e7755e2a29323b562ba10f913",
-        "signature": "4ea744942507e51f9ef7938ddee96b92231b51f592fea14361dad1711ee41318",
+        "version": "dcd0510ed2633cd3ce43b6a8ef8d52e80938933ba354acfad4095fb95d60a2d4",
+        "signature": "21ee76465a326ac986ecbf6f1c1ad84ecbefebdf08e5bb78e2161349a285c9b6",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/portfolio.ts": {
@@ -1347,8 +1357,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/mint.ts": {
-        "version": "3044ef88cda20964b1b22b4e02c507fccc9fc5b0457bcacfd38e064ddf696ab0",
-        "signature": "736dc63aa1497291082ff9e6b28d3171af3b793bae2cc474178769f92369a4c5",
+        "version": "f47b022660c5ae5a3fc073a45226a951c6c906bd35eb79c4d54651b0cc9e60fa",
+        "signature": "5f448a8b535886120cd7b672812c8c1d0c8fc4363da7e46a30a6dc94241b6f6d",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/portfolio.ts": {
@@ -1392,8 +1402,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/mint.ts": {
-        "version": "e421fe748749fd10434cbcf9b935816738bb47e2baa0ae8adc964aa26e4fc46e",
-        "signature": "bd6bd79c9dcef10a84edab19e8e29217f7d88d7d757249b6d9d46a5fc8972622",
+        "version": "eced4270874ac31178e99c0cfb942c011a904f8a4226452d150f859e25f5d0e3",
+        "signature": "ebb9523926ba10c4d7ca8a164d9e94a598a37efc4c8ba0622c6f093c288d84b6",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/portfolio.ts": {
@@ -1437,8 +1447,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/mint.ts": {
-        "version": "d445aa5497d5ac98c4f5c8821b5690551292a62e4c8dfa36ceaa368baab7bfcf",
-        "signature": "87d82dfcb98570e21786b5b42a2baef2d52e16043f7386ddccdc9a5fea70e71b",
+        "version": "602b744f583f2eeec8fdbe518399de08214af8160f28b83136417178238465f8",
+        "signature": "e425fc3e3d1a76e8d497c12c057a4044cd0887257381485af434c96a6b5a0c0d",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/portfolio.ts": {
@@ -1482,8 +1492,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/mint.ts": {
-        "version": "d5d02fa8690e0ba2c6d75ac887f794e8fa9b25c5d41186e47734b743761a5de4",
-        "signature": "db0be44f578ec1ee75ddff48268b8eb18b94102e2d940d6d154d81b0ee79b58a",
+        "version": "d3a2c226ef15a05274e08aacb19e615cfbc444947288c3392bda3968ddbdef01",
+        "signature": "377ec9416c7694e6149446d8d986d10954d9366e85a591a5861b128fc3050f4d",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/portfolio.ts": {
@@ -1602,18 +1612,18 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.ts": {
-        "version": "b00b1d0f7d25b95938c0f068cef3b56752ce598f9db952137b8ecb56026d34d7",
+        "version": "0a9cda2f8e8e2f69886a01729eeb028fb5da5b369eb975bbc658fb4b6b429e88",
         "signature": "cd63107011ae0e3d1d64ca4ece502409206127bafdf95dd7c404571a13e52054",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.ts": {
-        "version": "9aa860b477d3ebb902a01ef440a64f45f873db1c3c05442d7355042464d2dc20",
-        "signature": "c7e40216f508289f6ad09bdc77c07fd66ac677797c9462f5d9b792b1649472c7",
+        "version": "cb994e35575d6aefe7f631b1585a30973b582c9d44a445c7bcde32da833eec09",
+        "signature": "8cd5e762246a453a6224e000c580b57d760fdcfda4405b14fe26a3c294d66121",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "3ccfd8872c4bbe81809d54a9e6d9de76b300c0105368484767741bb3aae4a263",
-        "signature": "1f7bb1adac9d959b51e5d8bfaee748f99ba361fab540b8370720b2c55f21a178",
+        "version": "0c2e9656fe3abbcf7bf13b07dc0636081c7de1e347da001029af9a18db18a4d4",
+        "signature": "563def790cf03a49446d6585467caf4f6f59c49db3c6028b4388b00f09ab9046",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/price.ts": {
@@ -1692,8 +1702,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "f5810d80889bfa2353c1d1dfc79ca2c080d764223459c92119fd612c3674da8a",
-        "signature": "2c5249cb9dd38fd6f1d40176efb495d232fd45364cd9dc4ebfde88ad5fac8b21",
+        "version": "27ba1805f150d0de6e3a7595ed5c3f8346765ef1071d9b3e546d32ad423f2766",
+        "signature": "da078e01c0bb681168bdae8e5f54d0937c1ba766f93e95d596781fe7b9c22544",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -2675,6 +2685,19 @@
         "../node_modules/@ethersproject/units/lib/index.d.ts",
         "../node_modules/@ethersproject/wallet/lib/index.d.ts",
         "../node_modules/@ethersproject/web/lib/index.d.ts"
+      ],
+      "../src/blockchain/erc20/approve.ts": [
+        "../node_modules/@ethersproject/contracts/lib/index.d.ts",
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../src/blockchain/utils.ts",
+        "../src/constants.ts",
+        "../src/types/index.ts",
+        "../src/types/xtoken.d.ts",
+        "../src/utils/index.ts"
+      ],
+      "../src/blockchain/erc20/index.ts": [
+        "../src/blockchain/erc20/approve.ts"
       ],
       "../src/blockchain/exchanges/balancer.spec.ts": [
         "../../xtoken-abis/build/main/index.d.ts",
@@ -4149,6 +4172,7 @@
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@ethersproject/units/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
+        "../src/blockchain/erc20/index.ts",
         "../src/blockchain/exchanges/balancer.ts",
         "../src/blockchain/exchanges/balancerv2.ts",
         "../src/blockchain/exchanges/bancor.ts",
@@ -4892,6 +4916,15 @@
         "../node_modules/@ethersproject/units/lib/index.d.ts",
         "../node_modules/@ethersproject/wallet/lib/index.d.ts",
         "../node_modules/@ethersproject/web/lib/index.d.ts"
+      ],
+      "../src/blockchain/erc20/approve.ts": [
+        "../node_modules/@ethersproject/contracts/lib/index.d.ts",
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../src/types/xtoken.d.ts"
+      ],
+      "../src/blockchain/erc20/index.ts": [
+        "../src/blockchain/erc20/approve.ts"
       ],
       "../src/blockchain/exchanges/balancer.ts": [
         "../../xtoken-abis/build/main/index.d.ts",
@@ -6006,6 +6039,8 @@
       "../node_modules/typescript/lib/lib.es2020.bigint.d.ts",
       "../node_modules/typescript/lib/lib.es5.d.ts",
       "../node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "../src/blockchain/erc20/approve.ts",
+      "../src/blockchain/erc20/index.ts",
       "../src/blockchain/exchanges/balancer.spec.ts",
       "../src/blockchain/exchanges/balancer.ts",
       "../src/blockchain/exchanges/balancerv2.spec.ts",

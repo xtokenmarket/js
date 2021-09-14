@@ -30,6 +30,7 @@ export const getHealthRatio = async (
 ) => {
   const comptroller = await getComptrollerContract(provider)
   const healthRatio = await comptroller.getHealthRatio(address)
+  console.log('healthRatio', healthRatio.toString())
   return formatEther(healthRatio)
 }
 

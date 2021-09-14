@@ -3,7 +3,8 @@ import { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
 export declare const approveXSnx: (
   amount: BigNumber,
-  provider: BaseProvider
+  provider: BaseProvider,
+  spenderAddress?: string | undefined
 ) => Promise<ContractTransaction>
 export declare const getExpectedQuantityOnMintXSnx: (
   tradeWithEth: boolean,
