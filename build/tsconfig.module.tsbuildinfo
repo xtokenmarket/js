@@ -757,8 +757,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
-        "version": "743a08febfccbc310882cc87c25bf144dd97eb241ab69f66f95dad2504d01f01",
-        "signature": "743a08febfccbc310882cc87c25bf144dd97eb241ab69f66f95dad2504d01f01",
+        "version": "fa4a903e68befed4aa84a97b6583244efacbfe590119b170d210e6fcf4513952",
+        "signature": "fa4a903e68befed4aa84a97b6583244efacbfe590119b170d210e6fcf4513952",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/addresses.d.ts": {
@@ -887,8 +887,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/uniswaplibrary.d.ts": {
-        "version": "8e4949dd8c9b12ebeba650a883e2f2848e24da582031aabcb982fe5fef929ffc",
-        "signature": "8e4949dd8c9b12ebeba650a883e2f2848e24da582031aabcb982fe5fef929ffc",
+        "version": "991e567591fcf61181c54cdd0945375e372a8c3caeb5ac1ef075739768f28a8a",
+        "signature": "991e567591fcf61181c54cdd0945375e372a8c3caeb5ac1ef075739768f28a8a",
         "affectsGlobalScope": false
       },
       "../src/types/uniswapv2pair.d.ts": {
@@ -907,8 +907,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xassetclr.d.ts": {
-        "version": "77bc2278ee1611c83515624f4cde095dc2062d9218c778e8e6dd4ae3637ab117",
-        "signature": "77bc2278ee1611c83515624f4cde095dc2062d9218c778e8e6dd4ae3637ab117",
+        "version": "603274569edfbbb85e762d520adf3d729ce4a85aa6f9a1104a0e5c3f191babcf",
+        "signature": "603274569edfbbb85e762d520adf3d729ce4a85aa6f9a1104a0e5c3f191babcf",
         "affectsGlobalScope": false
       },
       "../src/types/xbnt.d.ts": {
@@ -1047,7 +1047,7 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/uniswaplibrary__factory.ts": {
-        "version": "e9ecc522a34f1614e4f8821654557820fcde2e006e03d917cafa748d08bf269b",
+        "version": "16f00da7aa4d90d297d2c378ce7324bab28543e16addae385cba397147a288b6",
         "signature": "020ae4507c6a2570d720cfdfbf3bbe066a5af03c03c61a5ebdebf880e41ae4aa",
         "affectsGlobalScope": false
       },
@@ -1067,7 +1067,7 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/xassetclr__factory.ts": {
-        "version": "9e2d8bb3bdbc7bd9d6876c5e5cb410fc73257de9c3e20aec61ef194816b30894",
+        "version": "5a298b666667037aa11210ea9fe616bbca0ff8bba4bcaf387c5aa35d063ddfba",
         "signature": "a45740f0c552d5934dee16e01932e024e1eed852afea4add98a4937f3d972fe9",
         "affectsGlobalScope": false
       },
@@ -1432,7 +1432,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/mint.ts": {
-        "version": "fc322ebeb7a94b3db7e81009bfac1483cb9e00b4acbe73a30499152aecef0f20",
+        "version": "26d6e4b7d93e447ba65b3f6e7b4e448fdb254e6bab82944e21e90c88ea0bb002",
         "signature": "7ea6733424496f8a5121dd34d906b6898dccccce5e5b242f17c8c5e22563804e",
         "affectsGlobalScope": false
       },

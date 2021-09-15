@@ -56,7 +56,7 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     'getTicks()': FunctionFragment
     'getTotalLiquidity()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)': FunctionFragment
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
     'migrateParallel(uint24,bool)': FunctionFragment
     'migratePosition(int24,int24)': FunctionFragment
@@ -66,12 +66,9 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
-    'poolAddress()': FunctionFragment
     'poolFee()': FunctionFragment
-    'positionManagerAddress()': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'resetTwap()': FunctionFragment
-    'routerAddress()': FunctionFragment
     'setMaxTwapDeviationDivisor(uint256)': FunctionFragment
     'setTwapPeriod(uint32)': FunctionFragment
     'symbol()': FunctionFragment
@@ -85,6 +82,7 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     'transfer(address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
+    'uniContracts()': FunctionFragment
     'unpauseContract()': FunctionFragment
     'withdrawToken(address,address)': FunctionFragment
   }
@@ -215,9 +213,7 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
       BigNumberish,
       string,
       string,
-      string,
-      string,
-      string,
+      { pool: string; router: string; quoter: string; positionManager: string },
       string,
       BigNumberish,
       BigNumberish,
@@ -251,24 +247,12 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'poolAddress',
-    values?: undefined
-  ): string
   encodeFunctionData(functionFragment: 'poolFee', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'positionManagerAddress',
-    values?: undefined
-  ): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'resetTwap', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'routerAddress',
-    values?: undefined
-  ): string
   encodeFunctionData(
     functionFragment: 'setMaxTwapDeviationDivisor',
     values: [BigNumberish]
@@ -314,6 +298,10 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'transferOwnership',
     values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'uniContracts',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'unpauseContract',
@@ -449,21 +437,12 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'poolAddress', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'poolFee', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'positionManagerAddress',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'resetTwap', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'routerAddress',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(
     functionFragment: 'setMaxTwapDeviationDivisor',
     data: BytesLike
@@ -502,6 +481,10 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(
     functionFragment: 'transferOwnership',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'uniContracts',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -881,9 +864,12 @@ export class XAssetCLR extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -891,15 +877,18 @@ export class XAssetCLR extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -981,17 +970,9 @@ export class XAssetCLR extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    poolAddress(overrides?: CallOverrides): Promise<[string]>
-
-    'poolAddress()'(overrides?: CallOverrides): Promise<[string]>
-
     poolFee(overrides?: CallOverrides): Promise<[number]>
 
     'poolFee()'(overrides?: CallOverrides): Promise<[number]>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<[string]>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<[string]>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1000,10 +981,6 @@ export class XAssetCLR extends Contract {
     resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
-
-    routerAddress(overrides?: CallOverrides): Promise<[string]>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<[string]>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -1094,6 +1071,28 @@ export class XAssetCLR extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    uniContracts(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
+    'uniContracts()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
 
     unpauseContract(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1431,9 +1430,12 @@ export class XAssetCLR extends Contract {
     _tickUpper: BigNumberish,
     _token0: string,
     _token1: string,
-    _poolAddress: string,
-    _routerAddress: string,
-    _positionManagerAddress: string,
+    contracts: {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    },
     _xTokenManagerAddress: string,
     _maxTwapDeviationDivisor: BigNumberish,
     _token0Decimals: BigNumberish,
@@ -1441,15 +1443,18 @@ export class XAssetCLR extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)'(
+  'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
     _symbol: string,
     _tickLower: BigNumberish,
     _tickUpper: BigNumberish,
     _token0: string,
     _token1: string,
-    _poolAddress: string,
-    _routerAddress: string,
-    _positionManagerAddress: string,
+    contracts: {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    },
     _xTokenManagerAddress: string,
     _maxTwapDeviationDivisor: BigNumberish,
     _token0Decimals: BigNumberish,
@@ -1528,17 +1533,9 @@ export class XAssetCLR extends Contract {
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-  poolAddress(overrides?: CallOverrides): Promise<string>
-
-  'poolAddress()'(overrides?: CallOverrides): Promise<string>
-
   poolFee(overrides?: CallOverrides): Promise<number>
 
   'poolFee()'(overrides?: CallOverrides): Promise<number>
-
-  positionManagerAddress(overrides?: CallOverrides): Promise<string>
-
-  'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1547,10 +1544,6 @@ export class XAssetCLR extends Contract {
   resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
   'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
-
-  routerAddress(overrides?: CallOverrides): Promise<string>
-
-  'routerAddress()'(overrides?: CallOverrides): Promise<string>
 
   setMaxTwapDeviationDivisor(
     newDeviationDivisor: BigNumberish,
@@ -1639,6 +1632,28 @@ export class XAssetCLR extends Contract {
     newOwner: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  uniContracts(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, string] & {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    }
+  >
+
+  'uniContracts()'(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, string] & {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    }
+  >
 
   unpauseContract(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1981,9 +1996,12 @@ export class XAssetCLR extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -1991,15 +2009,18 @@ export class XAssetCLR extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -2078,17 +2099,9 @@ export class XAssetCLR extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-    poolAddress(overrides?: CallOverrides): Promise<string>
-
-    'poolAddress()'(overrides?: CallOverrides): Promise<string>
-
     poolFee(overrides?: CallOverrides): Promise<number>
 
     'poolFee()'(overrides?: CallOverrides): Promise<number>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<string>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -2097,10 +2110,6 @@ export class XAssetCLR extends Contract {
     resetTwap(overrides?: CallOverrides): Promise<void>
 
     'resetTwap()'(overrides?: CallOverrides): Promise<void>
-
-    routerAddress(overrides?: CallOverrides): Promise<string>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<string>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -2191,6 +2200,28 @@ export class XAssetCLR extends Contract {
       newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>
+
+    uniContracts(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
+    'uniContracts()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
 
     unpauseContract(overrides?: CallOverrides): Promise<boolean>
 
@@ -2505,9 +2536,12 @@ export class XAssetCLR extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -2515,15 +2549,18 @@ export class XAssetCLR extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -2602,17 +2639,9 @@ export class XAssetCLR extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    poolAddress(overrides?: CallOverrides): Promise<BigNumber>
-
-    'poolAddress()'(overrides?: CallOverrides): Promise<BigNumber>
-
     poolFee(overrides?: CallOverrides): Promise<BigNumber>
 
     'poolFee()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<BigNumber>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -2621,10 +2650,6 @@ export class XAssetCLR extends Contract {
     resetTwap(overrides?: Overrides): Promise<BigNumber>
 
     'resetTwap()'(overrides?: Overrides): Promise<BigNumber>
-
-    routerAddress(overrides?: CallOverrides): Promise<BigNumber>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -2715,6 +2740,10 @@ export class XAssetCLR extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    uniContracts(overrides?: CallOverrides): Promise<BigNumber>
+
+    'uniContracts()'(overrides?: CallOverrides): Promise<BigNumber>
 
     unpauseContract(overrides?: Overrides): Promise<BigNumber>
 
@@ -3038,9 +3067,12 @@ export class XAssetCLR extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -3048,15 +3080,18 @@ export class XAssetCLR extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,address,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _poolAddress: string,
-      _routerAddress: string,
-      _positionManagerAddress: string,
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      },
       _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
@@ -3138,21 +3173,9 @@ export class XAssetCLR extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    poolAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'poolAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
     poolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'poolFee()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    positionManagerAddress(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'positionManagerAddress()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
@@ -3161,10 +3184,6 @@ export class XAssetCLR extends Contract {
     resetTwap(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    routerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -3265,6 +3284,10 @@ export class XAssetCLR extends Contract {
       newOwner: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    uniContracts(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'uniContracts()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     unpauseContract(overrides?: Overrides): Promise<PopulatedTransaction>
 

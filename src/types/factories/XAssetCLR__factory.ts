@@ -772,19 +772,31 @@ const _abi = [
         type: 'address',
       },
       {
-        internalType: 'address',
-        name: '_poolAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_routerAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_positionManagerAddress',
-        type: 'address',
+        components: [
+          {
+            internalType: 'address',
+            name: 'pool',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'router',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'quoter',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'positionManager',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct xAssetCLR.UniswapContracts',
+        name: 'contracts',
+        type: 'tuple',
       },
       {
         internalType: 'address',
@@ -957,38 +969,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'poolAddress',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'poolFee',
     outputs: [
       {
         internalType: 'uint24',
         name: '',
         type: 'uint24',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'positionManagerAddress',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -1006,19 +992,6 @@ const _abi = [
     name: 'resetTwap',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'routerAddress',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -1215,6 +1188,34 @@ const _abi = [
     name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'uniContracts',
+    outputs: [
+      {
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'router',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'quoter',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'positionManager',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {

@@ -77,8 +77,8 @@ export const getPoolRatioXAssetCLR = async (
     xAssetCLRContract,
   } = await getXAssetCLRContracts(symbol, provider)
 
-  const [poolAddress, stakedBalance] = await Promise.all([
-    xAssetCLRContract.poolAddress(),
+  const [{ pool: poolAddress }, stakedBalance] = await Promise.all([
+    xAssetCLRContract.uniContracts(),
     xAssetCLRContract.getStakedTokenBalance(),
   ])
 
