@@ -10,6 +10,7 @@ import {
   ETH,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
+  LENDING_LPT,
   REPAY,
   SUPPLY,
   WITHDRAW,
@@ -48,7 +49,12 @@ import {
   getPoolRatioXAssetCLR,
   mintXAssetCLR,
 } from './blockchain/clr'
-import { approveErc20 } from './blockchain/erc20'
+import {
+  approveErc20,
+  getTokenAllowance,
+  getTokenBalance,
+} from './blockchain/erc20'
+import { getTokenSupply } from './blockchain/erc20/supply'
 import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
@@ -67,13 +73,15 @@ import { getUniswapV3EstimatedQty } from './blockchain/exchanges/uniswapV3'
 import {
   approveUsdc,
   borrowLiquidity,
-  getAllMarkets,
   getBorrowingCapacity,
+  getBorrowRatePerBlock,
   getHealthRatio,
+  getLendingMarkets,
   getLendingPrice,
   getLPTBaseValue,
   getLPTValue,
   getOptimalUtilizationRate,
+  getUpdatedBorrowBy,
   repayLiquidity,
   supplyCollateral,
   supplyLiquidity,
@@ -165,11 +173,13 @@ import {
   ICollateralType,
   IHistoryType,
   ILendingMarket,
+  ILendingMarketInfo,
   ILendingPricing,
   ILendingType,
   ILiquidityPoolItem,
   ILPAsset,
   ILPTokenSymbols,
+  INativeAssets,
   IPortfolioItem,
   IReturns,
   IStableAssets,
@@ -582,6 +592,14 @@ export class XToken {
   }
 
   /**
+   * Get Borrow rate per block of Liquidity Pool contract
+   * @returns
+   */
+  public async getBorrowRatePerBlock() {
+    return getBorrowRatePerBlock(this.provider)
+  }
+
+  /**
    * @example
    * ```typescript
    * // Get expected quantity of ETH when selling 100 xAAVEa
@@ -764,11 +782,11 @@ export class XToken {
   }
 
   /**
-   * Get all Lending Markets registered in Comptroller
+   * Get all Lending Markets info along with xAsset symbol, collateral and total value in USD
    * @returns
    */
-  public async getLendingMarkets() {
-    return getAllMarkets(this.provider)
+  public async getLendingMarkets(): Promise<readonly ILendingMarketInfo[]> {
+    return getLendingMarkets(this.provider)
   }
 
   /**
@@ -947,6 +965,63 @@ export class XToken {
       getPortfolioItemXU3LP(X_U3LP_G, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_H, address, this.provider),
     ])
+  }
+
+  /**
+   * Get token allowance for an address on ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenAllowance(
+    symbol: INativeAssets | ITokenSymbols | ILPTokenSymbols | IStableAssets,
+    spenderAddress: string
+  ) {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address) || !isAddress(spenderAddress)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getTokenAllowance(symbol, address, spenderAddress, this.provider)
+  }
+
+  /**
+   * Get token balance for an address of ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenBalance(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ) {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getTokenBalance(symbol, address, this.provider)
+  }
+
+  /**
+   * Get token supply of ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenSupply(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ) {
+    return getTokenSupply(symbol, this.provider)
+  }
+
+  /**
+   * Get updated borrow for an address
+   * @returns
+   */
+  public async getUpdatedBorrowBy() {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getUpdatedBorrowBy(address, this.provider)
   }
 
   /**

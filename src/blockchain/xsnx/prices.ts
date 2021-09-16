@@ -1,12 +1,14 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, X_SNX_ADMIN } from '@xtoken/abis'
-import { formatBytes32String, formatEther } from 'ethers/lib/utils'
+import { SNX } from '@xtoken/abis'
+import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES } from '../../constants'
 import { ExchangeRates, XSNX } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import { getExchangeRateContract, getTokenBalance } from '../utils'
+import { getTokenBalance } from '../erc20'
+import { getExchangeRateContract } from '../utils'
 
 import { getXSnxContracts } from './helper'
 
@@ -57,18 +59,16 @@ export const getXSnxPrices = async (
       setHoldings,
       ethBal,
       totalSupply,
-      snxBalanceOwned,
+      snxTokenBalance,
     ] = await Promise.all([
       tradeAccountingContract.getSnxBalance(),
       tradeAccountingContract.getSetHoldingsValueInWei(),
       tradeAccountingContract.getEthBalance(),
       xsnxContract.totalSupply(),
-      getTokenBalance(
-        snxContract.address,
-        xsnxAdminAddress,
-        provider as BaseProvider
-      ),
+      getTokenBalance(SNX, xsnxAdminAddress, provider as BaseProvider),
     ])
+
+    const snxBalanceOwned = parseEther(snxTokenBalance)
     const nonSnxAssetValue = setHoldings.add(ethBal)
 
     const [issueTokenPriceInEth, redeemTokenPriceEth] = await Promise.all([

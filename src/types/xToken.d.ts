@@ -280,3 +280,10 @@ export interface ICLRMintQty extends ICLRBurnQty {
 export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
 
 export type ILendingType = typeof BORROW | typeof REPAY | ICollateralType
+
+export type ILendingMarketInfo = {
+  readonly name: ILendingMarket
+  readonly xAsset: ITokenSymbols
+  readonly collateral: string
+  readonly value: string
+}

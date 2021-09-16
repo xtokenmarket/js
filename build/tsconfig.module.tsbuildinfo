@@ -756,22 +756,22 @@
         "signature": "f81b0b1f5d759b578842d84b32f09f6618d45821d3b3b3538e5aca988c77331a",
         "affectsGlobalScope": false
       },
-      "../../xtoken-abis/build/main/abi/index.d.ts": {
+      "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
         "version": "cb6fa3be1e89872690422b62cdfe332d00286a0c68e87547d0e303bf98ae58a2",
         "signature": "cb6fa3be1e89872690422b62cdfe332d00286a0c68e87547d0e303bf98ae58a2",
         "affectsGlobalScope": false
       },
-      "../../xtoken-abis/build/main/addresses.d.ts": {
+      "../node_modules/@xtoken/abis/build/main/addresses.d.ts": {
         "version": "d356a34bdab0e2c0deee328f4e6a37582ad9114d3cf485c622758d093f8e30e3",
         "signature": "d356a34bdab0e2c0deee328f4e6a37582ad9114d3cf485c622758d093f8e30e3",
         "affectsGlobalScope": false
       },
-      "../../xtoken-abis/build/main/constants.d.ts": {
+      "../node_modules/@xtoken/abis/build/main/constants.d.ts": {
         "version": "b2ec2f6ef7033a03e5359e8dd662cc10735958165b40e3c14e2d280d176b6ce7",
         "signature": "b2ec2f6ef7033a03e5359e8dd662cc10735958165b40e3c14e2d280d176b6ce7",
         "affectsGlobalScope": false
       },
-      "../../xtoken-abis/build/main/index.d.ts": {
+      "../node_modules/@xtoken/abis/build/main/index.d.ts": {
         "version": "b5f387d4ee4a18dc8d74caf51d25b948ebefb42f70479cc374390970f138e302",
         "signature": "b5f387d4ee4a18dc8d74caf51d25b948ebefb42f70479cc374390970f138e302",
         "affectsGlobalScope": false
@@ -1177,8 +1177,18 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "e97edff297161aae2ba7caefbd5d4d3e400c1b39a8daaa3a8504615a2a16da04",
-        "signature": "e97edff297161aae2ba7caefbd5d4d3e400c1b39a8daaa3a8504615a2a16da04",
+        "version": "8f3b1bd571ca787b6185ba4a12907583dc29f7804cd5bc873774a7afd112e121",
+        "signature": "8f3b1bd571ca787b6185ba4a12907583dc29f7804cd5bc873774a7afd112e121",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/utils.ts": {
+        "version": "2d2f60267d5e9fda3293ff9d8016369ba56d795fffa5c3f4fec613256f798da3",
+        "signature": "5a9fcb0952d3745d520ac04abc79ab719d7805db002667c4b2a78d64e938515e",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/allowance.ts": {
+        "version": "1cb3d5160e5c7070491537f1314d126619fe35e399a40ba4d70b4593b8b17b40",
+        "signature": "83a45e9f36fc39ff6f312563ba85d71265673ae5fd7836ff14c52e0f8c184594",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1186,19 +1196,24 @@
         "signature": "87fb0fc8220ed76b4d5af913a9fad4d822772998231faec03a72526164b93b54",
         "affectsGlobalScope": false
       },
-      "../src/blockchain/utils.ts": {
-        "version": "6a78356958f19670c6436e0952bf96b66b724bf0ab8b565aa61c0669e0ee9b81",
-        "signature": "6556c3874efdf201b872b614c3c129343367ed546a9661c967be93d050bf3539",
-        "affectsGlobalScope": false
-      },
       "../src/blockchain/erc20/approve.ts": {
         "version": "6212b94615468ae7db847034822300e1e87a79b77f619bf0e52a2945d3331793",
         "signature": "e54253ebee6e793775b1adc4fa26aeccadcc82b7e2162f8da6e65d9414048c4c",
         "affectsGlobalScope": false
       },
+      "../src/blockchain/erc20/balance.ts": {
+        "version": "713107fa28cc0a62e26b5b836dfebf31c324fa763aedb1dc4d2d60285d2ed72b",
+        "signature": "8cd92297ce32e96f57b2222f1d7305032f7c650177af34df474ac2478884a01c",
+        "affectsGlobalScope": false
+      },
       "../src/blockchain/erc20/index.ts": {
-        "version": "eb14d3f984bec36def686f174e81715901a3156424fbc29487781054c9f018d1",
-        "signature": "49d859957c85132a15d546d0663e7dcc16920052e8164bb148878c9fcb592b59",
+        "version": "5f930be1fe077a151db6f740232467252e500c94f8cfe4a6868f9ac14ae4cb6c",
+        "signature": "26f2f90067f4c29b1f79b17eb01484e17b2c8caced8150c45ea880bd40240d3b",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/supply.ts": {
+        "version": "f454de1859ddc099b3cade8f1b2b76ef53625c7ade769b95a296acb625b270e8",
+        "signature": "1a0fb28701308e1a180f33d04c456da3171c5c21be2156e70f2105f0d97f070f",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/helper.ts": {
@@ -1387,7 +1402,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/prices.ts": {
-        "version": "afba65a54989ad0b02edab1f705f0e383bb17a685b68f795fcc6012e6a7fe493",
+        "version": "ccc824c3f777e309fcb3439e5b65560695c2ea60c85b216ed3783642382e939f",
         "signature": "11185433e2422778839446371edde780a68b2148ae484edeb586791f367a9f43",
         "affectsGlobalScope": false
       },
@@ -1412,7 +1427,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/redeem.ts": {
-        "version": "2ef7cc8b56afb938c18dac7adb4e8e455eea277d48de938bcdc88a95212b2336",
+        "version": "b082ecf755c941c215e4637a44d95dff3f5d314212a7542b02f986339666fe23",
         "signature": "1b5376501c0387988ffb819dc2617b04592ec206b60cd373195294deac8366a4",
         "affectsGlobalScope": false
       },
@@ -1617,13 +1632,13 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.ts": {
-        "version": "cb994e35575d6aefe7f631b1585a30973b582c9d44a445c7bcde32da833eec09",
-        "signature": "8cd5e762246a453a6224e000c580b57d760fdcfda4405b14fe26a3c294d66121",
+        "version": "b3962115dfeb28294b58115f4f23c42f28d9ed4bb96b26802edad43f26b20bf2",
+        "signature": "057942d8bfbd43eb7511308ab69e19b52cb3497be100a6f88ea7aa9cfd9ab79e",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "0c2e9656fe3abbcf7bf13b07dc0636081c7de1e347da001029af9a18db18a4d4",
-        "signature": "563def790cf03a49446d6585467caf4f6f59c49db3c6028b4388b00f09ab9046",
+        "version": "a836b938bccb6f67ae418936ac88f7069862831197e3607ae5873ba059a12afb",
+        "signature": "60d83f04ba5857b2aea9ab7b5d8021f88c8720f474e7bb2f7ffb5ec82db2fef5",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/price.ts": {
@@ -1702,8 +1717,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "27ba1805f150d0de6e3a7595ed5c3f8346765ef1071d9b3e546d32ad423f2766",
-        "signature": "da078e01c0bb681168bdae8e5f54d0937c1ba766f93e95d596781fe7b9c22544",
+        "version": "04ffc3c6a0036291fc132199bebf0b3e68e15f413b43af0f20fd982386b6e26b",
+        "signature": "dd29eb37a629812daf5895750d8ad47028f849734a8aa3ef9de2dc3010dbdf50",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -1723,6 +1738,21 @@
       },
       "../src/blockchain/utils.spec.ts": {
         "version": "f7ba6fe96ad3c9bddbe22554c372eaed7968bc460ec3b9512c43ca2509ac942b",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/allowance.spec.ts": {
+        "version": "403a23b50fae1ce9a4fb1b9919ae92596a646fb1e552431c5d95ec0677119bb4",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/balance.spec.ts": {
+        "version": "60a0c78b627bab1f6364070beac141388ea8658f2ae9e0c4dd638027d4eb16e9",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/erc20/supply.spec.ts": {
+        "version": "ffad7ba3755c68623311fad8e90417318c54c6f69e51b4447805a7b8867c56b8",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -1757,12 +1787,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.spec.ts": {
-        "version": "19c06866eab316ea381a62be6609a773a3416f2c6108a84b45f0112462ff5cdc",
+        "version": "c86b1d6266f6d68af17c674e8f3f704ff4c97d738da53dd428f54b090dd25e9d",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.spec.ts": {
-        "version": "b67f9b431b55b4ee177b91993e0561d5b1156fe6c4bd0830ec1eddba994231ad",
+        "version": "8a4b70c39ca472e6ccc5bf3444ea787ec304c4b2b52ca37412c6e7c754a3bdcc",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -1961,11 +1991,6 @@
       "configFilePath": "../tsconfig.module.json"
     },
     "referencedMap": {
-      "../../xtoken-abis/build/main/index.d.ts": [
-        "../../xtoken-abis/build/main/abi/index.d.ts",
-        "../../xtoken-abis/build/main/addresses.d.ts",
-        "../../xtoken-abis/build/main/constants.d.ts"
-      ],
       "../node_modules/@dynamic-amm/sdk/dist/constants.d.ts": [
         "../node_modules/jsbi/jsbi.d.ts"
       ],
@@ -2643,6 +2668,11 @@
       "../node_modules/@uniswap/sdk/dist/router.d.ts": [
         "../node_modules/@uniswap/sdk/dist/entities/index.d.ts"
       ],
+      "../node_modules/@xtoken/abis/build/main/index.d.ts": [
+        "../node_modules/@xtoken/abis/build/main/abi/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/addresses.d.ts",
+        "../node_modules/@xtoken/abis/build/main/constants.d.ts"
+      ],
       "../node_modules/dotenv/types/index.d.ts": [
         "../node_modules/@types/node/index.d.ts"
       ],
@@ -2686,6 +2716,19 @@
         "../node_modules/@ethersproject/wallet/lib/index.d.ts",
         "../node_modules/@ethersproject/web/lib/index.d.ts"
       ],
+      "../src/blockchain/erc20/allowance.spec.ts": [
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ava/index.d.ts",
+        "../src/blockchain/erc20/allowance.ts",
+        "../src/constants.spec.ts"
+      ],
+      "../src/blockchain/erc20/allowance.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/blockchain/utils.ts",
+        "../src/types/index.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/blockchain/erc20/approve.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
@@ -2696,19 +2739,49 @@
         "../src/types/xtoken.d.ts",
         "../src/utils/index.ts"
       ],
+      "../src/blockchain/erc20/balance.spec.ts": [
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ava/index.d.ts",
+        "../src/blockchain/erc20/balance.ts",
+        "../src/constants.spec.ts"
+      ],
+      "../src/blockchain/erc20/balance.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/types/index.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/blockchain/erc20/index.ts": [
-        "../src/blockchain/erc20/approve.ts"
+        "../src/blockchain/erc20/allowance.ts",
+        "../src/blockchain/erc20/approve.ts",
+        "../src/blockchain/erc20/balance.ts"
+      ],
+      "../src/blockchain/erc20/supply.spec.ts": [
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ava/index.d.ts",
+        "../src/blockchain/erc20/supply.ts",
+        "../src/constants.spec.ts"
+      ],
+      "../src/blockchain/erc20/supply.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/types/index.ts",
+        "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/balancer.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/exchanges/balancer.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/balancer.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/exchanges/helper.ts",
         "../src/blockchain/exchanges/uniswap.ts",
@@ -2720,16 +2793,16 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/exchanges/balancerv2.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/exchanges/balancerv2.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/balancerv2.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/exchanges/helper.ts",
         "../src/blockchain/utils.ts",
@@ -2746,9 +2819,9 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/bancor.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/helper.ts",
@@ -2761,9 +2834,9 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
@@ -2772,16 +2845,16 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/inch.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/exchanges/inch.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/inch.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/exchanges/helper.ts",
         "../src/blockchain/utils.ts",
@@ -2792,16 +2865,16 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/kyber.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/exchanges/kyber.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/kyber.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@dynamic-amm/sdk/dist/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/exchanges/helper.ts",
         "../src/blockchain/utils.ts",
@@ -2812,16 +2885,16 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/uniswap.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/exchanges/uniswap.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@uniswap/sdk/dist/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/exchanges/helper.ts",
         "../src/blockchain/utils.ts",
@@ -2842,8 +2915,8 @@
         "../src/blockchain/lending/helper.ts"
       ],
       "../src/blockchain/lending/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
@@ -2861,32 +2934,38 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/lending/liquiditypool.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@ethersproject/units/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/lending/helper.ts",
         "../src/blockchain/utils.ts",
         "../src/constants.ts"
       ],
       "../src/blockchain/lending/market.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/lending/market.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/lending/market.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@ethersproject/units/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/blockchain/erc20/index.ts",
         "../src/blockchain/lending/helper.ts",
         "../src/blockchain/utils.ts",
+        "../src/blockchain/xaave/index.ts",
+        "../src/blockchain/xinch/index.ts",
+        "../src/blockchain/xknc/index.ts",
         "../src/constants.ts",
+        "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/lending/price.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/lending/price.ts",
         "../src/constants.spec.ts"
@@ -2898,8 +2977,8 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/staking/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts"
       ],
@@ -2910,9 +2989,9 @@
         "../src/constants.ts"
       ],
       "../src/blockchain/staking/history.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/abstract-provider/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/staking/helper.ts",
         "../src/blockchain/utils.ts",
@@ -2925,8 +3004,8 @@
         "../src/blockchain/staking/unstake.ts"
       ],
       "../src/blockchain/staking/stake.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/staking/helper.ts",
@@ -2938,7 +3017,7 @@
         "../src/blockchain/staking/helper.ts"
       ],
       "../src/blockchain/utils.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
@@ -2947,9 +3026,9 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/utils.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/ethers.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/constants.ts",
@@ -2957,23 +3036,23 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xaave/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/xaave/helper.ts",
         "../src/blockchain/xaave/prices.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xaave/burn.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xaave/burn.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xaave/burn.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xaave/helper.ts",
@@ -2983,9 +3062,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xaave/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -2999,16 +3078,16 @@
         "../src/blockchain/xaave/redeem.ts"
       ],
       "../src/blockchain/xaave/mint.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xaave/mint.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xaave/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xaave/helper.ts",
@@ -3018,7 +3097,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xaave/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xaave/portfolio.ts",
         "../src/constants.spec.ts"
@@ -3034,15 +3113,15 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xaave/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xaave/helper.ts",
         "../src/blockchain/xaave/prices.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xaave/prices.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
         "../src/constants.ts",
@@ -3051,7 +3130,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xaave/redeem.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xaave/redeem.ts",
         "../src/constants.spec.ts"
@@ -3063,23 +3142,23 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xbnt/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/xbnt/helper.ts",
         "../src/blockchain/xbnt/prices.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xbnt/burn.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xbnt/burn.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xbnt/burn.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xbnt/helper.ts",
@@ -3089,9 +3168,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xbnt/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -3105,16 +3184,16 @@
         "../src/blockchain/xbnt/redeem.ts"
       ],
       "../src/blockchain/xbnt/mint.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xbnt/mint.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xbnt/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xbnt/helper.ts",
@@ -3124,7 +3203,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xbnt/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xbnt/portfolio.ts",
         "../src/constants.spec.ts"
@@ -3140,7 +3219,7 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xbnt/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xbnt/helper.ts",
         "../src/blockchain/xbnt/prices.ts",
@@ -3157,7 +3236,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xbnt/redeem.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xbnt/redeem.ts",
         "../src/constants.spec.ts"
@@ -3169,24 +3248,24 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xinch/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/xinch/helper.ts",
         "../src/blockchain/xinch/prices.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xinch/burn.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xinch/burn.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xinch/burn.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xinch/helper.ts",
@@ -3196,9 +3275,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xinch/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
@@ -3213,17 +3292,17 @@
         "../src/blockchain/xinch/redeem.ts"
       ],
       "../src/blockchain/xinch/mint.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xinch/mint.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xinch/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xinch/helper.ts",
@@ -3233,7 +3312,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xinch/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xinch/portfolio.ts",
         "../src/constants.spec.ts"
@@ -3249,15 +3328,15 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xinch/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xinch/helper.ts",
         "../src/blockchain/xinch/prices.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xinch/prices.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
         "../src/constants.ts",
@@ -3266,7 +3345,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xinch/redeem.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xinch/redeem.ts",
         "../src/constants.spec.ts"
@@ -3278,23 +3357,23 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/xknc/helper.ts",
         "../src/blockchain/xknc/prices.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/burn.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xknc/burn.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xknc/burn.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xknc/helper.ts",
@@ -3303,9 +3382,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xknc/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -3318,16 +3397,16 @@
         "../src/blockchain/xknc/prices.ts"
       ],
       "../src/blockchain/xknc/mint.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xknc/mint.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xknc/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xknc/helper.ts",
@@ -3337,7 +3416,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xknc/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xknc/portfolio.ts",
         "../src/constants.spec.ts"
@@ -3354,7 +3433,7 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/xknc/helper.ts",
@@ -3362,8 +3441,8 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xknc/prices.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
@@ -3374,8 +3453,8 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xsnx/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xsnx/helper.ts",
@@ -3397,9 +3476,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xsnx/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts"
       ],
@@ -3417,9 +3496,9 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xsnx/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xsnx/helper.ts",
@@ -3428,14 +3507,14 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xsnx/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xsnx/portfolio.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xsnx/portfolio.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/utils.ts",
@@ -3446,7 +3525,7 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
@@ -3457,9 +3536,10 @@
       ],
       "../src/blockchain/xsnx/prices.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
-        "../src/blockchain/utils.ts",
+        "../src/blockchain/erc20/index.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts",
@@ -3471,10 +3551,10 @@
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xsnx/redeem.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
-        "../src/blockchain/utils.ts",
+        "../src/blockchain/erc20/index.ts",
         "../src/blockchain/xsnx/helper.ts",
         "../src/constants.ts",
         "../src/types/index.ts"
@@ -3487,7 +3567,7 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xu3lp/burn.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xu3lp/burn.ts",
         "../src/constants.spec.ts"
@@ -3504,9 +3584,9 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xu3lp/helper.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -3520,16 +3600,16 @@
         "../src/blockchain/xu3lp/redeem.ts"
       ],
       "../src/blockchain/xu3lp/mint.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xu3lp/mint.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xu3lp/mint.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/bignumber/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xu3lp/helper.ts",
@@ -3539,7 +3619,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xu3lp/portfolio.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xu3lp/portfolio.ts",
         "../src/constants.spec.ts"
@@ -3553,15 +3633,15 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xu3lp/prices.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xu3lp/helper.ts",
         "../src/blockchain/xu3lp/prices.ts",
         "../src/constants.spec.ts"
       ],
       "../src/blockchain/xu3lp/prices.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
@@ -3572,7 +3652,7 @@
         "../src/utils/index.ts"
       ],
       "../src/blockchain/xu3lp/redeem.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/blockchain/xu3lp/redeem.ts",
         "../src/constants.spec.ts"
@@ -3588,8 +3668,8 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/constants.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts"
       ],
@@ -4131,7 +4211,7 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/types/xtoken.d.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/constants.ts"
       ],
       "../src/types/xtokenmanager.d.ts": [
@@ -4160,19 +4240,20 @@
         "../node_modules/ethers/lib/utils.d.ts"
       ],
       "../src/xtoken.spec.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
         "../src/constants.spec.ts",
         "../src/xtoken.ts"
       ],
       "../src/xtoken.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/constants/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@ethersproject/units/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/erc20/index.ts",
+        "../src/blockchain/erc20/supply.ts",
         "../src/blockchain/exchanges/balancer.ts",
         "../src/blockchain/exchanges/balancerv2.ts",
         "../src/blockchain/exchanges/bancor.ts",
@@ -4192,11 +4273,6 @@
       ]
     },
     "exportedModulesMap": {
-      "../../xtoken-abis/build/main/index.d.ts": [
-        "../../xtoken-abis/build/main/abi/index.d.ts",
-        "../../xtoken-abis/build/main/addresses.d.ts",
-        "../../xtoken-abis/build/main/constants.d.ts"
-      ],
       "../node_modules/@dynamic-amm/sdk/dist/constants.d.ts": [
         "../node_modules/jsbi/jsbi.d.ts"
       ],
@@ -4874,6 +4950,11 @@
       "../node_modules/@uniswap/sdk/dist/router.d.ts": [
         "../node_modules/@uniswap/sdk/dist/entities/index.d.ts"
       ],
+      "../node_modules/@xtoken/abis/build/main/index.d.ts": [
+        "../node_modules/@xtoken/abis/build/main/abi/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/addresses.d.ts",
+        "../node_modules/@xtoken/abis/build/main/constants.d.ts"
+      ],
       "../node_modules/dotenv/types/index.d.ts": [
         "../node_modules/@types/node/index.d.ts"
       ],
@@ -4917,28 +4998,44 @@
         "../node_modules/@ethersproject/wallet/lib/index.d.ts",
         "../node_modules/@ethersproject/web/lib/index.d.ts"
       ],
+      "../src/blockchain/erc20/allowance.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/blockchain/erc20/approve.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
+      "../src/blockchain/erc20/balance.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/blockchain/erc20/index.ts": [
-        "../src/blockchain/erc20/approve.ts"
+        "../src/blockchain/erc20/allowance.ts",
+        "../src/blockchain/erc20/approve.ts",
+        "../src/blockchain/erc20/balance.ts"
+      ],
+      "../src/blockchain/erc20/supply.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/balancer.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/balancerv2.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/bancor.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/helper.ts": [
@@ -4947,18 +5044,18 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/inch.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/kyber.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/exchanges/uniswap.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/lending/comptroller.ts": [
@@ -5010,16 +5107,16 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/blockchain/utils.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xaave/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xaave/burn.ts": [
@@ -5061,8 +5158,8 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xbnt/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xbnt/burn.ts": [
@@ -5104,8 +5201,8 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xinch/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xinch/burn.ts": [
@@ -5148,8 +5245,8 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/burn.ts": [
@@ -5187,8 +5284,8 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/asset.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/burn.ts": [
@@ -5814,7 +5911,7 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/types/xtoken.d.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/constants.ts"
       ],
       "../src/types/xtokenmanager.d.ts": [
@@ -5842,17 +5939,13 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/xtoken.ts": [
-        "../../xtoken-abis/build/main/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "../../xtoken-abis/build/main/abi/index.d.ts",
-      "../../xtoken-abis/build/main/addresses.d.ts",
-      "../../xtoken-abis/build/main/constants.d.ts",
-      "../../xtoken-abis/build/main/index.d.ts",
       "../node_modules/@dynamic-amm/sdk/dist/constants.d.ts",
       "../node_modules/@dynamic-amm/sdk/dist/entities/currency.d.ts",
       "../node_modules/@dynamic-amm/sdk/dist/entities/fractions/currencyamount.d.ts",
@@ -6005,6 +6098,10 @@
       "../node_modules/@uniswap/sdk/dist/fetcher.d.ts",
       "../node_modules/@uniswap/sdk/dist/index.d.ts",
       "../node_modules/@uniswap/sdk/dist/router.d.ts",
+      "../node_modules/@xtoken/abis/build/main/abi/index.d.ts",
+      "../node_modules/@xtoken/abis/build/main/addresses.d.ts",
+      "../node_modules/@xtoken/abis/build/main/constants.d.ts",
+      "../node_modules/@xtoken/abis/build/main/index.d.ts",
       "../node_modules/ava/index.d.ts",
       "../node_modules/dotenv/types/index.d.ts",
       "../node_modules/ethers/lib/_version.d.ts",
@@ -6039,8 +6136,14 @@
       "../node_modules/typescript/lib/lib.es2020.bigint.d.ts",
       "../node_modules/typescript/lib/lib.es5.d.ts",
       "../node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "../src/blockchain/erc20/allowance.spec.ts",
+      "../src/blockchain/erc20/allowance.ts",
       "../src/blockchain/erc20/approve.ts",
+      "../src/blockchain/erc20/balance.spec.ts",
+      "../src/blockchain/erc20/balance.ts",
       "../src/blockchain/erc20/index.ts",
+      "../src/blockchain/erc20/supply.spec.ts",
+      "../src/blockchain/erc20/supply.ts",
       "../src/blockchain/exchanges/balancer.spec.ts",
       "../src/blockchain/exchanges/balancer.ts",
       "../src/blockchain/exchanges/balancerv2.spec.ts",

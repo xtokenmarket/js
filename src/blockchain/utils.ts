@@ -505,15 +505,6 @@ export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
 }
 
-export const getTokenBalance = async (
-  tokenAddress: string,
-  userAddress: string,
-  provider: BaseProvider
-) => {
-  const contract = new ethers.Contract(tokenAddress, Abi.ERC20, provider)
-  return contract.balanceOf(userAddress)
-}
-
 export const getUserAvailableTokenBalance = async (
   contract: Contract,
   address: string

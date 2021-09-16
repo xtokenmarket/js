@@ -67,21 +67,24 @@ import {
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
-  | typeof AAVE
-  | typeof BNT
   | typeof EXCHANGE_RATES
-  | typeof INCH
   | typeof INCH_LIQUIDITY_PROTOCOL
-  | typeof KNC
   | typeof KYBER_PROXY
-  | typeof SNX
   | typeof TRADE_ACCOUNTING
   | typeof UNISWAP_V2_PAIR
   | typeof XTK_MANAGEMENT_STAKING_MODULE
   | ILendingContracts
+  | INativeAssets
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets
+
+export type INativeAssets =
+  | typeof AAVE
+  | typeof BNT
+  | typeof INCH
+  | typeof KNC
+  | typeof SNX
 
 export type ITokenSymbols =
   | typeof X_AAVE_A
@@ -229,3 +232,10 @@ export type IHistoryType = typeof STAKE | typeof UNSTAKE
 export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
 
 export type ILendingType = typeof BORROW | typeof REPAY | ICollateralType
+
+export type ILendingMarketInfo = {
+  readonly name: ILendingMarket
+  readonly xAsset: ITokenSymbols
+  readonly collateral: string
+  readonly value: string
+}

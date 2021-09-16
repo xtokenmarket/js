@@ -1,6 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
-import { ILendingMarket } from '../../types/xToken'
+import { ILendingMarket, ILendingMarketInfo } from '../../types/xToken'
 /**
  * Get borrowing limit for an address in a Lending Market
  * @param marketName name of the market
@@ -23,8 +23,11 @@ export declare const getBorrowingLimit: (
 export declare const getCollateral: (
   marketName: ILendingMarket,
   provider: BaseProvider,
-  address?: string | undefined
+  address: string
 ) => Promise<string>
+export declare const getLendingMarkets: (
+  provider: BaseProvider
+) => Promise<readonly ILendingMarketInfo[]>
 /**
  * Add xAsset collateral to a Lending Market
  * @param marketName name of the market
