@@ -1,0 +1,117 @@
+import { AddressZero } from '@ethersproject/constants'
+import { ADDRESSES, INCH } from '@xtoken/abis'
+import { ethers } from 'ethers'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
+import { getPercentage } from '../../utils'
+import { getSignerAddress, parseFees } from '../utils'
+import { getExpectedRateInch, getXInchContracts } from './helper'
+const { formatEther, parseEther } = ethers.utils
+export const approveXInch = async (
+  symbol,
+  amount,
+  provider,
+  spenderAddress
+) => {
+  const { tokenContract, xinchContract } = await getXInchContracts(
+    symbol,
+    provider
+  )
+  const address = spenderAddress || xinchContract.address
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+  return tokenContract.approve(address, amount, { gasLimit })
+}
+export const getExpectedQuantityOnMintXInch = async (
+  symbol,
+  tradeWithEth,
+  amount,
+  provider
+) => {
+  const inputAmount = parseEther(amount)
+  const {
+    inchLiquidityProtocolContract,
+    network,
+    xinchContract,
+  } = await getXInchContracts(symbol, provider)
+  const { chainId } = network
+  const [inchHoldings, xinchSupply, { mintFee }] = await Promise.all([
+    xinchContract.getNav(),
+    xinchContract.totalSupply(),
+    xinchContract.feeDivisors(),
+  ])
+  const MINT_FEE = parseFees(mintFee)
+  const ethToTrade = inputAmount.mul(MINT_FEE)
+  const inchAddress = ADDRESSES[INCH][chainId]
+  let inchExpected
+  if (tradeWithEth) {
+    inchExpected = await getExpectedRateInch(
+      inchLiquidityProtocolContract,
+      AddressZero,
+      inchAddress,
+      inputAmount
+    )
+  } else {
+    inchExpected = ethToTrade
+  }
+  let xinchExpected = inchExpected.mul(xinchSupply).div(inchHoldings)
+  if (!tradeWithEth) {
+    xinchExpected = xinchExpected.div(DEC_18)
+  }
+  return formatEther(xinchExpected)
+}
+export const mintXInch = async (symbol, tradeWithEth, amount, provider) => {
+  const {
+    inchLiquidityProtocolContract,
+    tokenContract,
+    xinchContract,
+  } = await getXInchContracts(symbol, provider)
+  if (tradeWithEth) {
+    const minRate = await getExpectedRateInch(
+      inchLiquidityProtocolContract,
+      AddressZero,
+      tokenContract.address,
+      amount,
+      true
+    )
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xinchContract.estimateGas.mint(minRate.toString(), {
+        value: amount,
+      }),
+      GAS_LIMIT_PERCENTAGE_ETH
+    )
+    return xinchContract.mint(minRate.toString(), {
+      gasLimit,
+      value: amount,
+    })
+  } else {
+    const address = await getSignerAddress(provider)
+    const approvedAmount = await _getApprovedAmount(
+      tokenContract,
+      xinchContract,
+      address
+    )
+    if (approvedAmount.lt(amount)) {
+      return Promise.reject(
+        new Error('Please approve the tokens before minting')
+      )
+    }
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xinchContract.estimateGas.mintWithToken(amount),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+    return xinchContract.mintWithToken(amount, { gasLimit })
+  }
+}
+const _getApprovedAmount = async (tokenContract, xinchContract, address) => {
+  return tokenContract.allowance(address, xinchContract.address)
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWludC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3hpbmNoL21pbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLFdBQVcsRUFBRSxNQUFNLDBCQUEwQixDQUFBO0FBR3RELE9BQU8sRUFBRSxTQUFTLEVBQUUsSUFBSSxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQzlDLE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFFL0IsT0FBTyxFQUNMLE1BQU0sRUFDTiw0QkFBNEIsRUFDNUIsd0JBQXdCLEdBQ3pCLE1BQU0saUJBQWlCLENBQUE7QUFHeEIsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGFBQWEsQ0FBQTtBQUMzQyxPQUFPLEVBQUUsZ0JBQWdCLEVBQUUsU0FBUyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXRELE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxpQkFBaUIsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUVqRSxNQUFNLEVBQUUsV0FBVyxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUE7QUFFaEQsTUFBTSxDQUFDLE1BQU0sWUFBWSxHQUFHLEtBQUssRUFDL0IsTUFBcUIsRUFDckIsTUFBaUIsRUFDakIsUUFBc0IsRUFDdEIsY0FBdUIsRUFDTyxFQUFFO0lBQ2hDLE1BQU0sRUFBRSxhQUFhLEVBQUUsYUFBYSxFQUFFLEdBQUcsTUFBTSxpQkFBaUIsQ0FDOUQsTUFBTSxFQUNOLFFBQVEsQ0FDVCxDQUFBO0lBRUQsTUFBTSxPQUFPLEdBQUcsY0FBYyxJQUFJLGFBQWEsQ0FBQyxPQUFPLENBQUE7SUFFdkQsc0JBQXNCO0lBQ3RCLE1BQU0sUUFBUSxHQUFHLGFBQWEsQ0FDNUIsTUFBTSxhQUFhLENBQUMsV0FBVyxDQUFDLE9BQU8sQ0FBQyxPQUFPLEVBQUUsTUFBTSxDQUFDLEVBQ3hELDRCQUE0QixDQUM3QixDQUFBO0lBRUQsT0FBTyxh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

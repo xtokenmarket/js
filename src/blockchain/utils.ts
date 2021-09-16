@@ -17,6 +17,21 @@ import {
   INCH_LIQUIDITY_PROTOCOL,
   KNC,
   KYBER_PROXY,
+  LENDING_COMPTROLLER,
+  LENDING_LIQUIDITY_POOL,
+  LENDING_LPT,
+  LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_A_PRICE,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_AAVE_B_PRICE,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_A_PRICE,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_INCH_B_PRICE,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_A_PRICE,
+  LENDING_X_KNC_B_MARKET,
+  LENDING_X_KNC_B_PRICE,
   REN_BTC,
   S_ETH,
   S_USD,
@@ -132,6 +147,28 @@ export const getAbi = (contractName: IContracts) => {
       return Abi.xU3LP as ContractInterface
     case XTK_MANAGEMENT_STAKING_MODULE:
       return Abi.XTKManagementStakingModule as ContractInterface
+    case LENDING_COMPTROLLER:
+      return Abi.Comptroller as ContractInterface
+    case LENDING_LIQUIDITY_POOL:
+      return Abi.LiquidityPool as ContractInterface
+    case LENDING_LPT:
+      return Abi.LPT as ContractInterface
+    case LENDING_X_AAVE_A_MARKET:
+    case LENDING_X_AAVE_B_MARKET:
+    case LENDING_X_INCH_A_MARKET:
+    case LENDING_X_INCH_B_MARKET:
+    case LENDING_X_KNC_A_MARKET:
+    case LENDING_X_KNC_B_MARKET:
+      return Abi.Market as ContractInterface
+    case LENDING_X_AAVE_A_PRICE:
+    case LENDING_X_AAVE_B_PRICE:
+      return Abi.xAAVEPrice as ContractInterface
+    case LENDING_X_INCH_A_PRICE:
+    case LENDING_X_INCH_B_PRICE:
+      return Abi.xINCHPrice as ContractInterface
+    case LENDING_X_KNC_A_PRICE:
+    case LENDING_X_KNC_B_PRICE:
+      return Abi.xKNCPrice as ContractInterface
   }
 }
 
@@ -333,15 +370,6 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
 
 export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
-}
-
-export const getTokenBalance = async (
-  tokenAddress: string,
-  userAddress: string,
-  provider: BaseProvider
-) => {
-  const contract = new ethers.Contract(tokenAddress, Abi.ERC20, provider)
-  return contract.balanceOf(userAddress)
 }
 
 export const getUserAvailableTokenBalance = async (

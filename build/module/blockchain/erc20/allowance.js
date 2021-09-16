@@ -1,0 +1,14 @@
+import { formatEther } from 'ethers/lib/utils'
+import { getContract } from '../utils'
+export const getTokenAllowance = async (
+  symbol,
+  address,
+  spenderAddress,
+  provider
+) => {
+  const network = await provider.getNetwork()
+  const tokenContract = await getContract(symbol, provider, network)
+  const tokenAllowance = await tokenContract.allowance(address, spenderAddress)
+  return formatEther(tokenAllowance)
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWxsb3dhbmNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4vZXJjMjAvYWxsb3dhbmNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBLE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQTtBQVM5QyxPQUFPLEVBQUUsV0FBVyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXRDLE1BQU0sQ0FBQyxNQUFNLGlCQUFpQixHQUFHLEtBQUssRUFDcEMsTUFBdUUsRUFDdkUsT0FBZSxFQUNmLGNBQXNCLEVBQ3RCLFFBQXNCLEVBQ3RCLEVBQUU7SUFDRixNQUFNLE9BQU8sR0FBRyxNQUFNLFFBQVEsQ0FBQyxVQUFVLEVBQUUsQ0FBQTtJQUMzQyxNQUFNLGFBQWEsR0FBRyxDQUFDLE1BQU0sV0FBVyxDQUFDLE1BQU0sRUFBRSxRQUFRLEVBQUUsT0FBTyxDQUFDLENBQVUsQ0FBQTtJQUM3RSxNQUFNLGNBQWMsR0FBRyxNQUFNLGFBQWEsQ0FBQyxTQUFTLENBQUMsT0FBTyxFQUFFLGNBQWMsQ0FBQyxDQUFBO0lBQzdFLE9BQU8sV0FBVyxDQUFDLGNBQWMsQ0FBQyxDQUFBO0FBQ3BDLENBQUMsQ0FBQSJ9
