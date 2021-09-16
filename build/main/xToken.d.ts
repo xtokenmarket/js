@@ -1,6 +1,7 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import {
+  LENDING_LPT,
   X_AAVE_A,
   X_AAVE_B,
   X_BNT_A,
@@ -21,11 +22,13 @@ import {
   ICollateralType,
   IHistoryType,
   ILendingMarket,
+  ILendingMarketInfo,
   ILendingPricing,
   ILendingType,
   ILiquidityPoolItem,
   ILPAsset,
   ILPTokenSymbols,
+  INativeAssets,
   IPortfolioItem,
   IReturns,
   IStableAssets,
@@ -170,6 +173,11 @@ export declare class XToken {
    */
   getBorrowingCapacity(): Promise<string>
   /**
+   * Get Borrow rate per block of Liquidity Pool contract
+   * @returns
+   */
+  getBorrowRatePerBlock(): Promise<string>
+  /**
    * @example
    * ```typescript
    * // Get expected quantity of ETH when selling 100 xAAVEa
@@ -215,10 +223,10 @@ export declare class XToken {
    */
   getHealthRatio(): Promise<string>
   /**
-   * Get all Lending Markets registered in Comptroller
+   * Get all Lending Markets info along with xAsset symbol, collateral and total value in USD
    * @returns
    */
-  getLendingMarkets(): Promise<string[]>
+  getLendingMarkets(): Promise<readonly ILendingMarketInfo[]>
   /**
    * Get xAsset Lending Price
    * @returns
@@ -292,6 +300,33 @@ export declare class XToken {
    *          with their corresponding balance and price
    */
   getPortfolioItems(): Promise<readonly IPortfolioItem[]>
+  /**
+   * Get token allowance for an address on ERC20 token or xAssets
+   * @returns
+   */
+  getTokenAllowance(
+    symbol: INativeAssets | ITokenSymbols | ILPTokenSymbols | IStableAssets,
+    spenderAddress: string
+  ): Promise<string>
+  /**
+   * Get token balance for an address of ERC20 token or xAssets
+   * @returns
+   */
+  getTokenBalance(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ): Promise<string>
+  /**
+   * Get token supply of ERC20 token or xAssets
+   * @returns
+   */
+  getTokenSupply(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ): Promise<string>
+  /**
+   * Get updated borrow for an address
+   * @returns
+   */
+  getUpdatedBorrowBy(): Promise<string>
   /**
    * @example
    * ```typescript

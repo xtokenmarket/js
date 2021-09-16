@@ -4,7 +4,7 @@ import { formatBytes32String, formatEther } from 'ethers/lib/utils'
 
 import { DEC_18 } from '../../constants'
 import { ERC20 } from '../../types'
-import { getTokenBalance } from '../utils'
+import { getTokenBalance } from '../erc20'
 
 import { getXSnxContracts } from './helper'
 
@@ -18,7 +18,6 @@ export const getMaximumRedeemableXSnx = async (provider: BaseProvider) => {
   const { chainId } = network
 
   const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
-  const snxAddress = ADDRESSES[SNX][chainId]
 
   const [
     availableEthBalance,
@@ -28,7 +27,7 @@ export const getMaximumRedeemableXSnx = async (provider: BaseProvider) => {
   ] = await Promise.all([
     tradeAccountingContract.getEthBalance(),
     xsnxContract.totalSupply(),
-    getTokenBalance(snxAddress, xsnxAdminAddress, provider),
+    getTokenBalance(SNX, xsnxAdminAddress, provider),
     (snxContract as ERC20).debtBalanceOf(
       xsnxAdminAddress,
       formatBytes32String('sUSD')

@@ -67,11 +67,6 @@ export declare const getTokenSymbol: (
 ) => 'aave' | 'bnt' | 'inch' | 'knc' | 'snx'
 export declare const getLPTokenSymbol: (symbol: ILPTokenSymbols) => IU3LPToken
 export declare const parseFees: (fee: BigNumber) => BigNumber
-export declare const getTokenBalance: (
-  tokenAddress: string,
-  userAddress: string,
-  provider: BaseProvider
-) => Promise<any>
 export declare const getUserAvailableTokenBalance: (
   contract: Contract,
   address: string

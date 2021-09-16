@@ -1,0 +1,13 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.getTokenAllowance = void 0
+const utils_1 = require('ethers/lib/utils')
+const utils_2 = require('../utils')
+const getTokenAllowance = async (symbol, address, spenderAddress, provider) => {
+  const network = await provider.getNetwork()
+  const tokenContract = await utils_2.getContract(symbol, provider, network)
+  const tokenAllowance = await tokenContract.allowance(address, spenderAddress)
+  return utils_1.formatEther(tokenAllowance)
+}
+exports.getTokenAllowance = getTokenAllowance
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWxsb3dhbmNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4vZXJjMjAvYWxsb3dhbmNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUNBLDRDQUE4QztBQVM5QyxvQ0FBc0M7QUFFL0IsTUFBTSxpQkFBaUIsR0FBRyxLQUFLLEVBQ3BDLE1BQXVFLEVBQ3ZFLE9BQWUsRUFDZixjQUFzQixFQUN0QixRQUFzQixFQUN0QixFQUFFO0lBQ0YsTUFBTSxPQUFPLEdBQUcsTUFBTSxRQUFRLENBQUMsVUFBVSxFQUFFLENBQUE7SUFDM0MsTUFBTSxhQUFhLEdBQUcsQ0FBQyxNQUFNLG1CQUFXLENBQUMsTUFBTSxFQUFFLFFBQVEsRUFBRSxPQUFPLENBQUMsQ0FBVSxDQUFBO0lBQzdFLE1BQU0sY0FBYyxHQUFHLE1BQU0sYUFBYSxDQUFDLFNBQVMsQ0FBQyxPQUFPLEVBQUUsY0FBYyxDQUFDLENBQUE7SUFDN0UsT0FBTyxtQkFBVyxDQUFDLGNBQWMsQ0FBQyxDQUFBO0FBQ3BDLENBQUMsQ0FBQTtBQVZZLFFBQUEsaUJBQWlCLHFCQVU3QiJ9
