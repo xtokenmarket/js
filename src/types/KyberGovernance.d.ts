@@ -382,7 +382,7 @@ export class KyberGovernance extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'createBinaryProposal(address,address,(address[],uint256[],string[],bytes[],bool[]),uint256,uint256,string)'(
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
       executor: string,
       strategy: string,
       executionParams: {
@@ -769,7 +769,7 @@ export class KyberGovernance extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'createBinaryProposal(address,address,(address[],uint256[],string[],bytes[],bool[]),uint256,uint256,string)'(
+  'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
     executor: string,
     strategy: string,
     executionParams: {
@@ -1149,7 +1149,7 @@ export class KyberGovernance extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'createBinaryProposal(address,address,(address[],uint256[],string[],bytes[],bool[]),uint256,uint256,string)'(
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
       executor: string,
       strategy: string,
       executionParams: {
@@ -1593,7 +1593,7 @@ export class KyberGovernance extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'createBinaryProposal(address,address,(address[],uint256[],string[],bytes[],bool[]),uint256,uint256,string)'(
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
       executor: string,
       strategy: string,
       executionParams: {
@@ -1885,7 +1885,7 @@ export class KyberGovernance extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'createBinaryProposal(address,address,(address[],uint256[],string[],bytes[],bool[]),uint256,uint256,string)'(
+    'createBinaryProposal(address,address,tuple,uint256,uint256,string)'(
       executor: string,
       strategy: string,
       executionParams: {

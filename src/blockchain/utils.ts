@@ -6,6 +6,7 @@ import {
 } from '@ethersproject/providers'
 import {
   AAVE,
+  ALPHA,
   Abi,
   ADDRESSES,
   BNT,
@@ -33,6 +34,7 @@ import {
   X_AAVE_A_BALANCER_POOL,
   X_AAVE_B,
   X_AAVE_B_BALANCER_POOL,
+  X_ALPHA_A,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
   X_INCH_A,
@@ -81,6 +83,7 @@ export const capitalizeToken = (symbol: IStableAssets) => {
 export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
+    case ALPHA:
     case BNT:
     case BUSD:
     case INCH:
@@ -111,6 +114,8 @@ export const getAbi = (contractName: IContracts) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return Abi.xAAVE as ContractInterface
+    case X_ALPHA_A:
+      return Abi.xALPHA as ContractInterface
     case X_BNT_A:
       return Abi.xBNT as ContractInterface
     case X_INCH_A:
@@ -297,6 +302,8 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return AAVE
+    case X_ALPHA_A:
+      return ALPHA
     case X_BNT_A:
       return BNT
     case X_INCH_A:
