@@ -1797,7 +1797,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.spec.ts": {
-        "version": "c0de98cf179583052bb27ac973145de33b6ac5db9180961d435f0d8d4ef42224",
+        "version": "53a4585fb0e642a81498998d2b8ceea83b549e1d3198fb256b5665d2361d43e4",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
