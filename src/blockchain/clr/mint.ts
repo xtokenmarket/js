@@ -86,9 +86,14 @@ export const getPoolRatioXAssetCLR = async (
     await uniswapLibraryContract.getPoolPrice(poolAddress)
   )
 
-  return formatEther(
-    stakedBalance.amount0.mul(midPrice).div(stakedBalance.amount1)
-  )
+  const ratio =
+    Number(
+      formatEther(
+        stakedBalance.amount0.mul(midPrice).div(stakedBalance.amount1)
+      )
+    ) * 100
+  const ratioSum = ratio + 100
+  return (ratio / ratioSum).toFixed(4)
 }
 
 export const mintXAssetCLR = async (

@@ -1432,7 +1432,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/mint.ts": {
-        "version": "26d6e4b7d93e447ba65b3f6e7b4e448fdb254e6bab82944e21e90c88ea0bb002",
+        "version": "0f10643c4dc7bb38fb0b5b8a9418d61aff8890cea80d3498fd166b48e83b2254",
         "signature": "7ea6733424496f8a5121dd34d906b6898dccccce5e5b242f17c8c5e22563804e",
         "affectsGlobalScope": false
       },
