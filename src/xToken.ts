@@ -370,6 +370,7 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
+    // TODO: Add support for xAssetCLR return estimates
     if ([X_AAVE_A, X_AAVE_B].includes(symbol)) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerEstimatedQuantity(

@@ -1417,8 +1417,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "c6cb8aec764f79c04815f60f189411e7f5d34f7d9b0fe4a04b55a0847d9ac9be",
-        "signature": "7646ba779e059e61cde937a99798c0b1e72b7b97d77d563bd5673c12dfcb55e0",
+        "version": "29a70c8256ddfd8681486695ef186da35d1523de64bff34e5dcdff8202282022",
+        "signature": "958e647dfb7539cb7fa2fdb74540bd83516dccb973d9c3f83ebc3b7edceb098c",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/helper.ts": {
@@ -1693,6 +1693,20 @@
       },
       "../src/blockchain/exchanges/uniswap.spec.ts": {
         "version": "36d73c7b30d9711399f34473f13a7d39edc2e2d2006f4f5cefd1e9b70c8ad6c4",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@uniswap/v3-periphery/artifacts/contracts/lens/quoter.sol/quoter.json": {
+        "version": "4973b8762fa32832db9c108047bdd819530117c9791057898783a40d76cd5c2b",
+        "affectsGlobalScope": true
+      },
+      "../src/blockchain/exchanges/uniswapv3.ts": {
+        "version": "89bf5da1faa5c1f2ca9d7485072b78cfef58d04e308034c8548dd587c70f456d",
+        "signature": "ef01bbe9b498158e33997c44e0ed9a8b97a3d68b0d3a78aba26c84c82608276c",
+        "affectsGlobalScope": false
+      },
+      "../src/blockchain/exchanges/uniswapv3.spec.ts": {
+        "version": "b25e0f7d4ac614a64ca2033621061587af3065e86ebd4368631786392af280c0",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -2815,6 +2829,21 @@
         "../src/blockchain/xknc/index.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
+        "../src/types/xtoken.d.ts"
+      ],
+      "../src/blockchain/exchanges/uniswapv3.spec.ts": [
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ava/index.d.ts",
+        "../src/blockchain/exchanges/uniswapv3.ts",
+        "../src/constants.spec.ts"
+      ],
+      "../src/blockchain/exchanges/uniswapv3.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@uniswap/v3-periphery/artifacts/contracts/lens/quoter.sol/quoter.json",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/ethers/lib/utils.d.ts",
+        "../src/blockchain/utils.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/staking/helper.ts": [
@@ -4816,6 +4845,11 @@
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
+      "../src/blockchain/exchanges/uniswapv3.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
+        "../src/types/xtoken.d.ts"
+      ],
       "../src/blockchain/staking/helper.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../src/types/index.ts"
@@ -5732,6 +5766,7 @@
       "../node_modules/@uniswap/sdk/dist/fetcher.d.ts",
       "../node_modules/@uniswap/sdk/dist/index.d.ts",
       "../node_modules/@uniswap/sdk/dist/router.d.ts",
+      "../node_modules/@uniswap/v3-periphery/artifacts/contracts/lens/quoter.sol/quoter.json",
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts",
       "../node_modules/@xtoken/abis/build/main/addresses.d.ts",
       "../node_modules/@xtoken/abis/build/main/constants.d.ts",
@@ -5793,6 +5828,8 @@
       "../src/blockchain/exchanges/kyber.ts",
       "../src/blockchain/exchanges/uniswap.spec.ts",
       "../src/blockchain/exchanges/uniswap.ts",
+      "../src/blockchain/exchanges/uniswapv3.spec.ts",
+      "../src/blockchain/exchanges/uniswapv3.ts",
       "../src/blockchain/staking/helper.ts",
       "../src/blockchain/staking/history.spec.ts",
       "../src/blockchain/staking/history.ts",

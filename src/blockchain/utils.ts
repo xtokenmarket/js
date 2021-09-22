@@ -371,6 +371,27 @@ export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
   }
 }
 
+export const getXAssetCLRSymbol = (symbol: ITokenSymbols): IXAssetCLR => {
+  switch (symbol) {
+    case X_AAVE_A:
+      return AAVE_X_AAVE_A_CLR
+    case X_AAVE_B:
+      return X_AAVE_B_AAVE_CLR
+    case X_BNT_A:
+      return BNT_X_BNT_A_CLR
+    case X_INCH_A:
+      return INCH_X_INCH_A_CLR
+    case X_INCH_B:
+      return INCH_X_INCH_B_CLR
+    case X_KNC_A:
+      return X_KNC_A_KNC_CLR
+    case X_KNC_B:
+      return X_KNC_B_KNC_CLR
+    case X_SNX_A:
+      return X_SNX_A_SNX_CLR
+  }
+}
+
 export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
   switch (symbol) {
     case AAVE_X_AAVE_A_CLR:

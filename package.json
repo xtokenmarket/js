@@ -53,7 +53,8 @@
   },
   "dependencies": {
     "@dynamic-amm/sdk": "^3.0.8",
-    "@uniswap/sdk": "^3.0.3"
+    "@uniswap/sdk": "^3.0.3",
+    "@uniswap/v3-periphery": "^1.2.0"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
