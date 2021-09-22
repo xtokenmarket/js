@@ -2,6 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, ALPHA, ETH } from '@xtoken/abis'
+import { parse } from 'dotenv/types'
 import { ethers } from 'ethers'
 
 import {
@@ -18,8 +19,6 @@ import { getXAlphaContracts } from './helper'
 import { getXAlphaPrices } from './prices'
 
 const { formatEther, parseEther } = ethers.utils
-
-// TODO: should be using Uniswap for expected quantities?
 
 export const burnXAlpha = async (
   symbol: ITokenSymbols,
@@ -43,4 +42,58 @@ export const burnXAlpha = async (
   return xalphaContract.burn(amount, sellForEth, '1', {
     gasLimit,
   })
+}
+
+export const getExpectedQuantityOnBurnXAlpha = async (
+  symbol: ITokenSymbols,
+  sellForEth: boolean,
+  amount: string,
+  provider: BaseProvider
+) => {
+  const inputAmount = parseEther(amount)
+  const {
+    kyberProxyContract,
+    network,
+    xalphaContract,
+  } = await getXAlphaContracts(symbol, provider)
+
+  const { chainId } = network
+
+  const { BURN_FEE, proRataAlpha } = await getProRataAlpha(
+    xalphaContract,
+    inputAmount
+  )
+
+  let expectedQty: BigNumber
+
+  if (!sellForEth) {
+    expectedQty = proRataAlpha
+  } else {
+    const ethAddress = ADDRESSES[ETH]
+    const alphaAddress = ADDRESSES[ALPHA][chainId]
+
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
+      alphaAddress,
+      ethAddress as string,
+      proRataAlpha
+    )
+
+    expectedQty = proRataAlpha.mul(expectedRate).div(DEC_18)
+  }
+
+  return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
+}
+
+const getProRataAlpha = async (xalphaContract: XALPHA, amount: BigNumber) => {
+  const [alphaHoldings, xalphaSupply, { burnFee }] = await Promise.all([
+    xalphaContract.getNav(),
+    xalphaContract.totalSupply(),
+    xalphaContract.feeDivisors(),
+  ])
+
+  const BURN_FEE = parseFees(burnFee)
+  const proRataAlpha = alphaHoldings.mul(amount).div(xalphaSupply)
+
+  return { BURN_FEE, proRataAlpha }
 }

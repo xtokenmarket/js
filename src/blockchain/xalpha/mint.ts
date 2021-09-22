@@ -37,7 +37,6 @@ export const approveXAlpha = async (
   return tokenContract.approve(xalphaContract.address, amount, { gasLimit })
 }
 
-// TODO: should be using Uniswap for expected quantities?
 export const getExpectedQuantityOnMintXAlpha = async (
   symbol: ITokenSymbols,
   tradeWithEth: boolean,
