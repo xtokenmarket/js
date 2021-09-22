@@ -12,9 +12,9 @@ export const getPercentage = (amount: BigNumber, percent: number) => {
 
 /**
  * Return actual twap price from ABDK 64.64 representation
- * Used with xU3LP getAssetPrice()
+ * Used with xU3LP/xAssetCLR getAssetPrice()
  */
 export const getTWAP = (twap: BigNumber) => {
-  twap = twap.mul(10000).div(BigNumber.from(2).pow(64))
-  return parseEther((twap.toNumber() / 10000).toString())
+  twap = twap.mul(1e8).div(BigNumber.from(2).pow(64))
+  return parseEther((twap.toNumber() / 1e8).toString())
 }

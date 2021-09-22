@@ -21,30 +21,6 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
-        name: '_value',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_feeDivisor',
-        type: 'uint256',
-      },
-    ],
-    name: 'calculateFee',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'fee',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'pure',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
         name: 'amount0',
         type: 'uint256',
       },
@@ -422,6 +398,11 @@ const _abi = [
             type: 'uint256',
           },
           {
+            internalType: 'uint256',
+            name: 'tokenDiffDecimalMultiplier',
+            type: 'uint256',
+          },
+          {
             internalType: 'uint8',
             name: 'token0Decimals',
             type: 'uint8',
@@ -553,6 +534,25 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+    ],
+    name: 'getPoolPriceWithDecimals',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: 'positionManager',
         type: 'address',
       },
@@ -595,227 +595,12 @@ const _abi = [
   {
     inputs: [
       {
-        components: [
-          {
-            internalType: 'address',
-            name: 'token0',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'token1',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'token0DecimalMultiplier',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'token1DecimalMultiplier',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint8',
-            name: 'token0Decimals',
-            type: 'uint8',
-          },
-          {
-            internalType: 'uint8',
-            name: 'token1Decimals',
-            type: 'uint8',
-          },
-        ],
-        internalType: 'struct UniswapLibrary.TokenDetails',
-        name: 'tokenDetails',
-        type: 'tuple',
-      },
-      {
-        components: [
-          {
-            internalType: 'uint24',
-            name: 'poolFee',
-            type: 'uint24',
-          },
-          {
-            internalType: 'uint160',
-            name: 'priceLower',
-            type: 'uint160',
-          },
-          {
-            internalType: 'uint160',
-            name: 'priceUpper',
-            type: 'uint160',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tokenId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'address',
-            name: 'positionManager',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'router',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'pool',
-            type: 'address',
-          },
-        ],
-        internalType: 'struct UniswapLibrary.PositionDetails',
-        name: 'positionDetails',
-        type: 'tuple',
-      },
-    ],
-    name: 'getStakedTokenBalance',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount0',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount1',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: 'address',
-            name: 'token0',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'token1',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'token0DecimalMultiplier',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'token1DecimalMultiplier',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint8',
-            name: 'token0Decimals',
-            type: 'uint8',
-          },
-          {
-            internalType: 'uint8',
-            name: 'token1Decimals',
-            type: 'uint8',
-          },
-        ],
-        internalType: 'struct UniswapLibrary.TokenDetails',
-        name: 'tokenDetails',
-        type: 'tuple',
-      },
-      {
-        components: [
-          {
-            internalType: 'uint24',
-            name: 'poolFee',
-            type: 'uint24',
-          },
-          {
-            internalType: 'uint160',
-            name: 'priceLower',
-            type: 'uint160',
-          },
-          {
-            internalType: 'uint160',
-            name: 'priceUpper',
-            type: 'uint160',
-          },
-          {
-            internalType: 'uint256',
-            name: 'tokenId',
-            type: 'uint256',
-          },
-          {
-            internalType: 'address',
-            name: 'positionManager',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'router',
-            type: 'address',
-          },
-          {
-            internalType: 'address',
-            name: 'pool',
-            type: 'address',
-          },
-        ],
-        internalType: 'struct UniswapLibrary.PositionDetails',
-        name: 'positionDetails',
-        type: 'tuple',
-      },
-    ],
-    name: 'getTargetBufferTokenBalance',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount0',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount1',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint160',
         name: 'price',
         type: 'uint160',
       },
     ],
     name: 'getTickFromPrice',
-    outputs: [
-      {
-        internalType: 'int24',
-        name: '',
-        type: 'int24',
-      },
-    ],
-    stateMutability: 'pure',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint24',
-        name: 'fee',
-        type: 'uint24',
-      },
-    ],
-    name: 'getTickSpacingForFee',
     outputs: [
       {
         internalType: 'int24',
@@ -932,30 +717,6 @@ const _abi = [
       },
     ],
     name: 'getToken1AmountInWei',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'pure',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount0',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount1',
-        type: 'uint256',
-      },
-    ],
-    name: 'sub0',
     outputs: [
       {
         internalType: 'uint256',

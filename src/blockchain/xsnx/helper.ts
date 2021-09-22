@@ -9,7 +9,7 @@ export const getXSnxContracts = async (provider: BaseProvider) => {
   const network = await provider.getNetwork()
 
   const xsnxContract = getContract(X_SNX_A, provider, network) as XSNX
-  const snxContract = getContract(SNX, provider, network)
+  const snxContract = getContract(SNX, provider, network) as Contract
   const kyberProxyContract = getContract(
     KYBER_PROXY,
     provider,
@@ -30,7 +30,8 @@ export const getXSnxContracts = async (provider: BaseProvider) => {
     !xsnxContract ||
     !kyberProxyContract ||
     !tokenContract ||
-    !tradeAccountingContract
+    !tradeAccountingContract ||
+    !snxContract
   ) {
     return Promise.reject(new Error('Unknown error'))
   }
