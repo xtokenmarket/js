@@ -13,6 +13,7 @@ import {
 } from '@uniswap/sdk'
 import {
   ADDRESSES,
+  ALPHA,
   BUY,
   ETH,
   USDC,
@@ -86,6 +87,26 @@ export const getEthTokenPrice = async (
   return isPriceInvert
     ? route.midPrice.invert().toSignificant(6)
     : route.midPrice.toSignificant(6)
+}
+
+export const getAlphaEthPrice = async (
+  provider: BaseProvider
+): Promise<string> => {
+  const network = await provider.getNetwork()
+  const { chainId } = network
+
+  const alphaAddress = ADDRESSES[ALPHA][chainId]
+  const alphaToken = new Token(ChainId.MAINNET, alphaAddress, 18)
+
+  const pair = await Fetcher.fetchPairData(
+    alphaToken,
+    WETH[alphaToken.chainId],
+    provider
+  )
+
+  const route = new Route([pair], WETH[alphaToken.chainId])
+
+  return route.midPrice.toSignificant(6)
 }
 
 export const getUniswapEstimatedQuantity = async (

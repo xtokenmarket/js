@@ -5,6 +5,7 @@
 
 import {
   AAVE,
+  ALPHA,
   EXCHANGE_RATES,
   KNC,
   KYBER_PROXY,
@@ -12,6 +13,7 @@ import {
   TRADE_ACCOUNTING,
   X_AAVE_A,
   X_AAVE_B,
+  X_ALPHA_A,
   X_KNC_A,
   X_KNC_B,
   X_SNX_A,
@@ -49,6 +51,7 @@ import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
   | typeof AAVE
+  | typeof ALPHA
   | typeof BNT
   | typeof EXCHANGE_RATES
   | typeof INCH
@@ -66,6 +69,7 @@ export type IContracts =
 export type ITokenSymbols =
   | typeof X_AAVE_A
   | typeof X_AAVE_B
+  | typeof X_ALPHA_A
   | typeof X_BNT_A
   | typeof X_INCH_A
   | typeof X_INCH_B
