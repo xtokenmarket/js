@@ -160,6 +160,19 @@ const _abi = [
   },
   {
     anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'bntFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'FeeWithdraw',
+    type: 'event',
+  },
+  {
+    anonymous: false,
     inputs: [],
     name: 'KeyAddressChange',
     type: 'event',
@@ -618,6 +631,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getAmountOfAssetHeld',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getBancorNetworkContract',
     outputs: [
       {
@@ -740,6 +766,24 @@ const _abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getWithdrawableFees',
+    outputs: [
+      {
+        internalType: 'address[1]',
+        name: 'feeAssets',
+        type: 'address[1]',
+      },
+      {
+        internalType: 'uint256[1]',
+        name: 'feeAmounts',
+        type: 'uint256[1]',
       },
     ],
     stateMutability: 'view',
@@ -1043,37 +1087,24 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_manager',
-        type: 'address',
-      },
-    ],
-    name: 'setManager',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_manager2',
-        type: 'address',
-      },
-    ],
-    name: 'setManager2',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
         name: '_protocolMinter',
         type: 'address',
       },
     ],
     name: 'setProtocolMinter',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IxTokenManager',
+        name: '_manager',
+        type: 'address',
+      },
+    ],
+    name: 'setxTokenManager',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1222,6 +1253,13 @@ const _abi = [
       },
     ],
     name: 'updateTotalAllocatedNav',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'withdrawFees',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

@@ -45,16 +45,18 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'emergencyCooldown()': FunctionFragment
     'emergencyRedeem(uint256)': FunctionFragment
     'feeDivisors()': FunctionFragment
+    'getAmountOfAssetHeld()': FunctionFragment
     'getBufferBalance()': FunctionFragment
     'getFundBalances()': FunctionFragment
     'getFundHoldings()': FunctionFragment
     'getStakedBalance()': FunctionFragment
+    'getWithdrawableFees()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(address,address,address,address,address,uint256,uint256,uint256,string,string)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
     'mandate()': FunctionFragment
     'mint(uint256)': FunctionFragment
-    'mintWithToken(uint256,address)': FunctionFragment
+    'mintWithToken(uint256)': FunctionFragment
     'name()': FunctionFragment
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
@@ -62,11 +64,11 @@ interface XAAVEInterface extends ethers.utils.Interface {
     'redeem(uint256)': FunctionFragment
     'removeFromWhitelist(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
+    'setDelegate(address,bytes32,address)': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
     'setGovernanceV2Address(address)': FunctionFragment
-    'setManager(address)': FunctionFragment
-    'setManager2(address)': FunctionFragment
     'setVotingAaveAddress(address)': FunctionFragment
+    'setxTokenManager(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
@@ -157,6 +159,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
+    functionFragment: 'getAmountOfAssetHeld',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'getBufferBalance',
     values?: undefined
   ): string
@@ -170,6 +176,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'getStakedBalance',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getWithdrawableFees',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -199,7 +209,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'mint', values: [BigNumberish]): string
   encodeFunctionData(
     functionFragment: 'mintWithToken',
-    values: [BigNumberish, string]
+    values: [BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
@@ -218,6 +228,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
+    functionFragment: 'setDelegate',
+    values: [string, BytesLike, string]
+  ): string
+  encodeFunctionData(
     functionFragment: 'setFeeDivisors',
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string
@@ -225,10 +239,12 @@ interface XAAVEInterface extends ethers.utils.Interface {
     functionFragment: 'setGovernanceV2Address',
     values: [string]
   ): string
-  encodeFunctionData(functionFragment: 'setManager', values: [string]): string
-  encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(
     functionFragment: 'setVotingAaveAddress',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setxTokenManager',
     values: [string]
   ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
@@ -338,6 +354,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'getAmountOfAssetHeld',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'getBufferBalance',
     data: BytesLike
   ): Result
@@ -351,6 +371,10 @@ interface XAAVEInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(
     functionFragment: 'getStakedBalance',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getWithdrawableFees',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -384,6 +408,7 @@ interface XAAVEInterface extends ethers.utils.Interface {
     functionFragment: 'renounceOwnership',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'setDelegate', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setFeeDivisors',
     data: BytesLike
@@ -392,10 +417,12 @@ interface XAAVEInterface extends ethers.utils.Interface {
     functionFragment: 'setGovernanceV2Address',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setVotingAaveAddress',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'setxTokenManager',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
@@ -636,6 +663,10 @@ export class XAAVE extends Contract {
       }
     >
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
     getBufferBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getBufferBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
@@ -653,6 +684,24 @@ export class XAAVE extends Contract {
     getStakedBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string, string], [BigNumber, BigNumber]] & {
+        feeAssets: [string, string]
+        feeAmounts: [BigNumber, BigNumber]
+      }
+    >
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string, string], [BigNumber, BigNumber]] & {
+        feeAssets: [string, string]
+        feeAmounts: [BigNumber, BigNumber]
+      }
+    >
 
     increaseAllowance(
       spender: string,
@@ -718,9 +767,8 @@ export class XAAVE extends Contract {
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    mintWithToken(
+    'mintWithToken(uint256)'(
       aaveAmount: BigNumberish,
-      affiliate: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -770,6 +818,20 @@ export class XAAVE extends Contract {
 
     'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
 
+    setDelegate(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setDelegate(address,bytes32,address)'(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     setFeeDivisors(
       mintFeeDivisor: BigNumberish,
       burnFeeDivisor: BigNumberish,
@@ -794,26 +856,6 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     setVotingAaveAddress(
       _votingAave: string,
       overrides?: Overrides
@@ -821,6 +863,16 @@ export class XAAVE extends Contract {
 
     'setVotingAaveAddress(address)'(
       _votingAave: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1088,6 +1140,10 @@ export class XAAVE extends Contract {
     }
   >
 
+  getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+  'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
   getBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
   'getBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1105,6 +1161,24 @@ export class XAAVE extends Contract {
   getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
   'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  getWithdrawableFees(
+    overrides?: CallOverrides
+  ): Promise<
+    [[string, string], [BigNumber, BigNumber]] & {
+      feeAssets: [string, string]
+      feeAmounts: [BigNumber, BigNumber]
+    }
+  >
+
+  'getWithdrawableFees()'(
+    overrides?: CallOverrides
+  ): Promise<
+    [[string, string], [BigNumber, BigNumber]] & {
+      feeAssets: [string, string]
+      feeAmounts: [BigNumber, BigNumber]
+    }
+  >
 
   increaseAllowance(
     spender: string,
@@ -1167,9 +1241,8 @@ export class XAAVE extends Contract {
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  mintWithToken(
+  'mintWithToken(uint256)'(
     aaveAmount: BigNumberish,
-    affiliate: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1219,6 +1292,20 @@ export class XAAVE extends Contract {
 
   'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
 
+  setDelegate(
+    delegateRegistry: string,
+    id: BytesLike,
+    delegate: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setDelegate(address,bytes32,address)'(
+    delegateRegistry: string,
+    id: BytesLike,
+    delegate: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   setFeeDivisors(
     mintFeeDivisor: BigNumberish,
     burnFeeDivisor: BigNumberish,
@@ -1243,26 +1330,6 @@ export class XAAVE extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  setManager(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager(address)'(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  setManager2(
-    _manager2: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager2(address)'(
-    _manager2: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   setVotingAaveAddress(
     _votingAave: string,
     overrides?: Overrides
@@ -1270,6 +1337,16 @@ export class XAAVE extends Contract {
 
   'setVotingAaveAddress(address)'(
     _votingAave: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setxTokenManager(
+    _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setxTokenManager(address)'(
+    _manager: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1532,6 +1609,10 @@ export class XAAVE extends Contract {
       }
     >
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
     getBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1549,6 +1630,24 @@ export class XAAVE extends Contract {
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string, string], [BigNumber, BigNumber]] & {
+        feeAssets: [string, string]
+        feeAmounts: [BigNumber, BigNumber]
+      }
+    >
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string, string], [BigNumber, BigNumber]] & {
+        feeAssets: [string, string]
+        feeAmounts: [BigNumber, BigNumber]
+      }
+    >
 
     increaseAllowance(
       spender: string,
@@ -1608,9 +1707,8 @@ export class XAAVE extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    mintWithToken(
+    'mintWithToken(uint256)'(
       aaveAmount: BigNumberish,
-      affiliate: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1657,6 +1755,20 @@ export class XAAVE extends Contract {
 
     'renounceOwnership()'(overrides?: CallOverrides): Promise<void>
 
+    setDelegate(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'setDelegate(address,bytes32,address)'(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     setFeeDivisors(
       mintFeeDivisor: BigNumberish,
       burnFeeDivisor: BigNumberish,
@@ -1681,20 +1793,6 @@ export class XAAVE extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    setManager(_manager: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    setManager2(_manager2: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     setVotingAaveAddress(
       _votingAave: string,
       overrides?: CallOverrides
@@ -1702,6 +1800,13 @@ export class XAAVE extends Contract {
 
     'setVotingAaveAddress(address)'(
       _votingAave: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setxTokenManager(_manager: string, overrides?: CallOverrides): Promise<void>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1968,6 +2073,10 @@ export class XAAVE extends Contract {
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
     getBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1983,6 +2092,10 @@ export class XAAVE extends Contract {
     getStakedBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getStakedBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getWithdrawableFees(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getWithdrawableFees()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -2045,9 +2158,8 @@ export class XAAVE extends Contract {
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    mintWithToken(
+    'mintWithToken(uint256)'(
       aaveAmount: BigNumberish,
-      affiliate: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2094,6 +2206,20 @@ export class XAAVE extends Contract {
 
     'renounceOwnership()'(overrides?: Overrides): Promise<BigNumber>
 
+    setDelegate(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setDelegate(address,bytes32,address)'(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     setFeeDivisors(
       mintFeeDivisor: BigNumberish,
       burnFeeDivisor: BigNumberish,
@@ -2118,20 +2244,6 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    setManager(_manager: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setManager2(_manager2: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     setVotingAaveAddress(
       _votingAave: string,
       overrides?: Overrides
@@ -2139,6 +2251,16 @@ export class XAAVE extends Contract {
 
     'setVotingAaveAddress(address)'(
       _votingAave: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2404,6 +2526,14 @@ export class XAAVE extends Contract {
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    getAmountOfAssetHeld(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getAmountOfAssetHeld()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     getBufferBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getBufferBalance()'(
@@ -2425,6 +2555,14 @@ export class XAAVE extends Contract {
     getStakedBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getStakedBalance()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getWithdrawableFees()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -2492,9 +2630,8 @@ export class XAAVE extends Contract {
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    mintWithToken(
+    'mintWithToken(uint256)'(
       aaveAmount: BigNumberish,
-      affiliate: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -2544,6 +2681,20 @@ export class XAAVE extends Contract {
 
     'renounceOwnership()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
+    setDelegate(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setDelegate(address,bytes32,address)'(
+      delegateRegistry: string,
+      id: BytesLike,
+      delegate: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     setFeeDivisors(
       mintFeeDivisor: BigNumberish,
       burnFeeDivisor: BigNumberish,
@@ -2568,26 +2719,6 @@ export class XAAVE extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     setVotingAaveAddress(
       _votingAave: string,
       overrides?: Overrides
@@ -2595,6 +2726,16 @@ export class XAAVE extends Contract {
 
     'setVotingAaveAddress(address)'(
       _votingAave: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

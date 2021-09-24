@@ -902,18 +902,18 @@
         "affectsGlobalScope": false
       },
       "../src/types/xaave.d.ts": {
-        "version": "227f2934a857325f8dfc72d435805acdd14b64d24882bc5acbf66ddc53ca5da2",
-        "signature": "227f2934a857325f8dfc72d435805acdd14b64d24882bc5acbf66ddc53ca5da2",
+        "version": "530ec7b6013d601ed954a4e95008cce274cafd5052752ae817cc8695b336c6ae",
+        "signature": "530ec7b6013d601ed954a4e95008cce274cafd5052752ae817cc8695b336c6ae",
         "affectsGlobalScope": false
       },
       "../src/types/xassetclr.d.ts": {
-        "version": "603274569edfbbb85e762d520adf3d729ce4a85aa6f9a1104a0e5c3f191babcf",
-        "signature": "603274569edfbbb85e762d520adf3d729ce4a85aa6f9a1104a0e5c3f191babcf",
+        "version": "11981278a3ea3dca47d3e30de87b0819d0fb4452da4dbe383ad7e37eba105a6f",
+        "signature": "11981278a3ea3dca47d3e30de87b0819d0fb4452da4dbe383ad7e37eba105a6f",
         "affectsGlobalScope": false
       },
       "../src/types/xbnt.d.ts": {
-        "version": "bcbbda55c64095fce3b252706eb0fdf5f2875397ca003b3ee8b19e71043aa02d",
-        "signature": "bcbbda55c64095fce3b252706eb0fdf5f2875397ca003b3ee8b19e71043aa02d",
+        "version": "2e157def8a5752c888ff0392620a0028d1fa89e3dcfe382c87b11c2a6627fed6",
+        "signature": "2e157def8a5752c888ff0392620a0028d1fa89e3dcfe382c87b11c2a6627fed6",
         "affectsGlobalScope": false
       },
       "../src/types/xinch.d.ts": {
@@ -1062,17 +1062,17 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/xaave__factory.ts": {
-        "version": "8293bf7ff53501a3d7e23c4017fadc27026fce3c44362b7a76c96fb5cbb05919",
+        "version": "ece28ae494153de63987ffe86cbb7d37c610820f0c04fcea599954d76d9b1e70",
         "signature": "efb81d3c48c3bb6172675a5c8fc1eb2131d701b47385714413a6b816cf699da8",
         "affectsGlobalScope": false
       },
       "../src/types/factories/xassetclr__factory.ts": {
-        "version": "5a298b666667037aa11210ea9fe616bbca0ff8bba4bcaf387c5aa35d063ddfba",
+        "version": "e2af510aabe1561d5a77ea49a49177581836b29fa964bea813b6cc062c7e36be",
         "signature": "a45740f0c552d5934dee16e01932e024e1eed852afea4add98a4937f3d972fe9",
         "affectsGlobalScope": false
       },
       "../src/types/factories/xbnt__factory.ts": {
-        "version": "af5e2f11ee15864a9c73ea29eb7d7346ac4d1b0a720b80ad815a61466203050b",
+        "version": "53125bb2a40b858c1b527788a61eb66f02f66357b8ee364e631de60076cacbbb",
         "signature": "7e025b9e125425c9db88569d3baea7905f9e69826cce826a89da43539a334f3c",
         "affectsGlobalScope": false
       },
@@ -1272,7 +1272,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/mint.ts": {
-        "version": "3044ef88cda20964b1b22b4e02c507fccc9fc5b0457bcacfd38e064ddf696ab0",
+        "version": "41119089c82771c2885951f83f600f08b808a8f9432a8a6920bdd920a966fb92",
         "signature": "736dc63aa1497291082ff9e6b28d3171af3b793bae2cc474178769f92369a4c5",
         "affectsGlobalScope": false
       },
@@ -1622,7 +1622,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "5e54809c0c0acda150e8864c5e8bf82d3e3c6a5e248f01763dca363f29fce9ec",
+        "version": "5e55fdfab3a7e487a2763ace832eef3651c9513ac675b78c561846ebfae3533c",
         "signature": "f0500488f7381bf4b7fbbea3a6ab81de6766c5d02332da6575d0dbde2eca16be",
         "affectsGlobalScope": false
       },
@@ -1701,8 +1701,8 @@
         "affectsGlobalScope": true
       },
       "../src/blockchain/exchanges/uniswapv3.ts": {
-        "version": "89bf5da1faa5c1f2ca9d7485072b78cfef58d04e308034c8548dd587c70f456d",
-        "signature": "ef01bbe9b498158e33997c44e0ed9a8b97a3d68b0d3a78aba26c84c82608276c",
+        "version": "c6d05f966790af7a5947f299ccf00fbcf405754c02305b2261f737e3d63f4d00",
+        "signature": "48318881e4245a15333821eb9dc7d5e4cbf1b301dc8f5b07079b097e22c8bfaa",
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/uniswapv3.spec.ts": {
@@ -4847,7 +4847,6 @@
       ],
       "../src/blockchain/exchanges/uniswapv3.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/staking/helper.ts": [

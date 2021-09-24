@@ -22,6 +22,9 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface XAssetCLRInterface extends ethers.utils.Interface {
   functions: {
+    'adminApprove(bool)': FunctionFragment
+    'adminBurn(uint256,bool)': FunctionFragment
+    'adminMint(uint256,bool)': FunctionFragment
     'adminRebalance()': FunctionFragment
     'adminStake(uint256,uint256)': FunctionFragment
     'adminSwap(uint256,bool)': FunctionFragment
@@ -87,6 +90,18 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
     'withdrawToken(address,address)': FunctionFragment
   }
 
+  encodeFunctionData(
+    functionFragment: 'adminApprove',
+    values: [boolean]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'adminBurn',
+    values: [BigNumberish, boolean]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'adminMint',
+    values: [BigNumberish, boolean]
+  ): string
   encodeFunctionData(
     functionFragment: 'adminRebalance',
     values?: undefined
@@ -313,6 +328,12 @@ interface XAssetCLRInterface extends ethers.utils.Interface {
   ): string
 
   decodeFunctionResult(
+    functionFragment: 'adminApprove',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'adminBurn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'adminMint', data: BytesLike): Result
+  decodeFunctionResult(
     functionFragment: 'adminRebalance',
     data: BytesLike
   ): Result
@@ -529,6 +550,40 @@ export class XAssetCLR extends Contract {
   interface: XAssetCLRInterface
 
   functions: {
+    adminApprove(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     adminRebalance(overrides?: Overrides): Promise<ContractTransaction>
 
     'adminRebalance()'(overrides?: Overrides): Promise<ContractTransaction>
@@ -1111,6 +1166,40 @@ export class XAssetCLR extends Contract {
     ): Promise<ContractTransaction>
   }
 
+  adminApprove(
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminApprove(bool)'(
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  adminBurn(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminBurn(uint256,bool)'(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  adminMint(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminMint(uint256,bool)'(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   adminRebalance(overrides?: Overrides): Promise<ContractTransaction>
 
   'adminRebalance()'(overrides?: Overrides): Promise<ContractTransaction>
@@ -1672,6 +1761,37 @@ export class XAssetCLR extends Contract {
   ): Promise<ContractTransaction>
 
   callStatic: {
+    adminApprove(isToken0: boolean, overrides?: CallOverrides): Promise<void>
+
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     adminRebalance(overrides?: CallOverrides): Promise<void>
 
     'adminRebalance()'(overrides?: CallOverrides): Promise<void>
@@ -2264,6 +2384,37 @@ export class XAssetCLR extends Contract {
   }
 
   estimateGas: {
+    adminApprove(isToken0: boolean, overrides?: Overrides): Promise<BigNumber>
+
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     adminRebalance(overrides?: Overrides): Promise<BigNumber>
 
     'adminRebalance()'(overrides?: Overrides): Promise<BigNumber>
@@ -2763,6 +2914,40 @@ export class XAssetCLR extends Contract {
   }
 
   populateTransaction: {
+    adminApprove(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     adminRebalance(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'adminRebalance()'(overrides?: Overrides): Promise<PopulatedTransaction>

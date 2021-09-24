@@ -45,6 +45,7 @@ interface XBNTInterface extends ethers.utils.Interface {
     'emergencyClaimAndRemove()': FunctionFragment
     'emergencyClaimBalance(uint256)': FunctionFragment
     'feeDivisors()': FunctionFragment
+    'getAmountOfAssetHeld()': FunctionFragment
     'getBancorNetworkContract()': FunctionFragment
     'getBufferBalance()': FunctionFragment
     'getLiquidityProtectionContract()': FunctionFragment
@@ -54,6 +55,7 @@ interface XBNTInterface extends ethers.utils.Interface {
     'getRewardsContributionToNav()': FunctionFragment
     'getStakingRewardsContract()': FunctionFragment
     'getTargetBufferBalance()': FunctionFragment
+    'getWithdrawableFees()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
     'initialize(address,address,address,address,address,address,address,uint256,uint256,uint256,uint256,string)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
@@ -70,9 +72,8 @@ interface XBNTInterface extends ethers.utils.Interface {
     'renounceOwnership()': FunctionFragment
     'setDelegate(address,bytes32,address)': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
-    'setManager(address)': FunctionFragment
-    'setManager2(address)': FunctionFragment
     'setProtocolMinter(address)': FunctionFragment
+    'setxTokenManager(address)': FunctionFragment
     'symbol()': FunctionFragment
     'totalAllocatedNav()': FunctionFragment
     'totalSupply()': FunctionFragment
@@ -82,6 +83,7 @@ interface XBNTInterface extends ethers.utils.Interface {
     'unpauseContract()': FunctionFragment
     'updatePendingRewardsContributionToNav(uint256,uint256)': FunctionFragment
     'updateTotalAllocatedNav(uint256,uint256)': FunctionFragment
+    'withdrawFees()': FunctionFragment
     'withdrawableBntFees()': FunctionFragment
   }
 
@@ -168,6 +170,10 @@ interface XBNTInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
+    functionFragment: 'getAmountOfAssetHeld',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'getBancorNetworkContract',
     values?: undefined
   ): string
@@ -198,6 +204,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'getTargetBufferBalance',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'getWithdrawableFees',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -265,10 +275,12 @@ interface XBNTInterface extends ethers.utils.Interface {
     functionFragment: 'setFeeDivisors',
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string
-  encodeFunctionData(functionFragment: 'setManager', values: [string]): string
-  encodeFunctionData(functionFragment: 'setManager2', values: [string]): string
   encodeFunctionData(
     functionFragment: 'setProtocolMinter',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'setxTokenManager',
     values: [string]
   ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
@@ -303,6 +315,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'updateTotalAllocatedNav',
     values: [BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'withdrawFees',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'withdrawableBntFees',
@@ -377,6 +393,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'getAmountOfAssetHeld',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'getBancorNetworkContract',
     data: BytesLike
   ): Result
@@ -407,6 +427,10 @@ interface XBNTInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(
     functionFragment: 'getTargetBufferBalance',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getWithdrawableFees',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -455,10 +479,12 @@ interface XBNTInterface extends ethers.utils.Interface {
     functionFragment: 'setFeeDivisors',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'setManager', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'setManager2', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'setProtocolMinter',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'setxTokenManager',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
@@ -489,6 +515,10 @@ interface XBNTInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
+    functionFragment: 'withdrawFees',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'withdrawableBntFees',
     data: BytesLike
   ): Result
@@ -500,6 +530,7 @@ interface XBNTInterface extends ethers.utils.Interface {
     'ClaimRemove(uint256,uint256)': EventFragment
     'ClaimRestake(uint256,uint256,uint256,uint256)': EventFragment
     'ClaimRewards(uint256,uint256)': EventFragment
+    'FeeWithdraw(uint256)': EventFragment
     'KeyAddressChange()': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
@@ -514,6 +545,7 @@ interface XBNTInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'ClaimRemove'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ClaimRestake'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ClaimRewards'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'FeeWithdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'KeyAddressChange'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
@@ -765,6 +797,10 @@ export class XBNT extends Contract {
       }
     >
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
     getBancorNetworkContract(overrides?: CallOverrides): Promise<[string]>
 
     'getBancorNetworkContract()'(overrides?: CallOverrides): Promise<[string]>
@@ -816,6 +852,18 @@ export class XBNT extends Contract {
     getTargetBufferBalance(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+    >
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+    >
 
     increaseAllowance(
       spender: string,
@@ -965,26 +1013,6 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     setProtocolMinter(
       _protocolMinter: string,
       overrides?: Overrides
@@ -992,6 +1020,16 @@ export class XBNT extends Contract {
 
     'setProtocolMinter(address)'(
       _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1070,6 +1108,10 @@ export class XBNT extends Contract {
       endProxyIndexIterator: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    withdrawFees(overrides?: Overrides): Promise<ContractTransaction>
+
+    'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
     withdrawableBntFees(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -1305,6 +1347,10 @@ export class XBNT extends Contract {
     }
   >
 
+  getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+  'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
   getBancorNetworkContract(overrides?: CallOverrides): Promise<string>
 
   'getBancorNetworkContract()'(overrides?: CallOverrides): Promise<string>
@@ -1352,6 +1398,18 @@ export class XBNT extends Contract {
   getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
   'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  getWithdrawableFees(
+    overrides?: CallOverrides
+  ): Promise<
+    [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+  >
+
+  'getWithdrawableFees()'(
+    overrides?: CallOverrides
+  ): Promise<
+    [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+  >
 
   increaseAllowance(
     spender: string,
@@ -1496,26 +1554,6 @@ export class XBNT extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  setManager(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager(address)'(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  setManager2(
-    _manager2: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setManager2(address)'(
-    _manager2: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   setProtocolMinter(
     _protocolMinter: string,
     overrides?: Overrides
@@ -1523,6 +1561,16 @@ export class XBNT extends Contract {
 
   'setProtocolMinter(address)'(
     _protocolMinter: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  setxTokenManager(
+    _manager: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setxTokenManager(address)'(
+    _manager: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1601,6 +1649,10 @@ export class XBNT extends Contract {
     endProxyIndexIterator: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  withdrawFees(overrides?: Overrides): Promise<ContractTransaction>
+
+  'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
   withdrawableBntFees(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1826,6 +1878,10 @@ export class XBNT extends Contract {
       }
     >
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
     getBancorNetworkContract(overrides?: CallOverrides): Promise<string>
 
     'getBancorNetworkContract()'(overrides?: CallOverrides): Promise<string>
@@ -1877,6 +1933,18 @@ export class XBNT extends Contract {
     getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+    >
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [[string], [BigNumber]] & { feeAssets: [string]; feeAmounts: [BigNumber] }
+    >
 
     increaseAllowance(
       spender: string,
@@ -2020,20 +2088,6 @@ export class XBNT extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    setManager(_manager: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    setManager2(_manager2: string, overrides?: CallOverrides): Promise<void>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     setProtocolMinter(
       _protocolMinter: string,
       overrides?: CallOverrides
@@ -2041,6 +2095,13 @@ export class XBNT extends Contract {
 
     'setProtocolMinter(address)'(
       _protocolMinter: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    setxTokenManager(_manager: string, overrides?: CallOverrides): Promise<void>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2120,6 +2181,10 @@ export class XBNT extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    withdrawFees(overrides?: CallOverrides): Promise<void>
+
+    'withdrawFees()'(overrides?: CallOverrides): Promise<void>
+
     withdrawableBntFees(overrides?: CallOverrides): Promise<BigNumber>
 
     'withdrawableBntFees()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -2152,6 +2217,8 @@ export class XBNT extends Contract {
     ): EventFilter
 
     ClaimRewards(proxyIndex: null, rewardsClaimed: null): EventFilter
+
+    FeeWithdraw(bntFee: null): EventFilter
 
     KeyAddressChange(): EventFilter
 
@@ -2367,6 +2434,10 @@ export class XBNT extends Contract {
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    getAmountOfAssetHeld(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getAmountOfAssetHeld()'(overrides?: CallOverrides): Promise<BigNumber>
+
     getBancorNetworkContract(overrides?: CallOverrides): Promise<BigNumber>
 
     'getBancorNetworkContract()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -2420,6 +2491,10 @@ export class XBNT extends Contract {
     getTargetBufferBalance(overrides?: CallOverrides): Promise<BigNumber>
 
     'getTargetBufferBalance()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getWithdrawableFees(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getWithdrawableFees()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -2566,20 +2641,6 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    setManager(_manager: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setManager2(_manager2: string, overrides?: Overrides): Promise<BigNumber>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     setProtocolMinter(
       _protocolMinter: string,
       overrides?: Overrides
@@ -2587,6 +2648,16 @@ export class XBNT extends Contract {
 
     'setProtocolMinter(address)'(
       _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2665,6 +2736,10 @@ export class XBNT extends Contract {
       endProxyIndexIterator: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    withdrawFees(overrides?: Overrides): Promise<BigNumber>
+
+    'withdrawFees()'(overrides?: Overrides): Promise<BigNumber>
 
     withdrawableBntFees(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2880,6 +2955,14 @@ export class XBNT extends Contract {
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
+    getAmountOfAssetHeld(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getAmountOfAssetHeld()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     getBancorNetworkContract(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
@@ -2947,6 +3030,14 @@ export class XBNT extends Contract {
     ): Promise<PopulatedTransaction>
 
     'getTargetBufferBalance()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getWithdrawableFees()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -3102,26 +3193,6 @@ export class XBNT extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    setManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager(address)'(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setManager2(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setManager2(address)'(
-      _manager2: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     setProtocolMinter(
       _protocolMinter: string,
       overrides?: Overrides
@@ -3129,6 +3200,16 @@ export class XBNT extends Contract {
 
     'setProtocolMinter(address)'(
       _protocolMinter: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setxTokenManager(
+      _manager: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setxTokenManager(address)'(
+      _manager: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -3209,6 +3290,10 @@ export class XBNT extends Contract {
       endProxyIndexIterator: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    withdrawFees(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'withdrawFees()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     withdrawableBntFees(
       overrides?: CallOverrides
