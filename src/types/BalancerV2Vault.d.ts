@@ -376,7 +376,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    'batchSwap(uint8,tuple[],address[],(address,bool,address,bool),int256[],uint256)'(
+    'batchSwap(uint8,tuple[],address[],tuple,int256[],uint256)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -422,7 +422,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'exitPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'exitPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -595,7 +595,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    'joinPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'joinPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -669,7 +669,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'queryBatchSwap(uint8,tuple[],address[],(address,bool,address,bool))'(
+    'queryBatchSwap(uint8,tuple[],address[],tuple)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -766,7 +766,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<ContractTransaction>
 
-    'swap((bytes32,uint8,address,address,uint256,bytes),(address,bool,address,bool),uint256,uint256)'(
+    'swap(tuple,tuple,uint256,uint256)'(
       singleSwap: {
         poolId: BytesLike
         kind: BigNumberish
@@ -812,7 +812,7 @@ export class BalancerV2Vault extends Contract {
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  'batchSwap(uint8,tuple[],address[],(address,bool,address,bool),int256[],uint256)'(
+  'batchSwap(uint8,tuple[],address[],tuple,int256[],uint256)'(
     kind: BigNumberish,
     swaps: {
       poolId: BytesLike
@@ -858,7 +858,7 @@ export class BalancerV2Vault extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'exitPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+  'exitPool(bytes32,address,address,tuple)'(
     poolId: BytesLike,
     sender: string,
     recipient: string,
@@ -1028,7 +1028,7 @@ export class BalancerV2Vault extends Contract {
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  'joinPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+  'joinPool(bytes32,address,address,tuple)'(
     poolId: BytesLike,
     sender: string,
     recipient: string,
@@ -1102,7 +1102,7 @@ export class BalancerV2Vault extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'queryBatchSwap(uint8,tuple[],address[],(address,bool,address,bool))'(
+  'queryBatchSwap(uint8,tuple[],address[],tuple)'(
     kind: BigNumberish,
     swaps: {
       poolId: BytesLike
@@ -1199,7 +1199,7 @@ export class BalancerV2Vault extends Contract {
     overrides?: PayableOverrides
   ): Promise<ContractTransaction>
 
-  'swap((bytes32,uint8,address,address,uint256,bytes),(address,bool,address,bool),uint256,uint256)'(
+  'swap(tuple,tuple,uint256,uint256)'(
     singleSwap: {
       poolId: BytesLike
       kind: BigNumberish
@@ -1245,7 +1245,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>
 
-    'batchSwap(uint8,tuple[],address[],(address,bool,address,bool),int256[],uint256)'(
+    'batchSwap(uint8,tuple[],address[],tuple,int256[],uint256)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -1291,7 +1291,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'exitPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'exitPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -1461,7 +1461,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'joinPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'joinPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -1535,7 +1535,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>
 
-    'queryBatchSwap(uint8,tuple[],address[],(address,bool,address,bool))'(
+    'queryBatchSwap(uint8,tuple[],address[],tuple)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -1626,7 +1626,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    'swap((bytes32,uint8,address,address,uint256,bytes),(address,bool,address,bool),uint256,uint256)'(
+    'swap(tuple,tuple,uint256,uint256)'(
       singleSwap: {
         poolId: BytesLike
         kind: BigNumberish
@@ -1743,7 +1743,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    'batchSwap(uint8,tuple[],address[],(address,bool,address,bool),int256[],uint256)'(
+    'batchSwap(uint8,tuple[],address[],tuple,int256[],uint256)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -1789,7 +1789,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'exitPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'exitPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -1917,7 +1917,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    'joinPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'joinPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -1991,7 +1991,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'queryBatchSwap(uint8,tuple[],address[],(address,bool,address,bool))'(
+    'queryBatchSwap(uint8,tuple[],address[],tuple)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -2085,7 +2085,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<BigNumber>
 
-    'swap((bytes32,uint8,address,address,uint256,bytes),(address,bool,address,bool),uint256,uint256)'(
+    'swap(tuple,tuple,uint256,uint256)'(
       singleSwap: {
         poolId: BytesLike
         kind: BigNumberish
@@ -2132,7 +2132,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    'batchSwap(uint8,tuple[],address[],(address,bool,address,bool),int256[],uint256)'(
+    'batchSwap(uint8,tuple[],address[],tuple,int256[],uint256)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -2178,7 +2178,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'exitPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'exitPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -2318,7 +2318,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    'joinPool(bytes32,address,address,(address[],uint256[],bytes,bool))'(
+    'joinPool(bytes32,address,address,tuple)'(
       poolId: BytesLike,
       sender: string,
       recipient: string,
@@ -2392,7 +2392,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'queryBatchSwap(uint8,tuple[],address[],(address,bool,address,bool))'(
+    'queryBatchSwap(uint8,tuple[],address[],tuple)'(
       kind: BigNumberish,
       swaps: {
         poolId: BytesLike
@@ -2489,7 +2489,7 @@ export class BalancerV2Vault extends Contract {
       overrides?: PayableOverrides
     ): Promise<PopulatedTransaction>
 
-    'swap((bytes32,uint8,address,address,uint256,bytes),(address,bool,address,bool),uint256,uint256)'(
+    'swap(tuple,tuple,uint256,uint256)'(
       singleSwap: {
         poolId: BytesLike
         kind: BigNumberish

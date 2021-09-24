@@ -435,6 +435,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getAmountOfAssetHeld',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getBufferBalance',
     outputs: [
       {
@@ -485,6 +498,24 @@ const _abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getWithdrawableFees',
+    outputs: [
+      {
+        internalType: 'address[2]',
+        name: 'feeAssets',
+        type: 'address[2]',
+      },
+      {
+        internalType: 'uint256[2]',
+        name: 'feeAmounts',
+        type: 'uint256[2]',
       },
     ],
     stateMutability: 'view',
@@ -624,6 +655,19 @@ const _abi = [
         name: 'aaveAmount',
         type: 'uint256',
       },
+    ],
+    name: 'mintWithToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'aaveAmount',
+        type: 'uint256',
+      },
       {
         internalType: 'address',
         name: 'affiliate',
@@ -723,6 +767,29 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: 'delegateRegistry',
+        type: 'address',
+      },
+      {
+        internalType: 'bytes32',
+        name: 'id',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: 'delegate',
+        type: 'address',
+      },
+    ],
+    name: 'setDelegate',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: 'mintFeeDivisor',
         type: 'uint256',
@@ -759,38 +826,25 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_manager',
-        type: 'address',
-      },
-    ],
-    name: 'setManager',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_manager2',
-        type: 'address',
-      },
-    ],
-    name: 'setManager2',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'contract IERC20',
         name: '_votingAave',
         type: 'address',
       },
     ],
     name: 'setVotingAaveAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IxTokenManager',
+        name: '_manager',
+        type: 'address',
+      },
+    ],
+    name: 'setxTokenManager',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

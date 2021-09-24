@@ -5,52 +5,18 @@
 import { Contract, Signer } from 'ethers'
 import { Provider } from '@ethersproject/providers'
 
-import type { XBNT } from '../XBNT'
+import type { XAssetCLR } from '../XAssetCLR'
 
-export class XBNT__factory {
-  static connect(address: string, signerOrProvider: Signer | Provider): XBNT {
-    return new Contract(address, _abi, signerOrProvider) as XBNT
+export class XAssetCLR__factory {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): XAssetCLR {
+    return new Contract(address, _abi, signerOrProvider) as XAssetCLR
   }
 }
 
 const _abi = [
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'poolToken',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'depositId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'AddLiquidity',
-    type: 'event',
-  },
   {
     anonymous: false,
     inputs: [
@@ -82,99 +48,17 @@ const _abi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'proxyIndex',
+        name: 'token0Fee',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'token1Fee',
         type: 'uint256',
       },
     ],
-    name: 'ClaimBalance',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'rewardsClaimed',
-        type: 'uint256',
-      },
-    ],
-    name: 'ClaimRemove',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'depositId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'ClaimRestake',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'rewardsClaimed',
-        type: 'uint256',
-      },
-    ],
-    name: 'ClaimRewards',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'bntFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'FeeWithdraw',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [],
-    name: 'KeyAddressChange',
+    name: 'FeeCollected',
     type: 'event',
   },
   {
@@ -211,27 +95,8 @@ const _abi = [
   },
   {
     anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'previousRewardsNav',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'newRewardsNav',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'timestamp',
-        type: 'uint256',
-      },
-    ],
-    name: 'RewardsNavUpdated',
+    inputs: [],
+    name: 'Rebalance',
     type: 'event',
   },
   {
@@ -275,32 +140,134 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract IConverterAnchor',
-        name: '_poolAnchor',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
+        internalType: 'bool',
+        name: 'isToken0',
+        type: 'bool',
       },
     ],
-    name: 'addLiquidity',
+    name: 'adminApprove',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'isToken0',
+        type: 'bool',
+      },
+    ],
+    name: 'adminBurn',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'isToken0',
+        type: 'bool',
+      },
+    ],
+    name: 'adminMint',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
-    name: 'adminActiveTimestamp',
-    outputs: [
+    name: 'adminRebalance',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
         type: 'uint256',
       },
     ],
-    stateMutability: 'view',
+    name: 'adminStake',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: '_0for1',
+        type: 'bool',
+      },
+    ],
+    name: 'adminSwap',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'minReturn',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: '_0for1',
+        type: 'bool',
+      },
+      {
+        internalType: 'bytes',
+        name: '_oneInchData',
+        type: 'bytes',
+      },
+    ],
+    name: 'adminSwapOneInch',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    name: 'adminUnstake',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -352,13 +319,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'approveVbnt',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'address',
@@ -381,17 +341,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
-        name: 'redeemAmount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bool',
-        name: 'redeemForEth',
-        type: 'bool',
-      },
-      {
-        internalType: 'uint256',
-        name: 'minReturn',
+        name: 'amount',
         type: 'uint256',
       },
     ],
@@ -403,8 +353,37 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint8',
+        name: 'inputAsset',
+        type: 'uint8',
+      },
+      {
         internalType: 'uint256',
-        name: 'incrementalBnt',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'calculateAmountsMintedSingleToken',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0Minted',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1Minted',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_amount',
         type: 'uint256',
       },
       {
@@ -427,90 +406,71 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'newAddress',
-        type: 'address',
-      },
-    ],
-    name: 'changeGovernanceAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newImplementation',
-        type: 'address',
-      },
-    ],
-    name: 'changeLiquidityProviderImplementation',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint256',
-        name: 'proxyIndex',
+        name: 'amount0',
         type: 'uint256',
       },
       {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    name: 'calculatePoolMintedAmounts',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0Minted',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1Minted',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
-        name: 'poolToken',
+        name: '_poolAddress',
         type: 'address',
       },
-    ],
-    name: 'claimAndRestake',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
       {
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
+        internalType: 'uint24',
+        name: '_poolFee',
+        type: 'uint24',
       },
     ],
-    name: 'claimBalance',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'proxyIndex',
-        type: 'uint256',
-      },
-    ],
-    name: 'claimRewards',
+    name: 'changePool',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
-    name: 'claimRewardsAndRemoveLiquidity',
-    outputs: [],
+    name: 'collect',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'collected0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'collected1',
+        type: 'uint256',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [],
-    name: 'confirmGovernanceAddressChange',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'confirmLiquidityProviderImplementationChange',
+    name: 'collectAndRestake',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -556,82 +516,30 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'getAmountInAsset0Terms',
+    outputs: [
+      {
+        internalType: 'uint256',
         name: '',
         type: 'uint256',
       },
     ],
-    name: 'depositIdToDeposit',
-    outputs: [
-      {
-        internalType: 'address',
-        name: 'proxyAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'depositId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'initialContribution',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'latestContributionToNav',
-        type: 'uint256',
-      },
-    ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'emergencyClaimAndRemove',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [
       {
         internalType: 'uint256',
-        name: 'proxyIndex',
+        name: 'amount',
         type: 'uint256',
       },
     ],
-    name: 'emergencyClaimBalance',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'feeDivisors',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'mintFee',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'burnFee',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'claimFee',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getAmountOfAssetHeld',
+    name: 'getAmountInAsset1Terms',
     outputs: [
       {
         internalType: 'uint256',
@@ -643,13 +551,50 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'getBancorNetworkContract',
+    inputs: [
+      {
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
+      },
+    ],
+    name: 'getAmountsForLiquidity',
     outputs: [
       {
-        internalType: 'contract IBancorNetwork',
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAsset0Price',
+    outputs: [
+      {
+        internalType: 'int128',
         name: '',
-        type: 'address',
+        type: 'int128',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAsset1Price',
+    outputs: [
+      {
+        internalType: 'int128',
+        name: '',
+        type: 'int128',
       },
     ],
     stateMutability: 'view',
@@ -670,12 +615,67 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getLiquidityProtectionContract',
+    name: 'getBufferToken0Balance',
     outputs: [
       {
-        internalType: 'contract ILiquidityProtection',
-        name: '',
-        type: 'address',
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getBufferToken1Balance',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getBufferTokenBalance',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
+        type: 'uint256',
+      },
+    ],
+    name: 'getLiquidityForAmounts',
+    outputs: [
+      {
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
       },
     ],
     stateMutability: 'view',
@@ -695,33 +695,21 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'proxyAddress',
-        type: 'address',
-      },
-    ],
-    name: 'getProxyAddressDepositIds',
+    inputs: [],
+    name: 'getPositionLiquidity',
     outputs: [
       {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]',
+        internalType: 'uint128',
+        name: 'liquidity',
+        type: 'uint128',
       },
     ],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'proxyAddress',
-        type: 'address',
-      },
-    ],
-    name: 'getProxyAddressRewardsContributionToNav',
+    inputs: [],
+    name: 'getStakedBalance',
     outputs: [
       {
         internalType: 'uint256',
@@ -734,11 +722,16 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getRewardsContributionToNav',
+    name: 'getStakedTokenBalance',
     outputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
         type: 'uint256',
       },
     ],
@@ -747,12 +740,17 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getStakingRewardsContract',
+    name: 'getTicks',
     outputs: [
       {
-        internalType: 'contract IStakingRewards',
-        name: '',
-        type: 'address',
+        internalType: 'int24',
+        name: 'tick0',
+        type: 'int24',
+      },
+      {
+        internalType: 'int24',
+        name: 'tick1',
+        type: 'int24',
       },
     ],
     stateMutability: 'view',
@@ -760,30 +758,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getTargetBufferBalance',
+    name: 'getTotalLiquidity',
     outputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'amount',
         type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getWithdrawableFees',
-    outputs: [
-      {
-        internalType: 'address[1]',
-        name: 'feeAssets',
-        type: 'address[1]',
-      },
-      {
-        internalType: 'uint256[1]',
-        name: 'feeAmounts',
-        type: 'uint256[1]',
       },
     ],
     stateMutability: 'view',
@@ -816,64 +796,76 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract IERC20',
-        name: '_bnt',
-        type: 'address',
-      },
-      {
-        internalType: 'contract IERC20',
-        name: '_vbnt',
-        type: 'address',
-      },
-      {
-        internalType: 'contract IContractRegistry',
-        name: '_contractRegistry',
-        type: 'address',
-      },
-      {
-        internalType: 'contract IBancorGovernance',
-        name: '_bancorGovernance',
-        type: 'address',
-      },
-      {
-        internalType: 'contract IMinimalProxyFactory',
-        name: '_proxyFactory',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_liquidityProviderImplementation',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_protocolMinter',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_mintFeeDivisor',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_burnFeeDivisor',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_claimFeeDivisor',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_initialMint',
-        type: 'uint256',
-      },
-      {
         internalType: 'string',
         name: '_symbol',
         type: 'string',
+      },
+      {
+        internalType: 'int24',
+        name: '_tickLower',
+        type: 'int24',
+      },
+      {
+        internalType: 'int24',
+        name: '_tickUpper',
+        type: 'int24',
+      },
+      {
+        internalType: 'contract IERC20',
+        name: '_token0',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IERC20',
+        name: '_token1',
+        type: 'address',
+      },
+      {
+        components: [
+          {
+            internalType: 'address',
+            name: 'pool',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'router',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'quoter',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'positionManager',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct xAssetCLR.UniswapContracts',
+        name: 'contracts',
+        type: 'tuple',
+      },
+      {
+        internalType: 'address',
+        name: '_xTokenManagerAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_maxTwapDeviationDivisor',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint8',
+        name: '_token0Decimals',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint8',
+        name: '_token1Decimals',
+        type: 'uint8',
       },
     ],
     name: 'initialize',
@@ -901,40 +893,73 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'lowestActiveProxyIndex',
-    outputs: [
+    inputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
+        internalType: 'uint24',
+        name: 'ticks',
+        type: 'uint24',
+      },
+      {
+        internalType: 'bool',
+        name: 'up',
+        type: 'bool',
       },
     ],
-    stateMutability: 'view',
+    name: 'migrateParallel',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [
       {
+        internalType: 'int24',
+        name: 'newTickLower',
+        type: 'int24',
+      },
+      {
+        internalType: 'int24',
+        name: 'newTickUpper',
+        type: 'int24',
+      },
+    ],
+    name: 'migratePosition',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint8',
+        name: 'inputAsset',
+        type: 'uint8',
+      },
+      {
         internalType: 'uint256',
-        name: 'minReturn',
+        name: 'amount',
         type: 'uint256',
       },
     ],
     name: 'mint',
     outputs: [],
-    stateMutability: 'payable',
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [
       {
         internalType: 'uint256',
-        name: 'bntAmount',
+        name: 'amount0',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount1',
         type: 'uint256',
       },
     ],
-    name: 'mintWithToken',
+    name: 'mintInitial',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -947,19 +972,6 @@ const _abi = [
         internalType: 'string',
         name: '',
         type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'nextProxyIndex',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -981,7 +993,13 @@ const _abi = [
   {
     inputs: [],
     name: 'pauseContract',
-    outputs: [],
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -1000,31 +1018,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'pendingRewardsContributionToNav',
+    name: 'poolFee',
     outputs: [
       {
-        internalType: 'uint256',
+        internalType: 'uint24',
         name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'proxyIndexToAddress',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
+        type: 'uint24',
       },
     ],
     stateMutability: 'view',
@@ -1038,24 +1037,8 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'delegateRegistry',
-        type: 'address',
-      },
-      {
-        internalType: 'bytes32',
-        name: 'id',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'delegate',
-        type: 'address',
-      },
-    ],
-    name: 'setDelegate',
+    inputs: [],
+    name: 'resetTwap',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1064,21 +1047,11 @@ const _abi = [
     inputs: [
       {
         internalType: 'uint256',
-        name: 'mintFeeDivisor',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'burnFeeDivisor',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'claimFeeDivisor',
+        name: 'newDeviationDivisor',
         type: 'uint256',
       },
     ],
-    name: 'setFeeDivisors',
+    name: 'setMaxTwapDeviationDivisor',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1086,25 +1059,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_protocolMinter',
-        type: 'address',
+        internalType: 'uint32',
+        name: 'newPeriod',
+        type: 'uint32',
       },
     ],
-    name: 'setProtocolMinter',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract IxTokenManager',
-        name: '_manager',
-        type: 'address',
-      },
-    ],
-    name: 'setxTokenManager',
+    name: 'setTwapPeriod',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1124,7 +1084,72 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'totalAllocatedNav',
+    name: 'token0DecimalMultiplier',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'token0Decimals',
+    outputs: [
+      {
+        internalType: 'uint8',
+        name: '',
+        type: 'uint8',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'token1DecimalMultiplier',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'token1Decimals',
+    outputs: [
+      {
+        internalType: 'uint8',
+        name: '',
+        type: 'uint8',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'tokenDiffDecimalMultiplier',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'tokenId',
     outputs: [
       {
         internalType: 'uint256',
@@ -1216,69 +1241,61 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'unpauseContract',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'beginProxyIndexIterator',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'endProxyIndexIterator',
-        type: 'uint256',
-      },
-    ],
-    name: 'updatePendingRewardsContributionToNav',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'beginProxyIndexIterator',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'endProxyIndexIterator',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateTotalAllocatedNav',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'withdrawFees',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'withdrawableBntFees',
+    name: 'uniContracts',
     outputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'router',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'quoter',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'positionManager',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    stateMutability: 'payable',
-    type: 'receive',
+    inputs: [],
+    name: 'unpauseContract',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'receiver',
+        type: 'address',
+      },
+    ],
+    name: 'withdrawToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
 ]

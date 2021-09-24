@@ -6,7 +6,7 @@ import { BigNumberish, ethers } from 'ethers'
 
 import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
 import { XU3LP } from '../../types'
-import { ILPTokenSymbols, IU3LPAssetId } from '../../types/xToken'
+import { IAssetId, ILPTokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
 import { getLPTokenSymbol, getSignerAddress, parseFees } from '../utils'
 
@@ -17,7 +17,7 @@ const { formatEther, parseEther } = ethers.utils
 export const approveXU3LP = async (
   symbol: ILPTokenSymbols,
   amount: BigNumber,
-  inputAsset: IU3LPAssetId,
+  inputAsset: IAssetId,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {
   const {
@@ -39,7 +39,7 @@ export const approveXU3LP = async (
 
 export const getExpectedQuantityOnMintXU3LP = async (
   symbol: ILPTokenSymbols,
-  inputAsset: IU3LPAssetId,
+  inputAsset: IAssetId,
   amount: string,
   provider: BaseProvider
 ): Promise<string> => {
@@ -66,7 +66,7 @@ export const getExpectedQuantityOnMintXU3LP = async (
 
 export const mintXU3LP = async (
   symbol: ILPTokenSymbols,
-  inputAsset: IU3LPAssetId,
+  inputAsset: IAssetId,
   amount: BigNumber,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {

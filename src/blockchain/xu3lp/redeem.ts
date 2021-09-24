@@ -1,13 +1,13 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from 'ethers/lib/utils'
 
-import { ILPTokenSymbols, IU3LPAssetId } from '../../types/xToken'
+import { IAssetId, ILPTokenSymbols } from '../../types/xToken'
 
 import { getXU3LPContracts } from './helper'
 
 export const getMaximumRedeemableXU3LP = async (
   symbol: ILPTokenSymbols,
-  outputAsset: IU3LPAssetId,
+  outputAsset: IAssetId,
   provider: BaseProvider
 ) => {
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)

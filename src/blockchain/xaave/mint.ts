@@ -135,6 +135,8 @@ export const mintXAave = async (
 
     // Estimate `gasLimit`
     const gasLimit = getPercentage(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       await xaaveContract.estimateGas.mintWithToken(amount, affiliate),
       GAS_LIMIT_PERCENTAGE_DEFAULT
     )

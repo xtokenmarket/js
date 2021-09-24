@@ -20,25 +20,28 @@ import { BytesLike } from '@ethersproject/bytes'
 import { Listener, Provider } from '@ethersproject/providers'
 import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
-interface XU3LPInterface extends ethers.utils.Interface {
+interface XAssetCLRInterface extends ethers.utils.Interface {
   functions: {
-    'adminActiveTimestamp()': FunctionFragment
+    'adminApprove(bool)': FunctionFragment
+    'adminBurn(uint256,bool)': FunctionFragment
+    'adminMint(uint256,bool)': FunctionFragment
+    'adminRebalance()': FunctionFragment
     'adminStake(uint256,uint256)': FunctionFragment
     'adminSwap(uint256,bool)': FunctionFragment
     'adminSwapOneInch(uint256,bool,bytes)': FunctionFragment
     'adminUnstake(uint256,uint256)': FunctionFragment
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
-    'approveOneInch()': FunctionFragment
     'balanceOf(address)': FunctionFragment
-    'burn(uint8,uint256)': FunctionFragment
+    'burn(uint256)': FunctionFragment
+    'calculateAmountsMintedSingleToken(uint8,uint256)': FunctionFragment
     'calculateMintAmount(uint256,uint256)': FunctionFragment
     'calculatePoolMintedAmounts(uint256,uint256)': FunctionFragment
+    'changePool(address,uint24)': FunctionFragment
     'collect()': FunctionFragment
+    'collectAndRestake()': FunctionFragment
     'decimals()': FunctionFragment
     'decreaseAllowance(address,uint256)': FunctionFragment
-    'emergencyUnstake(uint256,uint256)': FunctionFragment
-    'feeDivisors()': FunctionFragment
     'getAmountInAsset0Terms(uint256)': FunctionFragment
     'getAmountInAsset1Terms(uint256)': FunctionFragment
     'getAmountsForLiquidity(uint128)': FunctionFragment
@@ -53,28 +56,24 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'getPositionLiquidity()': FunctionFragment
     'getStakedBalance()': FunctionFragment
     'getStakedTokenBalance()': FunctionFragment
-    'getTargetBufferTokenBalance()': FunctionFragment
     'getTicks()': FunctionFragment
+    'getTotalLiquidity()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)': FunctionFragment
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
+    'migrateParallel(uint24,bool)': FunctionFragment
     'migratePosition(int24,int24)': FunctionFragment
+    'mint(uint8,uint256)': FunctionFragment
     'mintInitial(uint256,uint256)': FunctionFragment
-    'mintWithToken(uint8,uint256)': FunctionFragment
     'name()': FunctionFragment
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
-    'poolAddress()': FunctionFragment
-    'positionManagerAddress()': FunctionFragment
-    'rebalance()': FunctionFragment
+    'poolFee()': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'resetTwap()': FunctionFragment
-    'routerAddress()': FunctionFragment
-    'setFeeDivisors(tuple)': FunctionFragment
     'setMaxTwapDeviationDivisor(uint256)': FunctionFragment
     'setTwapPeriod(uint32)': FunctionFragment
-    'setxTokenManager(address)': FunctionFragment
     'symbol()': FunctionFragment
     'token0DecimalMultiplier()': FunctionFragment
     'token0Decimals()': FunctionFragment
@@ -86,15 +85,25 @@ interface XU3LPInterface extends ethers.utils.Interface {
     'transfer(address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
+    'uniContracts()': FunctionFragment
     'unpauseContract()': FunctionFragment
-    'withdrawFees()': FunctionFragment
     'withdrawToken(address,address)': FunctionFragment
-    'withdrawableToken0Fees()': FunctionFragment
-    'withdrawableToken1Fees()': FunctionFragment
   }
 
   encodeFunctionData(
-    functionFragment: 'adminActiveTimestamp',
+    functionFragment: 'adminApprove',
+    values: [boolean]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'adminBurn',
+    values: [BigNumberish, boolean]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'adminMint',
+    values: [BigNumberish, boolean]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'adminRebalance',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -121,13 +130,10 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'approve',
     values: [string, BigNumberish]
   ): string
-  encodeFunctionData(
-    functionFragment: 'approveOneInch',
-    values?: undefined
-  ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
+  encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string
   encodeFunctionData(
-    functionFragment: 'burn',
+    functionFragment: 'calculateAmountsMintedSingleToken',
     values: [BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(
@@ -138,19 +144,19 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'calculatePoolMintedAmounts',
     values: [BigNumberish, BigNumberish]
   ): string
+  encodeFunctionData(
+    functionFragment: 'changePool',
+    values: [string, BigNumberish]
+  ): string
   encodeFunctionData(functionFragment: 'collect', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'collectAndRestake',
+    values?: undefined
+  ): string
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'decreaseAllowance',
     values: [string, BigNumberish]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'emergencyUnstake',
-    values: [BigNumberish, BigNumberish]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'feeDivisors',
-    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'getAmountInAsset0Terms',
@@ -205,11 +211,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'getStakedTokenBalance',
     values?: undefined
   ): string
+  encodeFunctionData(functionFragment: 'getTicks', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'getTargetBufferTokenBalance',
+    functionFragment: 'getTotalLiquidity',
     values?: undefined
   ): string
-  encodeFunctionData(functionFragment: 'getTicks', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'increaseAllowance',
     values: [string, BigNumberish]
@@ -222,10 +228,8 @@ interface XU3LPInterface extends ethers.utils.Interface {
       BigNumberish,
       string,
       string,
+      { pool: string; router: string; quoter: string; positionManager: string },
       string,
-      string,
-      string,
-      { mintFee: BigNumberish; burnFee: BigNumberish; claimFee: BigNumberish },
       BigNumberish,
       BigNumberish,
       BigNumberish
@@ -236,15 +240,19 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values: [string]
   ): string
   encodeFunctionData(
+    functionFragment: 'migrateParallel',
+    values: [BigNumberish, boolean]
+  ): string
+  encodeFunctionData(
     functionFragment: 'migratePosition',
     values: [BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(
-    functionFragment: 'mintInitial',
+    functionFragment: 'mint',
     values: [BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(
-    functionFragment: 'mintWithToken',
+    functionFragment: 'mintInitial',
     values: [BigNumberish, BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
@@ -254,30 +262,12 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'poolAddress',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'positionManagerAddress',
-    values?: undefined
-  ): string
-  encodeFunctionData(functionFragment: 'rebalance', values?: undefined): string
+  encodeFunctionData(functionFragment: 'poolFee', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'resetTwap', values?: undefined): string
-  encodeFunctionData(
-    functionFragment: 'routerAddress',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'setFeeDivisors',
-    values: [
-      { mintFee: BigNumberish; burnFee: BigNumberish; claimFee: BigNumberish }
-    ]
-  ): string
   encodeFunctionData(
     functionFragment: 'setMaxTwapDeviationDivisor',
     values: [BigNumberish]
@@ -285,10 +275,6 @@ interface XU3LPInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'setTwapPeriod',
     values: [BigNumberish]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'setxTokenManager',
-    values: [string]
   ): string
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
@@ -329,28 +315,26 @@ interface XU3LPInterface extends ethers.utils.Interface {
     values: [string]
   ): string
   encodeFunctionData(
-    functionFragment: 'unpauseContract',
+    functionFragment: 'uniContracts',
     values?: undefined
   ): string
   encodeFunctionData(
-    functionFragment: 'withdrawFees',
+    functionFragment: 'unpauseContract',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'withdrawToken',
     values: [string, string]
   ): string
-  encodeFunctionData(
-    functionFragment: 'withdrawableToken0Fees',
-    values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'withdrawableToken1Fees',
-    values?: undefined
-  ): string
 
   decodeFunctionResult(
-    functionFragment: 'adminActiveTimestamp',
+    functionFragment: 'adminApprove',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'adminBurn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'adminMint', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'adminRebalance',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'adminStake', data: BytesLike): Result
@@ -365,12 +349,12 @@ interface XU3LPInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'approveOneInch',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'calculateAmountsMintedSingleToken',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'calculateMintAmount',
     data: BytesLike
@@ -379,17 +363,17 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'calculatePoolMintedAmounts',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'changePool', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'collect', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'collectAndRestake',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'decreaseAllowance',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'emergencyUnstake',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'getAmountInAsset0Terms',
     data: BytesLike
@@ -443,11 +427,11 @@ interface XU3LPInterface extends ethers.utils.Interface {
     functionFragment: 'getStakedTokenBalance',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'getTicks', data: BytesLike): Result
   decodeFunctionResult(
-    functionFragment: 'getTargetBufferTokenBalance',
+    functionFragment: 'getTotalLiquidity',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'getTicks', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'increaseAllowance',
     data: BytesLike
@@ -458,14 +442,15 @@ interface XU3LPInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
+    functionFragment: 'migrateParallel',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'migratePosition',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mintInitial', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'mintWithToken',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(
@@ -473,35 +458,18 @@ interface XU3LPInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'poolAddress', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'positionManagerAddress',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'rebalance', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'poolFee', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'resetTwap', data: BytesLike): Result
   decodeFunctionResult(
-    functionFragment: 'routerAddress',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'setFeeDivisors',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'setMaxTwapDeviationDivisor',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'setTwapPeriod',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'setxTokenManager',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
@@ -537,31 +505,21 @@ interface XU3LPInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
-    functionFragment: 'unpauseContract',
+    functionFragment: 'uniContracts',
     data: BytesLike
   ): Result
   decodeFunctionResult(
-    functionFragment: 'withdrawFees',
+    functionFragment: 'unpauseContract',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'withdrawToken',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'withdrawableToken0Fees',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'withdrawableToken1Fees',
-    data: BytesLike
-  ): Result
 
   events: {
     'Approval(address,address,uint256)': EventFragment
     'FeeCollected(uint256,uint256)': EventFragment
-    'FeeDivisorsSet(uint256,uint256,uint256)': EventFragment
-    'FeeWithdraw(uint256,uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
     'Rebalance()': EventFragment
@@ -571,8 +529,6 @@ interface XU3LPInterface extends ethers.utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FeeCollected'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'FeeDivisorsSet'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'FeeWithdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Rebalance'): EventFragment
@@ -580,7 +536,7 @@ interface XU3LPInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
 }
 
-export class XU3LP extends Contract {
+export class XAssetCLR extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this
   attach(addressOrName: string): this
   deployed(): Promise<this>
@@ -591,12 +547,46 @@ export class XU3LP extends Contract {
   removeAllListeners(eventName: EventFilter | string): this
   removeListener(eventName: any, listener: Listener): this
 
-  interface: XU3LPInterface
+  interface: XAssetCLRInterface
 
   functions: {
-    adminActiveTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>
+    adminApprove(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
-    'adminActiveTimestamp()'(overrides?: CallOverrides): Promise<[BigNumber]>
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    adminRebalance(overrides?: Overrides): Promise<ContractTransaction>
+
+    'adminRebalance()'(overrides?: Overrides): Promise<ContractTransaction>
 
     adminStake(
       amount0: BigNumberish,
@@ -672,10 +662,6 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    approveOneInch(overrides?: Overrides): Promise<ContractTransaction>
-
-    'approveOneInch()'(overrides?: Overrides): Promise<ContractTransaction>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     'balanceOf(address)'(
@@ -684,16 +670,36 @@ export class XU3LP extends Contract {
     ): Promise<[BigNumber]>
 
     burn(
-      outputAsset: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'burn(uint8,uint256)'(
-      outputAsset: BigNumberish,
+    'burn(uint256)'(
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    calculateAmountsMintedSingleToken(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        amount0Minted: BigNumber
+        amount1Minted: BigNumber
+      }
+    >
+
+    'calculateAmountsMintedSingleToken(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        amount0Minted: BigNumber
+        amount1Minted: BigNumber
+      }
+    >
 
     calculateMintAmount(
       _amount: BigNumberish,
@@ -729,9 +735,25 @@ export class XU3LP extends Contract {
       }
     >
 
+    changePool(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'changePool(address,uint24)'(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     collect(overrides?: Overrides): Promise<ContractTransaction>
 
     'collect()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    collectAndRestake(overrides?: Overrides): Promise<ContractTransaction>
+
+    'collectAndRestake()'(overrides?: Overrides): Promise<ContractTransaction>
 
     decimals(overrides?: CallOverrides): Promise<[number]>
 
@@ -748,38 +770,6 @@ export class XU3LP extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
-
-    emergencyUnstake(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'emergencyUnstake(uint256,uint256)'(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    feeDivisors(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    'feeDivisors()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
 
     getAmountInAsset0Terms(
       amount: BigNumberish,
@@ -895,18 +885,6 @@ export class XU3LP extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    getTargetBufferTokenBalance(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-    >
-
-    'getTargetBufferTokenBalance()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-    >
-
     getTicks(
       overrides?: CallOverrides
     ): Promise<[number, number] & { tick0: number; tick1: number }>
@@ -914,6 +892,14 @@ export class XU3LP extends Contract {
     'getTicks()'(
       overrides?: CallOverrides
     ): Promise<[number, number] & { tick0: number; tick1: number }>
+
+    getTotalLiquidity(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amount: BigNumber }>
+
+    'getTotalLiquidity()'(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amount: BigNumber }>
 
     increaseAllowance(
       spender: string,
@@ -933,34 +919,32 @@ export class XU3LP extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
@@ -977,6 +961,18 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    migrateParallel(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'migrateParallel(uint24,bool)'(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     migratePosition(
       newTickLower: BigNumberish,
       newTickUpper: BigNumberish,
@@ -989,6 +985,18 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    mint(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'mint(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     mintInitial(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -998,18 +1006,6 @@ export class XU3LP extends Contract {
     'mintInitial(uint256,uint256)'(
       amount0: BigNumberish,
       amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    mintWithToken(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'mintWithToken(uint8,uint256)'(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1029,17 +1025,9 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
 
-    poolAddress(overrides?: CallOverrides): Promise<[string]>
+    poolFee(overrides?: CallOverrides): Promise<[number]>
 
-    'poolAddress()'(overrides?: CallOverrides): Promise<[string]>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<[string]>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<[string]>
-
-    rebalance(overrides?: Overrides): Promise<ContractTransaction>
-
-    'rebalance()'(overrides?: Overrides): Promise<ContractTransaction>
+    'poolFee()'(overrides?: CallOverrides): Promise<[number]>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1048,28 +1036,6 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
-
-    routerAddress(overrides?: CallOverrides): Promise<[string]>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<[string]>
-
-    setFeeDivisors(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setFeeDivisors(tuple)'(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -1088,16 +1054,6 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    setxTokenManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'setxTokenManager(address)'(
-      _manager: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -1171,13 +1127,31 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    uniContracts(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
+    'uniContracts()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
     unpauseContract(overrides?: Overrides): Promise<ContractTransaction>
 
     'unpauseContract()'(overrides?: Overrides): Promise<ContractTransaction>
-
-    withdrawFees(overrides?: Overrides): Promise<ContractTransaction>
-
-    'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
     withdrawToken(
       token: string,
@@ -1190,19 +1164,45 @@ export class XU3LP extends Contract {
       receiver: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
-
-    withdrawableToken0Fees(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'withdrawableToken0Fees()'(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    withdrawableToken1Fees(overrides?: CallOverrides): Promise<[BigNumber]>
-
-    'withdrawableToken1Fees()'(overrides?: CallOverrides): Promise<[BigNumber]>
   }
 
-  adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
+  adminApprove(
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
-  'adminActiveTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
+  'adminApprove(bool)'(
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  adminBurn(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminBurn(uint256,bool)'(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  adminMint(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'adminMint(uint256,bool)'(
+    amount: BigNumberish,
+    isToken0: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  adminRebalance(overrides?: Overrides): Promise<ContractTransaction>
+
+  'adminRebalance()'(overrides?: Overrides): Promise<ContractTransaction>
 
   adminStake(
     amount0: BigNumberish,
@@ -1278,10 +1278,6 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  approveOneInch(overrides?: Overrides): Promise<ContractTransaction>
-
-  'approveOneInch()'(overrides?: Overrides): Promise<ContractTransaction>
-
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
   'balanceOf(address)'(
@@ -1290,16 +1286,36 @@ export class XU3LP extends Contract {
   ): Promise<BigNumber>
 
   burn(
-    outputAsset: BigNumberish,
     amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'burn(uint8,uint256)'(
-    outputAsset: BigNumberish,
+  'burn(uint256)'(
     amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  calculateAmountsMintedSingleToken(
+    inputAsset: BigNumberish,
+    amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      amount0Minted: BigNumber
+      amount1Minted: BigNumber
+    }
+  >
+
+  'calculateAmountsMintedSingleToken(uint8,uint256)'(
+    inputAsset: BigNumberish,
+    amount: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      amount0Minted: BigNumber
+      amount1Minted: BigNumber
+    }
+  >
 
   calculateMintAmount(
     _amount: BigNumberish,
@@ -1335,9 +1351,25 @@ export class XU3LP extends Contract {
     }
   >
 
+  changePool(
+    _poolAddress: string,
+    _poolFee: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'changePool(address,uint24)'(
+    _poolAddress: string,
+    _poolFee: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   collect(overrides?: Overrides): Promise<ContractTransaction>
 
   'collect()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  collectAndRestake(overrides?: Overrides): Promise<ContractTransaction>
+
+  'collectAndRestake()'(overrides?: Overrides): Promise<ContractTransaction>
 
   decimals(overrides?: CallOverrides): Promise<number>
 
@@ -1354,38 +1386,6 @@ export class XU3LP extends Contract {
     subtractedValue: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
-
-  emergencyUnstake(
-    _amount0: BigNumberish,
-    _amount1: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'emergencyUnstake(uint256,uint256)'(
-    _amount0: BigNumberish,
-    _amount1: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  feeDivisors(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-    }
-  >
-
-  'feeDivisors()'(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      mintFee: BigNumber
-      burnFee: BigNumber
-      claimFee: BigNumber
-    }
-  >
 
   getAmountInAsset0Terms(
     amount: BigNumberish,
@@ -1489,18 +1489,6 @@ export class XU3LP extends Contract {
     [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
   >
 
-  getTargetBufferTokenBalance(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-  >
-
-  'getTargetBufferTokenBalance()'(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-  >
-
   getTicks(
     overrides?: CallOverrides
   ): Promise<[number, number] & { tick0: number; tick1: number }>
@@ -1508,6 +1496,10 @@ export class XU3LP extends Contract {
   'getTicks()'(
     overrides?: CallOverrides
   ): Promise<[number, number] & { tick0: number; tick1: number }>
+
+  getTotalLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+  'getTotalLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
   increaseAllowance(
     spender: string,
@@ -1527,34 +1519,32 @@ export class XU3LP extends Contract {
     _tickUpper: BigNumberish,
     _token0: string,
     _token1: string,
-    _pool: string,
-    _router: string,
-    _positionManager: string,
-    _feeDivisors: {
-      mintFee: BigNumberish
-      burnFee: BigNumberish
-      claimFee: BigNumberish
+    contracts: {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
     },
+    _xTokenManagerAddress: string,
     _maxTwapDeviationDivisor: BigNumberish,
     _token0Decimals: BigNumberish,
     _token1Decimals: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+  'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
     _symbol: string,
     _tickLower: BigNumberish,
     _tickUpper: BigNumberish,
     _token0: string,
     _token1: string,
-    _pool: string,
-    _router: string,
-    _positionManager: string,
-    _feeDivisors: {
-      mintFee: BigNumberish
-      burnFee: BigNumberish
-      claimFee: BigNumberish
+    contracts: {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
     },
+    _xTokenManagerAddress: string,
     _maxTwapDeviationDivisor: BigNumberish,
     _token0Decimals: BigNumberish,
     _token1Decimals: BigNumberish,
@@ -1568,6 +1558,18 @@ export class XU3LP extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  migrateParallel(
+    ticks: BigNumberish,
+    up: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'migrateParallel(uint24,bool)'(
+    ticks: BigNumberish,
+    up: boolean,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   migratePosition(
     newTickLower: BigNumberish,
     newTickUpper: BigNumberish,
@@ -1580,6 +1582,18 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  mint(
+    inputAsset: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'mint(uint8,uint256)'(
+    inputAsset: BigNumberish,
+    amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   mintInitial(
     amount0: BigNumberish,
     amount1: BigNumberish,
@@ -1589,18 +1603,6 @@ export class XU3LP extends Contract {
   'mintInitial(uint256,uint256)'(
     amount0: BigNumberish,
     amount1: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  mintWithToken(
-    inputAsset: BigNumberish,
-    amount: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'mintWithToken(uint8,uint256)'(
-    inputAsset: BigNumberish,
-    amount: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1620,17 +1622,9 @@ export class XU3LP extends Contract {
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-  poolAddress(overrides?: CallOverrides): Promise<string>
+  poolFee(overrides?: CallOverrides): Promise<number>
 
-  'poolAddress()'(overrides?: CallOverrides): Promise<string>
-
-  positionManagerAddress(overrides?: CallOverrides): Promise<string>
-
-  'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
-
-  rebalance(overrides?: Overrides): Promise<ContractTransaction>
-
-  'rebalance()'(overrides?: Overrides): Promise<ContractTransaction>
+  'poolFee()'(overrides?: CallOverrides): Promise<number>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1639,28 +1633,6 @@ export class XU3LP extends Contract {
   resetTwap(overrides?: Overrides): Promise<ContractTransaction>
 
   'resetTwap()'(overrides?: Overrides): Promise<ContractTransaction>
-
-  routerAddress(overrides?: CallOverrides): Promise<string>
-
-  'routerAddress()'(overrides?: CallOverrides): Promise<string>
-
-  setFeeDivisors(
-    _feeDivisors: {
-      mintFee: BigNumberish
-      burnFee: BigNumberish
-      claimFee: BigNumberish
-    },
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setFeeDivisors(tuple)'(
-    _feeDivisors: {
-      mintFee: BigNumberish
-      burnFee: BigNumberish
-      claimFee: BigNumberish
-    },
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
 
   setMaxTwapDeviationDivisor(
     newDeviationDivisor: BigNumberish,
@@ -1679,16 +1651,6 @@ export class XU3LP extends Contract {
 
   'setTwapPeriod(uint32)'(
     newPeriod: BigNumberish,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  setxTokenManager(
-    _manager: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'setxTokenManager(address)'(
-    _manager: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -1760,13 +1722,31 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  uniContracts(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, string] & {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    }
+  >
+
+  'uniContracts()'(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, string] & {
+      pool: string
+      router: string
+      quoter: string
+      positionManager: string
+    }
+  >
+
   unpauseContract(overrides?: Overrides): Promise<ContractTransaction>
 
   'unpauseContract()'(overrides?: Overrides): Promise<ContractTransaction>
-
-  withdrawFees(overrides?: Overrides): Promise<ContractTransaction>
-
-  'withdrawFees()'(overrides?: Overrides): Promise<ContractTransaction>
 
   withdrawToken(
     token: string,
@@ -1780,18 +1760,41 @@ export class XU3LP extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  withdrawableToken0Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-  'withdrawableToken0Fees()'(overrides?: CallOverrides): Promise<BigNumber>
-
-  withdrawableToken1Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-  'withdrawableToken1Fees()'(overrides?: CallOverrides): Promise<BigNumber>
-
   callStatic: {
-    adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
+    adminApprove(isToken0: boolean, overrides?: CallOverrides): Promise<void>
 
-    'adminActiveTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    adminRebalance(overrides?: CallOverrides): Promise<void>
+
+    'adminRebalance()'(overrides?: CallOverrides): Promise<void>
 
     adminStake(
       amount0: BigNumberish,
@@ -1867,10 +1870,6 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>
 
-    approveOneInch(overrides?: CallOverrides): Promise<void>
-
-    'approveOneInch()'(overrides?: CallOverrides): Promise<void>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
     'balanceOf(address)'(
@@ -1878,17 +1877,34 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    burn(
-      outputAsset: BigNumberish,
+    burn(amount: BigNumberish, overrides?: CallOverrides): Promise<void>
+
+    'burn(uint256)'(
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'burn(uint8,uint256)'(
-      outputAsset: BigNumberish,
+    calculateAmountsMintedSingleToken(
+      inputAsset: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        amount0Minted: BigNumber
+        amount1Minted: BigNumber
+      }
+    >
+
+    'calculateAmountsMintedSingleToken(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        amount0Minted: BigNumber
+        amount1Minted: BigNumber
+      }
+    >
 
     calculateMintAmount(
       _amount: BigNumberish,
@@ -1924,9 +1940,33 @@ export class XU3LP extends Contract {
       }
     >
 
-    collect(overrides?: CallOverrides): Promise<void>
+    changePool(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
 
-    'collect()'(overrides?: CallOverrides): Promise<void>
+    'changePool(address,uint24)'(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    collect(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { collected0: BigNumber; collected1: BigNumber }
+    >
+
+    'collect()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { collected0: BigNumber; collected1: BigNumber }
+    >
+
+    collectAndRestake(overrides?: CallOverrides): Promise<void>
+
+    'collectAndRestake()'(overrides?: CallOverrides): Promise<void>
 
     decimals(overrides?: CallOverrides): Promise<number>
 
@@ -1943,38 +1983,6 @@ export class XU3LP extends Contract {
       subtractedValue: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>
-
-    emergencyUnstake(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'emergencyUnstake(uint256,uint256)'(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    feeDivisors(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
-
-    'feeDivisors()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        mintFee: BigNumber
-        burnFee: BigNumber
-        claimFee: BigNumber
-      }
-    >
 
     getAmountInAsset0Terms(
       amount: BigNumberish,
@@ -2078,18 +2086,6 @@ export class XU3LP extends Contract {
       [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
     >
 
-    getTargetBufferTokenBalance(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-    >
-
-    'getTargetBufferTokenBalance()'(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
-    >
-
     getTicks(
       overrides?: CallOverrides
     ): Promise<[number, number] & { tick0: number; tick1: number }>
@@ -2097,6 +2093,10 @@ export class XU3LP extends Contract {
     'getTicks()'(
       overrides?: CallOverrides
     ): Promise<[number, number] & { tick0: number; tick1: number }>
+
+    getTotalLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getTotalLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -2116,34 +2116,32 @@ export class XU3LP extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
@@ -2157,6 +2155,18 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    migrateParallel(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'migrateParallel(uint24,bool)'(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     migratePosition(
       newTickLower: BigNumberish,
       newTickUpper: BigNumberish,
@@ -2169,6 +2179,18 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    mint(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'mint(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     mintInitial(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -2178,18 +2200,6 @@ export class XU3LP extends Contract {
     'mintInitial(uint256,uint256)'(
       amount0: BigNumberish,
       amount1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    mintWithToken(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'mintWithToken(uint8,uint256)'(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2209,17 +2219,9 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
 
-    poolAddress(overrides?: CallOverrides): Promise<string>
+    poolFee(overrides?: CallOverrides): Promise<number>
 
-    'poolAddress()'(overrides?: CallOverrides): Promise<string>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<string>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<string>
-
-    rebalance(overrides?: CallOverrides): Promise<void>
-
-    'rebalance()'(overrides?: CallOverrides): Promise<void>
+    'poolFee()'(overrides?: CallOverrides): Promise<number>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -2228,28 +2230,6 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: CallOverrides): Promise<void>
 
     'resetTwap()'(overrides?: CallOverrides): Promise<void>
-
-    routerAddress(overrides?: CallOverrides): Promise<string>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<string>
-
-    setFeeDivisors(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'setFeeDivisors(tuple)'(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: CallOverrides
-    ): Promise<void>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -2268,13 +2248,6 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    setxTokenManager(_manager: string, overrides?: CallOverrides): Promise<void>
-
-    'setxTokenManager(address)'(
-      _manager: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -2348,13 +2321,31 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    uniContracts(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
+    'uniContracts()'(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, string] & {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
+      }
+    >
+
     unpauseContract(overrides?: CallOverrides): Promise<boolean>
 
     'unpauseContract()'(overrides?: CallOverrides): Promise<boolean>
-
-    withdrawFees(overrides?: CallOverrides): Promise<void>
-
-    'withdrawFees()'(overrides?: CallOverrides): Promise<void>
 
     withdrawToken(
       token: string,
@@ -2367,14 +2358,6 @@ export class XU3LP extends Contract {
       receiver: string,
       overrides?: CallOverrides
     ): Promise<void>
-
-    withdrawableToken0Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-    'withdrawableToken0Fees()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    withdrawableToken1Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-    'withdrawableToken1Fees()'(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   filters: {
@@ -2385,10 +2368,6 @@ export class XU3LP extends Contract {
     ): EventFilter
 
     FeeCollected(token0Fee: null, token1Fee: null): EventFilter
-
-    FeeDivisorsSet(mintFee: null, burnFee: null, claimFee: null): EventFilter
-
-    FeeWithdraw(token0Fee: null, token1Fee: null): EventFilter
 
     OwnershipTransferred(
       previousOwner: string | null,
@@ -2405,9 +2384,40 @@ export class XU3LP extends Contract {
   }
 
   estimateGas: {
-    adminActiveTimestamp(overrides?: CallOverrides): Promise<BigNumber>
+    adminApprove(isToken0: boolean, overrides?: Overrides): Promise<BigNumber>
 
-    'adminActiveTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    adminRebalance(overrides?: Overrides): Promise<BigNumber>
+
+    'adminRebalance()'(overrides?: Overrides): Promise<BigNumber>
 
     adminStake(
       amount0: BigNumberish,
@@ -2483,10 +2493,6 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    approveOneInch(overrides?: Overrides): Promise<BigNumber>
-
-    'approveOneInch()'(overrides?: Overrides): Promise<BigNumber>
-
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>
 
     'balanceOf(address)'(
@@ -2494,16 +2500,23 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    burn(
-      outputAsset: BigNumberish,
+    burn(amount: BigNumberish, overrides?: Overrides): Promise<BigNumber>
+
+    'burn(uint256)'(
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'burn(uint8,uint256)'(
-      outputAsset: BigNumberish,
+    calculateAmountsMintedSingleToken(
+      inputAsset: BigNumberish,
       amount: BigNumberish,
-      overrides?: Overrides
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'calculateAmountsMintedSingleToken(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>
 
     calculateMintAmount(
@@ -2530,9 +2543,25 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    changePool(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'changePool(address,uint24)'(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     collect(overrides?: Overrides): Promise<BigNumber>
 
     'collect()'(overrides?: Overrides): Promise<BigNumber>
+
+    collectAndRestake(overrides?: Overrides): Promise<BigNumber>
+
+    'collectAndRestake()'(overrides?: Overrides): Promise<BigNumber>
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2549,22 +2578,6 @@ export class XU3LP extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
-
-    emergencyUnstake(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'emergencyUnstake(uint256,uint256)'(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    feeDivisors(overrides?: CallOverrides): Promise<BigNumber>
-
-    'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getAmountInAsset0Terms(
       amount: BigNumberish,
@@ -2648,15 +2661,13 @@ export class XU3LP extends Contract {
 
     'getStakedTokenBalance()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    getTargetBufferTokenBalance(overrides?: CallOverrides): Promise<BigNumber>
-
-    'getTargetBufferTokenBalance()'(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
     getTicks(overrides?: CallOverrides): Promise<BigNumber>
 
     'getTicks()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    getTotalLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getTotalLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     increaseAllowance(
       spender: string,
@@ -2676,34 +2687,32 @@ export class XU3LP extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
@@ -2715,6 +2724,18 @@ export class XU3LP extends Contract {
     'lastLockedBlock(address)'(
       arg0: string,
       overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    migrateParallel(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'migrateParallel(uint24,bool)'(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
     ): Promise<BigNumber>
 
     migratePosition(
@@ -2729,6 +2750,18 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    mint(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'mint(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     mintInitial(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -2738,18 +2771,6 @@ export class XU3LP extends Contract {
     'mintInitial(uint256,uint256)'(
       amount0: BigNumberish,
       amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    mintWithToken(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'mintWithToken(uint8,uint256)'(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2769,17 +2790,9 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    poolAddress(overrides?: CallOverrides): Promise<BigNumber>
+    poolFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    'poolAddress()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    positionManagerAddress(overrides?: CallOverrides): Promise<BigNumber>
-
-    'positionManagerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    rebalance(overrides?: Overrides): Promise<BigNumber>
-
-    'rebalance()'(overrides?: Overrides): Promise<BigNumber>
+    'poolFee()'(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -2788,28 +2801,6 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<BigNumber>
 
     'resetTwap()'(overrides?: Overrides): Promise<BigNumber>
-
-    routerAddress(overrides?: CallOverrides): Promise<BigNumber>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    setFeeDivisors(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'setFeeDivisors(tuple)'(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<BigNumber>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -2828,16 +2819,6 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setxTokenManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'setxTokenManager(address)'(
-      _manager: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -2911,13 +2892,13 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    uniContracts(overrides?: CallOverrides): Promise<BigNumber>
+
+    'uniContracts()'(overrides?: CallOverrides): Promise<BigNumber>
+
     unpauseContract(overrides?: Overrides): Promise<BigNumber>
 
     'unpauseContract()'(overrides?: Overrides): Promise<BigNumber>
-
-    withdrawFees(overrides?: Overrides): Promise<BigNumber>
-
-    'withdrawFees()'(overrides?: Overrides): Promise<BigNumber>
 
     withdrawToken(
       token: string,
@@ -2930,24 +2911,46 @@ export class XU3LP extends Contract {
       receiver: string,
       overrides?: Overrides
     ): Promise<BigNumber>
-
-    withdrawableToken0Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-    'withdrawableToken0Fees()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    withdrawableToken1Fees(overrides?: CallOverrides): Promise<BigNumber>
-
-    'withdrawableToken1Fees()'(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
-    adminActiveTimestamp(
-      overrides?: CallOverrides
+    adminApprove(
+      isToken0: boolean,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'adminActiveTimestamp()'(
-      overrides?: CallOverrides
+    'adminApprove(bool)'(
+      isToken0: boolean,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    adminBurn(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminBurn(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    adminMint(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'adminMint(uint256,bool)'(
+      amount: BigNumberish,
+      isToken0: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    adminRebalance(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'adminRebalance()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     adminStake(
       amount0: BigNumberish,
@@ -3023,10 +3026,6 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    approveOneInch(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    'approveOneInch()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
     balanceOf(
       account: string,
       overrides?: CallOverrides
@@ -3038,15 +3037,25 @@ export class XU3LP extends Contract {
     ): Promise<PopulatedTransaction>
 
     burn(
-      outputAsset: BigNumberish,
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'burn(uint8,uint256)'(
-      outputAsset: BigNumberish,
+    'burn(uint256)'(
       amount: BigNumberish,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    calculateAmountsMintedSingleToken(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'calculateAmountsMintedSingleToken(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     calculateMintAmount(
@@ -3073,9 +3082,25 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    changePool(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'changePool(address,uint24)'(
+      _poolAddress: string,
+      _poolFee: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     collect(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'collect()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    collectAndRestake(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'collectAndRestake()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -3092,22 +3117,6 @@ export class XU3LP extends Contract {
       subtractedValue: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
-
-    emergencyUnstake(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'emergencyUnstake(uint256,uint256)'(
-      _amount0: BigNumberish,
-      _amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    feeDivisors(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getAmountInAsset0Terms(
       amount: BigNumberish,
@@ -3215,17 +3224,15 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    getTargetBufferTokenBalance(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'getTargetBufferTokenBalance()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
     getTicks(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'getTicks()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    getTotalLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'getTotalLiquidity()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
 
     increaseAllowance(
       spender: string,
@@ -3245,34 +3252,32 @@ export class XU3LP extends Contract {
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(string,int24,int24,address,address,address,address,address,tuple,uint256,uint8,uint8)'(
+    'initialize(string,int24,int24,address,address,tuple,address,uint256,uint8,uint8)'(
       _symbol: string,
       _tickLower: BigNumberish,
       _tickUpper: BigNumberish,
       _token0: string,
       _token1: string,
-      _pool: string,
-      _router: string,
-      _positionManager: string,
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
+      contracts: {
+        pool: string
+        router: string
+        quoter: string
+        positionManager: string
       },
+      _xTokenManagerAddress: string,
       _maxTwapDeviationDivisor: BigNumberish,
       _token0Decimals: BigNumberish,
       _token1Decimals: BigNumberish,
@@ -3289,6 +3294,18 @@ export class XU3LP extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    migrateParallel(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'migrateParallel(uint24,bool)'(
+      ticks: BigNumberish,
+      up: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     migratePosition(
       newTickLower: BigNumberish,
       newTickUpper: BigNumberish,
@@ -3301,6 +3318,18 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    mint(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'mint(uint8,uint256)'(
+      inputAsset: BigNumberish,
+      amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     mintInitial(
       amount0: BigNumberish,
       amount1: BigNumberish,
@@ -3310,18 +3339,6 @@ export class XU3LP extends Contract {
     'mintInitial(uint256,uint256)'(
       amount0: BigNumberish,
       amount1: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    mintWithToken(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'mintWithToken(uint8,uint256)'(
-      inputAsset: BigNumberish,
-      amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -3341,21 +3358,9 @@ export class XU3LP extends Contract {
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    poolAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    poolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    'poolAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    positionManagerAddress(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'positionManagerAddress()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    rebalance(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    'rebalance()'(overrides?: Overrides): Promise<PopulatedTransaction>
+    'poolFee()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
@@ -3364,28 +3369,6 @@ export class XU3LP extends Contract {
     resetTwap(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'resetTwap()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    routerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    'routerAddress()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    setFeeDivisors(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setFeeDivisors(tuple)'(
-      _feeDivisors: {
-        mintFee: BigNumberish
-        burnFee: BigNumberish
-        claimFee: BigNumberish
-      },
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
 
     setMaxTwapDeviationDivisor(
       newDeviationDivisor: BigNumberish,
@@ -3404,16 +3387,6 @@ export class XU3LP extends Contract {
 
     'setTwapPeriod(uint32)'(
       newPeriod: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setxTokenManager(
-      _manager: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setxTokenManager(address)'(
-      _manager: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -3497,13 +3470,13 @@ export class XU3LP extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    uniContracts(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'uniContracts()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     unpauseContract(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'unpauseContract()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    withdrawFees(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    'withdrawFees()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     withdrawToken(
       token: string,
@@ -3515,22 +3488,6 @@ export class XU3LP extends Contract {
       token: string,
       receiver: string,
       overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    withdrawableToken0Fees(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'withdrawableToken0Fees()'(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    withdrawableToken1Fees(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'withdrawableToken1Fees()'(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
   }
 }
