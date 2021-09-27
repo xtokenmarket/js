@@ -1,4 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
+import { LENDING_LPT } from '@xtoken/abis'
 import { formatEther } from 'ethers/lib/utils'
 
 import { ERC20 } from '../../types'
@@ -11,7 +12,12 @@ import {
 import { getContract } from '../utils'
 
 export const getTokenAllowance = async (
-  symbol: INativeAssets | ITokenSymbols | ILPTokenSymbols | IStableAssets,
+  symbol:
+    | INativeAssets
+    | ITokenSymbols
+    | ILPTokenSymbols
+    | IStableAssets
+    | typeof LENDING_LPT,
   address: string,
   spenderAddress: string,
   provider: BaseProvider

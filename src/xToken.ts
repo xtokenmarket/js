@@ -972,7 +972,12 @@ export class XToken {
    * @returns
    */
   public async getTokenAllowance(
-    symbol: INativeAssets | ITokenSymbols | ILPTokenSymbols | IStableAssets,
+    symbol:
+      | INativeAssets
+      | ITokenSymbols
+      | ILPTokenSymbols
+      | IStableAssets
+      | typeof LENDING_LPT,
     spenderAddress: string
   ) {
     const address = await getSignerAddress(this.provider)
@@ -1136,7 +1141,10 @@ export class XToken {
       return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
     }
 
-    const value = parseUnits(amount, 6)
+    const value = parseUnits(
+      amount,
+      type === REPAY || type === WITHDRAW ? 18 : 6
+    )
 
     switch (type) {
       case BORROW:

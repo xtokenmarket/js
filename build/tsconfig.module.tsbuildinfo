@@ -1187,8 +1187,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/erc20/allowance.ts": {
-        "version": "1cb3d5160e5c7070491537f1314d126619fe35e399a40ba4d70b4593b8b17b40",
-        "signature": "83a45e9f36fc39ff6f312563ba85d71265673ae5fd7836ff14c52e0f8c184594",
+        "version": "289e545fe77788410c4388f3b3dd2e91d10025240bd3d170ad9e17100bdce918",
+        "signature": "7132cef9bc3b3c1dcbc841f528615862258e81230c79d379cce121419bd4a2dc",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1717,8 +1717,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "04ffc3c6a0036291fc132199bebf0b3e68e15f413b43af0f20fd982386b6e26b",
-        "signature": "dd29eb37a629812daf5895750d8ad47028f849734a8aa3ef9de2dc3010dbdf50",
+        "version": "ea4f40d174cde2c3c061f0a247988d4e4d7d141c67de2ecfac099f977b144565",
+        "signature": "cfb689f10f286d6d18015ba08d17c95110cfbee5102585478410cdc53ca8ecf2",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
@@ -2724,6 +2724,7 @@
       ],
       "../src/blockchain/erc20/allowance.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
@@ -5000,6 +5001,7 @@
       ],
       "../src/blockchain/erc20/allowance.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/erc20/approve.ts": [

@@ -157,6 +157,7 @@
     },
     "files": [
       "!build/module/**",
+      "!src/blockchain/xsnx/**",
       "!src/constants.spec.ts"
     ]
   },

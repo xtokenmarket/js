@@ -305,7 +305,12 @@ export declare class XToken {
    * @returns
    */
   getTokenAllowance(
-    symbol: INativeAssets | ITokenSymbols | ILPTokenSymbols | IStableAssets,
+    symbol:
+      | INativeAssets
+      | ITokenSymbols
+      | ILPTokenSymbols
+      | IStableAssets
+      | typeof LENDING_LPT,
     spenderAddress: string
   ): Promise<string>
   /**
