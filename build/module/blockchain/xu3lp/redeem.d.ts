@@ -1,7 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { ILPTokenSymbols, IU3LPAssetId } from '../../types/xToken'
+import { IAssetId, ILPTokenSymbols } from '../../types/xToken'
 export declare const getMaximumRedeemableXU3LP: (
   symbol: ILPTokenSymbols,
-  outputAsset: IU3LPAssetId,
+  outputAsset: IAssetId,
   provider: BaseProvider
 ) => Promise<string>

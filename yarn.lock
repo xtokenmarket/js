@@ -1011,8 +1011,8 @@
     hardhat-watcher "^2.1.1"
 
 "@xtoken/abis@git://github.com/xtokenmarket/abis.git#feature/add-lending":
-  version "0.1.18"
-  resolved "git://github.com/xtokenmarket/abis.git#c7639333c2deebea99a5c812d4df97719abf9547"
+  version "0.1.19"
+  resolved "git://github.com/xtokenmarket/abis.git#cf6f42f9037cb0f3aac85f08f254e21da347c71b"
 
 JSONStream@^1.0.4:
   version "1.3.5"

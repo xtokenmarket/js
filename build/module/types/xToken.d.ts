@@ -35,6 +35,7 @@ import {
   X_U3LP_H,
   BUSD,
   DAI,
+  ETH,
   FRAX,
   REN_BTC,
   S_ETH,
@@ -44,6 +45,17 @@ import {
   UST,
   WBTC,
   WETH,
+  AAVE_X_AAVE_A_CLR,
+  BNT_X_BNT_A_CLR,
+  INCH_X_INCH_A_CLR,
+  INCH_X_INCH_B_CLR,
+  X_AAVE_B_AAVE_CLR,
+  X_KNC_A_KNC_CLR,
+  X_KNC_B_KNC_CLR,
+  X_SNX_A_SNX_CLR,
+  UNISWAP_LIBRARY,
+  XTK_ETH_CLR,
+  XTK,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
   LENDING_X_AAVE_A_MARKET,
@@ -67,17 +79,21 @@ import {
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
+  | typeof ETH
   | typeof EXCHANGE_RATES
   | typeof INCH_LIQUIDITY_PROTOCOL
   | typeof KYBER_PROXY
   | typeof TRADE_ACCOUNTING
+  | typeof UNISWAP_LIBRARY
   | typeof UNISWAP_V2_PAIR
+  | typeof XTK
   | typeof XTK_MANAGEMENT_STAKING_MODULE
-  | ILendingContracts
   | INativeAssets
   | ITokenSymbols
   | ILPTokenSymbols
   | IStableAssets
+  | IXAssetCLR
+  | ILendingContracts
 
 export type INativeAssets =
   | typeof AAVE
@@ -118,6 +134,17 @@ export type IStableAssets =
   | typeof UST
   | typeof WBTC
   | typeof WETH
+
+export type IXAssetCLR =
+  | typeof AAVE_X_AAVE_A_CLR
+  | typeof BNT_X_BNT_A_CLR
+  | typeof INCH_X_INCH_A_CLR
+  | typeof INCH_X_INCH_B_CLR
+  | typeof X_AAVE_B_AAVE_CLR
+  | typeof X_KNC_A_KNC_CLR
+  | typeof X_KNC_B_KNC_CLR
+  | typeof X_SNX_A_SNX_CLR
+  | typeof XTK_ETH_CLR
 
 export type ILendingContracts =
   | typeof LENDING_COMPTROLLER
@@ -218,7 +245,7 @@ export interface IU3LPToken {
   1: IStableAssets
 }
 
-export type IU3LPAssetId = 0 | 1
+export type IAssetId = 0 | 1
 
 export type IStakeHistory = {
   readonly time: number
@@ -228,6 +255,20 @@ export type IStakeHistory = {
 }
 
 export type IHistoryType = typeof STAKE | typeof UNSTAKE
+
+export interface ICLRToken {
+  0: INativeAssets | ITokenSymbols | typeof XTK
+  1: INativeAssets | ITokenSymbols | typeof WETH
+}
+
+export interface ICLRBurnQty {
+  0: string
+  1: string
+}
+
+export interface ICLRMintQty extends ICLRBurnQty {
+  expectedQty: string
+}
 
 export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
 

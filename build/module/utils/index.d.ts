@@ -6,6 +6,6 @@ export declare const getPercentage: (
 ) => BigNumber
 /**
  * Return actual twap price from ABDK 64.64 representation
- * Used with xU3LP getAssetPrice()
+ * Used with xU3LP/xAssetCLR getAssetPrice()
  */
 export declare const getTWAP: (twap: BigNumber) => BigNumber

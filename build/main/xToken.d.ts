@@ -1,13 +1,21 @@
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import {
+  AAVE_X_AAVE_A_CLR,
+  BNT_X_BNT_A_CLR,
+  INCH_X_INCH_A_CLR,
+  INCH_X_INCH_B_CLR,
   LENDING_LPT,
   X_AAVE_A,
   X_AAVE_B,
+  X_AAVE_B_AAVE_CLR,
   X_BNT_A,
   X_INCH_A,
   X_INCH_B,
+  X_KNC_A_KNC_CLR,
+  X_KNC_B_KNC_CLR,
   X_SNX_A,
+  X_SNX_A_SNX_CLR,
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
@@ -16,9 +24,13 @@ import {
   X_U3LP_F,
   X_U3LP_G,
   X_U3LP_H,
+  XTK_ETH_CLR,
 } from '@xtoken/abis'
 import {
   IAsset,
+  IAssetId,
+  ICLRBurnQty,
+  ICLRMintQty,
   ICollateralType,
   IHistoryType,
   ILendingMarket,
@@ -32,9 +44,10 @@ import {
   IPortfolioItem,
   IReturns,
   IStableAssets,
+  ITokenPrices,
   ITokenSymbols,
   ITradeType,
-  IU3LPAssetId,
+  IXAssetCLR,
 } from './types/xToken'
 /**
  * Helper class providing the wrapper around the methods to interact with the xToken contracts.
@@ -64,16 +77,16 @@ export declare class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols | IStableAssets} symbol Symbol of the token to be approved
+   * @param {ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR} symbol Symbol of the token to be approved
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
-   * @param {IU3LPAssetId} inputAsset Token0/Token1
+   * @param {IAssetId} inputAsset Token0/Token1
    * @param {string} spenderAddress Spender address to be approved for the specified ERC20 token
    * @returns A promise of the transaction response
    */
   approve(
-    symbol: ITokenSymbols | ILPTokenSymbols | IStableAssets,
+    symbol: ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR,
     amount?: string,
-    inputAsset?: IU3LPAssetId,
+    inputAsset?: IAssetId,
     spenderAddress?: string
   ): Promise<ContractTransaction>
   /**
@@ -128,6 +141,27 @@ export declare class XToken {
     amount: string
   ): Promise<ContractTransaction>
   /**
+   * Sell specified amount of xAssetCLR tokens
+   *
+   * @example
+   * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Sell 100 AAVE_X_AAVE_A_CLR
+   * const tx = await xToken.burnXAssetCLR(AAVE_X_AAVE_A_CLR, '100')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xAssetCLR to be sold
+   * @param {string} amount Amount of xAssetCLR tokens to be sold,
+   *                        cannot exceed max redeemable tokens
+   * @returns A promise of the transaction response
+   */
+  burnXAssetCLR(
+    symbol: IXAssetCLR,
+    amount: string
+  ): Promise<ContractTransaction>
+  /**
    * @example
    * ```typescript
    * import { LENDING_X_AAVE_A_MARKET, SUPPLY } from '@xtoken/abis'
@@ -155,7 +189,7 @@ export declare class XToken {
    * const return = await xToken.getBestReturn('xAAVEa', true, '100')
    * ```
    *
-   * @param {ITokenSymbols} symbol Symbol of the xToken to burn
+   * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
    * @param {boolean} tradeWithEth True, if selling the xToken for ETH
    * @param {string} amount Quantity of the xToken to be traded
    * @param {ITradeType} tradeType Buy/sell type of the trade
@@ -190,7 +224,7 @@ export declare class XToken {
    * @param {ITokenSymbols | ILPTokenSymbols} symbol Symbol of the xToken to burn
    * @param {boolean} sellForEth True, if selling the xToken for ETH or Token0/Token1 `outputAsset` in boolean value
    * @param {string} amount Quantity of the xToken to be traded
-   * @returns Expected quantity for selling the given xToken
+   * @returns Expected quantity for selling the given xToken / underlying assets in case of xAssetCLR
    */
   getExpectedQuantityOnBurn(
     symbol: ITokenSymbols | ILPTokenSymbols,
@@ -259,8 +293,8 @@ export declare class XToken {
    * const maxRedeemable = await xToken.getMaxRedeemable('xAAVEa')
    * ```
    *
-   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa' | ILPTokenSymbols} symbol Symbol of the xToken
-   * @param {IU3LPAssetId} outputAsset Sell for Token0/Token1
+   * @param {'xAAVEa' | 'xAAVEb' | 'xINCHa' | 'xINCHb' | 'xSNXa' | ILPTokenSymbols | IXAssetCLR} symbol Symbol of the xToken
+   * @param {IAssetId} outputAsset Sell for Token0/Token1
    * @returns Maximum redeemable tokens for the given xToken
    */
   getMaxRedeemable(
@@ -278,8 +312,17 @@ export declare class XToken {
       | typeof X_U3LP_E
       | typeof X_U3LP_F
       | typeof X_U3LP_G
-      | typeof X_U3LP_H,
-    outputAsset?: IU3LPAssetId
+      | typeof X_U3LP_H
+      | typeof AAVE_X_AAVE_A_CLR
+      | typeof BNT_X_BNT_A_CLR
+      | typeof INCH_X_INCH_A_CLR
+      | typeof INCH_X_INCH_B_CLR
+      | typeof X_AAVE_B_AAVE_CLR
+      | typeof X_KNC_A_KNC_CLR
+      | typeof X_KNC_B_KNC_CLR
+      | typeof X_SNX_A_SNX_CLR
+      | typeof XTK_ETH_CLR,
+    outputAsset?: IAssetId
   ): Promise<string>
   /**
    * Get liquidity pool token optimal utilization rate
@@ -335,6 +378,40 @@ export declare class XToken {
   /**
    * @example
    * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Get estimated quantity of minting AAVE_X_AAVE_A_CLR for 100 xAAVEa
+   * const return = await xToken.getTradeEstimateXAssetCLR(AAVE_X_AAVE_A_CLR, 1, '100')
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xToken to burn
+   * @param {IAssetId} tradeAsset True, if selling the xToken for ETH
+   * @param {string} amount Quantity of the xToken to be traded
+   * @param {ITradeType} tradeType Buy/sell type of the trade
+   * @returns Estimated quantity for trading the given xAssetCLR
+   */
+  getTradeEstimateXAssetCLR(
+    symbol: IXAssetCLR,
+    tradeAsset: IAssetId,
+    amount: string,
+    tradeType: ITradeType
+  ): Promise<ICLRBurnQty | ICLRMintQty>
+  /**
+   * @example
+   * ```typescript
+   * import { X_AAVE_A } from '@xtoken/abis'
+   *
+   * // Get xAAVEa asset price
+   * const xTokensList = await xToken.getXAssetPrices(X_AAVE_A)
+   * ```
+   *
+   * @param {ITokenSymbols} symbol Symbol of the xToken to fetch prices of
+   * @returns A promise of the xAsset prices in ETH/USD along with AUM
+   */
+  getXAssetPrices(symbol: ITokenSymbols): Promise<ITokenPrices>
+  /**
+   * @example
+   * ```typescript
    * // Get available xTokens list
    * const xTokensList = await xToken.getXAssets()
    * ```
@@ -382,6 +459,29 @@ export declare class XToken {
     affiliate?: string
   ): Promise<ContractTransaction>
   /**
+   * Mint xAssetCLR token for specified amount of Token0/Token1
+   *
+   * @example
+   * ```typescript
+   * import { AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+   *
+   * // Buy AAVE_X_AAVE_A_CLR for 1 AAVE
+   * const tx = await xToken.mintXAssetCLR(AAVE_X_AAVE_A_CLR, 0, '1')
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of the xAssetCLR to be minted
+   * @param {IAssetId} inputAsset Mint with Token0/Token1 `inputAsset`
+   * @param {string} amount Quantity of xAssetCLR token to be minted,
+   *                        tokens need to be approved before minting using [[approve]] method
+   * @returns A promise of the transaction response
+   */
+  mintXAssetCLR(
+    symbol: IXAssetCLR,
+    inputAsset: IAssetId,
+    amount: string
+  ): Promise<ContractTransaction>
+  /**
    * Stake XTK
    *
    * @example
@@ -425,4 +525,17 @@ export declare class XToken {
   getXtkHistory(
     type: IHistoryType
   ): Promise<readonly import('./types/xToken').IStakeHistory[]>
+  /**
+   * Get xAssetCLR pool deposit ratio
+   *
+   * @example
+   * ```typescript
+   * // Pool deposit ratio for AAVE-xAAVEa CLR
+   * const history = await xToken.getPoolRatio('AAVE-xAAVEa-CLR')
+   * ```
+   *
+   * @param {IXAssetCLR} symbol Symbol of xAssetCLR
+   * @returns Returns ratio of liquidity deposited in the pool
+   */
+  getPoolRatio(symbol: IXAssetCLR): Promise<string>
 }

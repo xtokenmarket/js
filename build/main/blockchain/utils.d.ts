@@ -4,11 +4,13 @@ import { X_INCH_A, X_INCH_B, X_KNC_A, X_KNC_B } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { KyberProxy } from '../types'
 import {
+  ICLRToken,
   IContracts,
   ILPTokenSymbols,
   IStableAssets,
   ITokenSymbols,
   IU3LPToken,
+  IXAssetCLR,
 } from '../types/xToken'
 export declare const capitalizeToken: (symbol: IStableAssets) => string
 export declare const getAbi: (
@@ -66,6 +68,12 @@ export declare const getTokenSymbol: (
   symbol: ITokenSymbols
 ) => 'aave' | 'bnt' | 'inch' | 'knc' | 'snx'
 export declare const getLPTokenSymbol: (symbol: ILPTokenSymbols) => IU3LPToken
+export declare const getXAssetCLRSymbol: (symbol: ITokenSymbols) => IXAssetCLR
+export declare const getXAssetCLRTokenSymbol: (symbol: IXAssetCLR) => ICLRToken
+export declare const getXAssetPrices: (
+  symbol: ITokenSymbols,
+  provider: BaseProvider
+) => Promise<import('../types/xToken').ITokenPrices>
 export declare const parseFees: (fee: BigNumber) => BigNumber
 export declare const getUserAvailableTokenBalance: (
   contract: Contract,
@@ -89,4 +97,5 @@ export declare const getSigner: (
 export declare const getSignerAddress: (
   provider: BaseProvider
 ) => Promise<string>
+export declare const isXAssetCLRSymbol: (symbol: string) => Promise<boolean>
 export declare const toTitleCase: (text: string) => string

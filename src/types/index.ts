@@ -34,9 +34,13 @@ export type { XU3LPPrice } from './XU3LPPrice'
 export type { RevenueController } from './RevenueController'
 export type { RewardController } from './RewardController'
 export type { XTKManagementStakingModule } from './XTKManagementStakingModule'
+<<<<<<< HEAD
 export type { XAAVE } from './XAAVE'
 export type { XALPHA } from './XALPHA'
+=======
+>>>>>>> 0407c34 (Updated build)
 export type { XAssetCLR } from './XAssetCLR'
+export type { XAAVE } from './XAAVE'
 export type { XBNT } from './XBNT'
 export type { XINCH } from './XINCH'
 export type { XKNC } from './XKNC'
@@ -76,9 +80,13 @@ export { XU3LPPrice__factory } from './factories/XU3LPPrice__factory'
 export { RevenueController__factory } from './factories/RevenueController__factory'
 export { RewardController__factory } from './factories/RewardController__factory'
 export { XTKManagementStakingModule__factory } from './factories/XTKManagementStakingModule__factory'
+<<<<<<< HEAD
 export { XAAVE__factory } from './factories/XAAVE__factory'
 export { XALPHA__factory } from './factories/XALPHA__factory'
+=======
+>>>>>>> 0407c34 (Updated build)
 export { XAssetCLR__factory } from './factories/XAssetCLR__factory'
+export { XAAVE__factory } from './factories/XAAVE__factory'
 export { XBNT__factory } from './factories/XBNT__factory'
 export { XINCH__factory } from './factories/XINCH__factory'
 export { XKNC__factory } from './factories/XKNC__factory'
