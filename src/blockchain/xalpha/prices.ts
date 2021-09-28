@@ -2,16 +2,37 @@ import { BaseProvider } from '@ethersproject/providers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES } from '../../constants'
-import { KyberProxy, XALPHA, XBNT } from '../../types'
+import { KyberProxy, XALPHA } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
-
 import { formatNumber } from '../../utils'
-
-// create getAlphaEthPrice fn
 import { getAlphaEthPrice } from '../exchanges/uniswap'
 import { getEthUsdcPrice } from '../exchanges/uniswap'
 
 // TODO - add documentation and examples
+/**
+ * @example
+ * ```typescript
+ * import { ethers } from 'ethers'
+ * import { Abi, ADDRESSES, KYBER_PROXY, X_ALPHA_A } from '@xtoken/abis'
+ * import { getXAlphaPrices } from '@xtoken/js'
+ *
+ * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
+ * const network = await provider.getNetwork()
+ * const { chainId } = network
+ *
+ * const xalphaContract = new ethers.Contract(ADDRESSES[X_ALPHA_A][chainId], Abi.xALPHA, provider)
+ * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], Abi.KyberProxy, provider)
+ *
+ * const { priceEth, priceUsd } = await getXAlphaPrices(
+ *   xalphaContract,
+ *   kyberProxyContract,
+ * )
+ * ```
+ *
+ * @param {XALPHA} xalphaContract xALPHAa token contract
+ * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
+ * @returns A promise of the token prices in ETH/USD along with AUM
+ */
 
 export const getXAlphaPrices = async (
   xalphaContract: XALPHA,
@@ -25,7 +46,7 @@ export const getXAlphaPrices = async (
       ethUsdcPrice,
     ] = await Promise.all([
       xalphaContract.totalSupply(),
-      xalphaContract.getNav(), // check this method
+      xalphaContract.getNav(),
       getAlphaEthPrice(kyberProxyContract.provider as BaseProvider),
       getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])

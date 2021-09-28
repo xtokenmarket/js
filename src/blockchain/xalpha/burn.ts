@@ -2,7 +2,6 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, ALPHA, ETH } from '@xtoken/abis'
-import { parse } from 'dotenv/types'
 import { ethers } from 'ethers'
 
 import {
@@ -16,22 +15,16 @@ import { getPercentage } from '../../utils'
 import { getExpectedRate, parseFees } from '../utils'
 
 import { getXAlphaContracts } from './helper'
-import { getXAlphaPrices } from './prices'
 
 const { formatEther, parseEther } = ethers.utils
 
 export const burnXAlpha = async (
   symbol: ITokenSymbols,
   sellForEth: boolean,
-  amount: string,
+  amount: BigNumber,
   provider: BaseProvider
-) => {
-  const inputAmount = parseEther(amount)
-  const {
-    kyberProxyContract,
-    network,
-    xalphaContract,
-  } = await getXAlphaContracts(symbol, provider)
+): Promise<ContractTransaction> => {
+  const { xalphaContract } = await getXAlphaContracts(symbol, provider)
 
   // estimate gasLimit
   const gasLimit = getPercentage(

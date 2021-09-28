@@ -11,6 +11,7 @@ export const getXAlphaContracts = async (
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
+
   const xalphaContract = getContract(symbol, provider, network) as XALPHA
   const kyberProxyContract = getContract(
     KYBER_PROXY,
@@ -24,7 +25,20 @@ export const getXAlphaContracts = async (
     network
   ) as Contract
 
+  if (!xalphaContract) {
+    console.log('no xalphaContract')
+  }
+
+  if (!kyberProxyContract) {
+    console.log('no kyberProxyContract')
+  }
+
+  if (!tokenContract) {
+    console.log('no tokenContract')
+  }
+
   if (!xalphaContract || !kyberProxyContract || !tokenContract) {
+    // console.log('hello world')
     return Promise.reject(new Error('Contract missing'))
   }
 

@@ -112,13 +112,13 @@ export const mintXAlpha = async (
     })
   } else {
     const address = await getSignerAddress(provider)
-    const approvedAmmount = await _getApprovedAmount(
+    const approvedAmount = await _getApprovedAmount(
       tokenContract,
       xalphaContract,
       address
     )
 
-    if (approvedAmmount.lt(amount)) {
+    if (approvedAmount.lt(amount)) {
       return Promise.reject(
         new Error('Please approve the tokens before minting')
       )

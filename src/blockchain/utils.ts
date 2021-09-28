@@ -7,9 +7,9 @@ import {
 import {
   AAVE,
   AAVE_X_AAVE_A_CLR,
-  ALPHA,
   Abi,
   ADDRESSES,
+  ALPHA,
   BNT,
   BNT_X_BNT_A_CLR,
   BUSD,
