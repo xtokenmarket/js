@@ -77,6 +77,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxaaveprices" class="tsd-kind-icon">getXAave<wbr>Prices</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxassetclrprices" class="tsd-kind-icon">getXAssetCLRPrices</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxbntprices" class="tsd-kind-icon">getXBnt<wbr>Prices</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxinchprices" class="tsd-kind-icon">getXInch<wbr>Prices</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="xtoken_js.html#getxkncprices" class="tsd-kind-icon">getXKnc<wbr>Prices</a></li>
@@ -99,7 +100,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xaave/prices.ts#L37">src/blockchain/xaave/prices.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xaave/prices.ts#L37">src/blockchain/xaave/prices.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -152,6 +153,59 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getxassetclrprices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> getXAssetCLRPrices</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">getXAssetCLRPrices<span class="tsd-signature-symbol">(</span>xAssetCLRContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XAssetCLR</span>, kyberProxyContract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KyberProxy</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/clr/prices.ts#L45">src/blockchain/clr/prices.ts:45</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ethers</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;ethers&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Abi</span><span style="color: #000000">, </span><span style="color: #001080">ADDRESSES</span><span style="color: #000000">, </span><span style="color: #001080">KYBER_PROXY</span><span style="color: #000000">, </span><span style="color: #001080">AAVE_X_AAVE_A_CLR</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@xtoken/abis&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">getXAssetCLRPrices</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@xtoken/js&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">ethers</span><span style="color: #000000">.</span><span style="color: #001080">providers</span><span style="color: #000000">.</span><span style="color: #795E26">InfuraProvider</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;homestead&#039;</span><span style="color: #000000">, &lt;</span><span style="color: #267F99">INFURA_API_KEY</span><span style="color: #000000">&gt;)</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xAssetCLRContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">ethers</span><span style="color: #000000">.</span><span style="color: #795E26">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">AAVE_X_AAVE_A_CLR</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">Abi</span><span style="color: #000000">.</span><span style="color: #001080">xAssetCLR</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">kyberProxyContract</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">ethers</span><span style="color: #000000">.</span><span style="color: #795E26">Contract</span><span style="color: #000000">(</span><span style="color: #0070C1">ADDRESSES</span><span style="color: #000000">[</span><span style="color: #0070C1">KYBER_PROXY</span><span style="color: #000000">][</span><span style="color: #001080">chainId</span><span style="color: #000000">], </span><span style="color: #001080">Abi</span><span style="color: #000000">.</span><span style="color: #001080">KyberProxy</span><span style="color: #000000">, </span><span style="color: #001080">provider</span><span style="color: #000000">)</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">priceEth</span><span style="color: #000000">, </span><span style="color: #0070C1">priceUsd</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">getXAssetCLRPrices</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #001080">xAssetCLRContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">kyberProxyContract</span><span style="color: #000000">,</span>
+<span style="color: #000000">)</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>xAssetCLRContract: <span class="tsd-signature-type">XAssetCLR</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>xAssetCLR token contract</p>
+									</div>
+								</li>
+								<li>
+									<h5>kyberProxyContract: <span class="tsd-signature-type">KyberProxy</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Kyber Proxy contract</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/xtoken_types.itokenprices.html" class="tsd-signature-type" data-tsd-kind="Interface">ITokenPrices</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A promise of the token prices in ETH/USD along with AUM</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getxbntprices" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> getXBnt<wbr>Prices</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -161,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xbnt/prices.ts#L35">src/blockchain/xbnt/prices.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xbnt/prices.ts#L35">src/blockchain/xbnt/prices.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -216,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xinch/prices.ts#L37">src/blockchain/xinch/prices.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xinch/prices.ts#L37">src/blockchain/xinch/prices.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -278,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xknc/prices.ts#L38">src/blockchain/xknc/prices.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xknc/prices.ts#L38">src/blockchain/xknc/prices.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -339,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xsnx/prices.ts#L45">src/blockchain/xsnx/prices.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xsnx/prices.ts#L45">src/blockchain/xsnx/prices.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,7 +478,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/ab1f754/src/blockchain/xu3lp/prices.ts#L35">src/blockchain/xu3lp/prices.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/blockchain/xu3lp/prices.ts#L35">src/blockchain/xu3lp/prices.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -493,6 +547,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="xtoken_js.html#getxaaveprices" class="tsd-kind-icon">getXAave<wbr>Prices</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="xtoken_js.html#getxassetclrprices" class="tsd-kind-icon">getXAssetCLRPrices</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="xtoken_js.html#getxbntprices" class="tsd-kind-icon">getXBnt<wbr>Prices</a>
