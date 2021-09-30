@@ -1,4 +1,4 @@
-import { X_AAVE_A } from '@xtoken/abis'
+import { BUY, X_AAVE_A } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider, ropstenProvider } from './constants.spec'
@@ -39,4 +39,10 @@ test('Expected quantity on mint throws error for invalid amount', async (t) => {
   } catch (e) {
     t.is(e.message, 'Invalid value for amount')
   }
+})
+
+test('Best return on mint xAAVEa', async (t) => {
+  const bestReturn = await xToken.getBestReturn(X_AAVE_A, false, '1', BUY)
+  console.log(JSON.stringify(bestReturn))
+  t.true(Number(bestReturn.best.expectedQuantity) > 0)
 })
