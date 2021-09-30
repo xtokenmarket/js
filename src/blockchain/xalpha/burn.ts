@@ -49,6 +49,7 @@ export const getExpectedQuantityOnBurnXAlpha = async (
     network,
     xalphaContract,
   } = await getXAlphaContracts(symbol, provider)
+  // console.log("kyberProxyContract : ", kyberProxyContract)
 
   const { chainId } = network
 

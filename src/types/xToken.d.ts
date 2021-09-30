@@ -48,6 +48,7 @@ import {
   WBTC,
   WETH,
   AAVE_X_AAVE_A_CLR,
+  ALPHA_X_ALPHA_A_CLR,
   BNT_X_BNT_A_CLR,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
@@ -63,9 +64,6 @@ import { Exchange, STAKE, UNSTAKE } from '../constants'
 
 export type IContracts =
   | typeof ETH
-  | typeof AAVE
-  | typeof ALPHA
-  | typeof BNT
   | typeof EXCHANGE_RATES
   | typeof INCH_LIQUIDITY_PROTOCOL
   | typeof KYBER_PROXY
@@ -82,6 +80,7 @@ export type IContracts =
 
 export type INativeAssets =
   | typeof AAVE
+  | typeof ALPHA
   | typeof BNT
   | typeof INCH
   | typeof KNC
@@ -123,6 +122,7 @@ export type IStableAssets =
 
 export type IXAssetCLR =
   | typeof AAVE_X_AAVE_A_CLR
+  | typeof ALPHA_X_ALPHA_A_CLR
   | typeof BNT_X_BNT_A_CLR
   | typeof INCH_X_INCH_A_CLR
   | typeof INCH_X_INCH_B_CLR
