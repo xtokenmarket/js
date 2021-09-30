@@ -917,7 +917,6 @@ export class XToken {
         return mintXAlpha(symbol, tradeWithEth, value, this.provider)
       case X_BNT_A:
         return mintXBnt(symbol, tradeWithEth, value, this.provider)
-
       case X_INCH_A:
       case X_INCH_B:
         return mintXInch(symbol, tradeWithEth, value, this.provider)

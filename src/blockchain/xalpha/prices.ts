@@ -8,7 +8,6 @@ import { formatNumber } from '../../utils'
 import { getAlphaEthPrice } from '../exchanges/uniswap'
 import { getEthUsdcPrice } from '../exchanges/uniswap'
 
-// TODO - add documentation and examples
 /**
  * @example
  * ```typescript

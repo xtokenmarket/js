@@ -2,11 +2,9 @@ import { X_ALPHA_A } from '@xtoken/abis'
 import test from 'ava'
 
 import { provider } from '../../constants.spec'
-// import { ropstenProvider } from '../../constants.spec'
 
 import { getExpectedQuantityOnBurnXAlpha } from './burn'
 
-// TODO: change provider to mainnet when contracts deployed
 test('Calculate ALPHA expected quantity on burn of xALPHAa', async (t) => {
   const expectedQty = await getExpectedQuantityOnBurnXAlpha(
     X_ALPHA_A,
