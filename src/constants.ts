@@ -16,6 +16,7 @@ export enum Exchange {
   INCH = '1Inch',
   KYBER = 'Kyber',
   UNISWAP = 'Uniswap',
+  UNISWAP_V3 = 'Uniswap V3',
   XTOKEN = 'xToken',
 }
 

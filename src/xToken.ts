@@ -55,6 +55,7 @@ import {
   getKyberEstimatedQuantity,
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
+import { getUniswapV3EstimatedQty } from './blockchain/exchanges/uniswapV3'
 import {
   approveXtk,
   getXtkHistory,
@@ -366,12 +367,19 @@ export class XToken {
     }
 
     const xTokenReturn = {
-      expectedQuantity: parseEther(xTokenExpectedQty as string).toString(),
+      expectedQuantity: xTokenExpectedQty,
       source: Exchange.XTOKEN,
     }
 
-    // TODO: Add support for xAssetCLR return estimates
-    if ([X_AAVE_A, X_AAVE_B].includes(symbol)) {
+    if (symbol === X_AAVE_A && !tradeWithEth) {
+      dexSource = Exchange.UNISWAP_V3
+      dexExpectedQty = await getUniswapV3EstimatedQty(
+        symbol,
+        amount,
+        tradeType,
+        this.provider
+      )
+    } else if (symbol === X_AAVE_B) {
       dexSource = Exchange.BALANCER
       dexExpectedQty = await getBalancerEstimatedQuantity(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -416,12 +424,12 @@ export class XToken {
     }
 
     const dexReturn = {
-      expectedQuantity: parseEther(dexExpectedQty).toString(),
+      expectedQuantity: dexExpectedQty,
       source: dexSource,
     }
 
     let bestReturn = xTokenReturn
-    if (Number(xTokenExpectedQty) < Number(dexExpectedQty)) {
+    if (parseEther(xTokenExpectedQty).lt(parseEther(dexExpectedQty))) {
       bestReturn = dexReturn
     }
 
