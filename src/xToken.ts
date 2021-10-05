@@ -392,8 +392,10 @@ export class XToken {
       dexSource = Exchange.UNISWAP_V3
       dexExpectedQty = await getUniswapV3EstimatedQty(
         symbol,
+        symbol,
         amount,
         tradeType,
+        undefined,
         this.provider
       )
     } else if (symbol === X_AAVE_B) {
@@ -755,10 +757,10 @@ export class XToken {
       getPortfolioItemXSnx(X_SNX_A, address, this.provider),
       getPortfolioItemXAave(X_AAVE_A, address, this.provider),
       getPortfolioItemXAave(X_AAVE_B, address, this.provider),
-      getPortfolioItemXAlpha(X_ALPHA_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
       getPortfolioItemXBnt(X_BNT_A, address, this.provider),
+      getPortfolioItemXAlpha(X_ALPHA_A, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
@@ -843,12 +845,12 @@ export class XToken {
    */
   public async getXAssets(): Promise<readonly IAsset[]> {
     return Promise.all([
+      getXAlphaAsset(X_ALPHA_A, this.provider),
       getXBntAsset(X_BNT_A, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
       getXAaveAsset(X_AAVE_A, this.provider),
       getXAaveAsset(X_AAVE_B, this.provider),
-      getXAlphaAsset(X_ALPHA_A, this.provider),
       getXSnxAsset(X_SNX_A, this.provider),
       getXKncAsset(X_KNC_A, this.provider),
       getXKncAsset(X_KNC_B, this.provider),

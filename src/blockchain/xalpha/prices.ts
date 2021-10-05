@@ -1,11 +1,12 @@
 import { BaseProvider } from '@ethersproject/providers'
+import { ADDRESSES, ALPHA } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES } from '../../constants'
 import { KyberProxy, XALPHA } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import { getAlphaEthPrice } from '../exchanges/uniswap'
+import { getEthTokenPrice } from '../exchanges/uniswap'
 import { getEthUsdcPrice } from '../exchanges/uniswap'
 
 /**
@@ -38,6 +39,9 @@ export const getXAlphaPrices = async (
   kyberProxyContract: KyberProxy
 ): Promise<ITokenPrices> => {
   try {
+    const { chainId } = await kyberProxyContract.provider.getNetwork()
+    const alphaAddress = ADDRESSES[ALPHA][chainId]
+
     const [
       xalphaTotalSupply,
       xalphaAlphaBal,
@@ -46,7 +50,11 @@ export const getXAlphaPrices = async (
     ] = await Promise.all([
       xalphaContract.totalSupply(),
       xalphaContract.getNav(),
-      getAlphaEthPrice(kyberProxyContract.provider as BaseProvider),
+      getEthTokenPrice(
+        alphaAddress,
+        true,
+        kyberProxyContract.provider as BaseProvider
+      ),
       getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
     ])
 

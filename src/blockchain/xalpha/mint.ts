@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, ALPHA, ETH } from '@xtoken/abis'
+import { BUY, ETH, X_ALPHA_A } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
 import {
@@ -12,7 +12,8 @@ import {
 import { XALPHA } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getExpectedRate, getSignerAddress, parseFees } from '../utils'
+import { getUniswapV3EstimatedQty } from '../exchanges/uniswapV3'
+import { getSignerAddress, parseFees } from '../utils'
 
 import { getXAlphaContracts } from './helper'
 
@@ -44,13 +45,7 @@ export const getExpectedQuantityOnMintXAlpha = async (
   provider: BaseProvider
 ): Promise<string> => {
   const inputAmount = parseEther(amount)
-  const {
-    kyberProxyContract,
-    network,
-    xalphaContract,
-  } = await getXAlphaContracts(symbol, provider)
-
-  const { chainId } = network
+  const { xalphaContract } = await getXAlphaContracts(symbol, provider)
 
   const [alphaHoldings, xalphaSupply, { mintFee }] = await Promise.all([
     xalphaContract.getNav(),
@@ -61,19 +56,18 @@ export const getExpectedQuantityOnMintXAlpha = async (
   const MINT_FEE = parseFees(mintFee)
   const ethToTrade = inputAmount.mul(MINT_FEE)
 
-  const ethAddress = ADDRESSES[ETH]
-  const alphaAddress = ADDRESSES[ALPHA][chainId]
-
   let alphaExpected: BigNumber
 
   if (tradeWithEth) {
-    const expectedRate = await getExpectedRate(
-      kyberProxyContract,
-      ethAddress as string,
-      alphaAddress,
-      inputAmount
+    const expectedRate = await getUniswapV3EstimatedQty(
+      ETH,
+      X_ALPHA_A,
+      amount,
+      BUY,
+      BigNumber.from('10000'), // 1% Uniswap V3 trade fees
+      provider
     )
-    alphaExpected = ethToTrade.mul(expectedRate).div(DEC_18)
+    alphaExpected = ethToTrade.mul(parseEther(expectedRate)).div(DEC_18)
   } else {
     alphaExpected = ethToTrade
   }

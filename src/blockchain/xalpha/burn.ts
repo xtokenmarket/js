@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, ALPHA, ETH } from '@xtoken/abis'
+import { ETH, SELL, X_ALPHA_A } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
 import {
@@ -12,7 +12,8 @@ import {
 import { XALPHA } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getExpectedRate, parseFees } from '../utils'
+import { getUniswapV3EstimatedQty } from '../exchanges/uniswapV3'
+import { parseFees } from '../utils'
 
 import { getXAlphaContracts } from './helper'
 
@@ -32,7 +33,7 @@ export const burnXAlpha = async (
     sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return xalphaContract.burn(amount, sellForEth, '1', {
+  return xalphaContract.burn(amount, sellForEth, '0', {
     gasLimit,
   })
 }
@@ -44,13 +45,7 @@ export const getExpectedQuantityOnBurnXAlpha = async (
   provider: BaseProvider
 ) => {
   const inputAmount = parseEther(amount)
-  const {
-    kyberProxyContract,
-    network,
-    xalphaContract,
-  } = await getXAlphaContracts(symbol, provider)
-
-  const { chainId } = network
+  const { xalphaContract } = await getXAlphaContracts(symbol, provider)
 
   const { BURN_FEE, proRataAlpha } = await getProRataAlpha(
     xalphaContract,
@@ -62,17 +57,15 @@ export const getExpectedQuantityOnBurnXAlpha = async (
   if (!sellForEth) {
     expectedQty = proRataAlpha
   } else {
-    const ethAddress = ADDRESSES[ETH]
-    const alphaAddress = ADDRESSES[ALPHA][chainId]
-
-    const expectedRate = await getExpectedRate(
-      kyberProxyContract,
-      alphaAddress,
-      ethAddress as string,
-      proRataAlpha
+    const expectedRate = await getUniswapV3EstimatedQty(
+      ETH,
+      X_ALPHA_A,
+      amount,
+      SELL,
+      BigNumber.from('10000'), // 1% Uniswap V3 trade fees
+      provider
     )
-
-    expectedQty = proRataAlpha.mul(expectedRate).div(DEC_18)
+    expectedQty = proRataAlpha.mul(parseEther(expectedRate)).div(DEC_18)
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
