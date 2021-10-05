@@ -28,7 +28,7 @@ export const getUniswapV3EstimatedQty = async (
   symbol: ITokenSymbols,
   amount: string,
   tradeType: ITradeType,
-  fees: BigNumber = FEES,
+  fees: BigNumber,
   provider: BaseProvider
 ) => {
   const { chainId } = await provider.getNetwork()
@@ -69,7 +69,7 @@ export const getUniswapV3EstimatedQty = async (
   const estimateQty = await quoterContract.callStatic.quoteExactInputSingle(
     tokenInAddress,
     tokenOutAddress,
-    fees,
+    fees || FEES,
     parseEther(amount),
     priceLimit
   )
