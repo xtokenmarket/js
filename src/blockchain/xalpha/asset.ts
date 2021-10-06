@@ -22,7 +22,7 @@ export const getXAlphaAsset = async (
 
   return {
     aum,
-    mandate: 'Dynamic Allocator; Buchanan Mandate', // check this
+    mandate: 'Liquid Staker',
     price: priceUsd,
     priceEth,
     symbol,

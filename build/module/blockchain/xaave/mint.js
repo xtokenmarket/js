@@ -1,0 +1,122 @@
+import { AAVE, ADDRESSES, ETH } from '@xtoken/abis'
+import { ethers } from 'ethers'
+import {
+  DEC_18,
+  GAS_LIMIT_PERCENTAGE_DEFAULT,
+  GAS_LIMIT_PERCENTAGE_ETH,
+} from '../../constants'
+import { getPercentage } from '../../utils'
+import { getExpectedRate, getSignerAddress, parseFees } from '../utils'
+import { getXAaveContracts } from './helper'
+const { formatEther, parseEther } = ethers.utils
+export const approveXAave = async (symbol, amount, provider) => {
+  const { tokenContract, xaaveContract } = await getXAaveContracts(
+    symbol,
+    provider
+  )
+  // Estimate `gasLimit`
+  const gasLimit = getPercentage(
+    await tokenContract.estimateGas.approve(xaaveContract.address, amount),
+    GAS_LIMIT_PERCENTAGE_DEFAULT
+  )
+  return tokenContract.approve(xaaveContract.address, amount, { gasLimit })
+}
+export const getExpectedQuantityOnMintXAave = async (
+  symbol,
+  tradeWithEth,
+  amount,
+  provider
+) => {
+  const inputAmount = parseEther(amount)
+  const {
+    kyberProxyContract,
+    network,
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
+  const { chainId } = network
+  const [aaveHoldings, xaaveSupply, { mintFee }] = await Promise.all([
+    xaaveContract.getFundHoldings(),
+    xaaveContract.totalSupply(),
+    xaaveContract.feeDivisors(),
+  ])
+  const MINT_FEE = parseFees(mintFee)
+  const ethToTrade = inputAmount.mul(MINT_FEE)
+  const ethAddress = ADDRESSES[ETH]
+  const aaveAddress = ADDRESSES[AAVE][chainId]
+  let aaveExpected
+  if (tradeWithEth) {
+    const expectedRate = await getExpectedRate(
+      kyberProxyContract,
+      ethAddress,
+      aaveAddress,
+      inputAmount
+    )
+    aaveExpected = ethToTrade.mul(expectedRate).div(DEC_18)
+  } else {
+    aaveExpected = ethToTrade
+  }
+  const xaaveExpected = aaveExpected
+    .mul(xaaveSupply)
+    .div(aaveHoldings)
+    .div(DEC_18)
+  return formatEther(xaaveExpected)
+}
+export const mintXAave = async (
+  symbol,
+  tradeWithEth,
+  amount,
+  affiliate,
+  provider
+) => {
+  const {
+    kyberProxyContract,
+    tokenContract,
+    xaaveContract,
+  } = await getXAaveContracts(symbol, provider)
+  if (tradeWithEth) {
+    const minRate = await getExpectedRate(
+      kyberProxyContract,
+      ADDRESSES[ETH],
+      tokenContract.address,
+      amount,
+      true
+    )
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      await xaaveContract.estimateGas.mint(minRate.toString(), {
+        value: amount,
+      }),
+      GAS_LIMIT_PERCENTAGE_ETH
+    )
+    return xaaveContract.mint(minRate.toString(), {
+      gasLimit,
+      value: amount,
+    })
+  } else {
+    const address = await getSignerAddress(provider)
+    const approvedAmount = await _getApprovedAmount(
+      tokenContract,
+      xaaveContract,
+      address
+    )
+    if (approvedAmount.lt(amount)) {
+      return Promise.reject(
+        new Error('Please approve the tokens before minting')
+      )
+    }
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await xaaveContract.estimateGas.mintWithToken(amount, affiliate),
+      GAS_LIMIT_PERCENTAGE_DEFAULT
+    )
+    return xaaveContract.mintWithToken(amount, affiliate, {
+      gasLimit,
+    })
+  }
+}
+const _getApprovedAmount = async (tokenContract, xaaveContract, address) => {
+  return tokenContract.allowance(address, xaaveContract.address)
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWludC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3hhYXZlL21pbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0EsT0FBTyxFQUFFLElBQUksRUFBRSxTQUFTLEVBQUUsR0FBRyxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQ25ELE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFFL0IsT0FBTyxFQUNMLE1BQU0sRUFDTiw0QkFBNEIsRUFDNUIsd0JBQXdCLEdBQ3pCLE1BQU0saUJBQWlCLENBQUE7QUFHeEIsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGFBQWEsQ0FBQTtBQUMzQyxPQUFPLEVBQUUsZUFBZSxFQUFFLGdCQUFnQixFQUFFLFNBQVMsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUV2RSxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFNUMsTUFBTSxFQUFFLFdBQVcsRUFBRSxVQUFVLEVBQUUsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFBO0FBRWhELE1BQU0sQ0FBQyxNQUFNLFlBQVksR0FBRyxLQUFLLEVBQy9CLE1BQXFCLEVBQ3JCLE1BQWlCLEVBQ2pCLFFBQXNCLEVBQ1EsRUFBRTtJQUNoQyxNQUFNLEVBQUUsYUFBYSxFQUFFLGFBQWEsRUFBRSxHQUFHLE1BQU0saUJBQWlCLENBQzlELE1BQU0sRUFDTixRQUFRLENBQ1QsQ0FBQTtJQUVELHNCQUFzQjtJQUN0QixNQUFNLFFBQVEsR0FBRyxhQUFhLENBQzVCLE1BQU0sYUFBYSxDQUFDLFdBQVcsQ0FBQyxPQUFPLENBQUMsYUFBYSxDQUFDLE9BQU8sRUFBRSxNQUFNLENBQUMsRUFDdEUsNEJBQTRCLENBQzdCLENBQUE7SUFFRCxPQUFPLGFBQWEsQ0FBQyxPQUFPLENBQUMsYUFBYSxDQUFDLE9BQU8sRUFBRSxNQUFNLEVBQUUsRUFBRSxRQUFRLEVBQUUsQ0FBQyxDQUFBO0FBQzNFLENBQUMsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLDhCQUE4QixHQUFHLEtBQUssRUFDakQsTUFBcUIsRUFDckIsWUFBcUIsRUFDckIsTUFBYyxFQUNkLFFBQXNCLEVBQ0wsRUFBRTtJQUNuQixNQUFNLFdBQVcsR0FBRyxVQUFVLENBQUMsTUFBTSxDQUFDLENBQUE7SUFDdEMsTUFBTSxFQUNKLGtCQUFrQixFQUNsQixPQUFPLEVBQ1AsYUFBYSxHQUNkLEdBQUcsTUFBTSxpQkFBaUIsQ0FBQyxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFDN0MsTUFBTSxFQUFFLE9BQU8sRUFBRSxHQUFHLE9BQU8sQ0FBQTtJQUUzQixNQUFNLENBQUMsWUFBWSxFQUFFLFdBQVcsRUFBRSxFQUFFLE9BQU8sRUFBRSxDQUFDLEdBQUcsTUFBTSxPQUFPLENBQUMsR0FBRyxDQUFDO1FBQ2pFLGFBQWEsQ0FBQyxlQUFlLEVBQUU7UUFDL0IsYUFBYSxDQUFDLFdBQVcsRUFBRTtRQUMzQixhQUFhLENBQUMsV0FBVyxFQUFFO0tBQzVCLENBQUMsQ0FBQTtJQUVGLE1BQU0sUUFBUSxHQUFHLFNBQVMsQ0FBQyxPQUFPLENBQUMsQ0FBQTtJQUNuQyxNQUFNLFVBQVUsR0FBRyxXQUFXLENBQUMsR0FBRyxDQUFDLFFBQVEsQ0FBQyxDQUFBO0lBRTVDLE1BQU0sVUFBVSxHQUFHLFNBQVMsQ0FBQyxHQUFHLENBQVcsQ0FBQTtJQUMzQyxNQUFNLFdBQVcsR0FBRyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUMsT0FBTyxDQUFDLENBQUE7SUFFNUMsSUFBSSxZQUF1QixDQUFBO0lBRTNCLElBQUksWUFBWSxFQUFFO1FBQ2hCLE1BQU0sWUFBWSxHQUFHLE1BQU0sZUFBZSxDQUN4QyxrQkFBa0IsRUFDbEIsVUFBVSxFQUNWLFdBQVcsRUFDWCxXQUFXLENBQ1osQ0FBQTtRQUNELFlBQVksR0FBRyxVQUFVLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQTtLQUN4RDtTQUFNO1FBQ0wsWUFBWSxHQUFHLFVBQVUsQ0FBQTtLQUMxQjtJQUVELE1BQU0sYUFBYSxHQUFHLFlBQVk7U0FDL0IsR0FBRyxDQUFDLFdBQVcsQ0FBQztTQUNoQixHQUFHLENBQUMsWUFBWSxDQUFDO1NBQ2pCLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQTtJQUVkLE9BQU8sV0FBVyxDQUFDLGFBQWEsQ0FBQyxDQUFBO0FBQ25DLENBQUMsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLFNBQVMsR0FBRyxLQUFLLEVBQzVCLE1BQXFCLEVBQ3JCLFlBQXFCLEVBQ3JCLE1BQWlCLEVBQ2pCLFNBQWlCLEVBQ2pCLFFBQXNCLEVBQ1EsRUFBRTtJQUNoQyxNQUFNLEVBQ0osa0JBQWtCLEVBQ2xCLGFBQWEsRUFDYixhQUFhLEdBQ2QsR0FBRyxNQUFNLGlCQUFpQixDQUFDLE1BQU0sRUFBRSxRQUFRLENBQUMsQ0FBQTtJQUU3QyxJQUFJLFlBQVksRUFBRTtRQUNoQixNQUFNLE9BQU8sR0FBRyxNQUFNLGVBQWUsQ0FDbkMsa0JBQWtCLEVBQ2xCLFNBQVMsQ0FBQyxHQUFHLENBQVcsRUFDeEIsYUFBYSxDQUFDLE9BQU8sRUFDckIsTUFBTSxFQUNOLElBQUksQ0FDTCxDQUFBO1FBRUQsc0JBQXNCO1FBQ3RCLE1BQU0sUUFBUSxHQUFHLGFBQWEsQ0FDNUIsTUFBTSxhQUFhLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsUUFBUSxFQUFFLEVBQUU7WUFDdkQsS0FBSyxFQUFFLE1BQU07U0FDZCxDQUFDLEVBQ0Ysd0JBQXdCLENBQ3pCLENBQUE7UUFFRCxPQUFPLGFBQWEsQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsRUFBRSxFQUFFO1lBQzVDLFFBQVE7WUFDUixLQUFLLEVBQUUsTUFBTTtTQUNkLENBQUMsQ0FBQTtLQUNIO1NBQU07UUFDTCxNQUFNLE9BQU8sR0FBRyxNQUFNLGdCQUFnQixDQUFDLFFBQVEsQ0FBQyxDQUFBO1FBQ2hELE1BQU0sY0FBYyxHQUFHLE1BQU0sa0JBQWtCLENBQzdDLGFBQWEsRUFDYixhQUFhLEVBQ2IsT0FBTyxDQUNSLENBQUE7UUFFRCxJQUFJLGNBQWMsQ0FBQyxFQUFFLENBQUMsTUFBTSxDQUFDLEVBQUU7WUFDN0IsT0FBTyxPQUFPLENBQUMsTUFBTSxDQUNuQixJQUFJLEtBQUssQ0FBQywwQ0FBMEMsQ0FBQyxDQUN0RCxDQUFBO1NBQ0Y7UUFFRCxzQkFBc0I7UUFDdEIsTUFBTSxRQUFRLEdBQUcsYUFBYTtRQUM1Qiw2REFBNkQ7UUFDN0QsYUFBYTtRQUNiLE1BQU0sYUFBYSxDQUFDLFdBQVcsQ0FBQyxhQUFhLENBQUMsTUFBTSxFQUFFLFNBQVMsQ0FBQyxFQUNoRSw0QkFBNEIsQ0FDN0IsQ0FBQTtRQUVELE9BQU8sYUFBYSxDQUFDLGFBQWEsQ0FBQyxNQUFNLEVBQUUsU0FBUyxFQUFFO1lBQ3BELFFBQVE7U0FDVCxDQUFDLENBQUE7S0FDSDtBQUNILENBQUMsQ0FBQTtBQUVELE1BQU0sa0JBQWtCLEdBQUcsS0FBSyxFQUM5QixhQUF1QixFQUN2QixhQUFvQixFQUNwQixPQUFlLEVBQ2YsRUFBRTtJQUNGLE9BQU8sYUFBYSxDQUFDLFNBQVMsQ0FBQyxPQUFPLEVBQUUsYUFBYSxDQUFDLE9BQU8sQ0FBQyxDQUFBO0FBQ2hFLENBQUMsQ0FBQSJ9

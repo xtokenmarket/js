@@ -28,7 +28,7 @@ export const getUniswapV3EstimatedQty = async (
   symbol: ITokenSymbols,
   amount: string,
   tradeType: ITradeType,
-  fees: BigNumber,
+  fees: BigNumber | undefined,
   provider: BaseProvider
 ) => {
   const { chainId } = await provider.getNetwork()
