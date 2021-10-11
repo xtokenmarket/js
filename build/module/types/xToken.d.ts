@@ -137,6 +137,7 @@ export type ITradeType = typeof BUY | typeof SELL
 interface IAsset {
   aum: number
   mandate: string
+  order: number
   price: number
   priceEth: number
   symbol: ITokenSymbols

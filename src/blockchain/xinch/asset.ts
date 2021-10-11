@@ -28,6 +28,7 @@ export const getXInchAsset = async (
     mandate: `Accumulator; ${
       symbol === X_INCH_A ? 'Buchanan' : 'Samuelson'
     } Mandate`,
+    order: symbol === X_INCH_A ? 7 : 6,
     price: priceUsd,
     priceEth,
     symbol,

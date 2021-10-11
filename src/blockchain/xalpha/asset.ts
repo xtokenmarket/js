@@ -23,6 +23,7 @@ export const getXAlphaAsset = async (
   return {
     aum,
     mandate: 'Liquid Staker',
+    order: 17,
     price: priceUsd,
     priceEth,
     symbol,

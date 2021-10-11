@@ -410,7 +410,7 @@ export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
     case AAVE_X_AAVE_A_CLR:
       return { 0: AAVE, 1: X_AAVE_A }
     case ALPHA_X_ALPHA_A_CLR:
-      return { 0: AAVE, 1: X_AAVE_A }
+      return { 0: ALPHA, 1: X_ALPHA_A }
     case BNT_X_BNT_A_CLR:
       return { 0: BNT, 1: X_BNT_A }
     case INCH_X_INCH_A_CLR:

@@ -38,6 +38,7 @@ export const getXSnxAsset = async (
   return {
     aum,
     mandate: 'Aggressive staker; ETH bull',
+    order: 3,
     price: priceUsd,
     priceEth,
     symbol,
