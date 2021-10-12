@@ -59,15 +59,16 @@ export const getExpectedQuantityOnMintXAlpha = async (
   let alphaExpected: BigNumber
 
   if (tradeWithEth) {
-    const expectedRate = await getUniswapV3EstimatedQty(
-      ETH,
-      X_ALPHA_A,
-      amount,
-      BUY,
-      BigNumber.from('10000'), // 1% Uniswap V3 trade fees
-      provider
-    )
-    alphaExpected = ethToTrade.mul(parseEther(expectedRate)).div(DEC_18)
+    alphaExpected = parseEther(
+      await getUniswapV3EstimatedQty(
+        ETH,
+        X_ALPHA_A,
+        amount,
+        BUY,
+        BigNumber.from('10000'), // 1% Uniswap V3 trade fees
+        provider
+      )
+    ).mul(DEC_18)
   } else {
     alphaExpected = ethToTrade
   }

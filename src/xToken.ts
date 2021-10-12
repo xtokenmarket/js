@@ -388,7 +388,7 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
-    if (symbol === X_AAVE_A && !tradeWithEth) {
+    if ((symbol === X_AAVE_A || symbol === X_ALPHA_A) && !tradeWithEth) {
       dexSource = Exchange.UNISWAP_V3
       dexExpectedQty = await getUniswapV3EstimatedQty(
         symbol,

@@ -1326,12 +1326,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/burn.ts": {
-        "version": "eafe7eb182314cb149a8be4072e7adcf9d992ecefd36fdfa0f171e3076c67d41",
+        "version": "551564d6c5815288f623c37b81964cb01f54976fd1c84ab2b3c4b7dec2bb92dc",
         "signature": "837831ecf74ad0427289313356bc88900cd23a239f79d475499afd76c39864eb",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/mint.ts": {
-        "version": "22c1aecf0fe337435548a71a97e80683cb1e01f384aec93f2abade0809767c5f",
+        "version": "861e9bed4a6d90433cb2b962563563d84dccf7b1956f813e5a2a8408701fe789",
         "signature": "07e7cbd5b509a2450b791a18434c402eda2db28185980c8fa5eb72a5a47737fd",
         "affectsGlobalScope": false
       },
@@ -1681,7 +1681,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "723554d6a32389228b0d810113b23eeee6b5283b0bdd8f5c8adc22e18bd23bd6",
+        "version": "873fe44fb73fccd674bbce1fa45a1ab06d46dfaf8f9b26044317c12b31f9c1bd",
         "signature": "2d5b13ce4604e1dad1f14bff127ff3ea5ea1d31992152381537b076b9b6b7b34",
         "affectsGlobalScope": false
       },
@@ -1696,7 +1696,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.spec.ts": {
-        "version": "6f9d944489b992bd6b58db9f73f5a4da05dc9b088fc598cb7c3438d1f60d6d38",
+        "version": "cb3cbd3ef6556836575b84c63a707faeef20398ee146a388e25e17213d1bf280",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },

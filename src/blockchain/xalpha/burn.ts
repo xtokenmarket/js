@@ -57,15 +57,16 @@ export const getExpectedQuantityOnBurnXAlpha = async (
   if (!sellForEth) {
     expectedQty = proRataAlpha
   } else {
-    const expectedRate = await getUniswapV3EstimatedQty(
-      ETH,
-      X_ALPHA_A,
-      amount,
-      SELL,
-      BigNumber.from('10000'), // 1% Uniswap V3 trade fees
-      provider
+    expectedQty = parseEther(
+      await getUniswapV3EstimatedQty(
+        ETH,
+        X_ALPHA_A,
+        formatEther(proRataAlpha),
+        SELL,
+        BigNumber.from('10000'), // 1% Uniswap V3 trade fees
+        provider
+      )
     )
-    expectedQty = proRataAlpha.mul(parseEther(expectedRate)).div(DEC_18)
   }
 
   return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
