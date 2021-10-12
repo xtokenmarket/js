@@ -221,6 +221,19 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'uint256',
+        name: 'totalStaked',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateStakedBalance',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'enum IxALPHA.SwapMode',
         name: 'version',
         type: 'uint8',
@@ -317,6 +330,25 @@ const _abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'blockLockExempt',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -447,6 +479,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'lockAddress',
+        type: 'address',
+      },
+    ],
+    name: 'exemptFromBlockLock',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'feeDivisors',
     outputs: [
@@ -533,6 +578,24 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'getWithdrawableFees',
+    outputs: [
+      {
+        internalType: 'address',
+        name: 'feeAsset',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'feeAmount',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -581,11 +644,6 @@ const _abi = [
       {
         internalType: 'contract StakingFactory',
         name: '_stakingFactory',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_stakingProxyImplementation',
         type: 'address',
       },
       {
@@ -733,6 +791,19 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'lockAddress',
+        type: 'address',
+      },
+    ],
+    name: 'removeBlockLockExemption',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -952,19 +1023,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newImplementation',
-        type: 'address',
-      },
-    ],
-    name: 'upgradeStakingProxies',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'v3AlphaPoolFee',
     outputs: [
@@ -987,6 +1045,24 @@ const _abi = [
   {
     inputs: [],
     name: 'withdrawNativeToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'proxyIndex',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
+      },
+    ],
+    name: 'withdrawTokenFromProxy',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

@@ -67,7 +67,7 @@ const getXAssetCLRPrices = async (xAssetCLRContract, kyberProxyContract) => {
           .add(token0Balance)
         break
       case abis_1.AAVE_X_AAVE_A_CLR:
-      case abis_1.ALPHA_X_ALPHA_A_CLR:
+      case abis_1.X_ALPHA_A_ALPHA_CLR:
       case abis_1.BNT_X_BNT_A_CLR:
       case abis_1.INCH_X_INCH_A_CLR:
       case abis_1.INCH_X_INCH_B_CLR:

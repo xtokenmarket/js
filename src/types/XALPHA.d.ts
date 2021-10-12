@@ -27,6 +27,7 @@ interface XALPHAInterface extends ethers.utils.Interface {
     'allowance(address,address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
     'balanceOf(address)': FunctionFragment
+    'blockLockExempt(address)': FunctionFragment
     'burn(uint256,bool,uint256)': FunctionFragment
     'calculateMintAmount(uint256,uint256)': FunctionFragment
     'claimUnbonded(uint256)': FunctionFragment
@@ -35,13 +36,15 @@ interface XALPHAInterface extends ethers.utils.Interface {
     'emergencyClaim()': FunctionFragment
     'emergencyUnbond()': FunctionFragment
     'emergencyUnbondTimestamp()': FunctionFragment
+    'exemptFromBlockLock(address)': FunctionFragment
     'feeDivisors()': FunctionFragment
     'getBufferBalance()': FunctionFragment
     'getFundBalances()': FunctionFragment
     'getNav()': FunctionFragment
     'getWithdrawableAmount(uint256)': FunctionFragment
+    'getWithdrawableFees()': FunctionFragment
     'increaseAllowance(address,uint256)': FunctionFragment
-    'initialize(string,address,address,address,address,address,address,address,address,tuple)': FunctionFragment
+    'initialize(string,address,address,address,address,address,address,address,tuple)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
     'lastStakeTimestamp()': FunctionFragment
     'mint(uint256)': FunctionFragment
@@ -50,6 +53,7 @@ interface XALPHAInterface extends ethers.utils.Interface {
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
+    'removeBlockLockExemption(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'setFeeDivisors(uint256,uint256,uint256)': FunctionFragment
     'stake(uint256,uint256,bool)': FunctionFragment
@@ -64,10 +68,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     'updateStakedBalance()': FunctionFragment
     'updateSwapRouter(uint8)': FunctionFragment
     'updateUniswapV3AlphaPoolFee(uint24)': FunctionFragment
-    'upgradeStakingProxies(address)': FunctionFragment
     'v3AlphaPoolFee()': FunctionFragment
     'withdrawFees()': FunctionFragment
     'withdrawNativeToken()': FunctionFragment
+    'withdrawTokenFromProxy(uint256,address)': FunctionFragment
     'withdrawableAlphaFees()': FunctionFragment
   }
 
@@ -84,6 +88,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'blockLockExempt',
+    values: [string]
+  ): string
   encodeFunctionData(
     functionFragment: 'burn',
     values: [BigNumberish, boolean, BigNumberish]
@@ -114,6 +122,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
+    functionFragment: 'exemptFromBlockLock',
+    values: [string]
+  ): string
+  encodeFunctionData(
     functionFragment: 'feeDivisors',
     values?: undefined
   ): string
@@ -131,13 +143,16 @@ interface XALPHAInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string
   encodeFunctionData(
+    functionFragment: 'getWithdrawableFees',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'increaseAllowance',
     values: [string, BigNumberish]
   ): string
   encodeFunctionData(
     functionFragment: 'initialize',
     values: [
-      string,
       string,
       string,
       string,
@@ -169,6 +184,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'removeBlockLockExemption',
+    values: [string]
+  ): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
@@ -223,10 +242,6 @@ interface XALPHAInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string
   encodeFunctionData(
-    functionFragment: 'upgradeStakingProxies',
-    values: [string]
-  ): string
-  encodeFunctionData(
     functionFragment: 'v3AlphaPoolFee',
     values?: undefined
   ): string
@@ -237,6 +252,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'withdrawNativeToken',
     values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'withdrawTokenFromProxy',
+    values: [BigNumberish, string]
   ): string
   encodeFunctionData(
     functionFragment: 'withdrawableAlphaFees',
@@ -250,6 +269,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'blockLockExempt',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'calculateMintAmount',
@@ -276,6 +299,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     functionFragment: 'emergencyUnbondTimestamp',
     data: BytesLike
   ): Result
+  decodeFunctionResult(
+    functionFragment: 'exemptFromBlockLock',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'feeDivisors', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'getBufferBalance',
@@ -288,6 +315,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'getNav', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'getWithdrawableAmount',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'getWithdrawableFees',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -315,6 +346,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'removeBlockLockExemption',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
@@ -357,10 +392,6 @@ interface XALPHAInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
-    functionFragment: 'upgradeStakingProxies',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'v3AlphaPoolFee',
     data: BytesLike
   ): Result
@@ -370,6 +401,10 @@ interface XALPHAInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(
     functionFragment: 'withdrawNativeToken',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'withdrawTokenFromProxy',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -388,6 +423,7 @@ interface XALPHAInterface extends ethers.utils.Interface {
     'Transfer(address,address,uint256)': EventFragment
     'Unbond(uint256,uint256,uint256)': EventFragment
     'Unpaused(address)': EventFragment
+    'UpdateStakedBalance(uint256)': EventFragment
     'UpdateSwapRouter(uint8)': EventFragment
     'UpdateUniswapV3AlphaPoolFee(uint24)': EventFragment
   }
@@ -402,6 +438,7 @@ interface XALPHAInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unbond'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateStakedBalance'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateSwapRouter'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateUniswapV3AlphaPoolFee'): EventFragment
 }
@@ -454,6 +491,13 @@ export class XALPHA extends Contract {
       account: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
+
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
 
     burn(
       tokenAmount: BigNumberish,
@@ -521,6 +565,16 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     feeDivisors(
       overrides?: CallOverrides
     ): Promise<
@@ -565,6 +619,14 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -583,7 +645,6 @@ export class XALPHA extends Contract {
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -595,13 +656,12 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(string,address,address,address,address,address,address,address,address,tuple)'(
+    'initialize(string,address,address,address,address,address,address,address,tuple)'(
       _symbol: string,
       _wethToken: string,
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -662,6 +722,16 @@ export class XALPHA extends Contract {
     paused(overrides?: CallOverrides): Promise<[boolean]>
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -783,16 +853,6 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    upgradeStakingProxies(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
-    'upgradeStakingProxies(address)'(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<ContractTransaction>
-
     v3AlphaPoolFee(overrides?: CallOverrides): Promise<[number]>
 
     'v3AlphaPoolFee()'(overrides?: CallOverrides): Promise<[number]>
@@ -804,6 +864,18 @@ export class XALPHA extends Contract {
     withdrawNativeToken(overrides?: Overrides): Promise<ContractTransaction>
 
     'withdrawNativeToken()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    withdrawTokenFromProxy(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'withdrawTokenFromProxy(uint256,address)'(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     withdrawableAlphaFees(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -844,6 +916,13 @@ export class XALPHA extends Contract {
     account: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>
+
+  blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+  'blockLockExempt(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
 
   burn(
     tokenAmount: BigNumberish,
@@ -909,6 +988,16 @@ export class XALPHA extends Contract {
 
   'emergencyUnbondTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
 
+  exemptFromBlockLock(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'exemptFromBlockLock(address)'(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   feeDivisors(
     overrides?: CallOverrides
   ): Promise<
@@ -953,6 +1042,14 @@ export class XALPHA extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  getWithdrawableFees(
+    overrides?: CallOverrides
+  ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
+  'getWithdrawableFees()'(
+    overrides?: CallOverrides
+  ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
   increaseAllowance(
     spender: string,
     addedValue: BigNumberish,
@@ -971,7 +1068,6 @@ export class XALPHA extends Contract {
     _alphaToken: string,
     _alphaStaking: string,
     _stakingFactory: string,
-    _stakingProxyImplementation: string,
     _xTokenManager: string,
     _uniswapRouter: string,
     _sushiswapRouter: string,
@@ -983,13 +1079,12 @@ export class XALPHA extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(string,address,address,address,address,address,address,address,address,tuple)'(
+  'initialize(string,address,address,address,address,address,address,address,tuple)'(
     _symbol: string,
     _wethToken: string,
     _alphaToken: string,
     _alphaStaking: string,
     _stakingFactory: string,
-    _stakingProxyImplementation: string,
     _xTokenManager: string,
     _uniswapRouter: string,
     _sushiswapRouter: string,
@@ -1047,6 +1142,16 @@ export class XALPHA extends Contract {
   paused(overrides?: CallOverrides): Promise<boolean>
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+  removeBlockLockExemption(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeBlockLockExemption(address)'(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -1168,16 +1273,6 @@ export class XALPHA extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  upgradeStakingProxies(
-    newImplementation: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
-  'upgradeStakingProxies(address)'(
-    newImplementation: string,
-    overrides?: Overrides
-  ): Promise<ContractTransaction>
-
   v3AlphaPoolFee(overrides?: CallOverrides): Promise<number>
 
   'v3AlphaPoolFee()'(overrides?: CallOverrides): Promise<number>
@@ -1189,6 +1284,18 @@ export class XALPHA extends Contract {
   withdrawNativeToken(overrides?: Overrides): Promise<ContractTransaction>
 
   'withdrawNativeToken()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  withdrawTokenFromProxy(
+    proxyIndex: BigNumberish,
+    token: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'withdrawTokenFromProxy(uint256,address)'(
+    proxyIndex: BigNumberish,
+    token: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   withdrawableAlphaFees(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1229,6 +1336,13 @@ export class XALPHA extends Contract {
       account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
 
     burn(
       tokenAmount: BigNumberish,
@@ -1294,6 +1408,16 @@ export class XALPHA extends Contract {
 
     'emergencyUnbondTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     feeDivisors(
       overrides?: CallOverrides
     ): Promise<
@@ -1338,6 +1462,14 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber] & { feeAsset: string; feeAmount: BigNumber }>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -1356,7 +1488,6 @@ export class XALPHA extends Contract {
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -1368,13 +1499,12 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    'initialize(string,address,address,address,address,address,address,address,address,tuple)'(
+    'initialize(string,address,address,address,address,address,address,address,tuple)'(
       _symbol: string,
       _wethToken: string,
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -1429,6 +1559,16 @@ export class XALPHA extends Contract {
     paused(overrides?: CallOverrides): Promise<boolean>
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -1550,16 +1690,6 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    upgradeStakingProxies(
-      newImplementation: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
-    'upgradeStakingProxies(address)'(
-      newImplementation: string,
-      overrides?: CallOverrides
-    ): Promise<void>
-
     v3AlphaPoolFee(overrides?: CallOverrides): Promise<number>
 
     'v3AlphaPoolFee()'(overrides?: CallOverrides): Promise<number>
@@ -1571,6 +1701,18 @@ export class XALPHA extends Contract {
     withdrawNativeToken(overrides?: CallOverrides): Promise<void>
 
     'withdrawNativeToken()'(overrides?: CallOverrides): Promise<void>
+
+    withdrawTokenFromProxy(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'withdrawTokenFromProxy(uint256,address)'(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     withdrawableAlphaFees(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1604,6 +1746,8 @@ export class XALPHA extends Contract {
     Unbond(proxyIndex: null, timestamp: null, amount: null): EventFilter
 
     Unpaused(account: null): EventFilter
+
+    UpdateStakedBalance(totalStaked: null): EventFilter
 
     UpdateSwapRouter(version: null): EventFilter
 
@@ -1643,6 +1787,13 @@ export class XALPHA extends Contract {
 
     'balanceOf(address)'(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'blockLockExempt(address)'(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -1710,6 +1861,16 @@ export class XALPHA extends Contract {
 
     'emergencyUnbondTimestamp()'(overrides?: CallOverrides): Promise<BigNumber>
 
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     feeDivisors(overrides?: CallOverrides): Promise<BigNumber>
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1736,6 +1897,10 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    getWithdrawableFees(overrides?: CallOverrides): Promise<BigNumber>
+
+    'getWithdrawableFees()'(overrides?: CallOverrides): Promise<BigNumber>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -1754,7 +1919,6 @@ export class XALPHA extends Contract {
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -1766,13 +1930,12 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    'initialize(string,address,address,address,address,address,address,address,address,tuple)'(
+    'initialize(string,address,address,address,address,address,address,address,tuple)'(
       _symbol: string,
       _wethToken: string,
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -1830,6 +1993,16 @@ export class XALPHA extends Contract {
     paused(overrides?: CallOverrides): Promise<BigNumber>
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -1951,16 +2124,6 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    upgradeStakingProxies(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'upgradeStakingProxies(address)'(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     v3AlphaPoolFee(overrides?: CallOverrides): Promise<BigNumber>
 
     'v3AlphaPoolFee()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1972,6 +2135,18 @@ export class XALPHA extends Contract {
     withdrawNativeToken(overrides?: Overrides): Promise<BigNumber>
 
     'withdrawNativeToken()'(overrides?: Overrides): Promise<BigNumber>
+
+    withdrawTokenFromProxy(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'withdrawTokenFromProxy(uint256,address)'(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     withdrawableAlphaFees(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -2018,6 +2193,16 @@ export class XALPHA extends Contract {
 
     'balanceOf(address)'(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    blockLockExempt(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'blockLockExempt(address)'(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -2089,6 +2274,16 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     feeDivisors(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'feeDivisors()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -2119,6 +2314,14 @@ export class XALPHA extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    getWithdrawableFees(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'getWithdrawableFees()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
@@ -2137,7 +2340,6 @@ export class XALPHA extends Contract {
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -2149,13 +2351,12 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(string,address,address,address,address,address,address,address,address,tuple)'(
+    'initialize(string,address,address,address,address,address,address,address,tuple)'(
       _symbol: string,
       _wethToken: string,
       _alphaToken: string,
       _alphaStaking: string,
       _stakingFactory: string,
-      _stakingProxyImplementation: string,
       _xTokenManager: string,
       _uniswapRouter: string,
       _sushiswapRouter: string,
@@ -2218,6 +2419,16 @@ export class XALPHA extends Contract {
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
@@ -2343,16 +2554,6 @@ export class XALPHA extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    upgradeStakingProxies(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'upgradeStakingProxies(address)'(
-      newImplementation: string,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
     v3AlphaPoolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'v3AlphaPoolFee()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -2364,6 +2565,18 @@ export class XALPHA extends Contract {
     withdrawNativeToken(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'withdrawNativeToken()'(
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    withdrawTokenFromProxy(
+      proxyIndex: BigNumberish,
+      token: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'withdrawTokenFromProxy(uint256,address)'(
+      proxyIndex: BigNumberish,
+      token: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 

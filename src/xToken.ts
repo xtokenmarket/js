@@ -3,7 +3,6 @@ import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import {
   AAVE_X_AAVE_A_CLR,
-  ALPHA_X_ALPHA_A_CLR,
   BNT_X_BNT_A_CLR,
   BUY,
   ETH,
@@ -13,6 +12,7 @@ import {
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
   X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
   X_BNT_A,
   X_INCH_A,
   X_INCH_B,
@@ -222,7 +222,7 @@ export class XToken {
       case X_U3LP_H:
         return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
       case AAVE_X_AAVE_A_CLR:
-      case ALPHA_X_ALPHA_A_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:
@@ -680,7 +680,7 @@ export class XToken {
       | typeof X_U3LP_G
       | typeof X_U3LP_H
       | typeof AAVE_X_AAVE_A_CLR
-      | typeof ALPHA_X_ALPHA_A_CLR
+      | typeof X_ALPHA_A_ALPHA_CLR
       | typeof BNT_X_BNT_A_CLR
       | typeof INCH_X_INCH_A_CLR
       | typeof INCH_X_INCH_B_CLR
@@ -718,7 +718,7 @@ export class XToken {
           this.provider
         )
       case AAVE_X_AAVE_A_CLR:
-      case ALPHA_X_ALPHA_A_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:

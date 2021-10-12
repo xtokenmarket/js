@@ -1,6 +1,6 @@
 import {
   AAVE_X_AAVE_A_CLR,
-  ALPHA_X_ALPHA_A_CLR,
+  X_ALPHA_A_ALPHA_CLR,
   XTK_ETH_CLR,
 } from '@xtoken/abis'
 import test from 'ava'
@@ -29,9 +29,9 @@ test(`Get ${AAVE_X_AAVE_A_CLR} prices`, async (t) => {
   t.true(priceUsd > 0)
 })
 
-test(`Get ${ALPHA_X_ALPHA_A_CLR} prices`, async (t) => {
+test(`Get ${X_ALPHA_A_ALPHA_CLR} prices`, async (t) => {
   const { kyberProxyContract, xAssetCLRContract } = await getXAssetCLRContracts(
-    ALPHA_X_ALPHA_A_CLR,
+    X_ALPHA_A_ALPHA_CLR,
     provider
   )
 
@@ -40,9 +40,9 @@ test(`Get ${ALPHA_X_ALPHA_A_CLR} prices`, async (t) => {
     kyberProxyContract
   )
 
-  console.log(`${ALPHA_X_ALPHA_A_CLR} aum:`, aum)
-  console.log(`${ALPHA_X_ALPHA_A_CLR} priceEth:`, priceEth)
-  console.log(`${ALPHA_X_ALPHA_A_CLR} priceUsd:`, priceUsd)
+  console.log(`${X_ALPHA_A_ALPHA_CLR} aum:`, aum)
+  console.log(`${X_ALPHA_A_ALPHA_CLR} priceEth:`, priceEth)
+  console.log(`${X_ALPHA_A_ALPHA_CLR} priceUsd:`, priceUsd)
   t.true(aum > 0)
   t.true(priceEth > 0)
   t.true(priceUsd > 0)

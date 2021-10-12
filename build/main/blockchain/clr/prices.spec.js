@@ -29,21 +29,21 @@ ava_1.default(`Get ${abis_1.AAVE_X_AAVE_A_CLR} prices`, async (t) => {
   t.true(priceEth > 0)
   t.true(priceUsd > 0)
 })
-ava_1.default(`Get ${abis_1.ALPHA_X_ALPHA_A_CLR} prices`, async (t) => {
+ava_1.default(`Get ${abis_1.X_ALPHA_A_ALPHA_CLR} prices`, async (t) => {
   const {
     kyberProxyContract,
     xAssetCLRContract,
   } = await helper_1.getXAssetCLRContracts(
-    abis_1.ALPHA_X_ALPHA_A_CLR,
+    abis_1.X_ALPHA_A_ALPHA_CLR,
     constants_spec_1.provider
   )
   const { aum, priceEth, priceUsd } = await prices_1.getXAssetCLRPrices(
     xAssetCLRContract,
     kyberProxyContract
   )
-  console.log(`${abis_1.ALPHA_X_ALPHA_A_CLR} aum:`, aum)
-  console.log(`${abis_1.ALPHA_X_ALPHA_A_CLR} priceEth:`, priceEth)
-  console.log(`${abis_1.ALPHA_X_ALPHA_A_CLR} priceUsd:`, priceUsd)
+  console.log(`${abis_1.X_ALPHA_A_ALPHA_CLR} aum:`, aum)
+  console.log(`${abis_1.X_ALPHA_A_ALPHA_CLR} priceEth:`, priceEth)
+  console.log(`${abis_1.X_ALPHA_A_ALPHA_CLR} priceUsd:`, priceUsd)
   t.true(aum > 0)
   t.true(priceEth > 0)
   t.true(priceUsd > 0)

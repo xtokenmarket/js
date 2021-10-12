@@ -86,7 +86,7 @@ const getAbi = (contractName) => {
     case abis_1.XTK_MANAGEMENT_STAKING_MODULE:
       return abis_1.Abi.XTKManagementStakingModule
     case abis_1.AAVE_X_AAVE_A_CLR:
-    case abis_1.ALPHA_X_ALPHA_A_CLR:
+    case abis_1.X_ALPHA_A_ALPHA_CLR:
     case abis_1.BNT_X_BNT_A_CLR:
     case abis_1.INCH_X_INCH_A_CLR:
     case abis_1.INCH_X_INCH_B_CLR:
@@ -275,7 +275,7 @@ const getXAssetCLRSymbol = (symbol) => {
     case abis_1.X_AAVE_B:
       return abis_1.X_AAVE_B_AAVE_CLR
     case abis_1.X_ALPHA_A:
-      return abis_1.ALPHA_X_ALPHA_A_CLR
+      return abis_1.X_ALPHA_A_ALPHA_CLR
     case abis_1.X_BNT_A:
       return abis_1.BNT_X_BNT_A_CLR
     case abis_1.X_INCH_A:
@@ -295,7 +295,7 @@ const getXAssetCLRTokenSymbol = (symbol) => {
   switch (symbol) {
     case abis_1.AAVE_X_AAVE_A_CLR:
       return { 0: abis_1.AAVE, 1: abis_1.X_AAVE_A }
-    case abis_1.ALPHA_X_ALPHA_A_CLR:
+    case abis_1.X_ALPHA_A_ALPHA_CLR:
       return { 0: abis_1.ALPHA, 1: abis_1.X_ALPHA_A }
     case abis_1.BNT_X_BNT_A_CLR:
       return { 0: abis_1.BNT, 1: abis_1.X_BNT_A }

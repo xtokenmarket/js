@@ -1,11 +1,11 @@
 import { BaseProvider } from '@ethersproject/providers'
 import {
   AAVE_X_AAVE_A_CLR,
-  ALPHA_X_ALPHA_A_CLR,
   BNT_X_BNT_A_CLR,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
   X_AAVE_B_AAVE_CLR,
+  X_ALPHA_A_ALPHA_CLR,
   X_KNC_A_KNC_CLR,
   X_KNC_B_KNC_CLR,
   X_SNX_A_SNX_CLR,
@@ -85,7 +85,7 @@ export const getXAssetCLRPrices = async (
         break
 
       case AAVE_X_AAVE_A_CLR:
-      case ALPHA_X_ALPHA_A_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:

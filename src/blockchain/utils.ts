@@ -10,7 +10,6 @@ import {
   Abi,
   ADDRESSES,
   ALPHA,
-  ALPHA_X_ALPHA_A_CLR,
   BNT,
   BNT_X_BNT_A_CLR,
   BUSD,
@@ -43,6 +42,7 @@ import {
   X_AAVE_B_AAVE_CLR,
   X_AAVE_B_BALANCER_POOL,
   X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
   X_INCH_A,
@@ -171,7 +171,7 @@ export const getAbi = (contractName: IContracts) => {
     case XTK_MANAGEMENT_STAKING_MODULE:
       return Abi.XTKManagementStakingModule as ContractInterface
     case AAVE_X_AAVE_A_CLR:
-    case ALPHA_X_ALPHA_A_CLR:
+    case X_ALPHA_A_ALPHA_CLR:
     case BNT_X_BNT_A_CLR:
     case INCH_X_INCH_A_CLR:
     case INCH_X_INCH_B_CLR:
@@ -389,7 +389,7 @@ export const getXAssetCLRSymbol = (symbol: ITokenSymbols): IXAssetCLR => {
     case X_AAVE_B:
       return X_AAVE_B_AAVE_CLR
     case X_ALPHA_A:
-      return ALPHA_X_ALPHA_A_CLR
+      return X_ALPHA_A_ALPHA_CLR
     case X_BNT_A:
       return BNT_X_BNT_A_CLR
     case X_INCH_A:
@@ -409,7 +409,7 @@ export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
   switch (symbol) {
     case AAVE_X_AAVE_A_CLR:
       return { 0: AAVE, 1: X_AAVE_A }
-    case ALPHA_X_ALPHA_A_CLR:
+    case X_ALPHA_A_ALPHA_CLR:
       return { 0: ALPHA, 1: X_ALPHA_A }
     case BNT_X_BNT_A_CLR:
       return { 0: BNT, 1: X_BNT_A }
