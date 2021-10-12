@@ -222,11 +222,11 @@ export class XToken {
       case X_U3LP_H:
         return approveXU3LP(symbol, value, inputAsset || 0, this.provider)
       case AAVE_X_AAVE_A_CLR:
-      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:
       case X_AAVE_B_AAVE_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
@@ -680,11 +680,11 @@ export class XToken {
       | typeof X_U3LP_G
       | typeof X_U3LP_H
       | typeof AAVE_X_AAVE_A_CLR
-      | typeof X_ALPHA_A_ALPHA_CLR
       | typeof BNT_X_BNT_A_CLR
       | typeof INCH_X_INCH_A_CLR
       | typeof INCH_X_INCH_B_CLR
       | typeof X_AAVE_B_AAVE_CLR
+      | typeof X_ALPHA_A_ALPHA_CLR
       | typeof X_KNC_A_KNC_CLR
       | typeof X_KNC_B_KNC_CLR
       | typeof X_SNX_A_SNX_CLR
@@ -718,11 +718,11 @@ export class XToken {
           this.provider
         )
       case AAVE_X_AAVE_A_CLR:
-      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:
       case X_AAVE_B_AAVE_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:

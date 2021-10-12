@@ -78,6 +78,7 @@ export const getXAssetCLRPrices = async (
 
     switch (symbol) {
       case X_AAVE_B_AAVE_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
@@ -85,7 +86,6 @@ export const getXAssetCLRPrices = async (
         break
 
       case AAVE_X_AAVE_A_CLR:
-      case X_ALPHA_A_ALPHA_CLR:
       case BNT_X_BNT_A_CLR:
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:

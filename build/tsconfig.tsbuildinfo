@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "cd6dfe602df621e2b524566dbb87a19180c0fb4c73090e37337cbc792b9ef9ad",
-        "signature": "cd6dfe602df621e2b524566dbb87a19180c0fb4c73090e37337cbc792b9ef9ad",
+        "version": "c47505c11075e1a35b7238f5cd93af666b5f02a7a272144b8891e00357aa3ed5",
+        "signature": "c47505c11075e1a35b7238f5cd93af666b5f02a7a272144b8891e00357aa3ed5",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1476,7 +1476,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "fae7a6f6e174460aaa3e9fe59b20f61994f283c37401497f8063dc27b41deeb9",
+        "version": "97a0679c24475c3397bd25c942458ce9c63515211aea16e3c1afac20b0ea853a",
         "signature": "68f2a2e61267b8e6cce522230b39a3c22c847cb8cce4e895b3b80eb98bc81c5e",
         "affectsGlobalScope": false
       },
@@ -1496,7 +1496,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/prices.ts": {
-        "version": "7afd8592f24c339abb47f582a643560682623f4033c36c7a883dbe5dce8940b9",
+        "version": "da0d8fcc99278e5c2224d33609c56922901f44df29940bcae85bab219c634071",
         "signature": "e7a076a85f6afe44b2d3a4142050dee981e128490934c99548b06c686f7044ea",
         "affectsGlobalScope": false
       },
@@ -1681,8 +1681,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "fe717648f1765dab6c332de12738b109b40764a3fc1ae4700b00a4992c9dd0dd",
-        "signature": "34a25e3bccc497ddf3719774c3e45ee44ea9fa21cb737e8688b7de3a37cf180c",
+        "version": "723554d6a32389228b0d810113b23eeee6b5283b0bdd8f5c8adc22e18bd23bd6",
+        "signature": "2d5b13ce4604e1dad1f14bff127ff3ea5ea1d31992152381537b076b9b6b7b34",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {
