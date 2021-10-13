@@ -9,6 +9,7 @@ import {
   AAVE_X_AAVE_A_CLR,
   Abi,
   ADDRESSES,
+  ALPHA,
   BNT,
   BNT_X_BNT_A_CLR,
   BUSD,
@@ -40,6 +41,8 @@ import {
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
   X_AAVE_B_BALANCER_POOL,
+  X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
   X_INCH_A,
@@ -86,6 +89,8 @@ import {
 
 import { getXAavePrices } from './xaave'
 import { getXAaveContracts } from './xaave/helper'
+import { getXAlphaPrices } from './xalpha'
+import { getXAlphaContracts } from './xalpha/helper'
 import { getXBntPrices } from './xbnt'
 import { getXBntContracts } from './xbnt/helper'
 import { getXInchPrices } from './xinch'
@@ -107,6 +112,7 @@ export const capitalizeToken = (symbol: IStableAssets) => {
 export const getAbi = (contractName: IContracts) => {
   switch (contractName) {
     case AAVE:
+    case ALPHA:
     case BNT:
     case BUSD:
     case DAI:
@@ -141,6 +147,8 @@ export const getAbi = (contractName: IContracts) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return Abi.xAAVE as ContractInterface
+    case X_ALPHA_A:
+      return Abi.xALPHA as ContractInterface
     case X_BNT_A:
       return Abi.xBNT as ContractInterface
     case X_INCH_A:
@@ -167,6 +175,7 @@ export const getAbi = (contractName: IContracts) => {
     case INCH_X_INCH_A_CLR:
     case INCH_X_INCH_B_CLR:
     case X_AAVE_B_AAVE_CLR:
+    case X_ALPHA_A_ALPHA_CLR:
     case X_KNC_A_KNC_CLR:
     case X_KNC_B_KNC_CLR:
     case X_SNX_A_SNX_CLR:
@@ -337,6 +346,8 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
     case X_AAVE_A:
     case X_AAVE_B:
       return AAVE
+    case X_ALPHA_A:
+      return ALPHA
     case X_BNT_A:
       return BNT
     case X_INCH_A:
@@ -377,6 +388,8 @@ export const getXAssetCLRSymbol = (symbol: ITokenSymbols): IXAssetCLR => {
       return AAVE_X_AAVE_A_CLR
     case X_AAVE_B:
       return X_AAVE_B_AAVE_CLR
+    case X_ALPHA_A:
+      return X_ALPHA_A_ALPHA_CLR
     case X_BNT_A:
       return BNT_X_BNT_A_CLR
     case X_INCH_A:
@@ -404,6 +417,8 @@ export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
       return { 0: INCH, 1: X_INCH_B }
     case X_AAVE_B_AAVE_CLR:
       return { 0: X_AAVE_B, 1: AAVE }
+    case X_ALPHA_A_ALPHA_CLR:
+      return { 0: X_ALPHA_A, 1: ALPHA }
     case X_KNC_A_KNC_CLR:
       return { 0: X_KNC_A, 1: KNC }
     case X_KNC_B_KNC_CLR:
@@ -428,6 +443,13 @@ export const getXAssetPrices = async (
         xaaveContract,
       } = await getXAaveContracts(symbol, provider)
       return getXAavePrices(xaaveContract, kyberProxyContract, network.chainId)
+    }
+    case X_ALPHA_A: {
+      const { kyberProxyContract, xalphaContract } = await getXAlphaContracts(
+        symbol,
+        provider
+      )
+      return getXAlphaPrices(xalphaContract, kyberProxyContract)
     }
     case X_BNT_A: {
       const { kyberProxyContract, xbntContract } = await getXBntContracts(

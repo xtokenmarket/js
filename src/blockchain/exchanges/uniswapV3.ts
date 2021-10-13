@@ -3,6 +3,8 @@ import { abi as QuoterAbi } from '@uniswap/v3-periphery/artifacts/contracts/lens
 import {
   ADDRESSES,
   BUY,
+  ETH,
+  WETH,
   X_AAVE_A,
   X_BNT_A,
   X_INCH_A,
@@ -22,9 +24,11 @@ const MAX_PRICE = BigNumber.from(
 const QUOTER_ADDRESS = '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'
 
 export const getUniswapV3EstimatedQty = async (
+  tokenIn: typeof ETH | ITokenSymbols,
   symbol: ITokenSymbols,
   amount: string,
   tradeType: ITradeType,
+  fees: BigNumber | undefined,
   provider: BaseProvider
 ) => {
   const { chainId } = await provider.getNetwork()
@@ -39,6 +43,7 @@ export const getUniswapV3EstimatedQty = async (
 
   const assetAddress = ADDRESSES[tokenSymbol][chainId]
   const xAssetAddress = ADDRESSES[symbol][chainId]
+  const wethAddress = ADDRESSES[WETH][chainId]
 
   // If asset0 is not xAsset in xAssetCLR token
   const isAsset0Native =
@@ -52,19 +57,19 @@ export const getUniswapV3EstimatedQty = async (
   let priceLimit
 
   if (isTradeBuy) {
-    tokenInAddress = assetAddress
-    tokenOutAddress = xAssetAddress
+    tokenInAddress = tokenIn === ETH ? wethAddress : assetAddress
+    tokenOutAddress = tokenIn === ETH ? assetAddress : xAssetAddress
     priceLimit = isAsset0Native ? MIN_PRICE : MAX_PRICE
   } else {
-    tokenInAddress = xAssetAddress
-    tokenOutAddress = assetAddress
+    tokenInAddress = tokenIn === ETH ? assetAddress : xAssetAddress
+    tokenOutAddress = tokenIn === ETH ? wethAddress : assetAddress
     priceLimit = isAsset0Native ? MAX_PRICE : MIN_PRICE
   }
 
   const estimateQty = await quoterContract.callStatic.quoteExactInputSingle(
     tokenInAddress,
     tokenOutAddress,
-    FEES,
+    fees || FEES,
     parseEther(amount),
     priceLimit
   )

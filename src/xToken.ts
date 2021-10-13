@@ -11,6 +11,8 @@ import {
   X_AAVE_A,
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
+  X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
   X_BNT_A,
   X_INCH_A,
   X_INCH_B,
@@ -73,6 +75,16 @@ import {
   getXAaveAsset,
   mintXAave,
 } from './blockchain/xaave'
+import {
+  approveXAlpha,
+  burnXAlpha,
+  getExpectedQuantityOnBurnXAlpha,
+  getExpectedQuantityOnMintXAlpha,
+  getMaximumRedeemableXAlpha,
+  getPortfolioItemXAlpha,
+  getXAlphaAsset,
+  mintXAlpha,
+} from './blockchain/xalpha'
 import {
   approveXBnt,
   burnXBnt,
@@ -188,6 +200,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return approveXAave(symbol, value, this.provider)
+      case X_ALPHA_A:
+        return approveXAlpha(symbol, value, this.provider)
       case X_BNT_A:
         return approveXBnt(symbol, value, this.provider)
       case X_INCH_A:
@@ -212,6 +226,7 @@ export class XToken {
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:
       case X_AAVE_B_AAVE_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
@@ -266,6 +281,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return burnXAave(symbol, sellForEth, value, this.provider)
+      case X_ALPHA_A:
+        return burnXAlpha(symbol, sellForEth, value, this.provider)
       case X_BNT_A:
         return burnXBnt(symbol, sellForEth, value, this.provider)
       case X_INCH_A:
@@ -371,12 +388,14 @@ export class XToken {
       source: Exchange.XTOKEN,
     }
 
-    if (symbol === X_AAVE_A && !tradeWithEth) {
+    if ((symbol === X_AAVE_A || symbol === X_ALPHA_A) && !tradeWithEth) {
       dexSource = Exchange.UNISWAP_V3
       dexExpectedQty = await getUniswapV3EstimatedQty(
         symbol,
+        symbol,
         amount,
         tradeType,
+        undefined,
         this.provider
       )
     } else if (symbol === X_AAVE_B) {
@@ -472,6 +491,13 @@ export class XToken {
           amount,
           this.provider
         )
+      case X_ALPHA_A:
+        return getExpectedQuantityOnBurnXAlpha(
+          symbol,
+          sellForEth,
+          amount,
+          this.provider
+        )
       case X_BNT_A:
         return getExpectedQuantityOnBurnXBnt(
           symbol,
@@ -542,6 +568,13 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getExpectedQuantityOnMintXAave(
+          symbol,
+          tradeWithEth,
+          amount,
+          this.provider
+        )
+      case X_ALPHA_A:
+        return getExpectedQuantityOnMintXAlpha(
           symbol,
           tradeWithEth,
           amount,
@@ -633,6 +666,7 @@ export class XToken {
     symbol:
       | typeof X_AAVE_A
       | typeof X_AAVE_B
+      | typeof X_ALPHA_A
       | typeof X_BNT_A
       | typeof X_INCH_A
       | typeof X_INCH_B
@@ -650,6 +684,7 @@ export class XToken {
       | typeof INCH_X_INCH_A_CLR
       | typeof INCH_X_INCH_B_CLR
       | typeof X_AAVE_B_AAVE_CLR
+      | typeof X_ALPHA_A_ALPHA_CLR
       | typeof X_KNC_A_KNC_CLR
       | typeof X_KNC_B_KNC_CLR
       | typeof X_SNX_A_SNX_CLR
@@ -660,6 +695,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return getMaximumRedeemableXAave(symbol, this.provider)
+      case X_ALPHA_A:
+        return getMaximumRedeemableXAlpha(symbol, this.provider)
       case X_BNT_A:
         return getMaximumRedeemableXBnt(symbol, this.provider)
       case X_INCH_A:
@@ -685,6 +722,7 @@ export class XToken {
       case INCH_X_INCH_A_CLR:
       case INCH_X_INCH_B_CLR:
       case X_AAVE_B_AAVE_CLR:
+      case X_ALPHA_A_ALPHA_CLR:
       case X_KNC_A_KNC_CLR:
       case X_KNC_B_KNC_CLR:
       case X_SNX_A_SNX_CLR:
@@ -722,6 +760,7 @@ export class XToken {
       getPortfolioItemXInch(X_INCH_A, address, this.provider),
       getPortfolioItemXInch(X_INCH_B, address, this.provider),
       getPortfolioItemXBnt(X_BNT_A, address, this.provider),
+      getPortfolioItemXAlpha(X_ALPHA_A, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
       getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
@@ -806,6 +845,7 @@ export class XToken {
    */
   public async getXAssets(): Promise<readonly IAsset[]> {
     return Promise.all([
+      getXAlphaAsset(X_ALPHA_A, this.provider),
       getXBntAsset(X_BNT_A, this.provider),
       getXInchAsset(X_INCH_A, this.provider),
       getXInchAsset(X_INCH_B, this.provider),
@@ -875,6 +915,8 @@ export class XToken {
       case X_AAVE_A:
       case X_AAVE_B:
         return mintXAave(symbol, tradeWithEth, value, affiliate, this.provider)
+      case X_ALPHA_A:
+        return mintXAlpha(symbol, tradeWithEth, value, this.provider)
       case X_BNT_A:
         return mintXBnt(symbol, tradeWithEth, value, this.provider)
       case X_INCH_A:

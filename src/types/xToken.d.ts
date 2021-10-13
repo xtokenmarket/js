@@ -5,26 +5,49 @@
 
 import {
   AAVE,
+  AAVE_X_AAVE_A_CLR,
+  ALPHA,
+  BNT,
+  BNT_X_BNT_A_CLR,
+  BUSD,
+  BUY,
+  DAI,
+  ETH,
   EXCHANGE_RATES,
+  FRAX,
+  INCH,
+  INCH_LIQUIDITY_PROTOCOL,
+  INCH_X_INCH_A_CLR,
+  INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
+  REN_BTC,
+  S_ETH,
+  S_USD,
+  SELL,
   SNX,
   TRADE_ACCOUNTING,
+  UNISWAP_LIBRARY,
+  UNISWAP_V2_PAIR,
+  USDC,
+  USDT,
+  UST,
+  WBTC,
+  WETH,
   X_AAVE_A,
   X_AAVE_B,
-  X_KNC_A,
-  X_KNC_B,
-  X_SNX_A,
-  XTK_MANAGEMENT_STAKING_MODULE,
-  BUY,
-  SELL,
-  INCH,
+  X_AAVE_B_AAVE_CLR,
+  X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
+  X_BNT_A,
   X_INCH_A,
   X_INCH_B,
-  INCH_LIQUIDITY_PROTOCOL,
-  UNISWAP_V2_PAIR,
-  X_BNT_A,
-  BNT,
+  X_KNC_A,
+  X_KNC_A_KNC_CLR,
+  X_KNC_B,
+  X_KNC_B_KNC_CLR,
+  X_SNX_A,
+  X_SNX_A_SNX_CLR,
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
@@ -33,29 +56,9 @@ import {
   X_U3LP_F,
   X_U3LP_G,
   X_U3LP_H,
-  BUSD,
-  DAI,
-  ETH,
-  FRAX,
-  REN_BTC,
-  S_ETH,
-  S_USD,
-  USDC,
-  USDT,
-  UST,
-  WBTC,
-  WETH,
-  AAVE_X_AAVE_A_CLR,
-  BNT_X_BNT_A_CLR,
-  INCH_X_INCH_A_CLR,
-  INCH_X_INCH_B_CLR,
-  X_AAVE_B_AAVE_CLR,
-  X_KNC_A_KNC_CLR,
-  X_KNC_B_KNC_CLR,
-  X_SNX_A_SNX_CLR,
-  UNISWAP_LIBRARY,
-  XTK_ETH_CLR,
   XTK,
+  XTK_ETH_CLR,
+  XTK_MANAGEMENT_STAKING_MODULE,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
@@ -77,6 +80,7 @@ export type IContracts =
 
 export type INativeAssets =
   | typeof AAVE
+  | typeof ALPHA
   | typeof BNT
   | typeof INCH
   | typeof KNC
@@ -85,6 +89,7 @@ export type INativeAssets =
 export type ITokenSymbols =
   | typeof X_AAVE_A
   | typeof X_AAVE_B
+  | typeof X_ALPHA_A
   | typeof X_BNT_A
   | typeof X_INCH_A
   | typeof X_INCH_B
@@ -121,6 +126,7 @@ export type IXAssetCLR =
   | typeof INCH_X_INCH_A_CLR
   | typeof INCH_X_INCH_B_CLR
   | typeof X_AAVE_B_AAVE_CLR
+  | typeof X_ALPHA_A_ALPHA_CLR
   | typeof X_KNC_A_KNC_CLR
   | typeof X_KNC_B_KNC_CLR
   | typeof X_SNX_A_SNX_CLR
@@ -131,6 +137,7 @@ export type ITradeType = typeof BUY | typeof SELL
 interface IAsset {
   aum: number
   mandate: string
+  order: number
   price: number
   priceEth: number
   symbol: ITokenSymbols

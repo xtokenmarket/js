@@ -28,6 +28,7 @@ export const getXAaveAsset = async (
     mandate: `Staking Module; ${
       symbol === X_AAVE_A ? 'Buchanan' : 'Samuelson'
     } Mandate`,
+    order: symbol === X_AAVE_A ? 5 : 4,
     price: priceUsd,
     priceEth,
     symbol,

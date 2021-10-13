@@ -8,7 +8,7 @@ import {
   getBalancerPortfolioItem,
 } from './balancer'
 
-test('Calculate expected quantity on burn of xAAVEa on Balancer', async (t) => {
+/*test('Calculate expected quantity on burn of xAAVEa on Balancer', async (t) => {
   const expectedQty = await getBalancerEstimatedQuantity(
     X_AAVE_A,
     X_AAVE_A,
@@ -30,7 +30,7 @@ test('Calculate expected quantity on mint of xAAVEa on Balancer', async (t) => {
   )
   console.log('[Balancer] Expected xAAVEa qty for 1 ETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
-})
+})*/
 
 test('Calculate expected quantity on burn of xAAVEb on Balancer', async (t) => {
   const expectedQty = await getBalancerEstimatedQuantity(

@@ -1010,10 +1010,10 @@
     base64-sol "1.0.1"
     hardhat-watcher "^2.1.1"
 
-"@xtoken/abis@0.1.19":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@xtoken/abis/-/abis-0.1.19.tgz#590f914f2f4a52d0e39806ebe0ea98826459a342"
-  integrity sha512-kdmdGW9BHc149whQIi16KXFosfDx7NGYjkPtyDoF3sJkI+yYunndr+ZvMbjYaLBBYvhkO+va901Sqdq6vJMIvw==
+"@xtoken/abis@0.1.20":
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/@xtoken/abis/-/abis-0.1.20.tgz#fca4cc05ed4d31be37a480180e41d65e8bcc784e"
+  integrity sha512-CGzsozutgdR8JHKE5GN9y9ZNeiGQ82iMpnqlYiGhE2x18Sf04ZgXJj3mzcZx74PAtxRROZzKLhA7WIuBqOU2XQ==
 
 JSONStream@^1.0.4:
   version "1.3.5"

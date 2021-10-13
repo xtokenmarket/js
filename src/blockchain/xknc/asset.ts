@@ -27,6 +27,7 @@ export const getXKncAsset = async (
     mandate: `Votes to maximize ${
       symbol === X_KNC_A ? 'staker rewards' : 'reserve rebates'
     }`,
+    order: symbol === X_KNC_A ? 2 : 1,
     price: priceUsd,
     priceEth,
     symbol,
