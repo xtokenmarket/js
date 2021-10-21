@@ -23,6 +23,62 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
+        name: 'borrower',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'borrowAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'debtAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'BorrowEvent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'borrower',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'liquidator',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'address[]',
+        name: 'markets',
+        type: 'address[]',
+      },
+    ],
+    name: 'LiquidateEvent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
         name: 'previousOwner',
         type: 'address',
       },
@@ -53,6 +109,31 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: 'address',
+        name: 'borrower',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'repayAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'debtAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'RepayEvent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         internalType: 'address',
         name: 'account',
@@ -60,6 +141,147 @@ const _abi = [
       },
     ],
     name: 'Unpaused',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'comptroller',
+        type: 'address',
+      },
+    ],
+    name: 'UpdateComptroller',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'optimalUtilizationRate',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'baseBorrowRate',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'slope1',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'slope2',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateInterestModelParameters',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'lptBaseValue',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateLPTBaseValue',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'liquidityPenaltyFactor',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateLiquidationPenaltyFactor',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'liquidityPoolToken',
+        type: 'address',
+      },
+    ],
+    name: 'UpdateLiquidityPoolToken',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minimumLoanValue',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateMiniumLoanValue',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'reserveFactor',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateReserveFeeFactor',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'xtkFeeFactor',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateXtkFeeFactor',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'recipient',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'xtkEarns',
+        type: 'uint256',
+      },
+    ],
+    name: 'WithdrawFee',
     type: 'event',
   },
   {
@@ -73,6 +295,19 @@ const _abi = [
     name: 'borrow',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'borrowRate',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -96,6 +331,19 @@ const _abi = [
         internalType: 'address',
         name: '',
         type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'currentLiquidity',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -320,13 +568,7 @@ const _abi = [
   {
     inputs: [],
     name: 'pauseContract',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -544,13 +786,7 @@ const _abi = [
   {
     inputs: [],
     name: 'unpauseContract',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -563,6 +799,19 @@ const _abi = [
       },
     ],
     name: 'updatedBorrowBy',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'utilizationRate',
     outputs: [
       {
         internalType: 'uint256',

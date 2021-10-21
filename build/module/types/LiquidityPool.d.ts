@@ -23,8 +23,10 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 interface LiquidityPoolInterface extends ethers.utils.Interface {
   functions: {
     'borrow(uint256)': FunctionFragment
+    'borrowRate()': FunctionFragment
     'borrowRatePerBlock()': FunctionFragment
     'comptroller()': FunctionFragment
+    'currentLiquidity()': FunctionFragment
     'getBaseBorrowRate()': FunctionFragment
     'getLPTBaseValue()': FunctionFragment
     'getLPTValue()': FunctionFragment
@@ -59,18 +61,24 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     'transferOwnership(address)': FunctionFragment
     'unpauseContract()': FunctionFragment
     'updatedBorrowBy(address)': FunctionFragment
+    'utilizationRate()': FunctionFragment
     'withdraw(uint256)': FunctionFragment
     'withdrawFees(address)': FunctionFragment
     'xtkEarns()': FunctionFragment
   }
 
   encodeFunctionData(functionFragment: 'borrow', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'borrowRate', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'borrowRatePerBlock',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'comptroller',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'currentLiquidity',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -183,6 +191,10 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     values: [string]
   ): string
   encodeFunctionData(
+    functionFragment: 'utilizationRate',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'withdraw',
     values: [BigNumberish]
   ): string
@@ -190,11 +202,16 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'xtkEarns', values?: undefined): string
 
   decodeFunctionResult(functionFragment: 'borrow', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'borrowRate', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'borrowRatePerBlock',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'comptroller', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'currentLiquidity',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'getBaseBorrowRate',
     data: BytesLike
@@ -298,6 +315,10 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     functionFragment: 'updatedBorrowBy',
     data: BytesLike
   ): Result
+  decodeFunctionResult(
+    functionFragment: 'utilizationRate',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'withdrawFees',
@@ -306,14 +327,42 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'xtkEarns', data: BytesLike): Result
 
   events: {
+    'BorrowEvent(address,uint256,uint256)': EventFragment
+    'LiquidateEvent(address,address,uint256,address[])': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
+    'RepayEvent(address,uint256,uint256)': EventFragment
     'Unpaused(address)': EventFragment
+    'UpdateComptroller(address)': EventFragment
+    'UpdateInterestModelParameters(uint256,uint256,uint256,uint256)': EventFragment
+    'UpdateLPTBaseValue(uint256)': EventFragment
+    'UpdateLiquidationPenaltyFactor(uint256)': EventFragment
+    'UpdateLiquidityPoolToken(address)': EventFragment
+    'UpdateMiniumLoanValue(uint256)': EventFragment
+    'UpdateReserveFeeFactor(uint256)': EventFragment
+    'UpdateXtkFeeFactor(uint256)': EventFragment
+    'WithdrawFee(address,uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'BorrowEvent'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'LiquidateEvent'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RepayEvent'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateComptroller'): EventFragment
+  getEvent(
+    nameOrSignatureOrTopic: 'UpdateInterestModelParameters'
+  ): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateLPTBaseValue'): EventFragment
+  getEvent(
+    nameOrSignatureOrTopic: 'UpdateLiquidationPenaltyFactor'
+  ): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateLiquidityPoolToken'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateMiniumLoanValue'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateReserveFeeFactor'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateXtkFeeFactor'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'WithdrawFee'): EventFragment
 }
 
 export class LiquidityPool extends Contract {
@@ -340,6 +389,10 @@ export class LiquidityPool extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    borrowRate(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'borrowRate()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
     borrowRatePerBlock(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'borrowRatePerBlock()'(overrides?: CallOverrides): Promise<[BigNumber]>
@@ -347,6 +400,10 @@ export class LiquidityPool extends Contract {
     comptroller(overrides?: CallOverrides): Promise<[string]>
 
     'comptroller()'(overrides?: CallOverrides): Promise<[string]>
+
+    currentLiquidity(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'currentLiquidity()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -596,6 +653,10 @@ export class LiquidityPool extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    utilizationRate(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'utilizationRate()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
     withdraw(
       _lptAmount: BigNumberish,
       overrides?: Overrides
@@ -631,6 +692,10 @@ export class LiquidityPool extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  borrowRate(overrides?: CallOverrides): Promise<BigNumber>
+
+  'borrowRate()'(overrides?: CallOverrides): Promise<BigNumber>
+
   borrowRatePerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
   'borrowRatePerBlock()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -638,6 +703,10 @@ export class LiquidityPool extends Contract {
   comptroller(overrides?: CallOverrides): Promise<string>
 
   'comptroller()'(overrides?: CallOverrides): Promise<string>
+
+  currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+  'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
   getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -880,6 +949,10 @@ export class LiquidityPool extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  utilizationRate(overrides?: CallOverrides): Promise<BigNumber>
+
+  'utilizationRate()'(overrides?: CallOverrides): Promise<BigNumber>
+
   withdraw(
     _lptAmount: BigNumberish,
     overrides?: Overrides
@@ -912,6 +985,10 @@ export class LiquidityPool extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
+    borrowRate(overrides?: CallOverrides): Promise<BigNumber>
+
+    'borrowRate()'(overrides?: CallOverrides): Promise<BigNumber>
+
     borrowRatePerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
     'borrowRatePerBlock()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -919,6 +996,10 @@ export class LiquidityPool extends Contract {
     comptroller(overrides?: CallOverrides): Promise<string>
 
     'comptroller()'(overrides?: CallOverrides): Promise<string>
+
+    currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+    'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1006,9 +1087,9 @@ export class LiquidityPool extends Contract {
 
     'owner()'(overrides?: CallOverrides): Promise<string>
 
-    pauseContract(overrides?: CallOverrides): Promise<boolean>
+    pauseContract(overrides?: CallOverrides): Promise<void>
 
-    'pauseContract()'(overrides?: CallOverrides): Promise<boolean>
+    'pauseContract()'(overrides?: CallOverrides): Promise<void>
 
     paused(overrides?: CallOverrides): Promise<boolean>
 
@@ -1140,9 +1221,9 @@ export class LiquidityPool extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    unpauseContract(overrides?: CallOverrides): Promise<boolean>
+    unpauseContract(overrides?: CallOverrides): Promise<void>
 
-    'unpauseContract()'(overrides?: CallOverrides): Promise<boolean>
+    'unpauseContract()'(overrides?: CallOverrides): Promise<void>
 
     updatedBorrowBy(
       _borrower: string,
@@ -1153,6 +1234,10 @@ export class LiquidityPool extends Contract {
       _borrower: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    utilizationRate(overrides?: CallOverrides): Promise<BigNumber>
+
+    'utilizationRate()'(overrides?: CallOverrides): Promise<BigNumber>
 
     withdraw(_lptAmount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
@@ -1174,6 +1259,19 @@ export class LiquidityPool extends Contract {
   }
 
   filters: {
+    BorrowEvent(
+      borrower: string | null,
+      borrowAmount: null,
+      debtAmount: null
+    ): EventFilter
+
+    LiquidateEvent(
+      borrower: string | null,
+      liquidator: string | null,
+      amount: null,
+      markets: null
+    ): EventFilter
+
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
@@ -1181,7 +1279,36 @@ export class LiquidityPool extends Contract {
 
     Paused(account: null): EventFilter
 
+    RepayEvent(
+      borrower: string | null,
+      repayAmount: null,
+      debtAmount: null
+    ): EventFilter
+
     Unpaused(account: null): EventFilter
+
+    UpdateComptroller(comptroller: string | null): EventFilter
+
+    UpdateInterestModelParameters(
+      optimalUtilizationRate: null,
+      baseBorrowRate: null,
+      slope1: null,
+      slope2: null
+    ): EventFilter
+
+    UpdateLPTBaseValue(lptBaseValue: null): EventFilter
+
+    UpdateLiquidationPenaltyFactor(liquidityPenaltyFactor: null): EventFilter
+
+    UpdateLiquidityPoolToken(liquidityPoolToken: string | null): EventFilter
+
+    UpdateMiniumLoanValue(minimumLoanValue: null): EventFilter
+
+    UpdateReserveFeeFactor(reserveFactor: null): EventFilter
+
+    UpdateXtkFeeFactor(xtkFeeFactor: null): EventFilter
+
+    WithdrawFee(recipient: string | null, xtkEarns: null): EventFilter
   }
 
   estimateGas: {
@@ -1192,6 +1319,10 @@ export class LiquidityPool extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
+    borrowRate(overrides?: CallOverrides): Promise<BigNumber>
+
+    'borrowRate()'(overrides?: CallOverrides): Promise<BigNumber>
+
     borrowRatePerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
     'borrowRatePerBlock()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -1199,6 +1330,10 @@ export class LiquidityPool extends Contract {
     comptroller(overrides?: CallOverrides): Promise<BigNumber>
 
     'comptroller()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
+
+    'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1434,6 +1569,10 @@ export class LiquidityPool extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    utilizationRate(overrides?: CallOverrides): Promise<BigNumber>
+
+    'utilizationRate()'(overrides?: CallOverrides): Promise<BigNumber>
+
     withdraw(
       _lptAmount: BigNumberish,
       overrides?: Overrides
@@ -1467,6 +1606,10 @@ export class LiquidityPool extends Contract {
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
+    borrowRate(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'borrowRate()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     borrowRatePerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'borrowRatePerBlock()'(
@@ -1476,6 +1619,12 @@ export class LiquidityPool extends Contract {
     comptroller(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'comptroller()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    currentLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'currentLiquidity()'(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
@@ -1738,6 +1887,12 @@ export class LiquidityPool extends Contract {
 
     'updatedBorrowBy(address)'(
       _borrower: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    utilizationRate(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'utilizationRate()'(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 

@@ -60,6 +60,58 @@ const _abi = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'collateralCap',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateCollateralCap',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'collateralFactor',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateCollateralFactor',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'active',
+        type: 'bool',
+      },
+    ],
+    name: 'UpdateCollateralizationActive',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'comptroller',
+        type: 'address',
+      },
+    ],
+    name: 'UpdateComptroller',
+    type: 'event',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -192,25 +244,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_borrower',
-        type: 'address',
-      },
-    ],
-    name: 'myBorrowingLimit',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'owner',
     outputs: [
@@ -226,13 +259,7 @@ const _abi = [
   {
     inputs: [],
     name: 'pauseContract',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -347,13 +374,7 @@ const _abi = [
   {
     inputs: [],
     name: 'unpauseContract',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },

@@ -22,24 +22,35 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface ComptrollerInterface extends ethers.utils.Interface {
   functions: {
+    'addBorrowerMarket(address,address)': FunctionFragment
     'addMarket(address)': FunctionFragment
+    'borrowerToMarkets(address,uint256)': FunctionFragment
     'borrowingCapacity(address)': FunctionFragment
     'getAllMarkets()': FunctionFragment
     'getHealthRatio(address)': FunctionFragment
     'initialize()': FunctionFragment
+    'isMarket(address)': FunctionFragment
     'liquidityPool()': FunctionFragment
     'markets(uint256)': FunctionFragment
     'owner()': FunctionFragment
-    'removeMarket(address)': FunctionFragment
+    'removeBorrowerMarket(address,address)': FunctionFragment
+    'removeMarket(uint256)': FunctionFragment
     'renounceOwnership()': FunctionFragment
-    'resetMarkets()': FunctionFragment
     'sendCollateralToLiquidator(address,address,uint256)': FunctionFragment
     'sendCollateralToLiquidatorWithPreference(address,address,uint256,address[])': FunctionFragment
     'setLiquidityPool(address)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
   }
 
+  encodeFunctionData(
+    functionFragment: 'addBorrowerMarket',
+    values: [string, string]
+  ): string
   encodeFunctionData(functionFragment: 'addMarket', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'borrowerToMarkets',
+    values: [string, BigNumberish]
+  ): string
   encodeFunctionData(
     functionFragment: 'borrowingCapacity',
     values: [string]
@@ -53,6 +64,7 @@ interface ComptrollerInterface extends ethers.utils.Interface {
     values: [string]
   ): string
   encodeFunctionData(functionFragment: 'initialize', values?: undefined): string
+  encodeFunctionData(functionFragment: 'isMarket', values: [string]): string
   encodeFunctionData(
     functionFragment: 'liquidityPool',
     values?: undefined
@@ -62,13 +74,16 @@ interface ComptrollerInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
-  encodeFunctionData(functionFragment: 'removeMarket', values: [string]): string
   encodeFunctionData(
-    functionFragment: 'renounceOwnership',
-    values?: undefined
+    functionFragment: 'removeBorrowerMarket',
+    values: [string, string]
   ): string
   encodeFunctionData(
-    functionFragment: 'resetMarkets',
+    functionFragment: 'removeMarket',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'renounceOwnership',
     values?: undefined
   ): string
   encodeFunctionData(
@@ -88,7 +103,15 @@ interface ComptrollerInterface extends ethers.utils.Interface {
     values: [string]
   ): string
 
+  decodeFunctionResult(
+    functionFragment: 'addBorrowerMarket',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'addMarket', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'borrowerToMarkets',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'borrowingCapacity',
     data: BytesLike
@@ -102,6 +125,7 @@ interface ComptrollerInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isMarket', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'liquidityPool',
     data: BytesLike
@@ -109,15 +133,15 @@ interface ComptrollerInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'markets', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(
+    functionFragment: 'removeBorrowerMarket',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'removeMarket',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
-    functionFragment: 'resetMarkets',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -138,10 +162,18 @@ interface ComptrollerInterface extends ethers.utils.Interface {
   ): Result
 
   events: {
+    'AddMarket(address)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
+    'RemoveMarket(address)': EventFragment
+    'ResetMarket()': EventFragment
+    'UpdateLiquidityPool(address)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'AddMarket'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RemoveMarket'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ResetMarket'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateLiquidityPool'): EventFragment
 }
 
 export class Comptroller extends Contract {
@@ -158,6 +190,18 @@ export class Comptroller extends Contract {
   interface: ComptrollerInterface
 
   functions: {
+    addBorrowerMarket(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'addBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     addMarket(
       _market: string,
       overrides?: Overrides
@@ -168,15 +212,27 @@ export class Comptroller extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
+    borrowerToMarkets(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    'borrowerToMarkets(address,uint256)'(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
     borrowingCapacity(
       _borrower: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { capacity: BigNumber }>
+    ): Promise<[BigNumber]>
 
     'borrowingCapacity(address)'(
       _borrower: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { capacity: BigNumber }>
+    ): Promise<[BigNumber]>
 
     getAllMarkets(overrides?: CallOverrides): Promise<[string[]]>
 
@@ -196,6 +252,13 @@ export class Comptroller extends Contract {
 
     'initialize()'(overrides?: Overrides): Promise<ContractTransaction>
 
+    isMarket(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
+
+    'isMarket(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
     liquidityPool(overrides?: CallOverrides): Promise<[string]>
 
     'liquidityPool()'(overrides?: CallOverrides): Promise<[string]>
@@ -211,23 +274,31 @@ export class Comptroller extends Contract {
 
     'owner()'(overrides?: CallOverrides): Promise<[string]>
 
-    removeMarket(
+    removeBorrowerMarket(
+      _borrower: string,
       _market: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'removeMarket(address)'(
+    'removeBorrowerMarket(address,address)'(
+      _borrower: string,
       _market: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    removeMarket(
+      _index: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeMarket(uint256)'(
+      _index: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
-
-    resetMarkets(overrides?: Overrides): Promise<ContractTransaction>
-
-    'resetMarkets()'(overrides?: Overrides): Promise<ContractTransaction>
 
     sendCollateralToLiquidator(
       _liquidator: string,
@@ -280,6 +351,18 @@ export class Comptroller extends Contract {
     ): Promise<ContractTransaction>
   }
 
+  addBorrowerMarket(
+    _borrower: string,
+    _market: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'addBorrowerMarket(address,address)'(
+    _borrower: string,
+    _market: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
   addMarket(
     _market: string,
     overrides?: Overrides
@@ -289,6 +372,18 @@ export class Comptroller extends Contract {
     _market: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  borrowerToMarkets(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>
+
+  'borrowerToMarkets(address,uint256)'(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>
 
   borrowingCapacity(
     _borrower: string,
@@ -318,6 +413,10 @@ export class Comptroller extends Contract {
 
   'initialize()'(overrides?: Overrides): Promise<ContractTransaction>
 
+  isMarket(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+  'isMarket(address)'(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
   liquidityPool(overrides?: CallOverrides): Promise<string>
 
   'liquidityPool()'(overrides?: CallOverrides): Promise<string>
@@ -333,23 +432,31 @@ export class Comptroller extends Contract {
 
   'owner()'(overrides?: CallOverrides): Promise<string>
 
-  removeMarket(
+  removeBorrowerMarket(
+    _borrower: string,
     _market: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'removeMarket(address)'(
+  'removeBorrowerMarket(address,address)'(
+    _borrower: string,
     _market: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  removeMarket(
+    _index: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeMarket(uint256)'(
+    _index: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
   'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
-
-  resetMarkets(overrides?: Overrides): Promise<ContractTransaction>
-
-  'resetMarkets()'(overrides?: Overrides): Promise<ContractTransaction>
 
   sendCollateralToLiquidator(
     _liquidator: string,
@@ -402,12 +509,36 @@ export class Comptroller extends Contract {
   ): Promise<ContractTransaction>
 
   callStatic: {
+    addBorrowerMarket(
+      _borrower: string,
+      _market: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'addBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
     addMarket(_market: string, overrides?: CallOverrides): Promise<void>
 
     'addMarket(address)'(
       _market: string,
       overrides?: CallOverrides
     ): Promise<void>
+
+    borrowerToMarkets(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
+
+    'borrowerToMarkets(address,uint256)'(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
 
     borrowingCapacity(
       _borrower: string,
@@ -437,6 +568,13 @@ export class Comptroller extends Contract {
 
     'initialize()'(overrides?: CallOverrides): Promise<void>
 
+    isMarket(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+    'isMarket(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
     liquidityPool(overrides?: CallOverrides): Promise<string>
 
     'liquidityPool()'(overrides?: CallOverrides): Promise<string>
@@ -452,10 +590,22 @@ export class Comptroller extends Contract {
 
     'owner()'(overrides?: CallOverrides): Promise<string>
 
-    removeMarket(_market: string, overrides?: CallOverrides): Promise<void>
-
-    'removeMarket(address)'(
+    removeBorrowerMarket(
+      _borrower: string,
       _market: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    removeMarket(_index: BigNumberish, overrides?: CallOverrides): Promise<void>
+
+    'removeMarket(uint256)'(
+      _index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -463,23 +613,19 @@ export class Comptroller extends Contract {
 
     'renounceOwnership()'(overrides?: CallOverrides): Promise<void>
 
-    resetMarkets(overrides?: CallOverrides): Promise<void>
-
-    'resetMarkets()'(overrides?: CallOverrides): Promise<void>
-
     sendCollateralToLiquidator(
       _liquidator: string,
       _borrower: string,
       _amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
 
     'sendCollateralToLiquidator(address,address,uint256)'(
       _liquidator: string,
       _borrower: string,
       _amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
 
     sendCollateralToLiquidatorWithPreference(
       _liquidator: string,
@@ -487,7 +633,7 @@ export class Comptroller extends Contract {
       _amount: BigNumberish,
       _markets: string[],
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
 
     'sendCollateralToLiquidatorWithPreference(address,address,uint256,address[])'(
       _liquidator: string,
@@ -495,7 +641,7 @@ export class Comptroller extends Contract {
       _amount: BigNumberish,
       _markets: string[],
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
 
     setLiquidityPool(
       _liquidityPool: string,
@@ -519,18 +665,50 @@ export class Comptroller extends Contract {
   }
 
   filters: {
+    AddMarket(market: string | null): EventFilter
+
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
     ): EventFilter
+
+    RemoveMarket(market: string | null): EventFilter
+
+    ResetMarket(): EventFilter
+
+    UpdateLiquidityPool(liquidityPool: string | null): EventFilter
   }
 
   estimateGas: {
+    addBorrowerMarket(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'addBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
     addMarket(_market: string, overrides?: Overrides): Promise<BigNumber>
 
     'addMarket(address)'(
       _market: string,
       overrides?: Overrides
+    ): Promise<BigNumber>
+
+    borrowerToMarkets(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'borrowerToMarkets(address,uint256)'(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>
 
     borrowingCapacity(
@@ -561,6 +739,13 @@ export class Comptroller extends Contract {
 
     'initialize()'(overrides?: Overrides): Promise<BigNumber>
 
+    isMarket(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'isMarket(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     liquidityPool(overrides?: CallOverrides): Promise<BigNumber>
 
     'liquidityPool()'(overrides?: CallOverrides): Promise<BigNumber>
@@ -576,20 +761,31 @@ export class Comptroller extends Contract {
 
     'owner()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    removeMarket(_market: string, overrides?: Overrides): Promise<BigNumber>
-
-    'removeMarket(address)'(
+    removeBorrowerMarket(
+      _borrower: string,
       _market: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    removeMarket(
+      _index: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeMarket(uint256)'(
+      _index: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<BigNumber>
-
-    resetMarkets(overrides?: Overrides): Promise<BigNumber>
-
-    'resetMarkets()'(overrides?: Overrides): Promise<BigNumber>
 
     sendCollateralToLiquidator(
       _liquidator: string,
@@ -643,6 +839,18 @@ export class Comptroller extends Contract {
   }
 
   populateTransaction: {
+    addBorrowerMarket(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'addBorrowerMarket(address,address)'(
+      _borrower: string,
+      _market: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     addMarket(
       _market: string,
       overrides?: Overrides
@@ -651,6 +859,18 @@ export class Comptroller extends Contract {
     'addMarket(address)'(
       _market: string,
       overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    borrowerToMarkets(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'borrowerToMarkets(address,uint256)'(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
     borrowingCapacity(
@@ -681,6 +901,16 @@ export class Comptroller extends Contract {
 
     'initialize()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
+    isMarket(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'isMarket(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     liquidityPool(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'liquidityPool()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -699,23 +929,31 @@ export class Comptroller extends Contract {
 
     'owner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    removeMarket(
+    removeBorrowerMarket(
+      _borrower: string,
       _market: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'removeMarket(address)'(
+    'removeBorrowerMarket(address,address)'(
+      _borrower: string,
       _market: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    removeMarket(
+      _index: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeMarket(uint256)'(
+      _index: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'renounceOwnership()'(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    resetMarkets(overrides?: Overrides): Promise<PopulatedTransaction>
-
-    'resetMarkets()'(overrides?: Overrides): Promise<PopulatedTransaction>
 
     sendCollateralToLiquidator(
       _liquidator: string,

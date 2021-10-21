@@ -23,6 +23,19 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
+        name: 'market',
+        type: 'address',
+      },
+    ],
+    name: 'AddMarket',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
         name: 'previousOwner',
         type: 'address',
       },
@@ -35,6 +48,56 @@ const _abi = [
     ],
     name: 'OwnershipTransferred',
     type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'market',
+        type: 'address',
+      },
+    ],
+    name: 'RemoveMarket',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [],
+    name: 'ResetMarket',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'liquidityPool',
+        type: 'address',
+      },
+    ],
+    name: 'UpdateLiquidityPool',
+    type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_borrower',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: '_market',
+        type: 'address',
+      },
+    ],
+    name: 'addBorrowerMarket',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
@@ -53,6 +116,30 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'borrowerToMarkets',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: '_borrower',
         type: 'address',
       },
@@ -61,7 +148,7 @@ const _abi = [
     outputs: [
       {
         internalType: 'uint256',
-        name: 'capacity',
+        name: '',
         type: 'uint256',
       },
     ],
@@ -105,6 +192,25 @@ const _abi = [
     name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'isMarket',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -156,8 +262,26 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: '_borrower',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
         name: '_market',
         type: 'address',
+      },
+    ],
+    name: 'removeBorrowerMarket',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_index',
+        type: 'uint256',
       },
     ],
     name: 'removeMarket',
@@ -168,13 +292,6 @@ const _abi = [
   {
     inputs: [],
     name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'resetMarkets',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -198,13 +315,7 @@ const _abi = [
       },
     ],
     name: 'sendCollateralToLiquidator',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -232,13 +343,7 @@ const _abi = [
       },
     ],
     name: 'sendCollateralToLiquidatorWithPreference',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },

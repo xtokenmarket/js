@@ -30,7 +30,6 @@ interface MarketInterface extends ethers.utils.Interface {
     'initialize(address,uint256,uint256)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
     'marketActive()': FunctionFragment
-    'myBorrowingLimit(address)': FunctionFragment
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
@@ -73,10 +72,6 @@ interface MarketInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'marketActive',
     values?: undefined
-  ): string
-  encodeFunctionData(
-    functionFragment: 'myBorrowingLimit',
-    values: [string]
   ): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(
@@ -147,10 +142,6 @@ interface MarketInterface extends ethers.utils.Interface {
     functionFragment: 'marketActive',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'myBorrowingLimit',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'pauseContract',
@@ -195,11 +186,21 @@ interface MarketInterface extends ethers.utils.Interface {
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
     'Unpaused(address)': EventFragment
+    'UpdateCollateralCap(uint256)': EventFragment
+    'UpdateCollateralFactor(uint256)': EventFragment
+    'UpdateCollateralizationActive(bool)': EventFragment
+    'UpdateComptroller(address)': EventFragment
   }
 
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateCollateralCap'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateCollateralFactor'): EventFragment
+  getEvent(
+    nameOrSignatureOrTopic: 'UpdateCollateralizationActive'
+  ): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateComptroller'): EventFragment
 }
 
 export class Market extends Contract {
@@ -281,16 +282,6 @@ export class Market extends Contract {
     marketActive(overrides?: CallOverrides): Promise<[boolean]>
 
     'marketActive()'(overrides?: CallOverrides): Promise<[boolean]>
-
-    myBorrowingLimit(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    'myBorrowingLimit(address)'(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
 
     owner(overrides?: CallOverrides): Promise<[string]>
 
@@ -447,16 +438,6 @@ export class Market extends Contract {
 
   'marketActive()'(overrides?: CallOverrides): Promise<boolean>
 
-  myBorrowingLimit(
-    _borrower: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  'myBorrowingLimit(address)'(
-    _borrower: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
   owner(overrides?: CallOverrides): Promise<string>
 
   'owner()'(overrides?: CallOverrides): Promise<string>
@@ -612,23 +593,13 @@ export class Market extends Contract {
 
     'marketActive()'(overrides?: CallOverrides): Promise<boolean>
 
-    myBorrowingLimit(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'myBorrowingLimit(address)'(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
     owner(overrides?: CallOverrides): Promise<string>
 
     'owner()'(overrides?: CallOverrides): Promise<string>
 
-    pauseContract(overrides?: CallOverrides): Promise<boolean>
+    pauseContract(overrides?: CallOverrides): Promise<void>
 
-    'pauseContract()'(overrides?: CallOverrides): Promise<boolean>
+    'pauseContract()'(overrides?: CallOverrides): Promise<void>
 
     paused(overrides?: CallOverrides): Promise<boolean>
 
@@ -702,9 +673,9 @@ export class Market extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    unpauseContract(overrides?: CallOverrides): Promise<boolean>
+    unpauseContract(overrides?: CallOverrides): Promise<void>
 
-    'unpauseContract()'(overrides?: CallOverrides): Promise<boolean>
+    'unpauseContract()'(overrides?: CallOverrides): Promise<void>
 
     withdraw(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
@@ -723,6 +694,14 @@ export class Market extends Contract {
     Paused(account: null): EventFilter
 
     Unpaused(account: null): EventFilter
+
+    UpdateCollateralCap(collateralCap: null): EventFilter
+
+    UpdateCollateralFactor(collateralFactor: null): EventFilter
+
+    UpdateCollateralizationActive(active: null): EventFilter
+
+    UpdateComptroller(comptroller: string | null): EventFilter
   }
 
   estimateGas: {
@@ -785,16 +764,6 @@ export class Market extends Contract {
     marketActive(overrides?: CallOverrides): Promise<BigNumber>
 
     'marketActive()'(overrides?: CallOverrides): Promise<BigNumber>
-
-    myBorrowingLimit(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
-
-    'myBorrowingLimit(address)'(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>
 
     owner(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -960,16 +929,6 @@ export class Market extends Contract {
     marketActive(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'marketActive()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    myBorrowingLimit(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-
-    'myBorrowingLimit(address)'(
-      _borrower: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
