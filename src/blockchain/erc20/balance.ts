@@ -1,7 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { Abi, ADDRESSES, LENDING_LPT } from '@xtoken/abis'
 import { ethers } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
+import { formatUnits } from 'ethers/lib/utils'
 
 import { ERC20 } from '../../types'
 import { INativeAssets, IStableAssets, ITokenSymbols } from '../../types/xToken'
@@ -18,6 +18,9 @@ export const getTokenBalance = async (
     Abi.ERC20,
     provider
   ) as ERC20
-  const tokenBalance = await contract.balanceOf(address)
-  return formatEther(tokenBalance)
+  const [tokenBalance, decimals] = await Promise.all([
+    contract.balanceOf(address),
+    contract.decimals(),
+  ])
+  return formatUnits(tokenBalance, decimals)
 }

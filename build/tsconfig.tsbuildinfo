@@ -757,8 +757,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
-        "version": "fbcc5ea3e55dd8688a81dff83abfe3476f1f276683b77f87157d2afa9c68bbf0",
-        "signature": "fbcc5ea3e55dd8688a81dff83abfe3476f1f276683b77f87157d2afa9c68bbf0",
+        "version": "13ba30a2bb2f9d6616d2696c60a1c89e12a81378bbfbbe1f8df6440e39104f91",
+        "signature": "13ba30a2bb2f9d6616d2696c60a1c89e12a81378bbfbbe1f8df6440e39104f91",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/addresses.d.ts": {
@@ -1472,7 +1472,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/erc20/balance.ts": {
-        "version": "713107fa28cc0a62e26b5b836dfebf31c324fa763aedb1dc4d2d60285d2ed72b",
+        "version": "64ed40df277f69ff57bf7db2debd9891316cb7d9e7e90f45b77262867add1d5f",
         "signature": "8cd92297ce32e96f57b2222f1d7305032f7c650177af34df474ac2478884a01c",
         "affectsGlobalScope": false
       },

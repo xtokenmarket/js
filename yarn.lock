@@ -1012,7 +1012,7 @@
 
 "@xtoken/abis@git://github.com/xtokenmarket/abis.git#feature/add-lending":
   version "0.1.19"
-  resolved "git://github.com/xtokenmarket/abis.git#322e15f802fbb2830a1e00f42ced0f7e4532a778"
+  resolved "git://github.com/xtokenmarket/abis.git#0c0794059629f972dc079bde5d2c7567804e08ab"
 
 JSONStream@^1.0.4:
   version "1.3.5"
