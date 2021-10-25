@@ -74,6 +74,12 @@ export const getUpdatedBorrowBy = async (
   return formatEther(updatedBorrowBy)
 }
 
+export const getUtilizationRate = async (provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const utilizationRate = await liquidityPoolContract.utilizationRate()
+  return utilizationRate.toString()
+}
+
 /**
  * Repay Loan with USDC
  * @param amount USDC amount without decimals

@@ -28,6 +28,9 @@ export declare const getUpdatedBorrowBy: (
   address: string,
   provider: BaseProvider
 ) => Promise<string>
+export declare const getUtilizationRate: (
+  provider: BaseProvider
+) => Promise<string>
 /**
  * Repay Loan with USDC
  * @param amount USDC amount without decimals

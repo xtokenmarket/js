@@ -1672,8 +1672,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.ts": {
-        "version": "b3962115dfeb28294b58115f4f23c42f28d9ed4bb96b26802edad43f26b20bf2",
-        "signature": "057942d8bfbd43eb7511308ab69e19b52cb3497be100a6f88ea7aa9cfd9ab79e",
+        "version": "859d71552b7e479899fc7f6882fb677c0cd138dbf1aa333df8256603f7e09a67",
+        "signature": "813e5043b9844bbf2253c08112bb3658a59dccd67a90d7417fbc233f0edea533",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
@@ -1757,8 +1757,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "e9ce1f39a094de9ca6e9c049402f6924517e6fbaad1931522fca863bd7ec41b1",
-        "signature": "1a11ac89ff12d7fa4f7eca181a4bc3e1dcbb3b0639327290e65a57715deec5c6",
+        "version": "f0463f5b65983e918c75fc3bee33e717450e550d52d1ee35b1f71e807ddc67e5",
+        "signature": "32aa312e1c7675dc10a32494424fa241c7219e8eaaa49f61553b2baa9bfc74da",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {

@@ -82,6 +82,7 @@ import {
   getLPTValue,
   getOptimalUtilizationRate,
   getUpdatedBorrowBy,
+  getUtilizationRate,
   repayLiquidity,
   supplyCollateral,
   supplyLiquidity,
@@ -919,14 +920,6 @@ export class XToken {
   }
 
   /**
-   * Get liquidity pool token optimal utilization rate
-   * @returns
-   */
-  public async getOptimalUtilizationRate() {
-    return getOptimalUtilizationRate(this.provider)
-  }
-
-  /**
    * Returns balances along with prices for all the xTokens
    * owned by an address
    *
@@ -1323,5 +1316,21 @@ export class XToken {
    */
   public async getPoolRatio(symbol: IXAssetCLR) {
     return getPoolRatioXAssetCLR(symbol, this.provider)
+  }
+
+  /**
+   * Get liquidity pool token utilization and optimal utilization rates
+   * @returns
+   */
+  public async getUtilizationRates() {
+    const [utilizationRate, optimalUtilizationRate] = await Promise.all([
+      getUtilizationRate(this.provider),
+      getOptimalUtilizationRate(this.provider),
+    ])
+
+    return {
+      optimalUtilizationRate,
+      utilizationRate,
+    }
   }
 }

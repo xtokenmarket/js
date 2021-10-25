@@ -325,11 +325,6 @@ export declare class XToken {
     outputAsset?: IAssetId
   ): Promise<string>
   /**
-   * Get liquidity pool token optimal utilization rate
-   * @returns
-   */
-  getOptimalUtilizationRate(): Promise<string>
-  /**
    * Returns balances along with prices for all the xTokens
    * owned by an address
    *
@@ -538,4 +533,12 @@ export declare class XToken {
    * @returns Returns ratio of liquidity deposited in the pool
    */
   getPoolRatio(symbol: IXAssetCLR): Promise<string>
+  /**
+   * Get liquidity pool token utilization and optimal utilization rates
+   * @returns
+   */
+  getUtilizationRates(): Promise<{
+    optimalUtilizationRate: string
+    utilizationRate: string
+  }>
 }
