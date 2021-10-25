@@ -30,6 +30,7 @@ interface ERC20Interface extends ethers.utils.Interface {
     'totalSupply()': FunctionFragment
     'transfer(address,uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
+    'decimals()': FunctionFragment
   }
 
   encodeFunctionData(
@@ -61,6 +62,7 @@ interface ERC20Interface extends ethers.utils.Interface {
     functionFragment: 'transferFrom',
     values: [string, string, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
 
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
@@ -79,6 +81,7 @@ interface ERC20Interface extends ethers.utils.Interface {
     functionFragment: 'transferFrom',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
 
   events: {
     'Approval(address,address,uint256)': EventFragment
@@ -187,6 +190,10 @@ export class ERC20 extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    decimals(overrides?: CallOverrides): Promise<[number]>
+
+    'decimals()'(overrides?: CallOverrides): Promise<[number]>
   }
 
   allowance(
@@ -274,6 +281,10 @@ export class ERC20 extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
+  decimals(overrides?: CallOverrides): Promise<number>
+
+  'decimals()'(overrides?: CallOverrides): Promise<number>
+
   callStatic: {
     allowance(
       owner: string,
@@ -359,6 +370,10 @@ export class ERC20 extends Contract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>
+
+    decimals(overrides?: CallOverrides): Promise<number>
+
+    'decimals()'(overrides?: CallOverrides): Promise<number>
   }
 
   filters: {
@@ -456,6 +471,10 @@ export class ERC20 extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
+
+    decimals(overrides?: CallOverrides): Promise<BigNumber>
+
+    'decimals()'(overrides?: CallOverrides): Promise<BigNumber>
   }
 
   populateTransaction: {
@@ -546,5 +565,9 @@ export class ERC20 extends Contract {
       amount: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
+
+    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'decimals()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
   }
 }

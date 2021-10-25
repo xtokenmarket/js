@@ -832,8 +832,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/erc20.d.ts": {
-        "version": "e89db3677ed7b67977690af8ba9ec60f0aa1f39bde8c3ee322c569c41f7a6603",
-        "signature": "e89db3677ed7b67977690af8ba9ec60f0aa1f39bde8c3ee322c569c41f7a6603",
+        "version": "29ec53867006b0f929ab9d5afb3d9d20890958bbf7d2cabf72cb3226747b5ae7",
+        "signature": "29ec53867006b0f929ab9d5afb3d9d20890958bbf7d2cabf72cb3226747b5ae7",
         "affectsGlobalScope": false
       },
       "../src/types/exchangerates.d.ts": {
@@ -1032,7 +1032,7 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/erc20__factory.ts": {
-        "version": "f57e88e715277a24639cf2a4ea00d9e1779bb667b1a8fbb8397394bcd8f54186",
+        "version": "3419269e9f43721db86aa9a8c6cfa55a2c2593faae18ceae5048a821fe922c7d",
         "signature": "28bd0e20e24a0e7f84b3f8b733d4eb5d8958fa868df459c20177640319c943f7",
         "affectsGlobalScope": false
       },
