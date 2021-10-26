@@ -2,33 +2,33 @@ import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import {
   ADDRESSES,
-  KNC,
+  // KNC,
   KYBER_PROXY,
   LENDING_LIQUIDITY_POOL,
-  LENDING_X_AAVE_A_MARKET,
-  LENDING_X_AAVE_B_MARKET,
+  // LENDING_X_AAVE_A_MARKET,
+  // LENDING_X_AAVE_B_MARKET,
   LENDING_X_INCH_A_MARKET,
-  LENDING_X_INCH_B_MARKET,
-  LENDING_X_KNC_A_MARKET,
-  LENDING_X_KNC_B_MARKET,
-  X_AAVE_A,
-  X_AAVE_B,
+  // LENDING_X_INCH_B_MARKET,
+  // LENDING_X_KNC_A_MARKET,
+  // LENDING_X_KNC_B_MARKET,
+  // X_AAVE_A,
+  // X_AAVE_B,
   X_INCH_A,
-  X_INCH_B,
-  X_KNC_A,
-  X_KNC_B,
+  // X_INCH_B,
+  // X_KNC_A,
+  // X_KNC_B,
 } from '@xtoken/abis'
-import { BigNumber, Contract } from 'ethers'
+import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, Errors } from '../../constants'
-import { KyberProxy, XAAVE, XINCH, XKNC } from '../../types'
+import { KyberProxy, XINCH } from '../../types'
 import { ILendingMarket, ILendingMarketInfo } from '../../types/xToken'
 import { getTokenBalance } from '../erc20'
 import { getContract, getSignerAddress } from '../utils'
-import { getXAavePrices } from '../xaave'
+// import { getXAavePrices } from '../xaave'
 import { getXInchPrices } from '../xinch'
-import { getXKncPrices } from '../xknc'
+// import { getXKncPrices } from '../xknc'
 
 import { getMarketContracts } from './helper'
 
@@ -78,7 +78,7 @@ export const getLendingMarkets = async (
   const network = await provider.getNetwork()
   const { chainId } = network
 
-  const kncContract = getContract(KNC, provider, network) as Contract
+  // const kncContract = getContract(KNC, provider, network) as Contract
   const kyberProxyContract = getContract(
     KYBER_PROXY,
     provider,
@@ -86,43 +86,43 @@ export const getLendingMarkets = async (
   ) as KyberProxy
 
   // xAAVE
-  const xaaveaContract = getContract(X_AAVE_A, provider, network) as XAAVE
-  const xaavebContract = getContract(X_AAVE_B, provider, network) as XAAVE
+  // const xaaveaContract = getContract(X_AAVE_A, provider, network) as XAAVE
+  // const xaavebContract = getContract(X_AAVE_B, provider, network) as XAAVE
 
   // xINCH
   const xinchaContract = getContract(X_INCH_A, provider, network) as XINCH
-  const xinchbContract = getContract(X_INCH_B, provider, network) as XINCH
+  // const xinchbContract = getContract(X_INCH_B, provider, network) as XINCH
 
   // xKNC
-  const xkncaContract = getContract(X_KNC_A, provider, network) as XKNC
-  const xkncbContract = getContract(X_KNC_B, provider, network) as XKNC
+  // const xkncaContract = getContract(X_KNC_A, provider, network) as XKNC
+  // const xkncbContract = getContract(X_KNC_B, provider, network) as XKNC
 
   try {
     const [
-      xaaveaPrices,
-      xaavebPrices,
+      // xaaveaPrices,
+      // xaavebPrices,
       xinchaPrices,
-      xinchbPrices,
-      xkncaPrices,
-      xkncbPrices,
+      // xinchbPrices,
+      // xkncaPrices,
+      // xkncbPrices,
     ] = await Promise.all([
-      getXAavePrices(xaaveaContract, kyberProxyContract, chainId),
-      getXAavePrices(xaavebContract, kyberProxyContract, chainId),
+      // getXAavePrices(xaaveaContract, kyberProxyContract, chainId),
+      // getXAavePrices(xaavebContract, kyberProxyContract, chainId),
       getXInchPrices(xinchaContract, kyberProxyContract, chainId),
-      getXInchPrices(xinchbContract, kyberProxyContract, chainId),
-      getXKncPrices(xkncaContract, kncContract, kyberProxyContract),
-      getXKncPrices(xkncbContract, kncContract, kyberProxyContract),
+      // getXInchPrices(xinchbContract, kyberProxyContract, chainId),
+      // getXKncPrices(xkncaContract, kncContract, kyberProxyContract),
+      // getXKncPrices(xkncbContract, kncContract, kyberProxyContract),
     ])
 
     const [
-      xaaveaLendingCollateral,
-      xaavebLendingCollateral,
+      // xaaveaLendingCollateral,
+      // xaavebLendingCollateral,
       xinchaLendingCollateral,
-      xinchbLendingCollateral,
-      xkncaLendingCollateral,
-      xkncbLendingCollateral,
+      // xinchbLendingCollateral,
+      // xkncaLendingCollateral,
+      // xkncbLendingCollateral,
     ] = await Promise.all([
-      getTokenBalance(
+      /* getTokenBalance(
         X_AAVE_A,
         ADDRESSES[LENDING_X_AAVE_A_MARKET][chainId],
         provider
@@ -131,13 +131,13 @@ export const getLendingMarkets = async (
         X_AAVE_B,
         ADDRESSES[LENDING_X_AAVE_B_MARKET][chainId],
         provider
-      ),
+      ),*/
       getTokenBalance(
         X_INCH_A,
         ADDRESSES[LENDING_X_INCH_A_MARKET][chainId],
         provider
       ),
-      getTokenBalance(
+      /*getTokenBalance(
         X_INCH_B,
         ADDRESSES[LENDING_X_INCH_B_MARKET][chainId],
         provider
@@ -151,11 +151,11 @@ export const getLendingMarkets = async (
         X_KNC_B,
         ADDRESSES[LENDING_X_KNC_B_MARKET][chainId],
         provider
-      ),
+      ),*/
     ])
 
     return [
-      {
+      /*{
         name: LENDING_X_AAVE_A_MARKET,
         xAsset: X_AAVE_A,
         collateral: xaaveaLendingCollateral,
@@ -174,7 +174,7 @@ export const getLendingMarkets = async (
             .mul(parseEther(xaavebPrices.priceUsd.toString()))
             .div(DEC_18)
         ),
-      },
+      },*/
       {
         name: LENDING_X_INCH_A_MARKET,
         xAsset: X_INCH_A,
@@ -185,7 +185,7 @@ export const getLendingMarkets = async (
             .div(DEC_18)
         ),
       },
-      {
+      /* {
         name: LENDING_X_INCH_B_MARKET,
         xAsset: X_INCH_B,
         collateral: xinchbLendingCollateral,
@@ -214,7 +214,7 @@ export const getLendingMarkets = async (
             .mul(parseEther(xkncbPrices.priceUsd.toString()))
             .div(DEC_18)
         ),
-      },
+      },*/
     ]
   } catch (e) {
     console.warn('Error while fetching lending markets', e)
@@ -272,23 +272,23 @@ const _getApprovedAmount = async (
   let xTokenContract
 
   switch (marketName) {
-    case LENDING_X_AAVE_A_MARKET:
+    /*case LENDING_X_AAVE_A_MARKET:
       xTokenContract = getContract(X_AAVE_A, provider, network)
       break
     case LENDING_X_AAVE_B_MARKET:
       xTokenContract = getContract(X_AAVE_B, provider, network)
-      break
+      break*/
     case LENDING_X_INCH_A_MARKET:
       xTokenContract = getContract(X_INCH_A, provider, network)
       break
-    case LENDING_X_INCH_B_MARKET:
+    /*case LENDING_X_INCH_B_MARKET:
       xTokenContract = getContract(X_INCH_B, provider, network)
       break
     case LENDING_X_KNC_A_MARKET:
       xTokenContract = getContract(X_KNC_A, provider, network)
       break
     case LENDING_X_KNC_B_MARKET:
-      xTokenContract = getContract(X_KNC_B, provider, network)
+      xTokenContract = getContract(X_KNC_B, provider, network)*/
   }
 
   if (!xTokenContract) {

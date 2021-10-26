@@ -1,6 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { LENDING_LPT } from '@xtoken/abis'
-import { formatEther } from 'ethers/lib/utils'
+import { formatUnits } from 'ethers/lib/utils'
 
 import { ERC20 } from '../../types'
 import {
@@ -24,6 +24,9 @@ export const getTokenAllowance = async (
 ) => {
   const network = await provider.getNetwork()
   const tokenContract = (await getContract(symbol, provider, network)) as ERC20
-  const tokenAllowance = await tokenContract.allowance(address, spenderAddress)
-  return formatEther(tokenAllowance)
+  const [tokenAllowance, decimals] = await Promise.all([
+    tokenContract.allowance(address, spenderAddress),
+    tokenContract.decimals(),
+  ])
+  return formatUnits(tokenAllowance, decimals)
 }

@@ -1,18 +1,18 @@
 import {
-  LENDING_X_AAVE_A_MARKET,
-  LENDING_X_AAVE_B_MARKET,
+  // LENDING_X_AAVE_A_MARKET,
+  // LENDING_X_AAVE_B_MARKET,
   LENDING_X_INCH_A_MARKET,
-  LENDING_X_INCH_B_MARKET,
-  LENDING_X_KNC_A_MARKET,
-  LENDING_X_KNC_B_MARKET,
+  // LENDING_X_INCH_B_MARKET,
+  // LENDING_X_KNC_A_MARKET,
+  // LENDING_X_KNC_B_MARKET,
 } from '@xtoken/abis'
 import test from 'ava'
 
 import { oneAddress, provider } from '../../constants.spec'
 
-import { getBorrowingLimit, getCollateral, getLendingMarkets } from './market'
+import { getBorrowingLimit, getCollateral } from './market'
 
-test('Get borrowing limit for xAAVEa market', async (t) => {
+/*test('Get borrowing limit for xAAVEa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
     LENDING_X_AAVE_A_MARKET,
     provider,
@@ -30,7 +30,7 @@ test('Get borrowing limit for xAAVEb market', async (t) => {
   )
   console.log('[Lending] xAAVEb Borrowing Limit:', borrowingLimit)
   t.true(Number(borrowingLimit) === 0)
-})
+})*/
 
 test('Get borrowing limit for xINCHa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
@@ -42,7 +42,7 @@ test('Get borrowing limit for xINCHa market', async (t) => {
   t.true(Number(borrowingLimit) === 0)
 })
 
-test('Get borrowing limit for xINCHb market', async (t) => {
+/*test('Get borrowing limit for xINCHb market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
     LENDING_X_INCH_B_MARKET,
     provider,
@@ -90,7 +90,7 @@ test('Get collateral for xAAVEb market', async (t) => {
   )
   console.log('[Lending] xAAVEb Collateral:', collateral)
   t.true(Number(collateral) === 0)
-})
+})*/
 
 test('Get collateral for xINCHa market', async (t) => {
   const collateral = await getCollateral(
@@ -102,7 +102,7 @@ test('Get collateral for xINCHa market', async (t) => {
   t.true(Number(collateral) === 0)
 })
 
-test('Get collateral for xINCHb market', async (t) => {
+/*test('Get collateral for xINCHb market', async (t) => {
   const collateral = await getCollateral(
     LENDING_X_INCH_B_MARKET,
     provider,
@@ -136,4 +136,4 @@ test('Get lending markets info', async (t) => {
   const lendingMarkets = await getLendingMarkets(provider)
   console.log('[Lending] Market info:', JSON.stringify(lendingMarkets))
   t.true(lendingMarkets.length === 6)
-})
+})*/

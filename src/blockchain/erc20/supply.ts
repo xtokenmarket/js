@@ -1,7 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { Abi, ADDRESSES, LENDING_LPT } from '@xtoken/abis'
 import { ethers } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
+import { formatUnits } from 'ethers/lib/utils'
 
 import { ERC20 } from '../../types'
 import { INativeAssets, IStableAssets, ITokenSymbols } from '../../types/xToken'
@@ -17,6 +17,9 @@ export const getTokenSupply = async (
     Abi.ERC20,
     provider
   ) as ERC20
-  const totalSupply = await contract.totalSupply()
-  return formatEther(totalSupply)
+  const [totalSupply, decimals] = await Promise.all([
+    contract.totalSupply(),
+    contract.decimals(),
+  ])
+  return formatUnits(totalSupply, decimals)
 }

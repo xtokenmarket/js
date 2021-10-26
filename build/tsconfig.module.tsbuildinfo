@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "c4f7ca36621578ab6062d9e7e406f6a36dc636657524ddba34027d6690006f45",
-        "signature": "c4f7ca36621578ab6062d9e7e406f6a36dc636657524ddba34027d6690006f45",
+        "version": "4fcd373292352ebc9ba49b85cf5b9d952152e73523a362f65458179a4eec5c69",
+        "signature": "4fcd373292352ebc9ba49b85cf5b9d952152e73523a362f65458179a4eec5c69",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1462,7 +1462,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/erc20/allowance.ts": {
-        "version": "289e545fe77788410c4388f3b3dd2e91d10025240bd3d170ad9e17100bdce918",
+        "version": "4df015f82d6ef1a6542a9bca686d467adb17817dfbc6155a097286ad86ac252c",
         "signature": "7132cef9bc3b3c1dcbc841f528615862258e81230c79d379cce121419bd4a2dc",
         "affectsGlobalScope": false
       },
@@ -1517,7 +1517,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "bb1d023e84780aa09e1823fcdee8011f5a8bd1d26e7ce3c4bb589787e8fe69fd",
+        "version": "d147e777dfcb5e4ab91fb98c2654bc20d5f25535f3f64dffbcad7e20121c60c7",
         "signature": "b9489272144bf6f61afb54ad89e7fdc788f22b75775d912f6b40c67f7c0c72fc",
         "affectsGlobalScope": false
       },
@@ -1552,7 +1552,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/erc20/supply.ts": {
-        "version": "f454de1859ddc099b3cade8f1b2b76ef53625c7ade769b95a296acb625b270e8",
+        "version": "b9b1a82ef98db0d54abffbd865499ba5684be73cc3b00c434038ff4d772c8bb6",
         "signature": "1a0fb28701308e1a180f33d04c456da3171c5c21be2156e70f2105f0d97f070f",
         "affectsGlobalScope": false
       },
@@ -1662,8 +1662,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/helper.ts": {
-        "version": "ddf81861c9e479fced43c67fac73496f820461ad98a00492efc4f48d361c3e19",
-        "signature": "248bf1f76846c6780dcae50bdb7f6e0d27116003397af43a3680d10db4f5fc72",
+        "version": "28dec481303cf2fda24dff142fe55073ab71124837c497c9379a76a45f59b2eb",
+        "signature": "0d7930f0084c932b0b20b745a4aa86956965336d32578a35212497ec57d6b167",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.ts": {
@@ -1677,7 +1677,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "a836b938bccb6f67ae418936ac88f7069862831197e3607ae5873ba059a12afb",
+        "version": "dc23a94ae84048a490ccb2ebdb90e0fa13b944139f4cc443d3a9154584d11c8a",
         "signature": "60d83f04ba5857b2aea9ab7b5d8021f88c8720f474e7bb2f7ffb5ec82db2fef5",
         "affectsGlobalScope": false
       },
@@ -1871,7 +1871,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.spec.ts": {
-        "version": "53a4585fb0e642a81498998d2b8ceea83b549e1d3198fb256b5665d2361d43e4",
+        "version": "b804e8418520789df650f3083bec18966b8dde6a3dcad529ecd786109f8ff1f7",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -3126,9 +3126,7 @@
         "../src/blockchain/erc20/index.ts",
         "../src/blockchain/lending/helper.ts",
         "../src/blockchain/utils.ts",
-        "../src/blockchain/xaave/index.ts",
         "../src/blockchain/xinch/index.ts",
-        "../src/blockchain/xknc/index.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"

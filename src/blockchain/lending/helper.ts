@@ -3,17 +3,17 @@ import {
   LENDING_COMPTROLLER,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
-  LENDING_X_AAVE_A_MARKET,
+  // LENDING_X_AAVE_A_MARKET,
   LENDING_X_AAVE_A_PRICE,
-  LENDING_X_AAVE_B_MARKET,
+  // LENDING_X_AAVE_B_MARKET,
   LENDING_X_AAVE_B_PRICE,
   LENDING_X_INCH_A_MARKET,
   LENDING_X_INCH_A_PRICE,
-  LENDING_X_INCH_B_MARKET,
+  // LENDING_X_INCH_B_MARKET,
   LENDING_X_INCH_B_PRICE,
-  LENDING_X_KNC_A_MARKET,
+  // LENDING_X_KNC_A_MARKET,
   LENDING_X_KNC_A_PRICE,
-  LENDING_X_KNC_B_MARKET,
+  // LENDING_X_KNC_B_MARKET,
   LENDING_X_KNC_B_PRICE,
 } from '@xtoken/abis'
 
@@ -73,7 +73,7 @@ export const getMarketContracts = async (
   const network = await provider.getNetwork()
 
   // xAAVE Market Contracts
-  const xAAVEaMarketContract = getContract(
+  /*const xAAVEaMarketContract = getContract(
     LENDING_X_AAVE_A_MARKET,
     provider,
     network
@@ -82,7 +82,7 @@ export const getMarketContracts = async (
     LENDING_X_AAVE_B_MARKET,
     provider,
     network
-  ) as Market
+  ) as Market*/
 
   // xINCH Market Contracts
   const xINCHaMarketContract = getContract(
@@ -90,7 +90,7 @@ export const getMarketContracts = async (
     provider,
     network
   ) as Market
-  const xINCHbMarketContract = getContract(
+  /*const xINCHbMarketContract = getContract(
     LENDING_X_INCH_B_MARKET,
     provider,
     network
@@ -106,26 +106,26 @@ export const getMarketContracts = async (
     LENDING_X_KNC_B_MARKET,
     provider,
     network
-  ) as Market
+  ) as Market*/
 
   if (
-    !xAAVEaMarketContract ||
-    !xAAVEbMarketContract ||
-    !xINCHaMarketContract ||
-    !xINCHbMarketContract ||
-    !xKNCaMarketContract ||
-    !xKNCbMarketContract
+    // !xAAVEaMarketContract ||
+    // !xAAVEbMarketContract ||
+    !xINCHaMarketContract
+    // !xINCHbMarketContract ||
+    // !xKNCaMarketContract ||
+    // !xKNCbMarketContract
   ) {
     return Promise.reject(CONTRACT_ERROR)
   }
 
   return {
-    [LENDING_X_AAVE_A_MARKET]: xAAVEaMarketContract,
-    [LENDING_X_AAVE_B_MARKET]: xAAVEbMarketContract,
+    // [LENDING_X_AAVE_A_MARKET]: xAAVEaMarketContract,
+    // [LENDING_X_AAVE_B_MARKET]: xAAVEbMarketContract,
     [LENDING_X_INCH_A_MARKET]: xINCHaMarketContract,
-    [LENDING_X_INCH_B_MARKET]: xINCHbMarketContract,
-    [LENDING_X_KNC_A_MARKET]: xKNCaMarketContract,
-    [LENDING_X_KNC_B_MARKET]: xKNCbMarketContract,
+    // [LENDING_X_INCH_B_MARKET]: xINCHbMarketContract,
+    // [LENDING_X_KNC_A_MARKET]: xKNCaMarketContract,
+    // [LENDING_X_KNC_B_MARKET]: xKNCbMarketContract,
   }
 }
 

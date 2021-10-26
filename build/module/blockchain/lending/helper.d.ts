@@ -28,6 +28,6 @@ export declare const getLendingContracts: (
   comptrollerContract: Comptroller
   liquidityPoolContract: LiquidityPool
   lptContract: LPT
-  marketContracts: Record<ILendingMarket, Market>
+  marketContracts: Record<'xINCHaMarket', Market>
   pricingContracts: Record<ILendingPricing, XAAVEPrice | XINCHPrice | XKNCPrice>
 }>

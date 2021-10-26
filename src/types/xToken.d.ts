@@ -160,12 +160,12 @@ export type ILendingContracts =
   | ILendingPricing
 
 export type ILendingMarket =
-  | typeof LENDING_X_AAVE_A_MARKET
-  | typeof LENDING_X_AAVE_B_MARKET
-  | typeof LENDING_X_INCH_A_MARKET
-  | typeof LENDING_X_INCH_B_MARKET
-  | typeof LENDING_X_KNC_A_MARKET
-  | typeof LENDING_X_KNC_B_MARKET
+  // | typeof LENDING_X_AAVE_A_MARKET
+  // | typeof LENDING_X_AAVE_B_MARKET
+  typeof LENDING_X_INCH_A_MARKET
+// | typeof LENDING_X_INCH_B_MARKET
+// | typeof LENDING_X_KNC_A_MARKET
+// | typeof LENDING_X_KNC_B_MARKET
 
 export type ILendingPricing =
   | typeof LENDING_X_AAVE_A_PRICE
