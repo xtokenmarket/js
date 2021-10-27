@@ -35,8 +35,8 @@ test('Get borrowing limit for xAAVEb market', async (t) => {
 test('Get borrowing limit for xINCHa market', async (t) => {
   const borrowingLimit = await getBorrowingLimit(
     LENDING_X_INCH_A_MARKET,
-    provider,
-    oneAddress
+    oneAddress,
+    provider
   )
   console.log('[Lending] xINCHa Borrowing Limit:', borrowingLimit)
   t.true(Number(borrowingLimit) === 0)
@@ -95,8 +95,8 @@ test('Get collateral for xAAVEb market', async (t) => {
 test('Get collateral for xINCHa market', async (t) => {
   const collateral = await getCollateral(
     LENDING_X_INCH_A_MARKET,
-    provider,
-    oneAddress
+    oneAddress,
+    provider
   )
   console.log('[Lending] xINCHa Collateral:', collateral)
   t.true(Number(collateral) === 0)

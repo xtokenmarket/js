@@ -1677,8 +1677,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "dc23a94ae84048a490ccb2ebdb90e0fa13b944139f4cc443d3a9154584d11c8a",
-        "signature": "60d83f04ba5857b2aea9ab7b5d8021f88c8720f474e7bb2f7ffb5ec82db2fef5",
+        "version": "271956afc323360ef6d3d216aed37d177a74b4382c045878a3be29b31cefd0ca",
+        "signature": "71f235212f8ea0c29df56e947040b6dea3baa17f5aa37ec5ecd362a65b6a03ff",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/price.ts": {
@@ -1757,7 +1757,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "f0463f5b65983e918c75fc3bee33e717450e550d52d1ee35b1f71e807ddc67e5",
+        "version": "384bf152e75ba7801b4ddb2cc7c7bf228f4dcc216c3670986b0d14e8e0bfa818",
         "signature": "32aa312e1c7675dc10a32494424fa241c7219e8eaaa49f61553b2baa9bfc74da",
         "affectsGlobalScope": false
       },
@@ -1871,7 +1871,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.spec.ts": {
-        "version": "b804e8418520789df650f3083bec18966b8dde6a3dcad529ecd786109f8ff1f7",
+        "version": "27bd9dc783ef1e30472a6b0a8bd58eb7777cab2dd1f1e755b3e0e18de2c37b93",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -3122,13 +3122,9 @@
         "../node_modules/@ethersproject/units/lib/index.d.ts",
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
-        "../node_modules/ethers/lib/utils.d.ts",
-        "../src/blockchain/erc20/index.ts",
         "../src/blockchain/lending/helper.ts",
         "../src/blockchain/utils.ts",
-        "../src/blockchain/xinch/index.ts",
         "../src/constants.ts",
-        "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/lending/price.spec.ts": [

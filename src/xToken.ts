@@ -787,7 +787,13 @@ export class XToken {
    * @returns
    */
   public async getLendingMarkets(): Promise<readonly ILendingMarketInfo[]> {
-    return getLendingMarkets(this.provider)
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getLendingMarkets(address, this.provider)
   }
 
   /**
