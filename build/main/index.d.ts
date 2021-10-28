@@ -5,6 +5,7 @@
 export { XToken } from './xToken'
 export { getXAssetCLRPrices } from './blockchain/clr'
 export { getXAavePrices } from './blockchain/xaave'
+export { getXAlphaPrices } from './blockchain/xalpha'
 export { getXBntPrices } from './blockchain/xbnt'
 export { getXInchPrices } from './blockchain/xinch'
 export { getXKncPrices } from './blockchain/xknc'

@@ -9,6 +9,8 @@ import {
   X_AAVE_A,
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
+  X_ALPHA_A,
+  X_ALPHA_A_ALPHA_CLR,
   X_BNT_A,
   X_INCH_A,
   X_INCH_B,
@@ -301,6 +303,7 @@ export declare class XToken {
     symbol:
       | typeof X_AAVE_A
       | typeof X_AAVE_B
+      | typeof X_ALPHA_A
       | typeof X_BNT_A
       | typeof X_INCH_A
       | typeof X_INCH_B
@@ -318,6 +321,7 @@ export declare class XToken {
       | typeof INCH_X_INCH_A_CLR
       | typeof INCH_X_INCH_B_CLR
       | typeof X_AAVE_B_AAVE_CLR
+      | typeof X_ALPHA_A_ALPHA_CLR
       | typeof X_KNC_A_KNC_CLR
       | typeof X_KNC_B_KNC_CLR
       | typeof X_SNX_A_SNX_CLR

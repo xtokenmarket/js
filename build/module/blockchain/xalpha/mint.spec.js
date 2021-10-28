@@ -1,0 +1,25 @@
+import { X_ALPHA_A } from '@xtoken/abis'
+import test from 'ava'
+import { provider } from '../../constants.spec'
+import { getExpectedQuantityOnMintXAlpha } from './mint'
+test('Calculate xALPHAa expected quantity on mint with ALPHA', async (t) => {
+  const expectedQty = await getExpectedQuantityOnMintXAlpha(
+    X_ALPHA_A,
+    false,
+    '1',
+    provider
+  )
+  console.log('Expected xALPHAa qty for 1 ALPHA: ', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+test('Calculate xALPHAa expected quantity on mint with ETH', async (t) => {
+  const expectedQty = await getExpectedQuantityOnMintXAlpha(
+    X_ALPHA_A,
+    true,
+    '0.001',
+    provider
+  )
+  console.log('Expected xALPHAa qty for 0.001 ETH: ', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWludC5zcGVjLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4veGFscGhhL21pbnQuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQ3hDLE9BQU8sSUFBSSxNQUFNLEtBQUssQ0FBQTtBQUV0QixPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sc0JBQXNCLENBQUE7QUFFL0MsT0FBTyxFQUFFLCtCQUErQixFQUFFLE1BQU0sUUFBUSxDQUFBO0FBRXhELElBQUksQ0FBQyx3REFBd0QsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDekUsTUFBTSxXQUFXLEdBQUcsTUFBTSwrQkFBK0IsQ0FDdkQsU0FBUyxFQUNULEtBQUssRUFDTCxHQUFHLEVBQ0gsUUFBUSxDQUNULENBQUE7SUFDRCxPQUFPLENBQUMsR0FBRyxDQUFDLG9DQUFvQyxFQUFFLFdBQVcsQ0FBQyxDQUFBO0lBQzlELENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ2pDLENBQUMsQ0FBQyxDQUFBO0FBRUYsSUFBSSxDQUFDLHNEQUFzRCxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUN2RSxNQUFNLFdBQVcsR0FBRyxNQUFNLCtCQUErQixDQUN2RCxTQUFTLEVBQ1QsSUFBSSxFQUNKLE9BQU8sRUFDUCxRQUFRLENBQ1QsQ0FBQTtJQUNELE9BQU8sQ0FBQyxHQUFHLENBQUMsc0NBQXNDLEVBQUUsV0FBVyxDQUFDLENBQUE7SUFDaEUsQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsV0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUE7QUFDakMsQ0FBQyxDQUFDLENBQUEifQ==

@@ -27,7 +27,7 @@ var __exportStar =
         __createBinding(exports, m, p)
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.getXU3LPPrices = exports.getXSnxPrices = exports.getXKncPrices = exports.getXInchPrices = exports.getXBntPrices = exports.getXAavePrices = exports.getXAssetCLRPrices = exports.XToken = void 0
+exports.getXU3LPPrices = exports.getXSnxPrices = exports.getXKncPrices = exports.getXInchPrices = exports.getXBntPrices = exports.getXAlphaPrices = exports.getXAavePrices = exports.getXAssetCLRPrices = exports.XToken = void 0
 var xToken_1 = require('./xToken')
 Object.defineProperty(exports, 'XToken', {
   enumerable: true,
@@ -48,6 +48,13 @@ Object.defineProperty(exports, 'getXAavePrices', {
   enumerable: true,
   get: function () {
     return xaave_1.getXAavePrices
+  },
+})
+var xalpha_1 = require('./blockchain/xalpha')
+Object.defineProperty(exports, 'getXAlphaPrices', {
+  enumerable: true,
+  get: function () {
+    return xalpha_1.getXAlphaPrices
   },
 })
 var xbnt_1 = require('./blockchain/xbnt')
@@ -87,4 +94,4 @@ Object.defineProperty(exports, 'getXU3LPPrices', {
 })
 // Utility methods
 __exportStar(require('./blockchain/utils'), exports)
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBOzs7R0FHRzs7Ozs7Ozs7Ozs7OztBQUVILG1DQUFpQztBQUF4QixnR0FBQSxNQUFNLE9BQUE7QUFFZixpQkFBaUI7QUFDakIsd0NBQXFEO0FBQTVDLHlHQUFBLGtCQUFrQixPQUFBO0FBQzNCLDRDQUFtRDtBQUExQyx1R0FBQSxjQUFjLE9BQUE7QUFDdkIsMENBQWlEO0FBQXhDLHFHQUFBLGFBQWEsT0FBQTtBQUN0Qiw0Q0FBbUQ7QUFBMUMsdUdBQUEsY0FBYyxPQUFBO0FBQ3ZCLDBDQUFpRDtBQUF4QyxxR0FBQSxhQUFhLE9BQUE7QUFDdEIsMENBQWlEO0FBQXhDLHFHQUFBLGFBQWEsT0FBQTtBQUN0Qiw0Q0FBbUQ7QUFBMUMsdUdBQUEsY0FBYyxPQUFBO0FBRXZCLGtCQUFrQjtBQUNsQixxREFBa0MifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBOzs7R0FHRzs7Ozs7Ozs7Ozs7OztBQUVILG1DQUFpQztBQUF4QixnR0FBQSxNQUFNLE9BQUE7QUFFZixpQkFBaUI7QUFDakIsd0NBQXFEO0FBQTVDLHlHQUFBLGtCQUFrQixPQUFBO0FBQzNCLDRDQUFtRDtBQUExQyx1R0FBQSxjQUFjLE9BQUE7QUFDdkIsOENBQXFEO0FBQTVDLHlHQUFBLGVBQWUsT0FBQTtBQUN4QiwwQ0FBaUQ7QUFBeEMscUdBQUEsYUFBYSxPQUFBO0FBQ3RCLDRDQUFtRDtBQUExQyx1R0FBQSxjQUFjLE9BQUE7QUFDdkIsMENBQWlEO0FBQXhDLHFHQUFBLGFBQWEsT0FBQTtBQUN0QiwwQ0FBaUQ7QUFBeEMscUdBQUEsYUFBYSxPQUFBO0FBQ3RCLDRDQUFtRDtBQUExQyx1R0FBQSxjQUFjLE9BQUE7QUFFdkIsa0JBQWtCO0FBQ2xCLHFEQUFrQyJ9
