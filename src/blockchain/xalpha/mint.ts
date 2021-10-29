@@ -31,14 +31,15 @@ export const approveXAlpha = async (
   )
 
   const address = spenderAddress || xalphaContract.address
+  const contract = spenderAddress ? xalphaContract : tokenContract
 
   // estimate gasLimit
   const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(address, amount),
+    await contract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return tokenContract.approve(address, amount, { gasLimit })
+  return contract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXAlpha = async (

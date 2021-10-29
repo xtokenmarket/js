@@ -31,14 +31,15 @@ export const approveXInch = async (
   )
 
   const address = spenderAddress || xinchContract.address
+  const contract = spenderAddress ? xinchContract : tokenContract
 
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(address, amount),
+    await contract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return tokenContract.approve(address, amount, { gasLimit })
+  return contract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXInch = async (

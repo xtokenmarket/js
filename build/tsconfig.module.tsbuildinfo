@@ -1322,7 +1322,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/mint.ts": {
-        "version": "dcd0510ed2633cd3ce43b6a8ef8d52e80938933ba354acfad4095fb95d60a2d4",
+        "version": "808794ab8e1572f57301a43b0fbcfae398b62820f9d84d8211e4c44a88f39359",
         "signature": "21ee76465a326ac986ecbf6f1c1ad84ecbefebdf08e5bb78e2161349a285c9b6",
         "affectsGlobalScope": false
       },
@@ -1362,7 +1362,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/mint.ts": {
-        "version": "e617b854f809f39b6ddae963ceb12554ef15bbe7409e02f7adad89752cdd68f3",
+        "version": "42ed1935f4841c4949a6e3abe7a5b54103b603328a65ee4488db2df6b3bed3b2",
         "signature": "5f448a8b535886120cd7b672812c8c1d0c8fc4363da7e46a30a6dc94241b6f6d",
         "affectsGlobalScope": false
       },
@@ -1411,7 +1411,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/mint.ts": {
-        "version": "6e97c0cf8eba11f2e1ef7269906d1ffdb61f1f33a165dcecf25e2e1d92588fc2",
+        "version": "b559bf8b4c29e8624950bf75feac7f2cd10c3b4f1f5d768282167f04edb0fab2",
         "signature": "63da1dfef4752877d070b4aae83173056b3af0bf056db05c08789857bb0bf54f",
         "affectsGlobalScope": false
       },
@@ -1456,7 +1456,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/mint.ts": {
-        "version": "602b744f583f2eeec8fdbe518399de08214af8160f28b83136417178238465f8",
+        "version": "8d7c6de7fd21e13a0663d844dc30de88b8db72773d1fdd5771e4146d9631239f",
         "signature": "e425fc3e3d1a76e8d497c12c057a4044cd0887257381485af434c96a6b5a0c0d",
         "affectsGlobalScope": false
       },
@@ -1496,7 +1496,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/mint.ts": {
-        "version": "d3a2c226ef15a05274e08aacb19e615cfbc444947288c3392bda3968ddbdef01",
+        "version": "8648847fb0369c67c95b306f26a933befe097d7e15a0678242ca8964882f8c94",
         "signature": "377ec9416c7694e6149446d8d986d10954d9366e85a591a5861b128fc3050f4d",
         "affectsGlobalScope": false
       },
@@ -1556,7 +1556,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/mint.ts": {
-        "version": "eced4270874ac31178e99c0cfb942c011a904f8a4226452d150f859e25f5d0e3",
+        "version": "8946218c23ec1ca5d62f7818875b42438f11944493d39e211e4242844cafcb1e",
         "signature": "ebb9523926ba10c4d7ca8a164d9e94a598a37efc4c8ba0622c6f093c288d84b6",
         "affectsGlobalScope": false
       },

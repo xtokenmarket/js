@@ -24,14 +24,15 @@ export const approveXSnx = async (
   const { snxContract, xsnxContract } = await getXSnxContracts(provider)
 
   const address = spenderAddress || xsnxContract.address
+  const contract = spenderAddress ? xsnxContract : snxContract
 
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await snxContract.estimateGas.approve(address, amount),
+    await contract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return snxContract.approve(address, amount, { gasLimit })
+  return contract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXSnx = async (
