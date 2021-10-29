@@ -1,5 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { formatEther } from '@ethersproject/units'
+import { formatEther, formatUnits } from '@ethersproject/units'
 import { ADDRESSES, LENDING_LIQUIDITY_POOL, USDC } from '@xtoken/abis'
 import { BigNumber } from 'ethers'
 
@@ -71,7 +71,7 @@ export const getUpdatedBorrowBy = async (
 ) => {
   const liquidityPoolContract = await getLiquidityPoolContract(provider)
   const updatedBorrowBy = await liquidityPoolContract.updatedBorrowBy(address)
-  return formatEther(updatedBorrowBy)
+  return formatUnits(updatedBorrowBy, 6)
 }
 
 export const getUtilizationRate = async (provider: BaseProvider) => {

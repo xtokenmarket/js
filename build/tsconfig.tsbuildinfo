@@ -1476,7 +1476,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/helper.ts": {
-        "version": "bd01af546eaa64f02b6fddbfd19adfd98a8872c06543a2ac456050d42c8f566f",
+        "version": "526a72eea5f2c20bbf14bb197a3d5b634e6b0fe759fddeb53b96c75cda62052a",
         "signature": "5e94d52967a7baef86246ec7d8d4e43039a2eaeabbdcfb6a09253f0003cfb01f",
         "affectsGlobalScope": false
       },
@@ -1726,12 +1726,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.ts": {
-        "version": "0a9cda2f8e8e2f69886a01729eeb028fb5da5b369eb975bbc658fb4b6b429e88",
+        "version": "50f213e818bef09e1d04260b8c7dc60486ac85c11921875ae2cac0db3a06c512",
         "signature": "cd63107011ae0e3d1d64ca4ece502409206127bafdf95dd7c404571a13e52054",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.ts": {
-        "version": "859d71552b7e479899fc7f6882fb677c0cd138dbf1aa333df8256603f7e09a67",
+        "version": "283307d6fc2f64a533801f2e7dcbdca2962fad541339d8e05678e2fb703a3922",
         "signature": "813e5043b9844bbf2253c08112bb3658a59dccd67a90d7417fbc233f0edea533",
         "affectsGlobalScope": false
       },
@@ -3156,7 +3156,8 @@
       "../src/blockchain/lending/comptroller.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
-        "../src/blockchain/lending/helper.ts"
+        "../src/blockchain/lending/helper.ts",
+        "../src/constants.ts"
       ],
       "../src/blockchain/lending/helper.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",

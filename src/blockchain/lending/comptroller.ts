@@ -1,5 +1,7 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { formatEther } from 'ethers/lib/utils'
+import { formatEther, formatUnits } from 'ethers/lib/utils'
+
+import { DEC_18 } from '../../constants'
 
 import { getComptrollerContract } from './helper'
 
@@ -15,7 +17,7 @@ export const getBorrowingCapacity = async (
 ) => {
   const comptroller = await getComptrollerContract(provider)
   const borrowingCapacity = await comptroller.borrowingCapacity(address)
-  return formatEther(borrowingCapacity)
+  return formatUnits(borrowingCapacity, 6)
 }
 
 /**
@@ -30,8 +32,9 @@ export const getHealthRatio = async (
 ) => {
   const comptroller = await getComptrollerContract(provider)
   const healthRatio = await comptroller.getHealthRatio(address)
-  console.log('healthRatio', healthRatio.toString())
-  return formatEther(healthRatio)
+  return healthRatio.eq(DEC_18)
+    ? formatEther(healthRatio)
+    : formatUnits(healthRatio, 2)
 }
 
 /**
