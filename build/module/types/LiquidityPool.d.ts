@@ -22,11 +22,14 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface LiquidityPoolInterface extends ethers.utils.Interface {
   functions: {
+    'blockLockExempt(address)': FunctionFragment
     'borrow(uint256)': FunctionFragment
     'borrowRate()': FunctionFragment
     'borrowRatePerBlock()': FunctionFragment
     'comptroller()': FunctionFragment
     'currentLiquidity()': FunctionFragment
+    'exemptFromBlockLock(address)': FunctionFragment
+    'exemptFromLiquidation(address)': FunctionFragment
     'getBaseBorrowRate()': FunctionFragment
     'getLPTBaseValue()': FunctionFragment
     'getLPTValue()': FunctionFragment
@@ -37,7 +40,7 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     'getSlope1()': FunctionFragment
     'getSlope2()': FunctionFragment
     'getXtkFeeFactor()': FunctionFragment
-    'initialize(address)': FunctionFragment
+    'initialize(address,uint256)': FunctionFragment
     'lastLockedBlock(address)': FunctionFragment
     'liquidate(address,uint256)': FunctionFragment
     'liquidateWithPreference(address,uint256,address[])': FunctionFragment
@@ -45,6 +48,8 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
     'payAll()': FunctionFragment
+    'removeBlockLockExemption(address)': FunctionFragment
+    'removeLiquidationExemption(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'repay(uint256)': FunctionFragment
     'reserves()': FunctionFragment
@@ -67,6 +72,10 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     'xtkEarns()': FunctionFragment
   }
 
+  encodeFunctionData(
+    functionFragment: 'blockLockExempt',
+    values: [string]
+  ): string
   encodeFunctionData(functionFragment: 'borrow', values: [BigNumberish]): string
   encodeFunctionData(functionFragment: 'borrowRate', values?: undefined): string
   encodeFunctionData(
@@ -80,6 +89,14 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'currentLiquidity',
     values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'exemptFromBlockLock',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'exemptFromLiquidation',
+    values: [string]
   ): string
   encodeFunctionData(
     functionFragment: 'getBaseBorrowRate',
@@ -115,7 +132,10 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     functionFragment: 'getXtkFeeFactor',
     values?: undefined
   ): string
-  encodeFunctionData(functionFragment: 'initialize', values: [string]): string
+  encodeFunctionData(
+    functionFragment: 'initialize',
+    values: [string, BigNumberish]
+  ): string
   encodeFunctionData(
     functionFragment: 'lastLockedBlock',
     values: [string]
@@ -135,6 +155,14 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
   encodeFunctionData(functionFragment: 'payAll', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'removeBlockLockExemption',
+    values: [string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'removeLiquidationExemption',
+    values: [string]
+  ): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
@@ -201,6 +229,10 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'withdrawFees', values: [string]): string
   encodeFunctionData(functionFragment: 'xtkEarns', values?: undefined): string
 
+  decodeFunctionResult(
+    functionFragment: 'blockLockExempt',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'borrow', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'borrowRate', data: BytesLike): Result
   decodeFunctionResult(
@@ -210,6 +242,14 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'comptroller', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'currentLiquidity',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'exemptFromBlockLock',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'exemptFromLiquidation',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -260,6 +300,14 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'payAll', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'removeBlockLockExemption',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'removeLiquidationExemption',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
@@ -338,7 +386,7 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     'UpdateLPTBaseValue(uint256)': EventFragment
     'UpdateLiquidationPenaltyFactor(uint256)': EventFragment
     'UpdateLiquidityPoolToken(address)': EventFragment
-    'UpdateMiniumLoanValue(uint256)': EventFragment
+    'UpdateMinimumLoanValue(uint256)': EventFragment
     'UpdateReserveFeeFactor(uint256)': EventFragment
     'UpdateXtkFeeFactor(uint256)': EventFragment
     'WithdrawFee(address,uint256)': EventFragment
@@ -359,7 +407,7 @@ interface LiquidityPoolInterface extends ethers.utils.Interface {
     nameOrSignatureOrTopic: 'UpdateLiquidationPenaltyFactor'
   ): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateLiquidityPoolToken'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'UpdateMiniumLoanValue'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'UpdateMinimumLoanValue'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateReserveFeeFactor'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateXtkFeeFactor'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawFee'): EventFragment
@@ -379,6 +427,13 @@ export class LiquidityPool extends Contract {
   interface: LiquidityPoolInterface
 
   functions: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
     borrow(
       _amount: BigNumberish,
       overrides?: Overrides
@@ -404,6 +459,26 @@ export class LiquidityPool extends Contract {
     currentLiquidity(overrides?: CallOverrides): Promise<[BigNumber]>
 
     'currentLiquidity()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    exemptFromLiquidation(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'exemptFromLiquidation(address)'(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<[BigNumber]>
 
@@ -451,11 +526,13 @@ export class LiquidityPool extends Contract {
 
     initialize(
       _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'initialize(address)'(
+    'initialize(address,uint256)'(
       _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -510,6 +587,26 @@ export class LiquidityPool extends Contract {
     payAll(overrides?: Overrides): Promise<ContractTransaction>
 
     'payAll()'(overrides?: Overrides): Promise<ContractTransaction>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    removeLiquidationExemption(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeLiquidationExemption(address)'(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -682,6 +779,13 @@ export class LiquidityPool extends Contract {
     'xtkEarns()'(overrides?: CallOverrides): Promise<[BigNumber]>
   }
 
+  blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+  'blockLockExempt(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
   borrow(
     _amount: BigNumberish,
     overrides?: Overrides
@@ -707,6 +811,26 @@ export class LiquidityPool extends Contract {
   currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
   'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  exemptFromBlockLock(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'exemptFromBlockLock(address)'(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  exemptFromLiquidation(
+    xAsset: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'exemptFromLiquidation(address)'(
+    xAsset: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -750,11 +874,13 @@ export class LiquidityPool extends Contract {
 
   initialize(
     _stableCoin: string,
+    _decimal: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'initialize(address)'(
+  'initialize(address,uint256)'(
     _stableCoin: string,
+    _decimal: BigNumberish,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -806,6 +932,26 @@ export class LiquidityPool extends Contract {
   payAll(overrides?: Overrides): Promise<ContractTransaction>
 
   'payAll()'(overrides?: Overrides): Promise<ContractTransaction>
+
+  removeBlockLockExemption(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeBlockLockExemption(address)'(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  removeLiquidationExemption(
+    xAsset: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeLiquidationExemption(address)'(
+    xAsset: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -978,6 +1124,13 @@ export class LiquidityPool extends Contract {
   'xtkEarns()'(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
     borrow(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
     'borrow(uint256)'(
@@ -1000,6 +1153,26 @@ export class LiquidityPool extends Contract {
     currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
     'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    exemptFromLiquidation(
+      xAsset: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'exemptFromLiquidation(address)'(
+      xAsset: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1043,10 +1216,15 @@ export class LiquidityPool extends Contract {
 
     'getXtkFeeFactor()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    initialize(_stableCoin: string, overrides?: CallOverrides): Promise<void>
-
-    'initialize(address)'(
+    initialize(
       _stableCoin: string,
+      _decimal: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'initialize(address,uint256)'(
+      _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1098,6 +1276,26 @@ export class LiquidityPool extends Contract {
     payAll(overrides?: CallOverrides): Promise<void>
 
     'payAll()'(overrides?: CallOverrides): Promise<void>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    removeLiquidationExemption(
+      xAsset: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeLiquidationExemption(address)'(
+      xAsset: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -1302,7 +1500,7 @@ export class LiquidityPool extends Contract {
 
     UpdateLiquidityPoolToken(liquidityPoolToken: string | null): EventFilter
 
-    UpdateMiniumLoanValue(minimumLoanValue: null): EventFilter
+    UpdateMinimumLoanValue(minimumLoanValue: null): EventFilter
 
     UpdateReserveFeeFactor(reserveFactor: null): EventFilter
 
@@ -1312,6 +1510,13 @@ export class LiquidityPool extends Contract {
   }
 
   estimateGas: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     borrow(_amount: BigNumberish, overrides?: Overrides): Promise<BigNumber>
 
     'borrow(uint256)'(
@@ -1334,6 +1539,26 @@ export class LiquidityPool extends Contract {
     currentLiquidity(overrides?: CallOverrides): Promise<BigNumber>
 
     'currentLiquidity()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    exemptFromLiquidation(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'exemptFromLiquidation(address)'(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<BigNumber>
 
@@ -1377,10 +1602,15 @@ export class LiquidityPool extends Contract {
 
     'getXtkFeeFactor()'(overrides?: CallOverrides): Promise<BigNumber>
 
-    initialize(_stableCoin: string, overrides?: Overrides): Promise<BigNumber>
-
-    'initialize(address)'(
+    initialize(
       _stableCoin: string,
+      _decimal: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'initialize(address,uint256)'(
+      _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -1432,6 +1662,26 @@ export class LiquidityPool extends Contract {
     payAll(overrides?: Overrides): Promise<BigNumber>
 
     'payAll()'(overrides?: Overrides): Promise<BigNumber>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    removeLiquidationExemption(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeLiquidationExemption(address)'(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -1596,6 +1846,16 @@ export class LiquidityPool extends Contract {
   }
 
   populateTransaction: {
+    blockLockExempt(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     borrow(
       _amount: BigNumberish,
       overrides?: Overrides
@@ -1624,6 +1884,26 @@ export class LiquidityPool extends Contract {
 
     'currentLiquidity()'(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    exemptFromLiquidation(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'exemptFromLiquidation(address)'(
+      xAsset: string,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     getBaseBorrowRate(overrides?: CallOverrides): Promise<PopulatedTransaction>
@@ -1688,11 +1968,13 @@ export class LiquidityPool extends Contract {
 
     initialize(
       _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
-    'initialize(address)'(
+    'initialize(address,uint256)'(
       _stableCoin: string,
+      _decimal: BigNumberish,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -1747,6 +2029,26 @@ export class LiquidityPool extends Contract {
     payAll(overrides?: Overrides): Promise<PopulatedTransaction>
 
     'payAll()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    removeLiquidationExemption(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeLiquidationExemption(address)'(
+      xAsset: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 

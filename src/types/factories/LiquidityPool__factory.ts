@@ -236,7 +236,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'UpdateMiniumLoanValue',
+    name: 'UpdateMinimumLoanValue',
     type: 'event',
   },
   {
@@ -283,6 +283,25 @@ const _abi = [
     ],
     name: 'WithdrawFee',
     type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'blockLockExempt',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
@@ -347,6 +366,32 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'lockAddress',
+        type: 'address',
+      },
+    ],
+    name: 'exemptFromBlockLock',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'xAsset',
+        type: 'address',
+      },
+    ],
+    name: 'exemptFromLiquidation',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -486,6 +531,11 @@ const _abi = [
         name: '_stableCoin',
         type: 'address',
       },
+      {
+        internalType: 'uint256',
+        name: '_decimal',
+        type: 'uint256',
+      },
     ],
     name: 'initialize',
     outputs: [],
@@ -588,6 +638,32 @@ const _abi = [
   {
     inputs: [],
     name: 'payAll',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'lockAddress',
+        type: 'address',
+      },
+    ],
+    name: 'removeBlockLockExemption',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'xAsset',
+        type: 'address',
+      },
+    ],
+    name: 'removeLiquidationExemption',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

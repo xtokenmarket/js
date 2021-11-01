@@ -752,8 +752,8 @@
         "affectsGlobalScope": false
       },
       "../src/constants.spec.ts": {
-        "version": "cc5b0ac21fa3e54aa29e50633200f53f9d9b7a18078588393c1964598e0214a0",
-        "signature": "f81b0b1f5d759b578842d84b32f09f6618d45821d3b3b3538e5aca988c77331a",
+        "version": "62442101516ec18ab99a11c4f2a636a93b85388e90bdc4b177d2368af158c1dc",
+        "signature": "c1471b91219b1811d71fa5e3e617d0ccfbd526d79b3792042d449bb2b2a5615f",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
@@ -907,8 +907,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/liquiditypool.d.ts": {
-        "version": "e8f25d1c98df14463fadadf13eeb5f51eaf8c96e4fa0ff6af86e383e010a64fe",
-        "signature": "e8f25d1c98df14463fadadf13eeb5f51eaf8c96e4fa0ff6af86e383e010a64fe",
+        "version": "86c0533d9e561321aa23509db18705405a4992021cdba9551e315ff9bcd98d3f",
+        "signature": "86c0533d9e561321aa23509db18705405a4992021cdba9551e315ff9bcd98d3f",
         "affectsGlobalScope": false
       },
       "../src/types/lpt.d.ts": {
@@ -917,8 +917,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/market.d.ts": {
-        "version": "82a34ec337a556a1ee7147ab7692541d0e99438090ddb3df1396c808dfb8bb2d",
-        "signature": "82a34ec337a556a1ee7147ab7692541d0e99438090ddb3df1396c808dfb8bb2d",
+        "version": "d8f0ac23734ead79f0f647023f65b2ea45efdc73a43872db0ca51037ddc6e723",
+        "signature": "d8f0ac23734ead79f0f647023f65b2ea45efdc73a43872db0ca51037ddc6e723",
         "affectsGlobalScope": false
       },
       "../src/types/xaaveprice.d.ts": {
@@ -1112,7 +1112,7 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/liquiditypool__factory.ts": {
-        "version": "8f0bc93201fc6e275d118def51c678bee678a9bac76d1e571a9fff6a1c68043d",
+        "version": "4aaf2845a3cd586699ffb1e130ee97c8a23805da6298baddb5ab1b97d890e4cf",
         "signature": "0061799d869adb12ea6d8da8d2480ff2f2507a37693a6b9fb4a1d356da160c61",
         "affectsGlobalScope": false
       },
@@ -1122,7 +1122,7 @@
         "affectsGlobalScope": false
       },
       "../src/types/factories/market__factory.ts": {
-        "version": "0b078d36f51350dd22e78aaac4fbfab12b06707f62504ed19848faad6e2301df",
+        "version": "c83df044300f9b1216995320dcbbdd7624c62e14809873544eb0ebfa3bb517c6",
         "signature": "ecba91a51c31892b29158c94520f85dc73d23dc5c8f1ad5f4c3560e99efc4c4d",
         "affectsGlobalScope": false
       },
@@ -1726,12 +1726,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.ts": {
-        "version": "50f213e818bef09e1d04260b8c7dc60486ac85c11921875ae2cac0db3a06c512",
+        "version": "8a41b3485d344369bb6386d55d150d3fa15df4ab605de1bc5e050be32b6f45de",
         "signature": "cd63107011ae0e3d1d64ca4ece502409206127bafdf95dd7c404571a13e52054",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/liquiditypool.ts": {
-        "version": "283307d6fc2f64a533801f2e7dcbdca2962fad541339d8e05678e2fb703a3922",
+        "version": "859d71552b7e479899fc7f6882fb677c0cd138dbf1aa333df8256603f7e09a67",
         "signature": "813e5043b9844bbf2253c08112bb3658a59dccd67a90d7417fbc233f0edea533",
         "affectsGlobalScope": false
       },
@@ -1921,7 +1921,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.spec.ts": {
-        "version": "27bd9dc783ef1e30472a6b0a8bd58eb7777cab2dd1f1e755b3e0e18de2c37b93",
+        "version": "bf3c1a4ba700c9f4cec6efa22d9c2137f546979fb5455f82d57f8f04a393915e",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },

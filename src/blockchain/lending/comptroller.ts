@@ -17,7 +17,7 @@ export const getBorrowingCapacity = async (
 ) => {
   const comptroller = await getComptrollerContract(provider)
   const borrowingCapacity = await comptroller.borrowingCapacity(address)
-  return formatUnits(borrowingCapacity, 6)
+  return formatEther(borrowingCapacity)
 }
 
 /**

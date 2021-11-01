@@ -9,6 +9,11 @@ export const testAddress = process.env.TEST_ADDRESS as string
 
 export const oneAddress = '0x0000000000000000000000000000000000000001'
 
+export const kovanProvider = new ethers.providers.InfuraProvider(
+  'kovan',
+  infuraApiKey
+)
+
 export const provider = new ethers.providers.InfuraProvider(
   'homestead',
   infuraApiKey

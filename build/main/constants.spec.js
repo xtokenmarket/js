@@ -37,7 +37,7 @@ var __importStar =
     return result
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.ropstenProvider = exports.provider = exports.oneAddress = exports.testAddress = exports.infuraApiKey = void 0
+exports.ropstenProvider = exports.provider = exports.kovanProvider = exports.oneAddress = exports.testAddress = exports.infuraApiKey = void 0
 const dotenv = __importStar(require('dotenv'))
 const ethers_1 = require('ethers')
 dotenv.config()
@@ -45,6 +45,10 @@ dotenv.config()
 exports.infuraApiKey = process.env.INFURA_API_KEY
 exports.testAddress = process.env.TEST_ADDRESS
 exports.oneAddress = '0x0000000000000000000000000000000000000001'
+exports.kovanProvider = new ethers_1.ethers.providers.InfuraProvider(
+  'kovan',
+  exports.infuraApiKey
+)
 exports.provider = new ethers_1.ethers.providers.InfuraProvider(
   'homestead',
   exports.infuraApiKey
@@ -53,4 +57,4 @@ exports.ropstenProvider = new ethers_1.ethers.providers.InfuraProvider(
   'ropsten',
   exports.infuraApiKey
 )
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uc3RhbnRzLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY29uc3RhbnRzLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLCtDQUFnQztBQUNoQyxtQ0FBK0I7QUFFL0IsTUFBTSxDQUFDLE1BQU0sRUFBRSxDQUFBO0FBRWYsZ0JBQWdCO0FBQ0gsUUFBQSxZQUFZLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxjQUF3QixDQUFBO0FBQ25ELFFBQUEsV0FBVyxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFBc0IsQ0FBQTtBQUVoRCxRQUFBLFVBQVUsR0FBRyw0Q0FBNEMsQ0FBQTtBQUV6RCxRQUFBLFFBQVEsR0FBRyxJQUFJLGVBQU0sQ0FBQyxTQUFTLENBQUMsY0FBYyxDQUN6RCxXQUFXLEVBQ1gsb0JBQVksQ0FDYixDQUFBO0FBRVksUUFBQSxlQUFlLEdBQUcsSUFBSSxlQUFNLENBQUMsU0FBUyxDQUFDLGNBQWMsQ0FDaEUsU0FBUyxFQUNULG9CQUFZLENBQ2IsQ0FBQSJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uc3RhbnRzLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY29uc3RhbnRzLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLCtDQUFnQztBQUNoQyxtQ0FBK0I7QUFFL0IsTUFBTSxDQUFDLE1BQU0sRUFBRSxDQUFBO0FBRWYsZ0JBQWdCO0FBQ0gsUUFBQSxZQUFZLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxjQUF3QixDQUFBO0FBQ25ELFFBQUEsV0FBVyxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFBc0IsQ0FBQTtBQUVoRCxRQUFBLFVBQVUsR0FBRyw0Q0FBNEMsQ0FBQTtBQUV6RCxRQUFBLGFBQWEsR0FBRyxJQUFJLGVBQU0sQ0FBQyxTQUFTLENBQUMsY0FBYyxDQUM5RCxPQUFPLEVBQ1Asb0JBQVksQ0FDYixDQUFBO0FBRVksUUFBQSxRQUFRLEdBQUcsSUFBSSxlQUFNLENBQUMsU0FBUyxDQUFDLGNBQWMsQ0FDekQsV0FBVyxFQUNYLG9CQUFZLENBQ2IsQ0FBQTtBQUVZLFFBQUEsZUFBZSxHQUFHLElBQUksZUFBTSxDQUFDLFNBQVMsQ0FBQyxjQUFjLENBQ2hFLFNBQVMsRUFDVCxvQkFBWSxDQUNiLENBQUEifQ==

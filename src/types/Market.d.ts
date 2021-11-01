@@ -22,9 +22,11 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface MarketInterface extends ethers.utils.Interface {
   functions: {
+    'blockLockExempt(address)': FunctionFragment
     'borrowingLimit(address)': FunctionFragment
     'collateral(address)': FunctionFragment
     'collateralize(uint256)': FunctionFragment
+    'exemptFromBlockLock(address)': FunctionFragment
     'getCollateralCap()': FunctionFragment
     'getCollateralFactor()': FunctionFragment
     'initialize(address,uint256,uint256)': FunctionFragment
@@ -33,6 +35,7 @@ interface MarketInterface extends ethers.utils.Interface {
     'owner()': FunctionFragment
     'pauseContract()': FunctionFragment
     'paused()': FunctionFragment
+    'removeBlockLockExemption(address)': FunctionFragment
     'renounceOwnership()': FunctionFragment
     'sendCollateralToLiquidator(address,address,uint256)': FunctionFragment
     'setCollateralCap(uint256)': FunctionFragment
@@ -45,6 +48,10 @@ interface MarketInterface extends ethers.utils.Interface {
   }
 
   encodeFunctionData(
+    functionFragment: 'blockLockExempt',
+    values: [string]
+  ): string
+  encodeFunctionData(
     functionFragment: 'borrowingLimit',
     values: [string]
   ): string
@@ -52,6 +59,10 @@ interface MarketInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: 'collateralize',
     values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'exemptFromBlockLock',
+    values: [string]
   ): string
   encodeFunctionData(
     functionFragment: 'getCollateralCap',
@@ -79,6 +90,10 @@ interface MarketInterface extends ethers.utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'removeBlockLockExemption',
+    values: [string]
+  ): string
   encodeFunctionData(
     functionFragment: 'renounceOwnership',
     values?: undefined
@@ -117,12 +132,20 @@ interface MarketInterface extends ethers.utils.Interface {
   ): string
 
   decodeFunctionResult(
+    functionFragment: 'blockLockExempt',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'borrowingLimit',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'collateral', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'collateralize',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'exemptFromBlockLock',
     data: BytesLike
   ): Result
   decodeFunctionResult(
@@ -148,6 +171,10 @@ interface MarketInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'removeBlockLockExemption',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'renounceOwnership',
     data: BytesLike
@@ -183,6 +210,7 @@ interface MarketInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
 
   events: {
+    'Collateralize(uint256)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'Paused(address)': EventFragment
     'Unpaused(address)': EventFragment
@@ -190,8 +218,10 @@ interface MarketInterface extends ethers.utils.Interface {
     'UpdateCollateralFactor(uint256)': EventFragment
     'UpdateCollateralizationActive(bool)': EventFragment
     'UpdateComptroller(address)': EventFragment
+    'Withdraw(uint256)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'Collateralize'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
@@ -201,6 +231,7 @@ interface MarketInterface extends ethers.utils.Interface {
     nameOrSignatureOrTopic: 'UpdateCollateralizationActive'
   ): EventFragment
   getEvent(nameOrSignatureOrTopic: 'UpdateComptroller'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
 }
 
 export class Market extends Contract {
@@ -217,6 +248,13 @@ export class Market extends Contract {
   interface: MarketInterface
 
   functions: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
     borrowingLimit(
       _borrower: string,
       overrides?: CallOverrides
@@ -244,6 +282,16 @@ export class Market extends Contract {
 
     'collateralize(uint256)'(
       _amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
@@ -294,6 +342,16 @@ export class Market extends Contract {
     paused(overrides?: CallOverrides): Promise<[boolean]>
 
     'paused()'(overrides?: CallOverrides): Promise<[boolean]>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -378,6 +436,13 @@ export class Market extends Contract {
     ): Promise<ContractTransaction>
   }
 
+  blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+  'blockLockExempt(address)'(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
   borrowingLimit(
     _borrower: string,
     overrides?: CallOverrides
@@ -402,6 +467,16 @@ export class Market extends Contract {
 
   'collateralize(uint256)'(
     _amount: BigNumberish,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  exemptFromBlockLock(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'exemptFromBlockLock(address)'(
+    lockAddress: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
@@ -449,6 +524,16 @@ export class Market extends Contract {
   paused(overrides?: CallOverrides): Promise<boolean>
 
   'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+  removeBlockLockExemption(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'removeBlockLockExemption(address)'(
+    lockAddress: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
 
@@ -533,6 +618,13 @@ export class Market extends Contract {
   ): Promise<ContractTransaction>
 
   callStatic: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<boolean>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
     borrowingLimit(
       _borrower: string,
       overrides?: CallOverrides
@@ -557,6 +649,16 @@ export class Market extends Contract {
 
     'collateralize(uint256)'(
       _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -604,6 +706,16 @@ export class Market extends Contract {
     paused(overrides?: CallOverrides): Promise<boolean>
 
     'paused()'(overrides?: CallOverrides): Promise<boolean>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>
 
@@ -686,6 +798,8 @@ export class Market extends Contract {
   }
 
   filters: {
+    Collateralize(amount: null): EventFilter
+
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
@@ -702,9 +816,18 @@ export class Market extends Contract {
     UpdateCollateralizationActive(active: null): EventFilter
 
     UpdateComptroller(comptroller: string | null): EventFilter
+
+    Withdraw(amount: null): EventFilter
   }
 
   estimateGas: {
+    blockLockExempt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
     borrowingLimit(
       _borrower: string,
       overrides?: CallOverrides
@@ -729,6 +852,16 @@ export class Market extends Contract {
 
     'collateralize(uint256)'(
       _amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
       overrides?: Overrides
     ): Promise<BigNumber>
 
@@ -776,6 +909,16 @@ export class Market extends Contract {
     paused(overrides?: CallOverrides): Promise<BigNumber>
 
     'paused()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
 
     renounceOwnership(overrides?: Overrides): Promise<BigNumber>
 
@@ -858,6 +1001,16 @@ export class Market extends Contract {
   }
 
   populateTransaction: {
+    blockLockExempt(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'blockLockExempt(address)'(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     borrowingLimit(
       _borrower: string,
       overrides?: CallOverrides
@@ -885,6 +1038,16 @@ export class Market extends Contract {
 
     'collateralize(uint256)'(
       _amount: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    exemptFromBlockLock(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'exemptFromBlockLock(address)'(
+      lockAddress: string,
       overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
@@ -941,6 +1104,16 @@ export class Market extends Contract {
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     'paused()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    removeBlockLockExemption(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'removeBlockLockExemption(address)'(
+      lockAddress: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
 
     renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
 
