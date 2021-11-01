@@ -17,9 +17,7 @@ export const getPortfolioItemXU3LP = async (
       symbol,
       provider
     )
-
     const xu3lpBal = await getUserAvailableTokenBalance(xu3lpContract, address)
-
     const { priceUsd } = await getXU3LPPrices(xu3lpContract, kyberProxyContract)
     const xu3lpValue = (xu3lpBal * priceUsd).toFixed(2).toString()
 
