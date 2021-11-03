@@ -23,14 +23,11 @@ export const getXU3LPAsset = async (
   const tokens = getLPTokenSymbol(symbol)
   const assets = `${capitalizeToken(tokens[0])}-${capitalizeToken(tokens[1])}`
 
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    symbol,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
   const { aum, priceBtc, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   let order = -1
