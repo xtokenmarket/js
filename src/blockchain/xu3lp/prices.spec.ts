@@ -16,14 +16,11 @@ import { getXU3LPContracts } from './helper'
 import { getXU3LPPrices } from './prices'
 
 test('Get xU3LPa prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_A,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_A, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPa aum:', aum)
@@ -35,14 +32,11 @@ test('Get xU3LPa prices', async (t) => {
 })
 
 test('Get xU3LPb prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_B,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_B, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPb aum:', aum)
@@ -54,14 +48,11 @@ test('Get xU3LPb prices', async (t) => {
 })
 
 test('Get xU3LPc prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_C,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_C, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPc aum:', aum)
@@ -73,14 +64,11 @@ test('Get xU3LPc prices', async (t) => {
 })
 
 test('Get xU3LPd prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_D,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_D, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPd aum:', aum)
@@ -92,14 +80,11 @@ test('Get xU3LPd prices', async (t) => {
 })
 
 test('Get xU3LPe prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_E,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_E, provider)
 
   const { aum, priceBtc, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPe aum:', aum)
@@ -111,14 +96,11 @@ test('Get xU3LPe prices', async (t) => {
 })
 
 test('Get xU3LPf prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_F,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_F, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPf aum:', aum)
@@ -130,14 +112,11 @@ test('Get xU3LPf prices', async (t) => {
 })
 
 test('Get xU3LPg prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_G,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_G, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPg aum:', aum)
@@ -149,14 +128,11 @@ test('Get xU3LPg prices', async (t) => {
 })
 
 test('Get xU3LPh prices', async (t) => {
-  const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-    X_U3LP_H,
-    provider
-  )
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_H, provider)
 
   const { aum, priceEth, priceUsd } = await getXU3LPPrices(
     xu3lpContract,
-    kyberProxyContract
+    provider
   )
 
   console.log('xU3LPh aum:', aum)
