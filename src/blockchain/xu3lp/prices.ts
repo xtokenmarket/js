@@ -8,6 +8,7 @@ import { XU3LP } from '../../types'
 import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
 import { getBtcUsdcPrice, getEthUsdcPrice } from '../exchanges/uniswap'
+import { getEthUsdcPriceV3 } from '../exchanges/uniswapV3'
 import { getLPTokenSymbol } from '../utils'
 
 /**
