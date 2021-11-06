@@ -3,7 +3,7 @@ import test from 'ava'
 
 import { provider } from '../../constants.spec'
 
-import { getUniswapV3EstimatedQty } from './uniswapV3'
+import { getEthUsdcPriceUniswapV3, getUniswapV3EstimatedQty } from './uniswapV3'
 
 test('Calculate expected quantity on mint of xAAVEa on UniswapV3', async (t) => {
   const expectedQty = await getUniswapV3EstimatedQty(
@@ -28,5 +28,11 @@ test('Calculate expected quantity on burn of xAAVEa on UniswapV3', async (t) => 
     provider
   )
   console.log('[UniswapV3] Expected AAVE qty for 100 xAAVEa:', expectedQty)
+  t.true(Number(expectedQty) > 0)
+})
+
+test('Get ETH price in USDC on UniswapV3', async (t) => {
+  const expectedQty = await getEthUsdcPriceUniswapV3(provider)
+  console.log('[UniswapV3] 1 ETH price in USDC:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })

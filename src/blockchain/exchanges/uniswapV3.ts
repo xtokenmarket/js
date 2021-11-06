@@ -12,9 +12,9 @@ import {
   X_INCH_B,
 } from '@xtoken/abis'
 import { BigNumber, Contract } from 'ethers'
-import { formatEther, parseEther } from 'ethers/lib/utils'
-import { DEC_18 } from '../../constants'
+import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
 
+import { DEC_18 } from '../../constants'
 import { ITokenSymbols, ITradeType } from '../../types/xToken'
 import { getSigner, getTokenSymbol } from '../utils'
 
@@ -79,7 +79,7 @@ export const getUniswapV3EstimatedQty = async (
   return formatEther(estimateQty)
 }
 
-export const getEthUsdcPriceV3 = async (provider: BaseProvider) => {
+export const getEthUsdcPriceUniswapV3 = async (provider: BaseProvider) => {
   const { chainId } = await provider.getNetwork()
   const quoterContract = new Contract(
     QUOTER_ADDRESS,
@@ -87,19 +87,16 @@ export const getEthUsdcPriceV3 = async (provider: BaseProvider) => {
     getSigner(provider)
   )
 
-  const wethAddress = ADDRESSES[WETH][chainId]
   const usdcAddress = ADDRESSES[USDC][chainId]
-
-  console.log('addresses:', { wethAddress, usdcAddress })
+  const wethAddress = ADDRESSES[WETH][chainId]
 
   const quantity = await quoterContract.callStatic.quoteExactInputSingle(
-    usdcAddress,
     wethAddress,
+    usdcAddress,
     FEES,
     DEC_18,
     MAX_PRICE
   )
 
-  console.log('quanitty:', formatEther(quantity))
-  return formatEther(quantity)
+  return formatUnits(quantity, 6)
 }
