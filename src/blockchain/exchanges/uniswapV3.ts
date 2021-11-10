@@ -84,7 +84,8 @@ export const getEthUsdcPriceUniswapV3 = async (provider: BaseProvider) => {
   const quoterContract = new Contract(
     QUOTER_ADDRESS,
     QuoterAbi,
-    getSigner(provider)
+    // getSigner(provider)
+    provider
   )
 
   const usdcAddress = ADDRESSES[USDC][chainId]
@@ -95,7 +96,10 @@ export const getEthUsdcPriceUniswapV3 = async (provider: BaseProvider) => {
     usdcAddress,
     FEES,
     DEC_18,
-    MAX_PRICE
+    // In case of Token0 to Token1 trade, the price limit is `MIN_PRICE` and the reverse would be `MAX_PRICE`
+    BigNumber.from(usdcAddress).gt(BigNumber.from(wethAddress))
+      ? MIN_PRICE
+      : MAX_PRICE
   )
 
   return formatUnits(quantity, 6)

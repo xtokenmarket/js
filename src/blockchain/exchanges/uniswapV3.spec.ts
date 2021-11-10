@@ -32,14 +32,11 @@ test('Calculate expected quantity on burn of xAAVEa on UniswapV3', async (t) => 
 })
 
 test('Get ETH price in USDC on UniswapV3', async (t) => {
-  const expectedQtyMainnet = await getEthUsdcPriceUniswapV3(provider)
-  console.log('[UniswapV3] 1 ETH price in USDC - Mainnet:', expectedQtyMainnet)
-  t.true(Number(expectedQtyMainnet) > 0)
+  // const expectedQtyMainnet = await getEthUsdcPriceUniswapV3(provider)
+  // console.log('[Mainnet/UniswapV3] 1 ETH price in USDC:', expectedQtyMainnet)
+  // t.true(Number(expectedQtyMainnet) > 0)
 
   const expectedQtyArbitrum = await getEthUsdcPriceUniswapV3(arbitrumProvider)
-  console.log(
-    '[UniswapV3] 1 ETH price in USDC - Arbitrum:',
-    expectedQtyArbitrum
-  )
+  console.log('[Arbitrum/UniswapV3] 1 ETH price in USDC:', expectedQtyArbitrum)
   t.true(Number(expectedQtyArbitrum) > 0)
 })
