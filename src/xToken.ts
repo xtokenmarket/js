@@ -1140,10 +1140,7 @@ export class XToken {
       return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
     }
 
-    const value = parseUnits(
-      amount,
-      type === REPAY || type === WITHDRAW ? 18 : 6
-    )
+    const value = parseUnits(amount, 6)
 
     switch (type) {
       case BORROW:
@@ -1154,6 +1151,8 @@ export class XToken {
         return supplyLiquidity(value, this.provider)
       case WITHDRAW:
         return withdrawLiquidity(value, this.provider)
+      default:
+        return Promise.reject(new Error('Invalid lending type specified'))
     }
   }
 

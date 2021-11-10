@@ -1816,7 +1816,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "2afd170be3565794cd167d1796c28ba6355c0a191a448048231b2ef0bf9efb94",
+        "version": "f49fcb400732f2a0fbe3ef82408b21420f527990388c4c722990940c7aafb2a5",
         "signature": "9ef29f8dd22e5295b3f295725934bf8966e1d0bb1376e7f2e929bb331ca2b854",
         "affectsGlobalScope": false
       },
