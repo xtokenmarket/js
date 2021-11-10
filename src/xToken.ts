@@ -862,17 +862,25 @@ export class XToken {
    * AUM, Mandate & USD price
    */
   public async getXAssets(): Promise<readonly IAsset[]> {
-    return Promise.all([
-      getXAlphaAsset(X_ALPHA_A, this.provider),
-      getXBntAsset(X_BNT_A, this.provider),
-      getXInchAsset(X_INCH_A, this.provider),
-      getXInchAsset(X_INCH_B, this.provider),
-      getXAaveAsset(X_AAVE_A, this.provider),
-      getXAaveAsset(X_AAVE_B, this.provider),
-      getXSnxAsset(X_SNX_A, this.provider),
-      getXKncAsset(X_KNC_A, this.provider),
-      getXKncAsset(X_KNC_B, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getXAlphaAsset(X_ALPHA_A, this.provider),
+          getXBntAsset(X_BNT_A, this.provider),
+          getXInchAsset(X_INCH_A, this.provider),
+          getXInchAsset(X_INCH_B, this.provider),
+          getXAaveAsset(X_AAVE_A, this.provider),
+          getXAaveAsset(X_AAVE_B, this.provider),
+          getXSnxAsset(X_SNX_A, this.provider),
+          getXKncAsset(X_KNC_A, this.provider),
+          getXKncAsset(X_KNC_B, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return []
+      default:
+        return Promise.reject(new Error('Wrong Network'))
+    }
   }
 
   /**
@@ -885,16 +893,24 @@ export class XToken {
    * @returns Returns list of all the xU3LP tokens along with their asset details, AUM & USD price
    */
   public async getXLPAssets(): Promise<readonly ILPAsset[]> {
-    return Promise.all([
-      getXU3LPAsset(X_U3LP_H, this.provider),
-      getXU3LPAsset(X_U3LP_G, this.provider),
-      getXU3LPAsset(X_U3LP_F, this.provider),
-      getXU3LPAsset(X_U3LP_E, this.provider),
-      getXU3LPAsset(X_U3LP_D, this.provider),
-      getXU3LPAsset(X_U3LP_C, this.provider),
-      getXU3LPAsset(X_U3LP_B, this.provider),
-      getXU3LPAsset(X_U3LP_A, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getXU3LPAsset(X_U3LP_H, this.provider),
+          getXU3LPAsset(X_U3LP_G, this.provider),
+          getXU3LPAsset(X_U3LP_F, this.provider),
+          getXU3LPAsset(X_U3LP_E, this.provider),
+          getXU3LPAsset(X_U3LP_D, this.provider),
+          getXU3LPAsset(X_U3LP_C, this.provider),
+          getXU3LPAsset(X_U3LP_B, this.provider),
+          getXU3LPAsset(X_U3LP_A, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
+      default:
+        return Promise.reject(new Error('Wrong Network'))
+    }
   }
 
   /**
