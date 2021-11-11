@@ -81,12 +81,7 @@ export const getUniswapV3EstimatedQty = async (
 
 export const getEthUsdcPriceUniswapV3 = async (provider: BaseProvider) => {
   const { chainId } = await provider.getNetwork()
-  const quoterContract = new Contract(
-    QUOTER_ADDRESS,
-    QuoterAbi,
-    // getSigner(provider)
-    provider
-  )
+  const quoterContract = new Contract(QUOTER_ADDRESS, QuoterAbi, provider)
 
   const usdcAddress = ADDRESSES[USDC][chainId]
   const wethAddress = ADDRESSES[WETH][chainId]
