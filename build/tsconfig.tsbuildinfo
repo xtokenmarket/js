@@ -767,8 +767,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/constants.d.ts": {
-        "version": "ee0df43d68335c1f3956b40f555c68700641efff365fc74c78247f405ce190ba",
-        "signature": "ee0df43d68335c1f3956b40f555c68700641efff365fc74c78247f405ce190ba",
+        "version": "a75cfe5941593d7f2116d4b048438cf69f34c7586a0b222c63e14537e87129a1",
+        "signature": "a75cfe5941593d7f2116d4b048438cf69f34c7586a0b222c63e14537e87129a1",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/index.d.ts": {
