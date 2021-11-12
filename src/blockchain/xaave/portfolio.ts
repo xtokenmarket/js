@@ -15,26 +15,15 @@ export const getPortfolioItemXAave = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const {
-      kyberProxyContract,
-      network,
-      xaaveContract,
-    } = await getXAaveContracts(symbol, provider)
-    const { chainId } = network
+    const { xaaveContract } = await getXAaveContracts(symbol, provider)
 
-    const xaaveBal = await getUserAvailableTokenBalance(xaaveContract, address)
+    const [xaaveBal, { priceUsd }, tokenEquivalent] = await Promise.all([
+      getUserAvailableTokenBalance(xaaveContract, address),
+      getXAavePrices(xaaveContract),
+      getUnderlyingTokenEquivalent(xaaveContract, address),
+    ])
 
-    const { priceUsd } = await getXAavePrices(
-      xaaveContract,
-      kyberProxyContract,
-      chainId
-    )
     const xaaveValue = (xaaveBal * priceUsd).toFixed(2).toString()
-
-    const tokenEquivalent = await getUnderlyingTokenEquivalent(
-      xaaveContract,
-      address
-    )
 
     return {
       symbol,

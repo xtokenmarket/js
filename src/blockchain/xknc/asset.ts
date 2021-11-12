@@ -10,17 +10,9 @@ export const getXKncAsset = async (
   symbol: typeof X_KNC_A | typeof X_KNC_B,
   provider: BaseProvider
 ): Promise<IAsset> => {
-  const {
-    kncContract,
-    kyberProxyContract,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
+  const { xkncContract } = await getXKncContracts(symbol, provider)
 
-  const { aum, priceEth, priceUsd } = await getXKncPrices(
-    xkncContract,
-    kncContract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXKncPrices(xkncContract)
 
   return {
     aum,

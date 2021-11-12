@@ -11,14 +11,13 @@ import { getXAssetCLRContracts } from './helper'
 import { getXAssetCLRPrices } from './prices'
 
 test(`Get ${AAVE_X_AAVE_A_CLR} prices`, async (t) => {
-  const { kyberProxyContract, xAssetCLRContract } = await getXAssetCLRContracts(
+  const { xAssetCLRContract } = await getXAssetCLRContracts(
     AAVE_X_AAVE_A_CLR,
     provider
   )
 
   const { aum, priceEth, priceUsd } = await getXAssetCLRPrices(
-    xAssetCLRContract,
-    kyberProxyContract
+    xAssetCLRContract
   )
 
   console.log(`${AAVE_X_AAVE_A_CLR} aum:`, aum)
@@ -30,14 +29,13 @@ test(`Get ${AAVE_X_AAVE_A_CLR} prices`, async (t) => {
 })
 
 test(`Get ${X_ALPHA_A_ALPHA_CLR} prices`, async (t) => {
-  const { kyberProxyContract, xAssetCLRContract } = await getXAssetCLRContracts(
+  const { xAssetCLRContract } = await getXAssetCLRContracts(
     X_ALPHA_A_ALPHA_CLR,
     provider
   )
 
   const { aum, priceEth, priceUsd } = await getXAssetCLRPrices(
-    xAssetCLRContract,
-    kyberProxyContract
+    xAssetCLRContract
   )
 
   console.log(`${X_ALPHA_A_ALPHA_CLR} aum:`, aum)
@@ -49,14 +47,13 @@ test(`Get ${X_ALPHA_A_ALPHA_CLR} prices`, async (t) => {
 })
 
 test(`Get ${XTK_ETH_CLR} prices`, async (t) => {
-  const { kyberProxyContract, xAssetCLRContract } = await getXAssetCLRContracts(
+  const { xAssetCLRContract } = await getXAssetCLRContracts(
     XTK_ETH_CLR,
     provider
   )
 
   const { aum, priceEth, priceUsd } = await getXAssetCLRPrices(
-    xAssetCLRContract,
-    kyberProxyContract
+    xAssetCLRContract
   )
 
   console.log(`${XTK_ETH_CLR} aum:`, aum)

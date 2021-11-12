@@ -7,15 +7,9 @@ import { getXBntContracts } from './helper'
 import { getXBntPrices } from './prices'
 
 test('Get xBNTa prices', async (t) => {
-  const { kyberProxyContract, xbntContract } = await getXBntContracts(
-    X_BNT_A,
-    provider
-  )
+  const { xbntContract } = await getXBntContracts(X_BNT_A, provider)
 
-  const { aum, priceEth, priceUsd } = await getXBntPrices(
-    xbntContract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXBntPrices(xbntContract)
 
   console.log('xBNTa aum:', aum)
   console.log('xBNTa priceEth:', priceEth)

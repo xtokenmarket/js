@@ -10,18 +10,9 @@ export const getXAaveAsset = async (
   symbol: typeof X_AAVE_A | typeof X_AAVE_B,
   provider: BaseProvider
 ): Promise<IAsset> => {
-  const {
-    kyberProxyContract,
-    network,
-    xaaveContract,
-  } = await getXAaveContracts(symbol, provider)
-  const { chainId } = network
+  const { xaaveContract } = await getXAaveContracts(symbol, provider)
 
-  const { aum, priceEth, priceUsd } = await getXAavePrices(
-    xaaveContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract)
 
   return {
     aum,

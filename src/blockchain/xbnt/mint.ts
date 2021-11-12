@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract, ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, BNT, ETH } from '@xtoken/abis'
+import { ADDRESSES, BNT, ETH, KYBER_PROXY } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
 import {
@@ -9,10 +9,15 @@ import {
   GAS_LIMIT_PERCENTAGE_DEFAULT,
   GAS_LIMIT_PERCENTAGE_ETH,
 } from '../../constants'
-import { XBNT } from '../../types'
+import { KyberProxy, XBNT } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getExpectedRate, getSignerAddress, parseFees } from '../utils'
+import {
+  getContract,
+  getExpectedRate,
+  getSignerAddress,
+  parseFees,
+} from '../utils'
 
 import { getXBntContracts } from './helper'
 
@@ -44,11 +49,14 @@ export const getExpectedQuantityOnMintXBnt = async (
   provider: BaseProvider
 ): Promise<string> => {
   const inputAmount = parseEther(amount)
-  const { kyberProxyContract, network, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
+  const { network, xbntContract } = await getXBntContracts(symbol, provider)
   const { chainId } = network
+
+  const kyberProxyContract = getContract(
+    KYBER_PROXY,
+    provider,
+    network
+  ) as KyberProxy
 
   const [bntHoldings, xbntSupply, { mintFee }] = await Promise.all([
     xbntContract.getNav(),

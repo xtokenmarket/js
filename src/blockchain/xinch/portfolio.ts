@@ -15,26 +15,15 @@ export const getPortfolioItemXInch = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const {
-      kyberProxyContract,
-      network,
-      xinchContract,
-    } = await getXInchContracts(symbol, provider)
-    const { chainId } = network
+    const { xinchContract } = await getXInchContracts(symbol, provider)
 
-    const xinchBal = await getUserAvailableTokenBalance(xinchContract, address)
+    const [xinchBal, { priceUsd }, tokenEquivalent] = await Promise.all([
+      getUserAvailableTokenBalance(xinchContract, address),
+      getXInchPrices(xinchContract),
+      getUnderlyingTokenEquivalent(xinchContract, address),
+    ])
 
-    const { priceUsd } = await getXInchPrices(
-      xinchContract,
-      kyberProxyContract,
-      chainId
-    )
     const xinchValue = (xinchBal * priceUsd).toFixed(2)
-
-    const tokenEquivalent = await getUnderlyingTokenEquivalent(
-      xinchContract,
-      address
-    )
 
     return {
       symbol,

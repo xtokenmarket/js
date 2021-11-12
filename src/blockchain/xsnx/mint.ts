@@ -20,15 +20,15 @@ export const approveXSnx = async (
   amount: BigNumber,
   provider: BaseProvider
 ): Promise<ContractTransaction> => {
-  const { tokenContract, xsnxContract } = await getXSnxContracts(provider)
+  const { snxContract, xsnxContract } = await getXSnxContracts(provider)
 
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(xsnxContract.address, amount),
+    await snxContract.estimateGas.approve(xsnxContract.address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return tokenContract.approve(xsnxContract.address, amount, { gasLimit })
+  return snxContract.approve(xsnxContract.address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXSnx = async (
@@ -96,7 +96,7 @@ export const mintXSnx = async (
 ): Promise<ContractTransaction> => {
   const {
     kyberProxyContract,
-    tokenContract,
+    snxContract,
     xsnxContract,
   } = await getXSnxContracts(provider)
 
@@ -104,7 +104,7 @@ export const mintXSnx = async (
     const minRate = await getExpectedRate(
       kyberProxyContract,
       ADDRESSES[ETH] as string,
-      tokenContract.address,
+      snxContract.address,
       amount,
       true
     )
@@ -124,7 +124,7 @@ export const mintXSnx = async (
   } else {
     const address = await getSignerAddress(provider)
     const approvedAmount = await _getApprovedAmount(
-      tokenContract,
+      snxContract,
       xsnxContract,
       address
     )

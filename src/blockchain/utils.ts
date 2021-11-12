@@ -59,7 +59,6 @@ import {
   X_SNX_A,
   X_SNX_A_BALANCER_POOL_V2,
   X_SNX_A_SNX_CLR,
-  X_SNX_ADMIN,
   X_U3LP_A,
   X_U3LP_B,
   X_U3LP_C,
@@ -76,7 +75,7 @@ import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 
 import { ZERO_NUMBER } from '../constants'
-import { ExchangeRates, KyberProxy } from '../types'
+import { KyberProxy } from '../types'
 import {
   ICLRToken,
   IContracts,
@@ -437,63 +436,30 @@ export const getXAssetPrices = async (
   switch (symbol) {
     case X_AAVE_A:
     case X_AAVE_B: {
-      const {
-        kyberProxyContract,
-        network,
-        xaaveContract,
-      } = await getXAaveContracts(symbol, provider)
-      return getXAavePrices(xaaveContract, kyberProxyContract, network.chainId)
+      const { xaaveContract } = await getXAaveContracts(symbol, provider)
+      return getXAavePrices(xaaveContract)
     }
     case X_ALPHA_A: {
-      const { kyberProxyContract, xalphaContract } = await getXAlphaContracts(
-        symbol,
-        provider
-      )
-      return getXAlphaPrices(xalphaContract, kyberProxyContract)
+      const { xalphaContract } = await getXAlphaContracts(symbol, provider)
+      return getXAlphaPrices(xalphaContract)
     }
     case X_BNT_A: {
-      const { kyberProxyContract, xbntContract } = await getXBntContracts(
-        symbol,
-        provider
-      )
-      return getXBntPrices(xbntContract, kyberProxyContract)
+      const { xbntContract } = await getXBntContracts(symbol, provider)
+      return getXBntPrices(xbntContract)
     }
     case X_INCH_A:
     case X_INCH_B: {
-      const {
-        kyberProxyContract,
-        network,
-        xinchContract,
-      } = await getXInchContracts(symbol, provider)
-      return getXInchPrices(xinchContract, kyberProxyContract, network.chainId)
+      const { xinchContract } = await getXInchContracts(symbol, provider)
+      return getXInchPrices(xinchContract)
     }
     case X_KNC_A:
     case X_KNC_B: {
-      const {
-        kncContract,
-        kyberProxyContract,
-        xkncContract,
-      } = await getXKncContracts(symbol, provider)
-      return getXKncPrices(xkncContract, kncContract, kyberProxyContract)
+      const { xkncContract } = await getXKncContracts(symbol, provider)
+      return getXKncPrices(xkncContract)
     }
     case X_SNX_A: {
-      const {
-        network,
-        snxContract,
-        tradeAccountingContract,
-        xsnxContract,
-      } = await getXSnxContracts(provider)
-      const exchangeRatesContract = (await getExchangeRateContract(
-        provider
-      )) as ExchangeRates
-      return getXSnxPrices(
-        xsnxContract,
-        ADDRESSES[X_SNX_ADMIN][network.chainId],
-        tradeAccountingContract,
-        exchangeRatesContract,
-        snxContract,
-        provider
-      )
+      const { xsnxContract } = await getXSnxContracts(provider)
+      return getXSnxPrices(xsnxContract)
     }
   }
 }

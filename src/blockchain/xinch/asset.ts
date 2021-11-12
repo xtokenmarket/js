@@ -10,18 +10,9 @@ export const getXInchAsset = async (
   symbol: typeof X_INCH_A | typeof X_INCH_B,
   provider: BaseProvider
 ): Promise<IAsset> => {
-  const {
-    kyberProxyContract,
-    network,
-    xinchContract,
-  } = await getXInchContracts(symbol, provider)
-  const { chainId } = network
+  const { xinchContract } = await getXInchContracts(symbol, provider)
 
-  const { aum, priceEth, priceUsd } = await getXInchPrices(
-    xinchContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXInchPrices(xinchContract)
 
   return {
     aum,

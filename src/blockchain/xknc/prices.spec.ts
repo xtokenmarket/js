@@ -1,6 +1,5 @@
 import { X_KNC_A, X_KNC_B } from '@xtoken/abis'
 import test from 'ava'
-import { Contract } from 'ethers'
 
 import { provider } from '../../constants.spec'
 
@@ -8,17 +7,9 @@ import { getXKncContracts } from './helper'
 import { getXKncPrices } from './prices'
 
 test('Get xKNCa prices', async (t) => {
-  const {
-    kncContract,
-    kyberProxyContract,
-    xkncContract,
-  } = await getXKncContracts(X_KNC_A, provider)
+  const { xkncContract } = await getXKncContracts(X_KNC_A, provider)
 
-  const { aum, priceEth, priceUsd } = await getXKncPrices(
-    xkncContract,
-    kncContract as Contract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXKncPrices(xkncContract)
 
   console.log('xKNCa aum:', aum)
   console.log('xKNCa priceEth:', priceEth)
@@ -29,17 +20,9 @@ test('Get xKNCa prices', async (t) => {
 })
 
 test('Get xKNCb prices', async (t) => {
-  const {
-    kncContract,
-    kyberProxyContract,
-    xkncContract,
-  } = await getXKncContracts(X_KNC_B, provider)
+  const { xkncContract } = await getXKncContracts(X_KNC_B, provider)
 
-  const { aum, priceEth, priceUsd } = await getXKncPrices(
-    xkncContract,
-    kncContract as Contract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXKncPrices(xkncContract)
 
   console.log('xKNCb aum:', aum)
   console.log('xKNCb priceEth:', priceEth)

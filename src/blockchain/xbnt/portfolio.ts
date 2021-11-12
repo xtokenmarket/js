@@ -15,20 +15,15 @@ export const getPortfolioItemXBnt = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const { kyberProxyContract, xbntContract } = await getXBntContracts(
-      symbol,
-      provider
-    )
+    const { xbntContract } = await getXBntContracts(symbol, provider)
 
-    const xbntBal = await getUserAvailableTokenBalance(xbntContract, address)
+    const [xbntBal, { priceUsd }, tokenEquivalent] = await Promise.all([
+      getUserAvailableTokenBalance(xbntContract, address),
+      getXBntPrices(xbntContract),
+      getUnderlyingTokenEquivalent(xbntContract, address),
+    ])
 
-    const { priceUsd } = await getXBntPrices(xbntContract, kyberProxyContract)
     const xbntValue = (xbntBal * priceUsd).toFixed(2).toString()
-
-    const tokenEquivalent = await getUnderlyingTokenEquivalent(
-      xbntContract,
-      address
-    )
 
     return {
       symbol,

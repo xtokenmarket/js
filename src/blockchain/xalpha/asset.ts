@@ -10,15 +10,9 @@ export const getXAlphaAsset = async (
   symbol: typeof X_ALPHA_A,
   provider: BaseProvider
 ): Promise<IAsset> => {
-  const { kyberProxyContract, xalphaContract } = await getXAlphaContracts(
-    symbol,
-    provider
-  )
+  const { xalphaContract } = await getXAlphaContracts(symbol, provider)
 
-  const { aum, priceEth, priceUsd } = await getXAlphaPrices(
-    xalphaContract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXAlphaPrices(xalphaContract)
 
   return {
     aum,

@@ -3,7 +3,7 @@ import { BaseProvider } from '@ethersproject/providers'
 import { KYBER_PROXY, SNX, TRADE_ACCOUNTING, X_SNX_A } from '@xtoken/abis'
 
 import { KyberProxy, TradeAccounting, XSNX } from '../../types'
-import { getContract, getTokenSymbol } from '../utils'
+import { getContract } from '../utils'
 
 export const getXSnxContracts = async (provider: BaseProvider) => {
   const network = await provider.getNetwork()
@@ -15,11 +15,6 @@ export const getXSnxContracts = async (provider: BaseProvider) => {
     provider,
     network
   ) as KyberProxy
-  const tokenContract = getContract(
-    getTokenSymbol(X_SNX_A),
-    provider,
-    network
-  ) as Contract
   const tradeAccountingContract = getContract(
     TRADE_ACCOUNTING,
     provider,
@@ -29,7 +24,6 @@ export const getXSnxContracts = async (provider: BaseProvider) => {
   if (
     !xsnxContract ||
     !kyberProxyContract ||
-    !tokenContract ||
     !tradeAccountingContract ||
     !snxContract
   ) {
@@ -40,7 +34,6 @@ export const getXSnxContracts = async (provider: BaseProvider) => {
     kyberProxyContract,
     network,
     snxContract,
-    tokenContract,
     tradeAccountingContract,
     xsnxContract,
   }
