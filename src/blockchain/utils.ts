@@ -23,6 +23,25 @@ import {
   INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
+  LENDING_COMPTROLLER,
+  LENDING_LIQUIDITY_POOL,
+  LENDING_LPT,
+  LENDING_WBTC_MARKET,
+  LENDING_WBTC_PRICE,
+  LENDING_WETH_MARKET,
+  LENDING_WETH_PRICE,
+  /*LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_A_PRICE,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_AAVE_B_PRICE,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_A_PRICE,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_INCH_B_PRICE,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_A_PRICE,
+  LENDING_X_KNC_B_MARKET,
+  LENDING_X_KNC_B_PRICE,*/
   REN_BTC,
   S_ETH,
   S_USD,
@@ -180,6 +199,34 @@ export const getAbi = (contractName: IContracts) => {
     case X_SNX_A_SNX_CLR:
     case XTK_ETH_CLR:
       return Abi.xAssetCLR as ContractInterface
+    case LENDING_COMPTROLLER:
+      return Abi.Comptroller as ContractInterface
+    case LENDING_LIQUIDITY_POOL:
+      return Abi.LiquidityPool as ContractInterface
+    case LENDING_LPT:
+      return Abi.LPT as ContractInterface
+    // case LENDING_X_AAVE_A_MARKET:
+    // case LENDING_X_AAVE_B_MARKET:
+    // case LENDING_X_INCH_A_MARKET:
+    // case LENDING_X_INCH_B_MARKET:
+    // case LENDING_X_KNC_A_MARKET:
+    // case LENDING_X_KNC_B_MARKET:
+    case LENDING_WBTC_MARKET:
+    case LENDING_WETH_MARKET:
+      return Abi.Market as ContractInterface
+    /*case LENDING_X_AAVE_A_PRICE:
+    case LENDING_X_AAVE_B_PRICE:
+      return Abi.xAAVEPrice as ContractInterface
+    case LENDING_X_INCH_A_PRICE:
+    case LENDING_X_INCH_B_PRICE:
+      return Abi.xINCHPrice as ContractInterface
+    case LENDING_X_KNC_A_PRICE:
+    case LENDING_X_KNC_B_PRICE:
+      return Abi.xKNCPrice as ContractInterface
+     */
+    case LENDING_WBTC_PRICE:
+    case LENDING_WETH_PRICE:
+      return Abi.NativePrice as ContractInterface
   }
 }
 
@@ -466,15 +513,6 @@ export const getXAssetPrices = async (
 
 export const parseFees = (fee: BigNumber) => {
   return parseEther(fee.isZero() ? '1' : String(1 - 1 / fee.toNumber()))
-}
-
-export const getTokenBalance = async (
-  tokenAddress: string,
-  userAddress: string,
-  provider: BaseProvider
-) => {
-  const contract = new ethers.Contract(tokenAddress, Abi.ERC20, provider)
-  return contract.balanceOf(userAddress)
 }
 
 export const getUserAvailableTokenBalance = async (

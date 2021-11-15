@@ -40,7 +40,11 @@ export const getXInchContracts = async (
     network
   ) as Contract
 
-  if (!xinchContract || !inchLiquidityProtocolContract || !tokenContract) {
+  if (
+    !xinchContract ||
+    // !inchLiquidityProtocolContract ||
+    !tokenContract
+  ) {
     return Promise.reject(new Error('Unknown error'))
   }
 

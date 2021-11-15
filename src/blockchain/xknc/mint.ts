@@ -21,20 +21,24 @@ const { formatEther, parseEther } = ethers.utils
 export const approveXKnc = async (
   symbol: ITokenSymbols,
   amount: BigNumber,
-  provider: BaseProvider
+  provider: BaseProvider,
+  spenderAddress?: string
 ): Promise<ContractTransaction> => {
   const { tokenContract, xkncContract } = await getXKncContracts(
     symbol,
     provider
   )
 
+  const address = spenderAddress || xkncContract.address
+  const contract = spenderAddress ? xkncContract : tokenContract
+
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(xkncContract.address, amount),
+    await contract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return tokenContract.approve(xkncContract.address, amount, { gasLimit })
+  return contract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXKnc = async (
