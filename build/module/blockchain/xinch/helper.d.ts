@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
-import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
+import { InchLiquidityProtocol, XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 export declare const getExpectedRateInch: (
   inchLiquidityProtocolContract: InchLiquidityProtocol,
@@ -15,7 +15,6 @@ export declare const getXInchContracts: (
   provider: BaseProvider
 ) => Promise<{
   inchLiquidityProtocolContract: InchLiquidityProtocol
-  kyberProxyContract: KyberProxy
   network: import('@ethersproject/providers').Network
   tokenContract: Contract
   xinchContract: XINCH

@@ -1317,12 +1317,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/prices.ts": {
-        "version": "ae4f18afa3aa7dbe71c3b0e32ec51727014f02d3252300d41d2b305c1180a577",
-        "signature": "6cebf49dcfe900c45cf5367258b67161a83bc61aa1794815cead667c71f8dfab",
+        "version": "c91633628bff9e70865ba1518aebfc740169f1ca380dd91e396b463905eb6597",
+        "signature": "9753903d82cd6d366a6267e15226421f8e1d4eccb9809285955ef3d7fad338d8",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/asset.ts": {
-        "version": "81054d1b1be8e93b64e4b7ce781c3f7d203ed442827a514bd5f6862b6c2ee7b3",
+        "version": "981d547c045bff042a94046e5b9c866c66914bb8b229c80b7abf3e7d71d91ad0",
         "signature": "d22ab818f06ad9b3beaa7668397cfa7745ca2da7f87a702637ee1b5fd156b6ae",
         "affectsGlobalScope": false
       },
@@ -1337,7 +1337,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/portfolio.ts": {
-        "version": "d1590585ff623de1ec94f9cbc7fae00cd6f1d449c75ce9f64b92f29e78593e18",
+        "version": "16c2ac1cc7241892fa9c9521915bf279e559e829eefda53df7188660944650e8",
         "signature": "ee9e9b64a9656d3996cf5808a1a772d9bf09f295c6f38c4436d280cfb95c6461",
         "affectsGlobalScope": false
       },
@@ -1352,17 +1352,17 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/uniswap.ts": {
-        "version": "8af00bbfdcddaf802f63ed6f5e3a55198b1c570aeabb02376b7763544ead73fc",
+        "version": "e827331912af30fa43abd9b981006071aadc245b052d8f41e16025944ed98f40",
         "signature": "a95affd83e6c122bfa52e8f3462ded4f506b4dcbcd0a8647821f91cd41d84f55",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/prices.ts": {
-        "version": "115ea584cecc424f4883ae66f7802b944f951e6468338d1cc754920aae317389",
-        "signature": "c8762f39ad4b41d90f9c0b2f0c3c166a175ed07f45a16db3e284dcae900e0505",
+        "version": "98ca6a31b9079146a20bf1b89340d6e56f29f8543484a6e5b826dccc1a01ee09",
+        "signature": "17c288635197088e6bd8de199c11ea93eea3188be5544768af110fcb933521d2",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/asset.ts": {
-        "version": "b515edc308dfdf03744f84f382f0225755f23521cb09cfe9468978161e7e2104",
+        "version": "e2435b0728c6b5de9e9bc070eccb4ba4f2976a8c1e4dedb0b4bbda6cda3f70b6",
         "signature": "470838aa4ac6cf15031ab4bc8e1f9cebfd6a196ea26213df5ddb98aafb706547",
         "affectsGlobalScope": false
       },
@@ -1377,7 +1377,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/portfolio.ts": {
-        "version": "4b5dc6f489d93321495213da593981964698b5a479354a2727e1dfcf31080b80",
+        "version": "ead6a1f6e969ac7b30cc5e555443f90be9b3dbbb35ffd95f2aecca998d05c34c",
         "signature": "cdee02caa67943bb36aa15213b545c9352fe6a5a8dc6e9f56e35bf0190c15f7a",
         "affectsGlobalScope": false
       },
@@ -1392,17 +1392,17 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/helper.ts": {
-        "version": "6aa790b7ef6bd7ca374347ed5ad287d20876db41b6a1764a09f776fd86c5bf11",
-        "signature": "d77d7448b698e5f384f7253118e41343e078256d95cd6a14d6f2a545ad86e13a",
+        "version": "a471496cf1d238ef6a8e1d3a959801cdc2fbf5194f6a5753cf4fb8ddfad634dd",
+        "signature": "bc151b0a8563b7cdd3856774da3219954f233a3a74e2859f20dd913155200857",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/prices.ts": {
-        "version": "23dddb49db452ac9c145c26c97b85e4f59b487271a3120deafc9574c80d19a35",
-        "signature": "edc0c4b3ed1e35ce9914ac5f1cfc53ddbe9f70a0fe8fb536d8739082108aeab4",
+        "version": "c0e6ad513b7dcdc1188f345485e5ae8ad18be6b2de3777b81a94701018dc9c53",
+        "signature": "7af80dfb2c1541adf4209f8a473251e07076c9b03f81240f8cd5cb70d68368d4",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/asset.ts": {
-        "version": "98a7fa627c3191f3d14a5199b7aa34e6bfe54b288d817e3338d336975b8c4761",
+        "version": "4f5cddf51b36aa6772ebe94593ac147b6958c8307d01b173367cfa4254df1d6e",
         "signature": "bd2e3e6dc6b46a00012d5fa487c7532f04103828a9a3c28e382d9334edc73e7f",
         "affectsGlobalScope": false
       },
@@ -1426,7 +1426,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/portfolio.ts": {
-        "version": "af221e37a15fe17aa778e706db33c13ca4f10ecd718fbc58c15f800319c57993",
+        "version": "d0ffcd8f0ef6cd65471b91fa1fa56e3f0759df067a7241242df9cf68d22acf8d",
         "signature": "8dd3b47006d4e28a72e9efc1bfe623cf67a9e1d0c1b4bd02dccc9c0b994be1a6",
         "affectsGlobalScope": false
       },
@@ -1441,37 +1441,37 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/helper.ts": {
-        "version": "c35b7cab63cbed86df57215e445b216da0344b93e97e1698982493d1ab82bacd",
-        "signature": "d42bf3975fa2a6db9f037bc4610a230a27253381a13e430eb4efcdbc902d23c2",
+        "version": "ec295885264450cef9b535aff2723b09b690a3c0a569b872421e181387a9908b",
+        "signature": "70b729a3a748ee017cfc2ac361440388ff8520ce66963c04fefecc815182a95b",
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/bancor.ts": {
-        "version": "7ccd363c4344e438ea124cd557c6bc5cb4dfac80f69bacaeb854780c2aa664be",
+        "version": "090c760c7e45a996aa5fcf14f1feeeb65f07f3c9562cce2405115ab0f948ca79",
         "signature": "d3162a1d86720d6abee340f9ecb926b45638a848c7360240d283cb8340cd03a4",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/prices.ts": {
-        "version": "0a499e8df82685e644c294720e0c44c959a1c4fa268ef61955eb490de2b61306",
-        "signature": "fd6cf8ab02671ba1fd0d463e39911c7fcaeba063b39f17c35d86b9648ff3c4d8",
+        "version": "ab11f5c7499aa2fedc446ae19a7912d59b035900756b90407c9b62ab08855a26",
+        "signature": "ebba9602952b0c474427d0a2d4acd992c7b363d0a639abe6bf31144e2bf89c1b",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/asset.ts": {
-        "version": "57b4dd91e34664f10056a4418fbec0c4912f259dc2ae3d1477b2cac4a8e952b5",
+        "version": "35d3019794282e3418609a55c42ab7845a0c05466fbd10ed02eccbe7a4018501",
         "signature": "16889eeeb8ed324b056160f0ada5d51d7d370933080c544961c412a6236a0b91",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/burn.ts": {
-        "version": "a5f7935ad9f4ed1ee94e14f5d0e38e6a4fdcb8688e6679d3e3701aade959ae1f",
+        "version": "f69896e5987af7ac9a902f318b53f7e0834adcca702ce64f245231b4275c216a",
         "signature": "069dd0bdde67f9c758957de74ab8567ca3607be69bbd29c7df84efa7428453a5",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/mint.ts": {
-        "version": "8d7c6de7fd21e13a0663d844dc30de88b8db72773d1fdd5771e4146d9631239f",
+        "version": "b69d4eb5a8d7e5dffc43b2c3bce292304e8afb30481a6c8e33e1797f5692c856",
         "signature": "e425fc3e3d1a76e8d497c12c057a4044cd0887257381485af434c96a6b5a0c0d",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/portfolio.ts": {
-        "version": "644c0c189045fa726d67efd24d41f14b1c19cd9a39b099808a6a52543eb18126",
+        "version": "5c501d68ed9ab13d4eb49faea10fe5379cc86c74af10ebc2b7bda4d864e6106c",
         "signature": "530ca79ecae93aa6081abff257973c7104d7a13a299fe24e66d01c67f8b7afe5",
         "affectsGlobalScope": false
       },
@@ -1486,17 +1486,17 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/helper.ts": {
-        "version": "526a72eea5f2c20bbf14bb197a3d5b634e6b0fe759fddeb53b96c75cda62052a",
-        "signature": "5e94d52967a7baef86246ec7d8d4e43039a2eaeabbdcfb6a09253f0003cfb01f",
+        "version": "9ddc1af72eda1e41c23440df03914cd78ee4a0737ceeb8676fa31018e0c20b0b",
+        "signature": "7bc9d3ad94d65ec72dad5bf0d927d4b2e085c51110180907c286fa94084c4ede",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/prices.ts": {
-        "version": "bbf63b934f7fd53857e720d12d807f4a8d3b372d65ef0051a0039c48099a4a80",
-        "signature": "1cf05649471df0483c325926ebba587d6d2296bc4f5f6adbdf0e0849f8725248",
+        "version": "4add218e73da0032d76d44551f9c00386e8715ab191725fd4f9581036ef54201",
+        "signature": "58c604cccf5ff87746f840a937b57c74f85a0a420574f4eac0eb5b582331e1a9",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/asset.ts": {
-        "version": "036575bc525e812709075f764a3ca00b8f65cf10ec147d7a35d35b10b3a4939b",
+        "version": "908b3039d64adac2b5169943d355af2f6e2ff6dfb46683a303e7117dc853ca6a",
         "signature": "a1d0df87ded946519b2aa828afcbd20800f4080456aa7338fff38aedd369049b",
         "affectsGlobalScope": false
       },
@@ -1511,7 +1511,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/portfolio.ts": {
-        "version": "66f41f17eeb5ff34ba33380074c6bf6797313d5496806215c6bb3c0fc2620712",
+        "version": "7aa9a3df1ff20646d59033bfd4e0c605a77cff5de731abe8a9e46f6d38098f38",
         "signature": "0cffa238308bc97dd1678a72402de6242841b6d46e215a104291e1de6471fe2e",
         "affectsGlobalScope": false
       },
@@ -1526,8 +1526,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/helper.ts": {
-        "version": "e6757b54f0177f303c9aaaeb26cb3c9399416bd3ef4d5a33d44b0000829d40f2",
-        "signature": "d15d9c0361d8a8788baa80c9dc02d928efc1106bd5834c360399282a7c49ff5f",
+        "version": "db62e7572287011e6989dbb2aee7aff65dbad4b20ca5c63bb5918e69ae3e5899",
+        "signature": "cd646bd57b52fc757ad7fbab56fdce60bc3af1832adb30df8dcf62b1a00a0653",
         "affectsGlobalScope": false
       },
       "../src/blockchain/erc20/allowance.ts": {
@@ -1551,12 +1551,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/prices.ts": {
-        "version": "ccc824c3f777e309fcb3439e5b65560695c2ea60c85b216ed3783642382e939f",
-        "signature": "11185433e2422778839446371edde780a68b2148ae484edeb586791f367a9f43",
+        "version": "47711289242bb1ca1266668e0bf43b51d2df9edcfadd32e598590b184d16da26",
+        "signature": "dcd28da9bb58345852fd8951219c828d68c2870e1a83bb75c0939a314f8a885a",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/asset.ts": {
-        "version": "d3039e4f0d77b92c51b296e7c40bf1b960cfb07b91aa34108f9e69e5d103d628",
+        "version": "0d48657195f99423deda0edca29473a740646ce9421e8a9e24f3dd37a5cf5f17",
         "signature": "22ec94bbc35384ff8433916f613a476d42f44acb1a0c2671fa3bd15751778015",
         "affectsGlobalScope": false
       },
@@ -1566,12 +1566,12 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/mint.ts": {
-        "version": "8946218c23ec1ca5d62f7818875b42438f11944493d39e211e4242844cafcb1e",
+        "version": "94ab7352d8656e9c86ce88675f70bf77df81058e7cb793574c5d106e74f2bcd2",
         "signature": "ebb9523926ba10c4d7ca8a164d9e94a598a37efc4c8ba0622c6f093c288d84b6",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/portfolio.ts": {
-        "version": "d74a763a19bdf3bbcbc7d804190cab10128bab55785ae1921da00e921ffb6efb",
+        "version": "ec98298f6b78fa29f10e466d730c694d087912c74b2f760a602cfbce26feb5b7",
         "signature": "cdb84644c0828060d44797c8f1c2e398986d38590834b32058ed13f53a1df046",
         "affectsGlobalScope": false
       },
@@ -1586,13 +1586,13 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "4214e870b838c89a9c00c7929427363c362cc3c850873a7035fdca83a66cc2f5",
+        "version": "eaf364fa01b67e1375f039b81638a41d9bfc964dae720e5ccedaddebd480b7c8",
         "signature": "44bdbac8ac45a288445fec7ed121253b38106bc05adaabcbfef861ba660260a7",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/helper.ts": {
-        "version": "523df7ff9aa89aa7126f969fc566fddba7f87848da155cc3a164816b965b8e68",
-        "signature": "928ce9dcc9c83ce7a6df0d7224d22868c4037b580c753111640fd058830c5f6b",
+        "version": "fc78909f391557fbc2a00f4de2ff1c66a4929befc9d0b2dc76a86e0ada5c225a",
+        "signature": "0551fef703da08e2d984498f95ab7883205ad8a009f9b49c7aff0d2fe4deafee",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/burn.ts": {
@@ -1606,8 +1606,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/prices.ts": {
-        "version": "da0d8fcc99278e5c2224d33609c56922901f44df29940bcae85bab219c634071",
-        "signature": "e7a076a85f6afe44b2d3a4142050dee981e128490934c99548b06c686f7044ea",
+        "version": "f81750aced69d613ddfa6b11c1688b7cf43badc299c30b3b0a8defd3be98cd17",
+        "signature": "77a99c8c2ec4cb1871a7cd9af55a26323415da939ffb5f2812febd4da0c53367",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/redeem.ts": {
@@ -1626,17 +1626,17 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/balancer.ts": {
-        "version": "e864e350feb11c8ef98fc2a93673543865e2541472f4fb9265244e33842a54dc",
+        "version": "bc0482ae43f73b068a6d5fb017b919de5a4b5f4d7468387eb0ffa4a77d4efbdb",
         "signature": "5dcdcc6e4784dda37bd326f11388ce86f8cc447c67e65bb6a37fc57cb428f5bc",
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/balancerv2.ts": {
-        "version": "ed92c2696a850c950c5db41770b237c492ecf91345b2d416e379fc910cf65d90",
+        "version": "b646897992af292fb6acca6fd9ec493def636b435d633cb8c21582423cd1949e",
         "signature": "dbb242d01395c5e6f42bcb95a025e34e8e1496c843670adb30f755e270350d4b",
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/inch.ts": {
-        "version": "86fc69d01acdcd54f0ed244754e040fddd125dfd5a6ae8b145faebfaf4d0ef19",
+        "version": "b7bbf83c2ff887b0eb91cd70d7c43aba5c68510f4970019c9d53a114e7c6d2be",
         "signature": "280c2bab025b9dad925efa6c1a8674da53fa469f8a312b43a83948d923dd1c7a",
         "affectsGlobalScope": false
       },
@@ -1726,7 +1726,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/exchanges/kyber.ts": {
-        "version": "90aa03f8cf02f3b601357eb24a1d8b18f703e5617f31c22b7b73b2d08933f6ea",
+        "version": "05cd044f31f90be60f0066f32691e8ab339b4d18fee6e1b252ceeb462ecac979",
         "signature": "0055a7bd34195e2266397202a29c874cc6da70bd6f7b46cdef5af9ee79d09717",
         "affectsGlobalScope": false
       },
@@ -1861,7 +1861,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/prices.spec.ts": {
-        "version": "5ef94be6e72aa439ca870572e1d16fd3cbac82bd5221bebee00c19f0d697441a",
+        "version": "ae69ebd171975fe7666205b12923c7abe1348aa66ee0c8c3e0821bd6024ddd45",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -1961,7 +1961,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/prices.spec.ts": {
-        "version": "1971c19030e345620c33043e55dc7144e09392ecc9f4f415962ffc356b3675d8",
+        "version": "57b1e46480be38e54c533e789b54ad6a2ad31c1a36c411a2604fa72ad8d79154",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -1986,7 +1986,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xalpha/prices.spec.ts": {
-        "version": "7a9052902b5dd6888c24d2df9a3ceedbf599ef2b2264894e377178e7b2106c6a",
+        "version": "dbcb86e35afc1e09517ccd24ae33e0efe36cf15609ea0888de8589957d6b59e3",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -2011,7 +2011,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xbnt/prices.spec.ts": {
-        "version": "fa22eed41cae6bdb5501e454f7fd5f5b39cc2d1a6c619ee586c79aa8d751408b",
+        "version": "f94aeb30aa1277a8b3725dce8663b3d9b461af7ef10726454cf43f33c757df0a",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -2036,7 +2036,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xinch/prices.spec.ts": {
-        "version": "fc4a1fd1fab36ba9f34402477a782af69e60b40a73fb1297e12b834d933809e4",
+        "version": "28bf3515e008ba1d9c5a94d31f913058dcb45b4fc1d66631e8e9f75e6c20b149",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -2061,7 +2061,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xknc/prices.spec.ts": {
-        "version": "1f748417f579eef20ef2853c15fd54bf678d1ed5afea999f5140b2c7f5840f5c",
+        "version": "0282e4933fcc994c7a593d2cc15d529d1040097a9bbb679c164e7bbb23a267d3",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -2081,7 +2081,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/xsnx/prices.spec.ts": {
-        "version": "4bc0f1997028a1f0ed26977fa236ae4ad4d4dfad65fc092b0975d88036a80e4d",
+        "version": "5ca23ef43e216c9f2e7a727ce7aaa51596c24492b3fa0f214cbf828984ff8350",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -3420,7 +3420,6 @@
       "../src/blockchain/xalpha/helper.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -3527,7 +3526,6 @@
       "../src/blockchain/xbnt/helper.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../src/blockchain/utils.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
@@ -3780,7 +3778,6 @@
       ],
       "../src/blockchain/xknc/portfolio.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xknc/helper.ts",
@@ -3792,7 +3789,6 @@
       "../src/blockchain/xknc/prices.spec.ts": [
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../src/blockchain/xknc/helper.ts",
         "../src/blockchain/xknc/prices.ts",
         "../src/constants.spec.ts"
@@ -3800,7 +3796,6 @@
       "../src/blockchain/xknc/prices.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/exchanges/uniswap.ts",
         "../src/blockchain/utils.ts",
@@ -3812,11 +3807,8 @@
       "../src/blockchain/xsnx/asset.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
-        "../src/blockchain/utils.ts",
         "../src/blockchain/xsnx/helper.ts",
         "../src/blockchain/xsnx/prices.ts",
-        "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/burn.spec.ts": [
@@ -3871,8 +3863,6 @@
       ],
       "../src/blockchain/xsnx/portfolio.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/utils.ts",
         "../src/blockchain/xsnx/helper.ts",
@@ -3882,21 +3872,18 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/prices.spec.ts": [
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ava/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
-        "../src/blockchain/utils.ts",
         "../src/blockchain/xsnx/helper.ts",
         "../src/blockchain/xsnx/prices.ts",
-        "../src/constants.spec.ts",
-        "../src/types/index.ts"
+        "../src/constants.spec.ts"
       ],
       "../src/blockchain/xsnx/prices.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/ethers/lib/utils.d.ts",
         "../src/blockchain/erc20/index.ts",
+        "../src/blockchain/utils.ts",
+        "../src/blockchain/xsnx/helper.ts",
         "../src/constants.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts",
@@ -5767,7 +5754,6 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xknc/prices.ts": [
-        "../node_modules/ethers/lib/index.d.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],
@@ -5804,8 +5790,6 @@
         "../src/types/xtoken.d.ts"
       ],
       "../src/blockchain/xsnx/prices.ts": [
-        "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../src/types/index.ts",
         "../src/types/xtoken.d.ts"
       ],

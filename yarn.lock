@@ -1010,9 +1010,9 @@
     base64-sol "1.0.1"
     hardhat-watcher "^2.1.1"
 
-"@xtoken/abis@git://github.com/xtokenmarket/abis.git#feature/add-lending":
+"@xtoken/abis@git://github.com/xtokenmarket/abis.git#develop":
   version "0.1.20"
-  resolved "git://github.com/xtokenmarket/abis.git#3c64a99d7424c46482031c95a6034a136c44bd0a"
+  resolved "git://github.com/xtokenmarket/abis.git#ac8569520d2535fd28557e79e98c0ffeaf14492e"
 
 JSONStream@^1.0.4:
   version "1.3.5"

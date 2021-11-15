@@ -7,7 +7,6 @@ export declare const getXSnxContracts: (
   kyberProxyContract: KyberProxy
   network: import('@ethersproject/providers').Network
   snxContract: Contract
-  tokenContract: Contract
   tradeAccountingContract: TradeAccounting
   xsnxContract: XSNX
 }>
