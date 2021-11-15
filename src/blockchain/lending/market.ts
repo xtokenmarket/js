@@ -2,15 +2,19 @@ import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import {
   ADDRESSES,
+  LENDING_WBTC_MARKET,
+  LENDING_WETH_MARKET,
   // LENDING_X_AAVE_A_MARKET,
   // LENDING_X_AAVE_B_MARKET,
-  LENDING_X_INCH_A_MARKET,
+  // LENDING_X_INCH_A_MARKET,
+  WBTC,
+  WETH,
   // LENDING_X_INCH_B_MARKET,
   // LENDING_X_KNC_A_MARKET,
   // LENDING_X_KNC_B_MARKET,
   // X_AAVE_A,
   // X_AAVE_B,
-  X_INCH_A,
+  // X_INCH_A,
   // X_INCH_B,
   // X_KNC_A,
   // X_KNC_B,
@@ -67,26 +71,32 @@ export const getLendingMarkets = async (
     const [
       // xaaveaPrices,
       // xaavebPrices,
-      xinchaLendingCollateral,
+      // xinchaLendingCollateral,
       // xinchbPrices,
       // xkncaPrices,
       // xkncbPrices,
+      wbtcLendingCollateral,
+      wethLendingCollateral,
     ] = await Promise.all([
       // getXAavePrices(xaaveaContract, kyberProxyContract, chainId),
       // getXAavePrices(xaavebContract, kyberProxyContract, chainId),
-      getCollateral(LENDING_X_INCH_A_MARKET, address, provider),
+      // getCollateral(LENDING_X_INCH_A_MARKET, address, provider),
       // getXInchPrices(xinchbContract, kyberProxyContract, chainId),
       // getXKncPrices(xkncaContract, kncContract, kyberProxyContract),
       // getXKncPrices(xkncbContract, kncContract, kyberProxyContract),
+      getCollateral(LENDING_WBTC_MARKET, address, provider),
+      getCollateral(LENDING_WETH_MARKET, address, provider),
     ])
 
     const [
       // xaaveaLendingCollateral,
       // xaavebLendingCollateral,
-      xinchaBorrowingLimit,
+      // xinchaBorrowingLimit,
       // xinchbLendingCollateral,
       // xkncaLendingCollateral,
       // xkncbLendingCollateral,
+      wbtcBorrowingLimit,
+      wethBorrowingLimit,
     ] = await Promise.all([
       /* getTokenBalance(
         X_AAVE_A,
@@ -98,7 +108,7 @@ export const getLendingMarkets = async (
         ADDRESSES[LENDING_X_AAVE_B_MARKET][chainId],
         provider
       ),*/
-      getBorrowingLimit(LENDING_X_INCH_A_MARKET, address, provider),
+      // getBorrowingLimit(LENDING_X_INCH_A_MARKET, address, provider),
       /*getTokenBalance(
         X_INCH_B,
         ADDRESSES[LENDING_X_INCH_B_MARKET][chainId],
@@ -114,6 +124,8 @@ export const getLendingMarkets = async (
         ADDRESSES[LENDING_X_KNC_B_MARKET][chainId],
         provider
       ),*/
+      getBorrowingLimit(LENDING_WBTC_MARKET, address, provider),
+      getBorrowingLimit(LENDING_WETH_MARKET, address, provider),
     ])
 
     return [
@@ -136,14 +148,14 @@ export const getLendingMarkets = async (
             .mul(parseEther(xaavebPrices.priceUsd.toString()))
             .div(DEC_18)
         ),
-      },*/
+      },
       {
         name: LENDING_X_INCH_A_MARKET,
         xAsset: X_INCH_A,
         collateral: xinchaLendingCollateral,
         value: xinchaBorrowingLimit,
       },
-      /* {
+      {
         name: LENDING_X_INCH_B_MARKET,
         xAsset: X_INCH_B,
         collateral: xinchbLendingCollateral,
@@ -173,6 +185,18 @@ export const getLendingMarkets = async (
             .div(DEC_18)
         ),
       },*/
+      {
+        asset: WBTC,
+        name: LENDING_WBTC_MARKET,
+        collateral: wbtcLendingCollateral,
+        value: wbtcBorrowingLimit,
+      },
+      {
+        asset: WETH,
+        name: LENDING_WETH_MARKET,
+        collateral: wethLendingCollateral,
+        value: wethBorrowingLimit,
+      },
     ]
   } catch (e) {
     console.warn('Error while fetching lending markets', e)
@@ -229,33 +253,39 @@ const _getApprovedAmount = async (
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
-  let xTokenContract
+  let tokenContract
 
   switch (marketName) {
     /*case LENDING_X_AAVE_A_MARKET:
-      xTokenContract = getContract(X_AAVE_A, provider, network)
+      tokenContract = getContract(X_AAVE_A, provider, network)
       break
     case LENDING_X_AAVE_B_MARKET:
-      xTokenContract = getContract(X_AAVE_B, provider, network)
-      break*/
-    case LENDING_X_INCH_A_MARKET:
-      xTokenContract = getContract(X_INCH_A, provider, network)
+      tokenContract = getContract(X_AAVE_B, provider, network)
       break
-    /*case LENDING_X_INCH_B_MARKET:
-      xTokenContract = getContract(X_INCH_B, provider, network)
+    case LENDING_X_INCH_A_MARKET:
+      tokenContract = getContract(X_INCH_A, provider, network)
+      break
+    case LENDING_X_INCH_B_MARKET:
+      tokenContract = getContract(X_INCH_B, provider, network)
       break
     case LENDING_X_KNC_A_MARKET:
-      xTokenContract = getContract(X_KNC_A, provider, network)
+      tokenContract = getContract(X_KNC_A, provider, network)
       break
     case LENDING_X_KNC_B_MARKET:
-      xTokenContract = getContract(X_KNC_B, provider, network)*/
+      tokenContract = getContract(X_KNC_B, provider, network)*/
+    case LENDING_WBTC_MARKET:
+      tokenContract = getContract(WBTC, provider, network)
+      break
+    case LENDING_WETH_MARKET:
+      tokenContract = getContract(WETH, provider, network)
+      break
   }
 
-  if (!xTokenContract) {
+  if (!tokenContract) {
     return Promise.reject(new Error(Errors.CONTRACT_INITIALIZATION_FAILED))
   }
 
-  return xTokenContract.allowance(
+  return tokenContract.allowance(
     address,
     ADDRESSES[marketName][network.chainId]
   )

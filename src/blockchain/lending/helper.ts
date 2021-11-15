@@ -3,18 +3,22 @@ import {
   LENDING_COMPTROLLER,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
-  // LENDING_X_AAVE_A_MARKET,
+  LENDING_WBTC_MARKET,
+  LENDING_WBTC_PRICE,
+  LENDING_WETH_MARKET,
+  LENDING_WETH_PRICE,
+  /*LENDING_X_AAVE_A_MARKET,
   LENDING_X_AAVE_A_PRICE,
-  // LENDING_X_AAVE_B_MARKET,
+  LENDING_X_AAVE_B_MARKET,
   LENDING_X_AAVE_B_PRICE,
   LENDING_X_INCH_A_MARKET,
   LENDING_X_INCH_A_PRICE,
-  // LENDING_X_INCH_B_MARKET,
+  LENDING_X_INCH_B_MARKET,
   LENDING_X_INCH_B_PRICE,
-  // LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_A_MARKET,
   LENDING_X_KNC_A_PRICE,
-  // LENDING_X_KNC_B_MARKET,
-  LENDING_X_KNC_B_PRICE,
+  LENDING_X_KNC_B_MARKET,
+  LENDING_X_KNC_B_PRICE,*/
 } from '@xtoken/abis'
 
 import { Errors } from '../../constants'
@@ -23,9 +27,10 @@ import {
   LiquidityPool,
   LPT,
   Market,
-  XAAVEPrice,
-  XINCHPrice,
-  XKNCPrice,
+  NativePrice,
+  // XAAVEPrice,
+  // XINCHPrice,
+  // XKNCPrice,
 } from '../../types'
 import { ILendingMarket, ILendingPricing } from '../../types/xToken'
 import { getContract } from '../utils'
@@ -72,6 +77,18 @@ export const getMarketContracts = async (
 ): Promise<Record<ILendingMarket, Market>> => {
   const network = await provider.getNetwork()
 
+  const wbtcMarketContract = getContract(
+    LENDING_WBTC_MARKET,
+    provider,
+    network
+  ) as Market
+
+  const wethMarketContract = getContract(
+    LENDING_WETH_MARKET,
+    provider,
+    network
+  ) as Market
+
   // xAAVE Market Contracts
   /*const xAAVEaMarketContract = getContract(
     LENDING_X_AAVE_A_MARKET,
@@ -82,7 +99,7 @@ export const getMarketContracts = async (
     LENDING_X_AAVE_B_MARKET,
     provider,
     network
-  ) as Market*/
+  ) as Market
 
   // xINCH Market Contracts
   const xINCHaMarketContract = getContract(
@@ -90,7 +107,7 @@ export const getMarketContracts = async (
     provider,
     network
   ) as Market
-  /*const xINCHbMarketContract = getContract(
+  const xINCHbMarketContract = getContract(
     LENDING_X_INCH_B_MARKET,
     provider,
     network
@@ -109,9 +126,11 @@ export const getMarketContracts = async (
   ) as Market*/
 
   if (
+    !wbtcMarketContract ||
+    !wethMarketContract
     // !xAAVEaMarketContract ||
     // !xAAVEbMarketContract ||
-    !xINCHaMarketContract
+    // !xINCHaMarketContract
     // !xINCHbMarketContract ||
     // !xKNCaMarketContract ||
     // !xKNCbMarketContract
@@ -120,9 +139,11 @@ export const getMarketContracts = async (
   }
 
   return {
+    [LENDING_WBTC_MARKET]: wbtcMarketContract,
+    [LENDING_WETH_MARKET]: wethMarketContract,
     // [LENDING_X_AAVE_A_MARKET]: xAAVEaMarketContract,
     // [LENDING_X_AAVE_B_MARKET]: xAAVEbMarketContract,
-    [LENDING_X_INCH_A_MARKET]: xINCHaMarketContract,
+    // [LENDING_X_INCH_A_MARKET]: xINCHaMarketContract,
     // [LENDING_X_INCH_B_MARKET]: xINCHbMarketContract,
     // [LENDING_X_KNC_A_MARKET]: xKNCaMarketContract,
     // [LENDING_X_KNC_B_MARKET]: xKNCbMarketContract,
@@ -131,10 +152,22 @@ export const getMarketContracts = async (
 
 export const getPricingContracts = async (
   provider: BaseProvider
-): Promise<Record<ILendingPricing, XAAVEPrice | XINCHPrice | XKNCPrice>> => {
+): Promise<Record<ILendingPricing, NativePrice>> => {
   const network = await provider.getNetwork()
 
-  // xAAVE Price Contracts
+  const wbtcPriceContract = getContract(
+    LENDING_WBTC_PRICE,
+    provider,
+    network
+  ) as NativePrice
+
+  const wethPriceContract = getContract(
+    LENDING_WETH_PRICE,
+    provider,
+    network
+  ) as NativePrice
+
+  /*// xAAVE Price Contracts
   const xAAVEaPriceContract = getContract(
     LENDING_X_AAVE_A_PRICE,
     provider,
@@ -168,26 +201,30 @@ export const getPricingContracts = async (
     LENDING_X_KNC_B_PRICE,
     provider,
     network
-  ) as XKNCPrice
+  ) as XKNCPrice*/
 
   if (
-    !xAAVEaPriceContract ||
-    !xAAVEbPriceContract ||
-    !xINCHaPriceContract ||
-    !xINCHbPriceContract ||
-    !xKNCaPriceContract ||
-    !xKNCbPriceContract
+    !wbtcPriceContract ||
+    !wethPriceContract
+    // !xAAVEaPriceContract ||
+    // !xAAVEbPriceContract ||
+    // !xINCHaPriceContract ||
+    // !xINCHbPriceContract ||
+    // !xKNCaPriceContract ||
+    // !xKNCbPriceContract
   ) {
     return Promise.reject(CONTRACT_ERROR)
   }
 
   return {
-    [LENDING_X_AAVE_A_PRICE]: xAAVEaPriceContract,
-    [LENDING_X_AAVE_B_PRICE]: xAAVEbPriceContract,
-    [LENDING_X_INCH_A_PRICE]: xINCHaPriceContract,
-    [LENDING_X_INCH_B_PRICE]: xINCHbPriceContract,
-    [LENDING_X_KNC_A_PRICE]: xKNCaPriceContract,
-    [LENDING_X_KNC_B_PRICE]: xKNCbPriceContract,
+    [LENDING_WBTC_PRICE]: wbtcPriceContract,
+    [LENDING_WETH_PRICE]: wethPriceContract,
+    // [LENDING_X_AAVE_A_PRICE]: xAAVEaPriceContract,
+    // [LENDING_X_AAVE_B_PRICE]: xAAVEbPriceContract,
+    // [LENDING_X_INCH_A_PRICE]: xINCHaPriceContract,
+    // [LENDING_X_INCH_B_PRICE]: xINCHbPriceContract,
+    // [LENDING_X_KNC_A_PRICE]: xKNCaPriceContract,
+    // [LENDING_X_KNC_B_PRICE]: xKNCbPriceContract,
   }
 }
 

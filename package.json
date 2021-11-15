@@ -158,7 +158,9 @@
     "files": [
       "!build/module/**",
       "!src/blockchain/xsnx/**",
-      "!src/constants.spec.ts"
+      "!src/constants.spec.ts",
+      "!src/blockchain/lending/market.spec.ts",
+      "!src/blockchain/lending/price.spec.ts"
     ]
   },
   "config": {

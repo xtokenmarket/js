@@ -4,9 +4,7 @@ import {
   LiquidityPool,
   LPT,
   Market,
-  XAAVEPrice,
-  XINCHPrice,
-  XKNCPrice,
+  NativePrice,
 } from '../../types'
 import { ILendingMarket, ILendingPricing } from '../../types/xToken'
 export declare const getComptrollerContract: (
@@ -21,13 +19,13 @@ export declare const getMarketContracts: (
 ) => Promise<Record<ILendingMarket, Market>>
 export declare const getPricingContracts: (
   provider: BaseProvider
-) => Promise<Record<ILendingPricing, XAAVEPrice | XINCHPrice | XKNCPrice>>
+) => Promise<Record<ILendingPricing, NativePrice>>
 export declare const getLendingContracts: (
   provider: BaseProvider
 ) => Promise<{
   comptrollerContract: Comptroller
   liquidityPoolContract: LiquidityPool
   lptContract: LPT
-  marketContracts: Record<'xINCHaMarket', Market>
-  pricingContracts: Record<ILendingPricing, XAAVEPrice | XINCHPrice | XKNCPrice>
+  marketContracts: Record<ILendingMarket, Market>
+  pricingContracts: Record<ILendingPricing, NativePrice>
 }>

@@ -25,7 +25,11 @@ import {
   LENDING_COMPTROLLER,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
-  LENDING_X_AAVE_A_MARKET,
+  LENDING_WBTC_MARKET,
+  LENDING_WBTC_PRICE,
+  LENDING_WETH_MARKET,
+  LENDING_WETH_PRICE,
+  /*LENDING_X_AAVE_A_MARKET,
   LENDING_X_AAVE_A_PRICE,
   LENDING_X_AAVE_B_MARKET,
   LENDING_X_AAVE_B_PRICE,
@@ -36,7 +40,7 @@ import {
   LENDING_X_KNC_A_MARKET,
   LENDING_X_KNC_A_PRICE,
   LENDING_X_KNC_B_MARKET,
-  LENDING_X_KNC_B_PRICE,
+  LENDING_X_KNC_B_PRICE,*/
   REN_BTC,
   REPAY,
   S_ETH,
@@ -160,20 +164,24 @@ export type ILendingContracts =
   | ILendingPricing
 
 export type ILendingMarket =
-  // | typeof LENDING_X_AAVE_A_MARKET
-  // | typeof LENDING_X_AAVE_B_MARKET
-  typeof LENDING_X_INCH_A_MARKET
+  | typeof LENDING_WBTC_MARKET
+  | typeof LENDING_WETH_MARKET
+// | typeof LENDING_X_AAVE_A_MARKET
+// | typeof LENDING_X_AAVE_B_MARKET
+// | typeof LENDING_X_INCH_A_MARKET
 // | typeof LENDING_X_INCH_B_MARKET
 // | typeof LENDING_X_KNC_A_MARKET
 // | typeof LENDING_X_KNC_B_MARKET
 
 export type ILendingPricing =
-  | typeof LENDING_X_AAVE_A_PRICE
-  | typeof LENDING_X_AAVE_B_PRICE
-  | typeof LENDING_X_INCH_A_PRICE
-  | typeof LENDING_X_INCH_B_PRICE
-  | typeof LENDING_X_KNC_A_PRICE
-  | typeof LENDING_X_KNC_B_PRICE
+  | typeof LENDING_WBTC_PRICE
+  | typeof LENDING_WETH_PRICE
+// | typeof LENDING_X_AAVE_A_PRICE
+// | typeof LENDING_X_AAVE_B_PRICE
+// | typeof LENDING_X_INCH_A_PRICE
+// | typeof LENDING_X_INCH_B_PRICE
+// | typeof LENDING_X_KNC_A_PRICE
+// | typeof LENDING_X_KNC_B_PRICE
 
 export type ITradeType = typeof BUY | typeof SELL
 
@@ -282,8 +290,8 @@ export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
 export type ILendingType = typeof BORROW | typeof REPAY | ICollateralType
 
 export type ILendingMarketInfo = {
+  readonly asset: ITokenSymbols | IStableAssets
   readonly name: ILendingMarket
-  readonly xAsset: ITokenSymbols
   readonly collateral: string
   readonly value: string
 }

@@ -752,13 +752,13 @@
         "affectsGlobalScope": false
       },
       "../src/constants.spec.ts": {
-        "version": "62442101516ec18ab99a11c4f2a636a93b85388e90bdc4b177d2368af158c1dc",
-        "signature": "c1471b91219b1811d71fa5e3e617d0ccfbd526d79b3792042d449bb2b2a5615f",
+        "version": "bcf6ceffd4b7fd2f7f91ccb7f7790d524beaea10fad2d10077d1bd910ed62033",
+        "signature": "f64ec05b886077df6ff91f46bef418f59558f53d46a8b71ebaaae31fea16a3d5",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
-        "version": "9ee73404fe3f549c2c7d9f2f7ff7a87256b9ab205637266f9f3412c3597feb44",
-        "signature": "9ee73404fe3f549c2c7d9f2f7ff7a87256b9ab205637266f9f3412c3597feb44",
+        "version": "c923d20966da2bc55e32d7ada013e5f72f00b72853c2523d88a261312c1cf9ce",
+        "signature": "c923d20966da2bc55e32d7ada013e5f72f00b72853c2523d88a261312c1cf9ce",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/addresses.d.ts": {
@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "a7d54396ab49e3f61dcf05592d9435cfa11c2ca5532e435101761c0f0b621020",
-        "signature": "a7d54396ab49e3f61dcf05592d9435cfa11c2ca5532e435101761c0f0b621020",
+        "version": "d4eacb1732d5484d35ca7480f893f9504f77764d816906cfa1744966625ae72e",
+        "signature": "d4eacb1732d5484d35ca7480f893f9504f77764d816906cfa1744966625ae72e",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -919,6 +919,11 @@
       "../src/types/market.d.ts": {
         "version": "d8f0ac23734ead79f0f647023f65b2ea45efdc73a43872db0ca51037ddc6e723",
         "signature": "d8f0ac23734ead79f0f647023f65b2ea45efdc73a43872db0ca51037ddc6e723",
+        "affectsGlobalScope": false
+      },
+      "../src/types/nativeprice.d.ts": {
+        "version": "9e3d77eeb162919908ea56993bd913543f283674126a4fd23fe3041dcf18606a",
+        "signature": "9e3d77eeb162919908ea56993bd913543f283674126a4fd23fe3041dcf18606a",
         "affectsGlobalScope": false
       },
       "../src/types/xaaveprice.d.ts": {
@@ -1126,6 +1131,11 @@
         "signature": "ecba91a51c31892b29158c94520f85dc73d23dc5c8f1ad5f4c3560e99efc4c4d",
         "affectsGlobalScope": false
       },
+      "../src/types/factories/nativeprice__factory.ts": {
+        "version": "1ea1b87fbd2d8bfd37d3ea0203ea68ae22a2b2aeaa02cb10b8d837104728344d",
+        "signature": "e83cb7824864a125b5c56c62606387371d7b417d05d073c8381bea047f71469f",
+        "affectsGlobalScope": false
+      },
       "../src/types/factories/xaaveprice__factory.ts": {
         "version": "30024ade4ab82217120db9d3897c396107f6296fcd0661db84c4f0f7b177b38e",
         "signature": "37752cfcb3c70775c93400ca938ecb4b59a221da579f1dd04cd619a275a512fc",
@@ -1202,8 +1212,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/index.ts": {
-        "version": "6d528c1b504949339ef635f86946dc656f8b928466102799ea9cd11bdfc94b8e",
-        "signature": "96b5e24dec2ec03f69afe4537f0c3e312e24031e686830223c4d32ba8fed4ca9",
+        "version": "82e475cdab97979f187a4bd5b5b719db59c544460577ea56c759ba9152542870",
+        "signature": "3efc2bb7f32a9d16710c06ff90b3e9cd682551a6267e2dbb420bf3976e96c2ba",
         "affectsGlobalScope": false
       },
       "../src/blockchain/xaave/helper.ts": {
@@ -1576,7 +1586,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "34ac0e1f18c441c241d222e6289609639683b6ca24c859ae4c85340de65cb035",
+        "version": "4214e870b838c89a9c00c7929427363c362cc3c850873a7035fdca83a66cc2f5",
         "signature": "44bdbac8ac45a288445fec7ed121253b38106bc05adaabcbfef861ba660260a7",
         "affectsGlobalScope": false
       },
@@ -1721,8 +1731,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/helper.ts": {
-        "version": "28dec481303cf2fda24dff142fe55073ab71124837c497c9379a76a45f59b2eb",
-        "signature": "0d7930f0084c932b0b20b745a4aa86956965336d32578a35212497ec57d6b167",
+        "version": "deb90d8830c4b144873afbcfb28692aa13daf026a09ee82a5f350671cc305140",
+        "signature": "784b0c5a2519686f3276b0aaa24b4fcdce9f7dd1cf102210fd5d59bb264ec272",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/comptroller.ts": {
@@ -1736,7 +1746,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "271956afc323360ef6d3d216aed37d177a74b4382c045878a3be29b31cefd0ca",
+        "version": "d4ede6584dcccdc8efa636093d2c677a5543fffb749dd63f4026ad6227d9c2a7",
         "signature": "71f235212f8ea0c29df56e947040b6dea3baa17f5aa37ec5ecd362a65b6a03ff",
         "affectsGlobalScope": false
       },
@@ -1921,13 +1931,13 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.spec.ts": {
-        "version": "bf3c1a4ba700c9f4cec6efa22d9c2137f546979fb5455f82d57f8f04a393915e",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "version": "1b18e1a18d1b9a0e9e8db6fa116ac40bf059bd0850c0931fb49014f0551cf349",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/price.spec.ts": {
-        "version": "bad08a04e6684d76298195586524ff3c948c64aff7f1e2ed977e38bf4be6da4a",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "version": "a807e16646e6728a468635621f7964820da2c01403b40ad9b1e6661f05327902",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
       "../src/blockchain/staking/history.spec.ts": {
@@ -3187,12 +3197,6 @@
         "../src/blockchain/utils.ts",
         "../src/constants.ts"
       ],
-      "../src/blockchain/lending/market.spec.ts": [
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ava/index.d.ts",
-        "../src/blockchain/lending/market.ts",
-        "../src/constants.spec.ts"
-      ],
       "../src/blockchain/lending/market.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/@ethersproject/units/lib/index.d.ts",
@@ -3202,12 +3206,6 @@
         "../src/blockchain/utils.ts",
         "../src/constants.ts",
         "../src/types/xtoken.d.ts"
-      ],
-      "../src/blockchain/lending/price.spec.ts": [
-        "../node_modules/@xtoken/abis/build/main/index.d.ts",
-        "../node_modules/ava/index.d.ts",
-        "../src/blockchain/lending/price.ts",
-        "../src/constants.spec.ts"
       ],
       "../src/blockchain/lending/price.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
@@ -4212,6 +4210,11 @@
         "../node_modules/ethers/lib/index.d.ts",
         "../src/types/merkleclaim.d.ts"
       ],
+      "../src/types/factories/nativeprice__factory.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../src/types/nativeprice.d.ts"
+      ],
       "../src/types/factories/proxyadmin__factory.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
@@ -4364,6 +4367,7 @@
         "../src/types/factories/lpt__factory.ts",
         "../src/types/factories/market__factory.ts",
         "../src/types/factories/merkleclaim__factory.ts",
+        "../src/types/factories/nativeprice__factory.ts",
         "../src/types/factories/proxyadmin__factory.ts",
         "../src/types/factories/revenuecontroller__factory.ts",
         "../src/types/factories/rewardcontroller__factory.ts",
@@ -4394,6 +4398,7 @@
         "../src/types/lpt.d.ts",
         "../src/types/market.d.ts",
         "../src/types/merkleclaim.d.ts",
+        "../src/types/nativeprice.d.ts",
         "../src/types/proxyadmin.d.ts",
         "../src/types/revenuecontroller.d.ts",
         "../src/types/rewardcontroller.d.ts",
@@ -4454,6 +4459,13 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/types/merkleclaim.d.ts": [
+        "../node_modules/@ethersproject/abi/lib/index.d.ts",
+        "../node_modules/@ethersproject/bytes/lib/index.d.ts",
+        "../node_modules/@ethersproject/contracts/lib/index.d.ts",
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts"
+      ],
+      "../src/types/nativeprice.d.ts": [
         "../node_modules/@ethersproject/abi/lib/index.d.ts",
         "../node_modules/@ethersproject/bytes/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
@@ -6028,6 +6040,11 @@
         "../node_modules/ethers/lib/index.d.ts",
         "../src/types/merkleclaim.d.ts"
       ],
+      "../src/types/factories/nativeprice__factory.ts": [
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../src/types/nativeprice.d.ts"
+      ],
       "../src/types/factories/proxyadmin__factory.ts": [
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
@@ -6180,6 +6197,7 @@
         "../src/types/factories/lpt__factory.ts",
         "../src/types/factories/market__factory.ts",
         "../src/types/factories/merkleclaim__factory.ts",
+        "../src/types/factories/nativeprice__factory.ts",
         "../src/types/factories/proxyadmin__factory.ts",
         "../src/types/factories/revenuecontroller__factory.ts",
         "../src/types/factories/rewardcontroller__factory.ts",
@@ -6210,6 +6228,7 @@
         "../src/types/lpt.d.ts",
         "../src/types/market.d.ts",
         "../src/types/merkleclaim.d.ts",
+        "../src/types/nativeprice.d.ts",
         "../src/types/proxyadmin.d.ts",
         "../src/types/revenuecontroller.d.ts",
         "../src/types/rewardcontroller.d.ts",
@@ -6270,6 +6289,13 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/types/merkleclaim.d.ts": [
+        "../node_modules/@ethersproject/abi/lib/index.d.ts",
+        "../node_modules/@ethersproject/bytes/lib/index.d.ts",
+        "../node_modules/@ethersproject/contracts/lib/index.d.ts",
+        "../node_modules/@ethersproject/providers/lib/index.d.ts",
+        "../node_modules/ethers/lib/index.d.ts"
+      ],
+      "../src/types/nativeprice.d.ts": [
         "../node_modules/@ethersproject/abi/lib/index.d.ts",
         "../node_modules/@ethersproject/bytes/lib/index.d.ts",
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
@@ -6815,6 +6841,7 @@
       "../src/types/factories/lpt__factory.ts",
       "../src/types/factories/market__factory.ts",
       "../src/types/factories/merkleclaim__factory.ts",
+      "../src/types/factories/nativeprice__factory.ts",
       "../src/types/factories/proxyadmin__factory.ts",
       "../src/types/factories/revenuecontroller__factory.ts",
       "../src/types/factories/rewardcontroller__factory.ts",
@@ -6846,6 +6873,7 @@
       "../src/types/lpt.d.ts",
       "../src/types/market.d.ts",
       "../src/types/merkleclaim.d.ts",
+      "../src/types/nativeprice.d.ts",
       "../src/types/proxyadmin.d.ts",
       "../src/types/revenuecontroller.d.ts",
       "../src/types/rewardcontroller.d.ts",

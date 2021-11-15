@@ -1,4 +1,4 @@
-import {
+/*import {
   LENDING_X_AAVE_A_PRICE,
   LENDING_X_AAVE_B_PRICE,
   LENDING_X_INCH_A_PRICE,
@@ -46,4 +46,4 @@ test('Get xKNCb lending price', async (t) => {
   const price = await getLendingPrice(LENDING_X_KNC_B_PRICE, provider)
   console.log('[Lending] xKNCb lending price:', price)
   t.true(Number(price) >= 0)
-})
+})*/
