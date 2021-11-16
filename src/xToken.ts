@@ -11,6 +11,7 @@ import {
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
   LENDING_LPT,
+  LENDING_WBTC_MARKET,
   REPAY,
   SUPPLY,
   WITHDRAW,
@@ -452,7 +453,10 @@ export class XToken {
       return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
     }
 
-    const value = parseEther(amount)
+    const value =
+      marketName === LENDING_WBTC_MARKET
+        ? parseUnits(amount, 8)
+        : parseEther(amount)
 
     switch (type) {
       case SUPPLY:
