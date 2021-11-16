@@ -1012,7 +1012,7 @@
 
 "@xtoken/abis@git://github.com/xtokenmarket/abis.git#develop":
   version "0.1.20"
-  resolved "git://github.com/xtokenmarket/abis.git#ac8569520d2535fd28557e79e98c0ffeaf14492e"
+  resolved "git://github.com/xtokenmarket/abis.git#941903a3c594d1257cdf897a568319005d8e5530"
 
 JSONStream@^1.0.4:
   version "1.3.5"
