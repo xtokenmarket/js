@@ -293,5 +293,7 @@ export type ILendingMarketInfo = {
   readonly asset: ITokenSymbols | IStableAssets
   readonly name: ILendingMarket
   readonly collateral: string
+  readonly tokenAllowance: string
+  readonly tokenBalance: string
   readonly value: string
 }

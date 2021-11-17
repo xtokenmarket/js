@@ -23,6 +23,7 @@ import { BigNumber } from 'ethers'
 
 import { Errors } from '../../constants'
 import { ILendingMarket, ILendingMarketInfo } from '../../types/xToken'
+import { getTokenAllowance, getTokenBalance } from '../erc20'
 import { getContract, getSignerAddress } from '../utils'
 
 import { getMarketContracts } from './helper'
@@ -68,133 +69,53 @@ export const getLendingMarkets = async (
   provider: BaseProvider
 ): Promise<readonly ILendingMarketInfo[]> => {
   try {
-    const [
-      // xaaveaPrices,
-      // xaavebPrices,
-      // xinchaLendingCollateral,
-      // xinchbPrices,
-      // xkncaPrices,
-      // xkncbPrices,
-      wbtcLendingCollateral,
-      wethLendingCollateral,
-    ] = await Promise.all([
-      // getXAavePrices(xaaveaContract, kyberProxyContract, chainId),
-      // getXAavePrices(xaavebContract, kyberProxyContract, chainId),
-      // getCollateral(LENDING_X_INCH_A_MARKET, address, provider),
-      // getXInchPrices(xinchbContract, kyberProxyContract, chainId),
-      // getXKncPrices(xkncaContract, kncContract, kyberProxyContract),
-      // getXKncPrices(xkncbContract, kncContract, kyberProxyContract),
+    const { chainId } = await provider.getNetwork()
+
+    const [wbtcLendingCollateral, wethLendingCollateral] = await Promise.all([
       getCollateral(LENDING_WBTC_MARKET, address, provider),
       getCollateral(LENDING_WETH_MARKET, address, provider),
     ])
 
-    const [
-      // xaaveaLendingCollateral,
-      // xaavebLendingCollateral,
-      // xinchaBorrowingLimit,
-      // xinchbLendingCollateral,
-      // xkncaLendingCollateral,
-      // xkncbLendingCollateral,
-      wbtcBorrowingLimit,
-      wethBorrowingLimit,
-    ] = await Promise.all([
-      /* getTokenBalance(
-        X_AAVE_A,
-        ADDRESSES[LENDING_X_AAVE_A_MARKET][chainId],
-        provider
-      ),
-      getTokenBalance(
-        X_AAVE_B,
-        ADDRESSES[LENDING_X_AAVE_B_MARKET][chainId],
-        provider
-      ),*/
-      // getBorrowingLimit(LENDING_X_INCH_A_MARKET, address, provider),
-      /*getTokenBalance(
-        X_INCH_B,
-        ADDRESSES[LENDING_X_INCH_B_MARKET][chainId],
-        provider
-      ),
-      getTokenBalance(
-        X_KNC_A,
-        ADDRESSES[LENDING_X_KNC_A_MARKET][chainId],
-        provider
-      ),
-      getTokenBalance(
-        X_KNC_B,
-        ADDRESSES[LENDING_X_KNC_B_MARKET][chainId],
-        provider
-      ),*/
+    const [wbtcBorrowingLimit, wethBorrowingLimit] = await Promise.all([
       getBorrowingLimit(LENDING_WBTC_MARKET, address, provider),
       getBorrowingLimit(LENDING_WETH_MARKET, address, provider),
     ])
 
+    const [wbtcBalance, wethBalance] = await Promise.all([
+      getTokenBalance(WBTC, address, provider),
+      getTokenBalance(WETH, address, provider),
+    ])
+
+    const [wbtcAllowance, wethAllowance] = await Promise.all([
+      getTokenAllowance(
+        WBTC,
+        address,
+        ADDRESSES[LENDING_WBTC_MARKET][chainId],
+        provider
+      ),
+      getTokenAllowance(
+        WETH,
+        address,
+        ADDRESSES[LENDING_WETH_MARKET][chainId],
+        provider
+      ),
+    ])
+
     return [
-      /*{
-        name: LENDING_X_AAVE_A_MARKET,
-        xAsset: X_AAVE_A,
-        collateral: xaaveaLendingCollateral,
-        value: formatEther(
-          parseEther(xaaveaLendingCollateral)
-            .mul(parseEther(xaaveaPrices.priceUsd.toString()))
-            .div(DEC_18)
-        ),
-      },
-      {
-        name: LENDING_X_AAVE_B_MARKET,
-        xAsset: X_AAVE_B,
-        collateral: xaavebLendingCollateral,
-        value: formatEther(
-          parseEther(xaavebLendingCollateral)
-            .mul(parseEther(xaavebPrices.priceUsd.toString()))
-            .div(DEC_18)
-        ),
-      },
-      {
-        name: LENDING_X_INCH_A_MARKET,
-        xAsset: X_INCH_A,
-        collateral: xinchaLendingCollateral,
-        value: xinchaBorrowingLimit,
-      },
-      {
-        name: LENDING_X_INCH_B_MARKET,
-        xAsset: X_INCH_B,
-        collateral: xinchbLendingCollateral,
-        value: formatEther(
-          parseEther(xinchbLendingCollateral)
-            .mul(parseEther(xinchbPrices.priceUsd.toString()))
-            .div(DEC_18)
-        ),
-      },
-      {
-        name: LENDING_X_KNC_A_MARKET,
-        xAsset: X_KNC_A,
-        collateral: xkncaLendingCollateral,
-        value: formatEther(
-          parseEther(xkncaLendingCollateral)
-            .mul(parseEther(xkncaPrices.priceUsd.toString()))
-            .div(DEC_18)
-        ),
-      },
-      {
-        name: LENDING_X_KNC_B_MARKET,
-        xAsset: X_KNC_B,
-        collateral: xkncbLendingCollateral,
-        value: formatEther(
-          parseEther(xkncbLendingCollateral)
-            .mul(parseEther(xkncbPrices.priceUsd.toString()))
-            .div(DEC_18)
-        ),
-      },*/
       {
         asset: WBTC,
         name: LENDING_WBTC_MARKET,
         collateral: wbtcLendingCollateral,
+        tokenAllowance: wbtcAllowance,
+        tokenBalance: wbtcBalance,
         value: wbtcBorrowingLimit,
       },
       {
         asset: WETH,
         name: LENDING_WETH_MARKET,
         collateral: wethLendingCollateral,
+        tokenAllowance: wethAllowance,
+        tokenBalance: wethBalance,
         value: wethBorrowingLimit,
       },
     ]

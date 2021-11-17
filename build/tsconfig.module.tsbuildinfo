@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "d4eacb1732d5484d35ca7480f893f9504f77764d816906cfa1744966625ae72e",
-        "signature": "d4eacb1732d5484d35ca7480f893f9504f77764d816906cfa1744966625ae72e",
+        "version": "21c66276f7fbab15fc1ad356afde49fe0673819b2da42ff8f2cd2a3cf2896b93",
+        "signature": "21c66276f7fbab15fc1ad356afde49fe0673819b2da42ff8f2cd2a3cf2896b93",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1746,7 +1746,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "d4ede6584dcccdc8efa636093d2c677a5543fffb749dd63f4026ad6227d9c2a7",
+        "version": "90e70a1de3f424cd108948d56fc4e6e7d0bc5bd30cf15fed96b8427a20371bfa",
         "signature": "71f235212f8ea0c29df56e947040b6dea3baa17f5aa37ec5ecd362a65b6a03ff",
         "affectsGlobalScope": false
       },
@@ -3202,6 +3202,7 @@
         "../node_modules/@ethersproject/units/lib/index.d.ts",
         "../node_modules/@xtoken/abis/build/main/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts",
+        "../src/blockchain/erc20/index.ts",
         "../src/blockchain/lending/helper.ts",
         "../src/blockchain/utils.ts",
         "../src/constants.ts",
