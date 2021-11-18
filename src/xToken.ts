@@ -878,6 +878,8 @@ export class XToken {
         ])
       case ChainId.Arbitrum:
         return []
+      case ChainId.ArbitrumTestnet:
+        return []
       default:
         return Promise.reject(new Error('Wrong Network'))
     }
@@ -907,6 +909,8 @@ export class XToken {
           getXU3LPAsset(X_U3LP_A, this.provider),
         ])
       case ChainId.Arbitrum:
+        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
+      case ChainId.ArbitrumTestnet:
         return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
       default:
         return Promise.reject(new Error('Wrong Network'))

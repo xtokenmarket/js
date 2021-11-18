@@ -12,6 +12,7 @@ export const ZERO_NUMBER = BigNumber.from('0')
 export enum ChainId {
   Mainnet = 1,
   Arbitrum = 42161,
+  ArbitrumTestnet = 421611,
 }
 
 // DEX
