@@ -53,7 +53,7 @@ export const getXU3LPPrices = async (
       getEthUsdcPrice(provider),
     ])
 
-    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols)
+    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols, provider)
 
     const token0Balance = stakedTokenBalances.amount0.add(
       bufferTokenBalances.amount0
