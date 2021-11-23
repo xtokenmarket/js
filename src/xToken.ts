@@ -1,13 +1,20 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
+import { parseUnits } from '@ethersproject/units'
 import {
   AAVE_X_AAVE_A_CLR,
   BNT_X_BNT_A_CLR,
+  BORROW,
   BUY,
   ETH,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
+  LENDING_LPT,
+  LENDING_WBTC_MARKET,
+  REPAY,
+  SUPPLY,
+  WITHDRAW,
   X_AAVE_A,
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
@@ -44,6 +51,12 @@ import {
   mintXAssetCLR,
 } from './blockchain/clr'
 import {
+  approveErc20,
+  getTokenAllowance,
+  getTokenBalance,
+} from './blockchain/erc20'
+import { getTokenSupply } from './blockchain/erc20/supply'
+import {
   getBalancerEstimatedQuantity,
   getBalancerPortfolioItem,
 } from './blockchain/exchanges/balancer'
@@ -58,6 +71,25 @@ import {
   getKyberPortfolioItem,
 } from './blockchain/exchanges/kyber'
 import { getUniswapV3EstimatedQty } from './blockchain/exchanges/uniswapV3'
+import {
+  approveUsdc,
+  borrowLiquidity,
+  getBorrowingCapacity,
+  getBorrowRatePerBlock,
+  getHealthRatio,
+  getLendingMarkets,
+  getLendingPrice,
+  getLPTBaseValue,
+  getLPTValue,
+  getOptimalUtilizationRate,
+  getUpdatedBorrowBy,
+  getUtilizationRate,
+  repayLiquidity,
+  supplyCollateral,
+  supplyLiquidity,
+  withdrawCollateral,
+  withdrawLiquidity,
+} from './blockchain/lending'
 import {
   approveXtk,
   getXtkHistory,
@@ -134,18 +166,25 @@ import {
   getXU3LPAsset,
   mintXU3LP,
 } from './blockchain/xu3lp'
-import { ChainId, Exchange, MAX_UINT } from './constants'
+import { ChainId, Errors, Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
   IAssetId,
   ICLRBurnQty,
   ICLRMintQty,
+  ICollateralType,
   IHistoryType,
+  ILendingMarket,
+  ILendingMarketInfo,
+  ILendingPricing,
+  ILendingType,
   ILiquidityPoolItem,
   ILPAsset,
   ILPTokenSymbols,
+  INativeAssets,
   IPortfolioItem,
   IReturns,
+  IStableAssets,
   ITokenPrices,
   ITokenSymbols,
   ITradeType,
@@ -184,34 +223,40 @@ export class XToken {
    * await tx.wait() // Wait for transaction confirmation
    * ```
    *
-   * @param {ITokenSymbols | ILPTokenSymbols | IXAssetCLR} symbol Symbol of the token to be approved
+   * @param {ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR} symbol Symbol of the token to be approved
    * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
    * @param {IAssetId} inputAsset Token0/Token1
+   * @param {string} spenderAddress Spender address to be approved for the specified ERC20 token
    * @returns A promise of the transaction response
    */
   public async approve(
-    symbol: ITokenSymbols | ILPTokenSymbols | IXAssetCLR,
+    symbol: ITokenSymbols | ILPTokenSymbols | IStableAssets | IXAssetCLR,
     amount?: string,
-    inputAsset?: IAssetId
+    inputAsset?: IAssetId,
+    spenderAddress?: string
   ): Promise<ContractTransaction> {
     const value = amount ? parseEther(amount) : MAX_UINT
+
+    if (spenderAddress && !isAddress(spenderAddress)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
 
     switch (symbol) {
       case X_AAVE_A:
       case X_AAVE_B:
-        return approveXAave(symbol, value, this.provider)
+        return approveXAave(symbol, value, this.provider, spenderAddress)
       case X_ALPHA_A:
-        return approveXAlpha(symbol, value, this.provider)
+        return approveXAlpha(symbol, value, this.provider, spenderAddress)
       case X_BNT_A:
-        return approveXBnt(symbol, value, this.provider)
+        return approveXBnt(symbol, value, this.provider, spenderAddress)
       case X_INCH_A:
       case X_INCH_B:
-        return approveXInch(symbol, value, this.provider)
+        return approveXInch(symbol, value, this.provider, spenderAddress)
       case X_KNC_A:
       case X_KNC_B:
-        return approveXKnc(symbol, value, this.provider)
+        return approveXKnc(symbol, value, this.provider, spenderAddress)
       case X_SNX_A:
-        return approveXSnx(value, this.provider)
+        return approveXSnx(value, this.provider, spenderAddress)
       case X_U3LP_A:
       case X_U3LP_B:
       case X_U3LP_C:
@@ -232,7 +277,48 @@ export class XToken {
       case X_SNX_A_SNX_CLR:
       case XTK_ETH_CLR:
         return approveXAssetCLR(symbol, value, inputAsset || 0, this.provider)
+      default:
+        if (!spenderAddress) {
+          return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+        }
+        return approveErc20(symbol, value, spenderAddress, this.provider)
     }
+  }
+
+  /**
+   * Approve specified amount of USDC by lending liquidity pool contract
+   *
+   * @example
+   * ```typescript
+   * const tx = await xToken.approveUsdc('100') // Approve 100 USDC tokens for lending
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
+   * @returns A promise of the transaction response
+   */
+  // TODO: add spender address
+  public async approveUsdc(amount?: string) {
+    const value = amount ? parseUnits(amount, 6) : MAX_UINT
+    return approveUsdc(value, this.provider)
+  }
+
+  /**
+   * Approve specified amount of XTK by staking contract
+   *
+   * @example
+   * ```typescript
+   * const tx = await xToken.approveXtk('100') // Approve 100 XTK tokens for staking
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
+   * @returns A promise of the transaction response
+   */
+  // TODO: add spender address
+  public async approveXtk(amount?: string) {
+    const value = amount ? parseEther(amount) : MAX_UINT
+    return approveXtk(value, this.provider)
   }
 
   /**
@@ -340,6 +426,44 @@ export class XToken {
     }
 
     return burnXAssetCLR(symbol, value, this.provider)
+  }
+
+  /**
+   * @example
+   * ```typescript
+   * import { LENDING_X_AAVE_A_MARKET, SUPPLY } from '@xtoken/abis'
+   *
+   * // Add xAAVEa to Lending market
+   * const tx = await xToken.collateral(LENDING_X_AAVE_A_MARKET, '100', SUPPLY)
+   * await tx.wait() // Wait for transaction confirmation
+   * ```
+   *
+   * Add/remove xAsset collateral to a Lending Market
+   * @param {ILendingMarket} marketName Name of the market
+   * @param {string} amount Amount of xAsset to add/remove
+   * @param {ICollateralType} type Supply/Withdraw action to be performed on the provided collateral
+   * @returns A promise of the transaction response
+   */
+  public async collateral(
+    marketName: ILendingMarket,
+    amount: string,
+    type: ICollateralType
+  ) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
+    }
+
+    const value =
+      marketName === LENDING_WBTC_MARKET
+        ? parseUnits(amount, 8)
+        : parseEther(amount)
+
+    switch (type) {
+      case SUPPLY:
+        return supplyCollateral(marketName, value, this.provider)
+      case WITHDRAW:
+        return withdrawCollateral(marketName, value, this.provider)
+    }
   }
 
   /**
@@ -456,6 +580,28 @@ export class XToken {
       best: bestReturn,
       estimates: [xTokenReturn, dexReturn],
     }
+  }
+
+  /**
+   * Get Borrowing Capacity for an address
+   * @returns
+   */
+  public async getBorrowingCapacity() {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getBorrowingCapacity(address, this.provider)
+  }
+
+  /**
+   * Get Borrow rate per block of Liquidity Pool contract
+   * @returns
+   */
+  public async getBorrowRatePerBlock() {
+    return getBorrowRatePerBlock(this.provider)
   }
 
   /**
@@ -627,6 +773,42 @@ export class XToken {
   }
 
   /**
+   * Get Health Ratio for an address
+   * @returns
+   */
+  public async getHealthRatio() {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getHealthRatio(address, this.provider)
+  }
+
+  /**
+   * Get all Lending Markets info along with xAsset symbol, collateral and total value in USD
+   * @returns
+   */
+  public async getLendingMarkets(): Promise<readonly ILendingMarketInfo[]> {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getLendingMarkets(address, this.provider)
+  }
+
+  /**
+   * Get xAsset Lending Price
+   * @returns
+   */
+  public async getLendingPrice(priceName: ILendingPricing) {
+    return getLendingPrice(priceName, this.provider)
+  }
+
+  /**
    * @example
    * ```typescript
    * // Get available liquidity pools for xTokens
@@ -639,7 +821,7 @@ export class XToken {
     const address = await getSignerAddress(this.provider)
 
     if (!address || !isAddress(address)) {
-      return Promise.reject(new Error('Invalid user address'))
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
     }
 
     const { chainId } = await this.provider.getNetwork()
@@ -657,6 +839,22 @@ export class XToken {
       default:
         return []
     }
+  }
+
+  /**
+   * Get liquidity pool token base value
+   * @returns
+   */
+  public async getLPTBaseValue() {
+    return getLPTBaseValue(this.provider)
+  }
+
+  /**
+   * Get liquidity pool token value
+   * @returns
+   */
+  public async getLPTValue() {
+    return getLPTValue(this.provider)
   }
 
   /**
@@ -756,7 +954,7 @@ export class XToken {
     const address = await getSignerAddress(this.provider)
 
     if (!address || !isAddress(address)) {
-      return Promise.reject(new Error('Invalid user address'))
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
     }
 
     const { chainId } = await this.provider.getNetwork()
@@ -788,6 +986,68 @@ export class XToken {
       default:
         return []
     }
+  }
+
+  /**
+   * Get token allowance for an address on ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenAllowance(
+    symbol:
+      | INativeAssets
+      | ITokenSymbols
+      | ILPTokenSymbols
+      | IStableAssets
+      | typeof LENDING_LPT,
+    spenderAddress: string
+  ) {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address) || !isAddress(spenderAddress)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getTokenAllowance(symbol, address, spenderAddress, this.provider)
+  }
+
+  /**
+   * Get token balance for an address of ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenBalance(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ) {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getTokenBalance(symbol, address, this.provider)
+  }
+
+  /**
+   * Get token supply of ERC20 token or xAssets
+   * @returns
+   */
+  public async getTokenSupply(
+    symbol: INativeAssets | ITokenSymbols | IStableAssets | typeof LENDING_LPT
+  ) {
+    return getTokenSupply(symbol, this.provider)
+  }
+
+  /**
+   * Get updated borrow for an address
+   * @returns
+   */
+  public async getUpdatedBorrowBy() {
+    const address = await getSignerAddress(this.provider)
+
+    if (!address || !isAddress(address)) {
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
+    }
+
+    return getUpdatedBorrowBy(address, this.provider)
   }
 
   /**
@@ -917,6 +1177,27 @@ export class XToken {
     }
   }
 
+  public async lend(amount: string, type: ILendingType) {
+    if (+amount === 0 || isNaN(+amount)) {
+      return Promise.reject(new Error(Errors.INVALID_AMOUNT_VALUE))
+    }
+
+    const value = parseUnits(amount, 6)
+
+    switch (type) {
+      case BORROW:
+        return borrowLiquidity(value, this.provider)
+      case REPAY:
+        return repayLiquidity(value, this.provider)
+      case SUPPLY:
+        return supplyLiquidity(value, this.provider)
+      case WITHDRAW:
+        return withdrawLiquidity(value, this.provider)
+      default:
+        return Promise.reject(new Error('Invalid lending type specified'))
+    }
+  }
+
   /**
    * Mint xToken for specified amount of ETH/Token
    *
@@ -1008,24 +1289,6 @@ export class XToken {
   }
 
   /**
-   * Approve specified amount of XTK by staking contract
-   *
-   * @example
-   * ```typescript
-   * const tx = await xToken.approveXtk('100') // Approve 100 XTK tokens for staking
-   * await tx.wait() // Wait for transaction confirmation
-   * ```
-   *
-   * @param {string} amount Amount of the token to be approved, MAX_UINT will be used by default
-   * @returns A promise of the transaction response
-   */
-  // TODO: add spender address
-  public async approveXtk(amount?: string) {
-    const value = amount ? parseEther(amount) : MAX_UINT
-    return approveXtk(value, this.provider)
-  }
-
-  /**
    * Stake XTK
    *
    * @example
@@ -1081,7 +1344,7 @@ export class XToken {
   public async getXtkHistory(type: IHistoryType) {
     const address = await getSignerAddress(this.provider)
     if (!address || !isAddress(address)) {
-      return Promise.reject(new Error('Invalid user address'))
+      return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
     }
     return getXtkHistory(type, address, this.provider)
   }
@@ -1100,5 +1363,21 @@ export class XToken {
    */
   public async getPoolRatio(symbol: IXAssetCLR) {
     return getPoolRatioXAssetCLR(symbol, this.provider)
+  }
+
+  /**
+   * Get liquidity pool token utilization and optimal utilization rates
+   * @returns
+   */
+  public async getUtilizationRates() {
+    const [utilizationRate, optimalUtilizationRate] = await Promise.all([
+      getUtilizationRate(this.provider),
+      getOptimalUtilizationRate(this.provider),
+    ])
+
+    return {
+      optimalUtilizationRate,
+      utilizationRate,
+    }
   }
 }

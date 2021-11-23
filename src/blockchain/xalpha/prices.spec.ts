@@ -7,15 +7,9 @@ import { getXAlphaContracts } from './helper'
 import { getXAlphaPrices } from './prices'
 
 test('Get xALPHAa prices', async (t) => {
-  const { kyberProxyContract, xalphaContract } = await getXAlphaContracts(
-    X_ALPHA_A,
-    provider
-  )
+  const { xalphaContract } = await getXAlphaContracts(X_ALPHA_A, provider)
 
-  const { aum, priceEth, priceUsd } = await getXAlphaPrices(
-    xalphaContract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXAlphaPrices(xalphaContract)
 
   console.log('xALPHAa aum: ', aum)
   console.log('xALPHAa priceEth: ', priceEth)

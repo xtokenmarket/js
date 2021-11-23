@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ContractTransaction } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { ADDRESSES, BNT, ETH } from '@xtoken/abis'
+import { ADDRESSES, BNT, ETH, KYBER_PROXY } from '@xtoken/abis'
 import { ethers } from 'ethers'
 
 import {
@@ -9,10 +9,10 @@ import {
   GAS_LIMIT_PERCENTAGE_DEFAULT,
   GAS_LIMIT_PERCENTAGE_ETH,
 } from '../../constants'
-import { XBNT } from '../../types'
+import { KyberProxy, XBNT } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getPercentage } from '../../utils'
-import { getExpectedRate, parseFees } from '../utils'
+import { getContract, getExpectedRate, parseFees } from '../utils'
 
 import { getXBntContracts } from './helper'
 
@@ -44,11 +44,14 @@ export const getExpectedQuantityOnBurnXBnt = async (
   provider: BaseProvider
 ) => {
   const inputAmount = parseEther(amount)
-  const { kyberProxyContract, network, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
+  const { network, xbntContract } = await getXBntContracts(symbol, provider)
   const { chainId } = network
+
+  const kyberProxyContract = getContract(
+    KYBER_PROXY,
+    provider,
+    network
+  ) as KyberProxy
 
   const { BURN_FEE, proRataBnt } = await getProRataBnt(
     xbntContract,

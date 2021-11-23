@@ -6,7 +6,6 @@ import {
   ADDRESSES,
   BUY,
   ETH,
-  KYBER_PROXY,
   WETH,
   X_AAVE_A,
   X_AAVE_A_BALANCER_POOL,
@@ -16,7 +15,7 @@ import {
 import { ethers } from 'ethers'
 
 import { DEC_18 } from '../../constants'
-import { BalancerPool, KyberProxy, XAAVE } from '../../types'
+import { BalancerPool, XAAVE } from '../../types'
 import {
   ILiquidityPoolItem,
   ITokenSymbols,
@@ -134,11 +133,6 @@ export const getBalancerPortfolioItem = async (
     provider,
     chainId
   ) as BalancerPool
-  const kyberProxyContract = getContract(
-    KYBER_PROXY,
-    provider,
-    network
-  ) as KyberProxy
 
   let userBalance = BigNumber.from('0')
   try {
@@ -160,21 +154,13 @@ export const getBalancerPortfolioItem = async (
     switch (symbol) {
       case X_AAVE_A: {
         const xaaveaContract = getContract(symbol, provider, network) as XAAVE
-        const { priceUsd } = await getXAavePrices(
-          xaaveaContract,
-          kyberProxyContract,
-          chainId
-        )
+        const { priceUsd } = await getXAavePrices(xaaveaContract)
         tokenPrice = priceUsd
         break
       }
       case X_AAVE_B: {
         const xaavebContract = getContract(symbol, provider, network) as XAAVE
-        const { priceUsd } = await getXAavePrices(
-          xaavebContract,
-          kyberProxyContract,
-          chainId
-        )
+        const { priceUsd } = await getXAavePrices(xaavebContract)
         tokenPrice = priceUsd
         break
       }

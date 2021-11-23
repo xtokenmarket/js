@@ -7,18 +7,9 @@ import { getXAaveContracts } from './helper'
 import { getXAavePrices } from './prices'
 
 test('Get xAAVEa prices', async (t) => {
-  const {
-    kyberProxyContract,
-    network,
-    xaaveContract,
-  } = await getXAaveContracts(X_AAVE_A, provider)
-  const { chainId } = network
+  const { xaaveContract } = await getXAaveContracts(X_AAVE_A, provider)
 
-  const { aum, priceEth, priceUsd } = await getXAavePrices(
-    xaaveContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract)
 
   console.log('xAAVEa aum:', aum)
   console.log('xAAVEa priceEth:', priceEth)
@@ -29,18 +20,9 @@ test('Get xAAVEa prices', async (t) => {
 })
 
 test('Get xAAVEb prices', async (t) => {
-  const {
-    kyberProxyContract,
-    network,
-    xaaveContract,
-  } = await getXAaveContracts(X_AAVE_B, provider)
-  const { chainId } = network
+  const { xaaveContract } = await getXAaveContracts(X_AAVE_B, provider)
 
-  const { aum, priceEth, priceUsd } = await getXAavePrices(
-    xaaveContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract)
 
   console.log('xAAVEb aum:', aum)
   console.log('xAAVEb priceEth:', priceEth)

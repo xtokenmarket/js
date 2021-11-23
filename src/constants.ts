@@ -68,5 +68,9 @@ export const SNX_BALANCER_V2_POOL_ID =
 export const STAKE = 'Stake'
 export const UNSTAKE = 'UnStake'
 
-// TODO: Create error constants for invalid inputs
-// For example: `Invalid user address` / `Invalid value for amount`
+export const Errors = Object.freeze({
+  CONTRACT_INITIALIZATION_FAILED: 'Error while initializing the contract',
+  INVALID_AMOUNT_VALUE: 'Invalid value for amount',
+  INVALID_USER_ADDRESS: 'Invalid user address',
+  TOKENS_NOT_APPROVED: 'Please approve the tokens before proceeding',
+})

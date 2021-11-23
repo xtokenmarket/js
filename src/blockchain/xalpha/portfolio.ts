@@ -15,26 +15,15 @@ export const getPortfolioItemXAlpha = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const { kyberProxyContract, xalphaContract } = await getXAlphaContracts(
-      symbol,
-      provider
-    )
+    const { xalphaContract } = await getXAlphaContracts(symbol, provider)
 
-    const xalphaBal = await getUserAvailableTokenBalance(
-      xalphaContract,
-      address
-    )
+    const [xalphaBal, { priceUsd }, tokenEquivalent] = await Promise.all([
+      getUserAvailableTokenBalance(xalphaContract, address),
+      getXAlphaPrices(xalphaContract),
+      getUnderlyingTokenEquivalent(xalphaContract, address),
+    ])
 
-    const { priceUsd } = await getXAlphaPrices(
-      xalphaContract,
-      kyberProxyContract
-    )
     const xalphaValue = (xalphaBal * priceUsd).toFixed(2).toString()
-
-    const tokenEquivalent = await getUnderlyingTokenEquivalent(
-      xalphaContract,
-      address
-    )
 
     return {
       symbol,

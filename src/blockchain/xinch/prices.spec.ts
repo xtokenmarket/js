@@ -7,18 +7,9 @@ import { getXInchContracts } from './helper'
 import { getXInchPrices } from './prices'
 
 test('Get xINCHa prices', async (t) => {
-  const {
-    kyberProxyContract,
-    network,
-    xinchContract,
-  } = await getXInchContracts(X_INCH_A, provider)
-  const { chainId } = network
+  const { xinchContract } = await getXInchContracts(X_INCH_A, provider)
 
-  const { aum, priceEth, priceUsd } = await getXInchPrices(
-    xinchContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXInchPrices(xinchContract)
 
   console.log('xINCHa aum:', aum)
   console.log('xINCHa priceEth:', priceEth)
@@ -29,18 +20,9 @@ test('Get xINCHa prices', async (t) => {
 })
 
 test('Get xINCHb prices', async (t) => {
-  const {
-    kyberProxyContract,
-    network,
-    xinchContract,
-  } = await getXInchContracts(X_INCH_B, provider)
-  const { chainId } = network
+  const { xinchContract } = await getXInchContracts(X_INCH_B, provider)
 
-  const { aum, priceEth, priceUsd } = await getXInchPrices(
-    xinchContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { aum, priceEth, priceUsd } = await getXInchPrices(xinchContract)
 
   console.log('xINCHb aum:', aum)
   console.log('xINCHb priceEth:', priceEth)

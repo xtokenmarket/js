@@ -1,34 +1,14 @@
-import { ADDRESSES, X_SNX_ADMIN } from '@xtoken/abis'
 import test from 'ava'
-import { Contract } from 'ethers'
 
 import { provider } from '../../constants.spec'
-import { ExchangeRates } from '../../types'
-import { getExchangeRateContract } from '../utils'
 
 import { getXSnxContracts } from './helper'
 import { getXSnxPrices } from './prices'
 
 test('Get xSNXa prices', async (t) => {
-  const {
-    network,
-    snxContract,
-    tradeAccountingContract,
-    xsnxContract,
-  } = await getXSnxContracts(provider)
-  const { chainId } = network
+  const { xsnxContract } = await getXSnxContracts(provider)
 
-  const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
-  const exchangeRatesContract = await getExchangeRateContract(provider)
-
-  const { aum, priceEth, priceUsd } = await getXSnxPrices(
-    xsnxContract,
-    xsnxAdminAddress,
-    tradeAccountingContract,
-    exchangeRatesContract as ExchangeRates,
-    snxContract as Contract,
-    provider
-  )
+  const { aum, priceEth, priceUsd } = await getXSnxPrices(xsnxContract)
 
   console.log('xSNXa aum:', aum)
   console.log('xSNXa priceEth:', priceEth)

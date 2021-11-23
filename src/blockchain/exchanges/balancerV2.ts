@@ -8,38 +8,24 @@ import {
   BUY,
   ETH,
   SNX,
-  TRADE_ACCOUNTING,
   WETH,
   X_SNX_A,
-  X_SNX_ADMIN,
 } from '@xtoken/abis'
-import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
 
 import {
   DEC_18,
   SNX_BALANCER_V2_POOL_ID,
   X_SNX_A_BALANCER_V2_POOL_ID,
 } from '../../constants'
-import {
-  BalancerPool,
-  BalancerV2Vault,
-  ExchangeRates,
-  TradeAccounting,
-  XSNX,
-} from '../../types'
+import { BalancerPool, BalancerV2Vault, XSNX } from '../../types'
 import {
   ILiquidityPoolItem,
   ITokenSymbols,
   ITradeType,
 } from '../../types/xToken'
 import { formatNumber } from '../../utils'
-import {
-  getBalancerPoolContract,
-  getContract,
-  getExchangeRateContract,
-  getSigner,
-  getTokenSymbol,
-} from '../utils'
+import { getBalancerPoolContract, getSigner, getTokenSymbol } from '../utils'
 import { getXSnxPrices } from '../xsnx'
 
 import { getBalances } from './helper'
@@ -161,7 +147,7 @@ export const getBalancerV2PortfolioItem = async (
     chainId
   ) as BalancerPool
   const balancerV2VaultContract = getBalancerV2VaultContract(provider, chainId)
-  const tokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
+  const xtokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
 
   let userBalance = BigNumber.from('0')
   try {
@@ -179,26 +165,7 @@ export const getBalancerV2PortfolioItem = async (
   try {
     switch (symbol) {
       case X_SNX_A: {
-        const xsnxAdminAddress = ADDRESSES[X_SNX_ADMIN][chainId]
-
-        const tradeAccountingContract = getContract(
-          TRADE_ACCOUNTING,
-          provider,
-          network
-        ) as TradeAccounting
-        const exchangeRatesContract = (await getExchangeRateContract(
-          provider
-        )) as ExchangeRates
-        const snxContract = getContract(SNX, provider, network) as Contract
-
-        const { priceUsd } = await getXSnxPrices(
-          tokenContract as XSNX,
-          xsnxAdminAddress,
-          tradeAccountingContract,
-          exchangeRatesContract,
-          snxContract,
-          provider
-        )
+        const { priceUsd } = await getXSnxPrices(xtokenContract as XSNX)
         tokenPrice = priceUsd
         break
       }

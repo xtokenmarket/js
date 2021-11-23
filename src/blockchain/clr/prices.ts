@@ -15,7 +15,7 @@ import { BigNumber } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
-import { KyberProxy, XAssetCLR } from '../../types'
+import { XAssetCLR } from '../../types'
 import { ITokenPrices, ITokenSymbols, IXAssetCLR } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
 import { getEthUsdcPrice } from '../exchanges/uniswap'
@@ -25,27 +25,20 @@ import { getXAssetCLRTokenSymbol, getXAssetPrices } from '../utils'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { Abi, ADDRESSES, KYBER_PROXY, AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
+ * import { Abi, ADDRESSES, AAVE_X_AAVE_A_CLR } from '@xtoken/abis'
  * import { getXAssetCLRPrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
- *
  * const xAssetCLRContract = new ethers.Contract(ADDRESSES[AAVE_X_AAVE_A_CLR][chainId], Abi.xAssetCLR, provider)
- * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], Abi.KyberProxy, provider)
  *
- * const { priceEth, priceUsd } = await getXAssetCLRPrices(
- *   xAssetCLRContract,
- *   kyberProxyContract,
- * )
+ * const { priceEth, priceUsd } = await getXAssetCLRPrices(xAssetCLRContract)
  * ```
  *
  * @param {XAssetCLR} xAssetCLRContract xAssetCLR token contract
- * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXAssetCLRPrices = async (
-  xAssetCLRContract: XAssetCLR,
-  kyberProxyContract: KyberProxy
+  xAssetCLRContract: XAssetCLR
 ): Promise<ITokenPrices> => {
   try {
     const [
@@ -61,7 +54,7 @@ export const getXAssetCLRPrices = async (
       xAssetCLRContract.getStakedTokenBalance(),
       xAssetCLRContract.getBufferTokenBalance(),
       xAssetCLRContract.totalSupply(),
-      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
+      getEthUsdcPrice(xAssetCLRContract.provider as BaseProvider),
     ])
 
     const assets = getXAssetCLRTokenSymbol(symbol as IXAssetCLR)
@@ -107,7 +100,7 @@ export const getXAssetCLRPrices = async (
     } else {
       const { priceUsd: xAssetPriceUsd } = await getXAssetPrices(
         (isToken0 ? assets[0] : assets[1]) as ITokenSymbols,
-        kyberProxyContract.provider as BaseProvider
+        xAssetCLRContract.provider as BaseProvider
       )
 
       aum = aum.mul(parseEther(xAssetPriceUsd.toString()))

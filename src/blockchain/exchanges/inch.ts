@@ -6,7 +6,6 @@ import {
   BUY,
   ETH,
   INCH,
-  KYBER_PROXY,
   SELL,
   X_INCH_A,
   X_INCH_B,
@@ -14,7 +13,7 @@ import {
 import { ethers } from 'ethers'
 
 import { DEC_18 } from '../../constants'
-import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
+import { InchLiquidityProtocol, XINCH } from '../../types'
 import { ILiquidityPoolItem, ITradeType } from '../../types/xToken'
 import { getContract, getInchPoolAddress, getInchPoolContract } from '../utils'
 import { getXInchPrices } from '../xinch'
@@ -98,11 +97,6 @@ export const getInchPortfolioItem = async (
     provider,
     chainId
   ) as InchLiquidityProtocol
-  const kyberProxyContract = getContract(
-    KYBER_PROXY,
-    provider,
-    network
-  ) as KyberProxy
 
   let userBalance = BigNumber.from('0')
   try {
@@ -112,11 +106,7 @@ export const getInchPortfolioItem = async (
   }
 
   const xinchContract = getContract(symbol, provider, network) as XINCH
-  const { priceUsd } = await getXInchPrices(
-    xinchContract,
-    kyberProxyContract,
-    chainId
-  )
+  const { priceUsd } = await getXInchPrices(xinchContract)
 
   const inchPoolBalances = await getBalances(
     symbol,
