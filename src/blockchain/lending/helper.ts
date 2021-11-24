@@ -1,6 +1,8 @@
 import { BaseProvider } from '@ethersproject/providers'
 import {
   LENDING_COMPTROLLER,
+  LENDING_LINK_MARKET,
+  LENDING_LINK_PRICE,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
   LENDING_WBTC_MARKET,
@@ -89,6 +91,12 @@ export const getMarketContracts = async (
     network
   ) as Market
 
+  const linkMarketContract = getContract(
+    LENDING_LINK_MARKET,
+    provider,
+    network
+  ) as Market
+
   // xAAVE Market Contracts
   /*const xAAVEaMarketContract = getContract(
     LENDING_X_AAVE_A_MARKET,
@@ -127,7 +135,8 @@ export const getMarketContracts = async (
 
   if (
     !wbtcMarketContract ||
-    !wethMarketContract
+    !wethMarketContract ||
+    !linkMarketContract
     // !xAAVEaMarketContract ||
     // !xAAVEbMarketContract ||
     // !xINCHaMarketContract
@@ -141,6 +150,7 @@ export const getMarketContracts = async (
   return {
     [LENDING_WBTC_MARKET]: wbtcMarketContract,
     [LENDING_WETH_MARKET]: wethMarketContract,
+    [LENDING_LINK_MARKET]: linkMarketContract,
     // [LENDING_X_AAVE_A_MARKET]: xAAVEaMarketContract,
     // [LENDING_X_AAVE_B_MARKET]: xAAVEbMarketContract,
     // [LENDING_X_INCH_A_MARKET]: xINCHaMarketContract,
@@ -163,6 +173,12 @@ export const getPricingContracts = async (
 
   const wethPriceContract = getContract(
     LENDING_WETH_PRICE,
+    provider,
+    network
+  ) as NativePrice
+
+  const linkPriceContract = getContract(
+    LENDING_LINK_PRICE,
     provider,
     network
   ) as NativePrice
@@ -205,7 +221,8 @@ export const getPricingContracts = async (
 
   if (
     !wbtcPriceContract ||
-    !wethPriceContract
+    !wethPriceContract ||
+    !linkPriceContract
     // !xAAVEaPriceContract ||
     // !xAAVEbPriceContract ||
     // !xINCHaPriceContract ||
@@ -219,6 +236,7 @@ export const getPricingContracts = async (
   return {
     [LENDING_WBTC_PRICE]: wbtcPriceContract,
     [LENDING_WETH_PRICE]: wethPriceContract,
+    [LENDING_LINK_PRICE]: linkPriceContract,
     // [LENDING_X_AAVE_A_PRICE]: xAAVEaPriceContract,
     // [LENDING_X_AAVE_B_PRICE]: xAAVEbPriceContract,
     // [LENDING_X_INCH_A_PRICE]: xINCHaPriceContract,

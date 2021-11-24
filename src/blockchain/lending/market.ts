@@ -2,11 +2,13 @@ import { BaseProvider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import {
   ADDRESSES,
+  LENDING_LINK_MARKET,
   LENDING_WBTC_MARKET,
   LENDING_WETH_MARKET,
   // LENDING_X_AAVE_A_MARKET,
   // LENDING_X_AAVE_B_MARKET,
   // LENDING_X_INCH_A_MARKET,
+  LINK,
   WBTC,
   WETH,
   // LENDING_X_INCH_B_MARKET,
@@ -71,22 +73,33 @@ export const getLendingMarkets = async (
   try {
     const { chainId } = await provider.getNetwork()
 
-    const [wbtcLendingCollateral, wethLendingCollateral] = await Promise.all([
+    const [
+      wbtcLendingCollateral,
+      wethLendingCollateral,
+      linkLendingCollateral,
+    ] = await Promise.all([
       getCollateral(LENDING_WBTC_MARKET, address, provider),
       getCollateral(LENDING_WETH_MARKET, address, provider),
+      getCollateral(LENDING_LINK_MARKET, address, provider),
     ])
 
-    const [wbtcBorrowingLimit, wethBorrowingLimit] = await Promise.all([
+    const [
+      wbtcBorrowingLimit,
+      wethBorrowingLimit,
+      linkBorrowingLimit,
+    ] = await Promise.all([
       getBorrowingLimit(LENDING_WBTC_MARKET, address, provider),
       getBorrowingLimit(LENDING_WETH_MARKET, address, provider),
+      getBorrowingLimit(LENDING_LINK_MARKET, address, provider),
     ])
 
-    const [wbtcBalance, wethBalance] = await Promise.all([
+    const [wbtcBalance, wethBalance, linkBalance] = await Promise.all([
       getTokenBalance(WBTC, address, provider),
       getTokenBalance(WETH, address, provider),
+      getTokenBalance(LINK, address, provider),
     ])
 
-    const [wbtcAllowance, wethAllowance] = await Promise.all([
+    const [wbtcAllowance, wethAllowance, linkAllowance] = await Promise.all([
       getTokenAllowance(
         WBTC,
         address,
@@ -97,6 +110,12 @@ export const getLendingMarkets = async (
         WETH,
         address,
         ADDRESSES[LENDING_WETH_MARKET][chainId],
+        provider
+      ),
+      getTokenAllowance(
+        LINK,
+        address,
+        ADDRESSES[LENDING_LINK_MARKET][chainId],
         provider
       ),
     ])
@@ -117,6 +136,14 @@ export const getLendingMarkets = async (
         tokenAllowance: wethAllowance,
         tokenBalance: wethBalance,
         value: wethBorrowingLimit,
+      },
+      {
+        asset: LINK,
+        name: LENDING_LINK_MARKET,
+        collateral: linkLendingCollateral,
+        tokenAllowance: linkAllowance,
+        tokenBalance: linkBalance,
+        value: linkBorrowingLimit,
       },
     ]
   } catch (e) {

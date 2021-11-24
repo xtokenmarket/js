@@ -29,6 +29,8 @@ import {
   LENDING_WBTC_PRICE,
   LENDING_WETH_MARKET,
   LENDING_WETH_PRICE,
+  LENDING_LINK_MARKET,
+  LENDING_LINK_PRICE,
   /*LENDING_X_AAVE_A_MARKET,
   LENDING_X_AAVE_A_PRICE,
   LENDING_X_AAVE_B_MARKET,
@@ -56,6 +58,7 @@ import {
   UST,
   WBTC,
   WETH,
+  LINK,
   WITHDRAW,
   X_AAVE_A,
   X_AAVE_B,
@@ -143,6 +146,7 @@ export type IStableAssets =
   | typeof UST
   | typeof WBTC
   | typeof WETH
+  | typeof LINK
 
 export type IXAssetCLR =
   | typeof AAVE_X_AAVE_A_CLR
@@ -166,6 +170,7 @@ export type ILendingContracts =
 export type ILendingMarket =
   | typeof LENDING_WBTC_MARKET
   | typeof LENDING_WETH_MARKET
+  | typeof LENDING_LINK_MARKET
 // | typeof LENDING_X_AAVE_A_MARKET
 // | typeof LENDING_X_AAVE_B_MARKET
 // | typeof LENDING_X_INCH_A_MARKET
@@ -176,6 +181,7 @@ export type ILendingMarket =
 export type ILendingPricing =
   | typeof LENDING_WBTC_PRICE
   | typeof LENDING_WETH_PRICE
+  | typeof LENDING_LINK_PRICE
 // | typeof LENDING_X_AAVE_A_PRICE
 // | typeof LENDING_X_AAVE_B_PRICE
 // | typeof LENDING_X_INCH_A_PRICE

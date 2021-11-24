@@ -24,6 +24,8 @@ import {
   KNC,
   KYBER_PROXY,
   LENDING_COMPTROLLER,
+  LENDING_LINK_MARKET,
+  LENDING_LINK_PRICE,
   LENDING_LIQUIDITY_POOL,
   LENDING_LPT,
   LENDING_WBTC_MARKET,
@@ -42,6 +44,7 @@ import {
   LENDING_X_KNC_A_PRICE,
   LENDING_X_KNC_B_MARKET,
   LENDING_X_KNC_B_PRICE,*/
+  LINK,
   REN_BTC,
   S_ETH,
   S_USD,
@@ -147,6 +150,7 @@ export const getAbi = (contractName: IContracts) => {
     case WBTC:
     case WETH:
     case XTK:
+    case LINK:
       return Abi.ERC20 as ContractInterface
     case EXCHANGE_RATES:
       return Abi.ExchangeRates as ContractInterface
@@ -213,6 +217,7 @@ export const getAbi = (contractName: IContracts) => {
     // case LENDING_X_KNC_B_MARKET:
     case LENDING_WBTC_MARKET:
     case LENDING_WETH_MARKET:
+    case LENDING_LINK_MARKET:
       return Abi.Market as ContractInterface
     /*case LENDING_X_AAVE_A_PRICE:
     case LENDING_X_AAVE_B_PRICE:
@@ -226,6 +231,7 @@ export const getAbi = (contractName: IContracts) => {
      */
     case LENDING_WBTC_PRICE:
     case LENDING_WETH_PRICE:
+    case LENDING_LINK_PRICE:
       return Abi.NativePrice as ContractInterface
   }
 }
