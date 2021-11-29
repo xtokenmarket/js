@@ -96,7 +96,7 @@ import {
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 
-import { ZERO_NUMBER } from '../constants'
+import { ChainId, ZERO_NUMBER } from '../constants'
 import { KyberProxy } from '../types'
 import {
   ICLRToken,
@@ -413,12 +413,20 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
   }
 }
 
-export const getLPTokenSymbol = (symbol: ILPTokenSymbols): IU3LPToken => {
+export const getLPTokenSymbol = (
+  symbol: ILPTokenSymbols,
+  provider: BaseProvider
+): IU3LPToken => {
+  if (!provider) console.warn('getLPTokenSymbol called with no provider')
   switch (symbol) {
     case X_U3LP_A:
       return { 0: DAI, 1: USDC }
     case X_U3LP_B:
-      return { 0: USDC, 1: USDT }
+      if (provider.network.chainId === ChainId.Arbitrum) {
+        return { 0: USDT, 1: USDC }
+      } else {
+        return { 0: USDC, 1: USDT }
+      }
     case X_U3LP_C:
       return { 0: S_USD, 1: USDC }
     case X_U3LP_D:

@@ -75,7 +75,7 @@ export const mintXU3LP = async (
     token1Contract,
     xu3lpContract,
   } = await getXU3LPContracts(symbol, provider)
-  const assets = getLPTokenSymbol(symbol)
+  const assets = getLPTokenSymbol(symbol, provider)
   const tokenContract = inputAsset === 0 ? token0Contract : token1Contract
 
   const address = await getSignerAddress(provider)

@@ -27,3 +27,7 @@ export const ropstenProvider = new ethers.providers.InfuraProvider(
   'ropsten',
   infuraApiKey
 )
+
+export const arbitrumProvider = new ethers.providers.JsonRpcProvider(
+  'https://arb1.arbitrum.io/rpc'
+)

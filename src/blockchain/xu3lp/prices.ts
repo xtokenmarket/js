@@ -4,7 +4,7 @@ import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
-import { KyberProxy, XU3LP } from '../../types'
+import { XU3LP } from '../../types'
 import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
 import { getBtcUsdcPrice, getEthUsdcPrice } from '../exchanges/uniswap'
@@ -34,7 +34,7 @@ import { getLPTokenSymbol } from '../utils'
  */
 export const getXU3LPPrices = async (
   xu3lpContract: XU3LP,
-  kyberProxyContract: KyberProxy
+  provider: BaseProvider
 ): Promise<ITokenPrices> => {
   try {
     const [
@@ -50,10 +50,10 @@ export const getXU3LPPrices = async (
       xu3lpContract.getStakedTokenBalance(),
       xu3lpContract.getBufferTokenBalance(),
       xu3lpContract.totalSupply(),
-      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
+      getEthUsdcPrice(provider),
     ])
 
-    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols)
+    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols, provider)
 
     const token0Balance = stakedTokenBalances.amount0.add(
       bufferTokenBalances.amount0
@@ -82,9 +82,8 @@ export const getXU3LPPrices = async (
       // Convert AUM to USD from ETH
       aum = aum.mul(parseEther(ethUsdcPrice)).div(DEC_18)
     } else if (symbol === X_U3LP_E) {
-      const btcUsdcPrice = await getBtcUsdcPrice(
-        kyberProxyContract.provider as BaseProvider
-      )
+      const btcUsdcPrice = await getBtcUsdcPrice(provider)
+
       priceBtc = aum.div(xu3lpTotalSupply as BigNumberish)
       priceUsd = priceBtc.mul(parseEther(btcUsdcPrice)).div(DEC_18)
 

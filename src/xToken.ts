@@ -166,7 +166,7 @@ import {
   getXU3LPAsset,
   mintXU3LP,
 } from './blockchain/xu3lp'
-import { Errors, Exchange, MAX_UINT } from './constants'
+import { ChainId, Errors, Exchange, MAX_UINT } from './constants'
 import {
   IAsset,
   IAssetId,
@@ -824,13 +824,21 @@ export class XToken {
       return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
     }
 
-    return Promise.all([
-      getBalancerV2PortfolioItem(X_SNX_A, address, this.provider),
-      getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
-      getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
-      getKyberPortfolioItem(X_KNC_A, address, this.provider),
-      getBancorPortfolioItem(X_BNT_A, address, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getBalancerV2PortfolioItem(X_SNX_A, address, this.provider),
+          getBalancerPortfolioItem(X_AAVE_A, address, this.provider),
+          getBalancerPortfolioItem(X_AAVE_B, address, this.provider),
+          getKyberPortfolioItem(X_KNC_A, address, this.provider),
+          getBancorPortfolioItem(X_BNT_A, address, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return []
+      default:
+        return []
+    }
   }
 
   /**
@@ -949,25 +957,35 @@ export class XToken {
       return Promise.reject(new Error(Errors.INVALID_USER_ADDRESS))
     }
 
-    return Promise.all([
-      getPortfolioItemXKnc(X_KNC_A, address, this.provider),
-      getPortfolioItemXKnc(X_KNC_B, address, this.provider),
-      getPortfolioItemXSnx(X_SNX_A, address, this.provider),
-      getPortfolioItemXAave(X_AAVE_A, address, this.provider),
-      getPortfolioItemXAave(X_AAVE_B, address, this.provider),
-      getPortfolioItemXInch(X_INCH_A, address, this.provider),
-      getPortfolioItemXInch(X_INCH_B, address, this.provider),
-      getPortfolioItemXBnt(X_BNT_A, address, this.provider),
-      getPortfolioItemXAlpha(X_ALPHA_A, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_D, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_E, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_F, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_G, address, this.provider),
-      getPortfolioItemXU3LP(X_U3LP_H, address, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getPortfolioItemXKnc(X_KNC_A, address, this.provider),
+          getPortfolioItemXKnc(X_KNC_B, address, this.provider),
+          getPortfolioItemXSnx(X_SNX_A, address, this.provider),
+          getPortfolioItemXAave(X_AAVE_A, address, this.provider),
+          getPortfolioItemXAave(X_AAVE_B, address, this.provider),
+          getPortfolioItemXInch(X_INCH_A, address, this.provider),
+          getPortfolioItemXInch(X_INCH_B, address, this.provider),
+          getPortfolioItemXBnt(X_BNT_A, address, this.provider),
+          getPortfolioItemXAlpha(X_ALPHA_A, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_C, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_D, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_E, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_F, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_G, address, this.provider),
+          getPortfolioItemXU3LP(X_U3LP_H, address, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return Promise.all([
+          getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
+        ])
+      default:
+        return []
+    }
   }
 
   /**
@@ -1104,17 +1122,27 @@ export class XToken {
    * AUM, Mandate & USD price
    */
   public async getXAssets(): Promise<readonly IAsset[]> {
-    return Promise.all([
-      getXAlphaAsset(X_ALPHA_A, this.provider),
-      getXBntAsset(X_BNT_A, this.provider),
-      getXInchAsset(X_INCH_A, this.provider),
-      getXInchAsset(X_INCH_B, this.provider),
-      getXAaveAsset(X_AAVE_A, this.provider),
-      getXAaveAsset(X_AAVE_B, this.provider),
-      getXSnxAsset(X_SNX_A, this.provider),
-      getXKncAsset(X_KNC_A, this.provider),
-      getXKncAsset(X_KNC_B, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getXAlphaAsset(X_ALPHA_A, this.provider),
+          getXBntAsset(X_BNT_A, this.provider),
+          getXInchAsset(X_INCH_A, this.provider),
+          getXInchAsset(X_INCH_B, this.provider),
+          getXAaveAsset(X_AAVE_A, this.provider),
+          getXAaveAsset(X_AAVE_B, this.provider),
+          getXSnxAsset(X_SNX_A, this.provider),
+          getXKncAsset(X_KNC_A, this.provider),
+          getXKncAsset(X_KNC_B, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return []
+      case ChainId.ArbitrumTestnet:
+        return []
+      default:
+        return Promise.reject(new Error('Wrong Network'))
+    }
   }
 
   /**
@@ -1127,16 +1155,26 @@ export class XToken {
    * @returns Returns list of all the xU3LP tokens along with their asset details, AUM & USD price
    */
   public async getXLPAssets(): Promise<readonly ILPAsset[]> {
-    return Promise.all([
-      getXU3LPAsset(X_U3LP_H, this.provider),
-      getXU3LPAsset(X_U3LP_G, this.provider),
-      getXU3LPAsset(X_U3LP_F, this.provider),
-      getXU3LPAsset(X_U3LP_E, this.provider),
-      getXU3LPAsset(X_U3LP_D, this.provider),
-      getXU3LPAsset(X_U3LP_C, this.provider),
-      getXU3LPAsset(X_U3LP_B, this.provider),
-      getXU3LPAsset(X_U3LP_A, this.provider),
-    ])
+    const { chainId } = await this.provider.getNetwork()
+    switch (chainId) {
+      case ChainId.Mainnet:
+        return Promise.all([
+          getXU3LPAsset(X_U3LP_H, this.provider),
+          getXU3LPAsset(X_U3LP_G, this.provider),
+          getXU3LPAsset(X_U3LP_F, this.provider),
+          getXU3LPAsset(X_U3LP_E, this.provider),
+          getXU3LPAsset(X_U3LP_D, this.provider),
+          getXU3LPAsset(X_U3LP_C, this.provider),
+          getXU3LPAsset(X_U3LP_B, this.provider),
+          getXU3LPAsset(X_U3LP_A, this.provider),
+        ])
+      case ChainId.Arbitrum:
+        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
+      case ChainId.ArbitrumTestnet:
+        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
+      default:
+        return Promise.reject(new Error('Wrong Network'))
+    }
   }
 
   public async lend(amount: string, type: ILendingType) {

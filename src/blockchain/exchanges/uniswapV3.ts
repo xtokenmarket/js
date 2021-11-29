@@ -1,5 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { abi as QuoterAbi } from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json'
+import { USDC } from '@xtoken/abis'
 import {
   ADDRESSES,
   BUY,
@@ -11,8 +12,9 @@ import {
   X_INCH_B,
 } from '@xtoken/abis'
 import { BigNumber, Contract } from 'ethers'
-import { formatEther, parseEther } from 'ethers/lib/utils'
+import { formatEther, formatUnits, parseEther } from 'ethers/lib/utils'
 
+import { DEC_18 } from '../../constants'
 import { ITokenSymbols, ITradeType } from '../../types/xToken'
 import { getSigner, getTokenSymbol } from '../utils'
 
@@ -75,4 +77,25 @@ export const getUniswapV3EstimatedQty = async (
   )
 
   return formatEther(estimateQty)
+}
+
+export const getEthUsdcPriceUniswapV3 = async (provider: BaseProvider) => {
+  const { chainId } = await provider.getNetwork()
+  const quoterContract = new Contract(QUOTER_ADDRESS, QuoterAbi, provider)
+
+  const usdcAddress = ADDRESSES[USDC][chainId]
+  const wethAddress = ADDRESSES[WETH][chainId]
+
+  const quantity = await quoterContract.callStatic.quoteExactInputSingle(
+    wethAddress,
+    usdcAddress,
+    FEES,
+    DEC_18,
+    // In case of Token0 to Token1 trade, the price limit is `MIN_PRICE` and the reverse would be `MAX_PRICE`
+    BigNumber.from(usdcAddress).gt(BigNumber.from(wethAddress))
+      ? MIN_PRICE
+      : MAX_PRICE
+  )
+
+  return formatUnits(quantity, 6)
 }

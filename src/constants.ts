@@ -9,6 +9,12 @@ export const GAS_LIMIT_PERCENTAGE_ETH = 120
 export const MAX_UINT = MaxUint256
 export const ZERO_NUMBER = BigNumber.from('0')
 
+export enum ChainId {
+  Mainnet = 1,
+  Arbitrum = 42161,
+  ArbitrumTestnet = 421611,
+}
+
 // DEX
 export enum Exchange {
   BALANCER = 'Balancer',
