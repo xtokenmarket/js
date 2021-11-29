@@ -1,0 +1,26 @@
+import * as dotenv from 'dotenv'
+import { ethers } from 'ethers'
+dotenv.config()
+// ENV variables
+export const infuraApiKey = process.env.INFURA_API_KEY
+export const testAddress = process.env.TEST_ADDRESS
+export const oneAddress = '0x0000000000000000000000000000000000000001'
+export const arbitrumRinkebyProvider = new ethers.providers.JsonRpcProvider(
+  'https://rinkeby.arbitrum.io/rpc'
+)
+export const kovanProvider = new ethers.providers.InfuraProvider(
+  'kovan',
+  infuraApiKey
+)
+export const provider = new ethers.providers.InfuraProvider(
+  'homestead',
+  infuraApiKey
+)
+export const ropstenProvider = new ethers.providers.InfuraProvider(
+  'ropsten',
+  infuraApiKey
+)
+export const arbitrumProvider = new ethers.providers.JsonRpcProvider(
+  'https://arb1.arbitrum.io/rpc'
+)
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uc3RhbnRzLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY29uc3RhbnRzLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxLQUFLLE1BQU0sTUFBTSxRQUFRLENBQUE7QUFDaEMsT0FBTyxFQUFFLE1BQU0sRUFBRSxNQUFNLFFBQVEsQ0FBQTtBQUUvQixNQUFNLENBQUMsTUFBTSxFQUFFLENBQUE7QUFFZixnQkFBZ0I7QUFDaEIsTUFBTSxDQUFDLE1BQU0sWUFBWSxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsY0FBd0IsQ0FBQTtBQUNoRSxNQUFNLENBQUMsTUFBTSxXQUFXLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxZQUFzQixDQUFBO0FBRTdELE1BQU0sQ0FBQyxNQUFNLFVBQVUsR0FBRyw0Q0FBNEMsQ0FBQTtBQUV0RSxNQUFNLENBQUMsTUFBTSx1QkFBdUIsR0FBRyxJQUFJLE1BQU0sQ0FBQyxTQUFTLENBQUMsZUFBZSxDQUN6RSxpQ0FBaUMsQ0FDbEMsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLGFBQWEsR0FBRyxJQUFJLE1BQU0sQ0FBQyxTQUFTLENBQUMsY0FBYyxDQUM5RCxPQUFPLEVBQ1AsWUFBWSxDQUNiLENBQUE7QUFFRCxNQUFNLENBQUMsTUFBTSxRQUFRLEdBQUcsSUFBSSxNQUFNLENBQUMsU0FBUyxDQUFDLGNBQWMsQ0FDekQsV0FBVyxFQUNYLFlBQVksQ0FDYixDQUFBO0FBRUQsTUFBTSxDQUFDLE1BQU0sZUFBZSxHQUFHLElBQUksTUFBTSxDQUFDLFNBQVMsQ0FBQyxjQUFjLENBQ2hFLFNBQVMsRUFDVCxZQUFZLENBQ2IsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLGdCQUFnQixHQUFHLElBQUksTUFBTSxDQUFDLFNBQVMsQ0FBQyxlQUFlLENBQ2xFLDhCQUE4QixDQUMvQixDQUFBIn0=

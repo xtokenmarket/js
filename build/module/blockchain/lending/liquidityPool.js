@@ -1,0 +1,110 @@
+import { formatEther } from '@ethersproject/units'
+import { ADDRESSES, LENDING_LIQUIDITY_POOL, USDC } from '@xtoken/abis'
+import { Errors } from '../../constants'
+import { getContract, getSignerAddress } from '../utils'
+import { getLiquidityPoolContract } from './helper'
+const CONTRACT_ERROR = new Error(Errors.CONTRACT_INITIALIZATION_FAILED)
+const TOKEN_APPROVE_ERROR = new Error(Errors.TOKENS_NOT_APPROVED)
+export const approveUsdc = async (amount, provider) => {
+  const network = await provider.getNetwork()
+  const usdcContract = getContract(USDC, provider, network)
+  if (!usdcContract) {
+    return Promise.reject(CONTRACT_ERROR)
+  }
+  return usdcContract.approve(
+    ADDRESSES[LENDING_LIQUIDITY_POOL][network.chainId],
+    amount
+  )
+}
+/**
+ * Borrow USDC from Liquidity Pool
+ * @param amount USDC amount to borrow without decimals
+ * @param provider
+ * @returns
+ */
+export const borrowLiquidity = async (amount, provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  return liquidityPoolContract.borrow(amount)
+}
+export const getBorrowRatePerBlock = async (provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const borrowRatePerBlock = await liquidityPoolContract.borrowRatePerBlock()
+  return formatEther(borrowRatePerBlock)
+}
+export const getLPTBaseValue = async (provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const lptBaseValue = await liquidityPoolContract.getLPTBaseValue()
+  return formatEther(lptBaseValue)
+}
+export const getLPTValue = async (provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const lptValue = await liquidityPoolContract.getLPTValue()
+  return formatEther(lptValue)
+}
+export const getOptimalUtilizationRate = async (provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const optimalUtilizationRate = await liquidityPoolContract.getOptimalUtilizationRate()
+  return optimalUtilizationRate.toString()
+}
+export const getUpdatedBorrowBy = async (address, provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const updatedBorrowBy = await liquidityPoolContract.updatedBorrowBy(address)
+  return formatEther(updatedBorrowBy)
+}
+export const getUtilizationRate = async (provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const utilizationRate = await liquidityPoolContract.utilizationRate()
+  return utilizationRate.toString()
+}
+/**
+ * Repay Loan with USDC
+ * @param amount USDC amount without decimals
+ * @param provider
+ * @returns
+ */
+export const repayLiquidity = async (amount, provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const address = await getSignerAddress(provider)
+  const approvedAmount = await _getApprovedAmountUSDC(address, provider)
+  if (approvedAmount.lt(amount)) {
+    return Promise.reject(TOKEN_APPROVE_ERROR)
+  }
+  return liquidityPoolContract.repay(amount)
+}
+/**
+ * Supply USDC to Liquidity Pool
+ * @param amount amount of USDC without decimals
+ * @param provider
+ * @returns
+ */
+export const supplyLiquidity = async (amount, provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const address = await getSignerAddress(provider)
+  const approvedAmount = await _getApprovedAmountUSDC(address, provider)
+  if (approvedAmount.lt(amount)) {
+    return Promise.reject(TOKEN_APPROVE_ERROR)
+  }
+  return liquidityPoolContract.supply(amount)
+}
+/**
+ * Withdraw USDC from Liquidity Pool
+ * @param amount amount of LPT without decimals
+ * @param provider
+ * @returns
+ */
+export const withdrawLiquidity = async (amount, provider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  return liquidityPoolContract.withdraw(amount)
+}
+const _getApprovedAmountUSDC = async (address, provider) => {
+  const network = await provider.getNetwork()
+  const usdcContract = getContract(USDC, provider, network)
+  if (!usdcContract) {
+    return Promise.reject(CONTRACT_ERROR)
+  }
+  return usdcContract.allowance(
+    address,
+    ADDRESSES[LENDING_LIQUIDITY_POOL][network.chainId]
+  )
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGlxdWlkaXR5UG9vbC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL2xlbmRpbmcvbGlxdWlkaXR5UG9vbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQSxPQUFPLEVBQUUsV0FBVyxFQUFFLE1BQU0sc0JBQXNCLENBQUE7QUFDbEQsT0FBTyxFQUFFLFNBQVMsRUFBRSxzQkFBc0IsRUFBRSxJQUFJLEVBQUUsTUFBTSxjQUFjLENBQUE7QUFHdEUsT0FBTyxFQUFFLE1BQU0sRUFBRSxNQUFNLGlCQUFpQixDQUFBO0FBQ3hDLE9BQU8sRUFBRSxXQUFXLEVBQUUsZ0JBQWdCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFeEQsT0FBTyxFQUFFLHdCQUF3QixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRW5ELE1BQU0sY0FBYyxHQUFHLElBQUksS0FBSyxDQUFDLE1BQU0sQ0FBQyw4QkFBOEIsQ0FBQyxDQUFBO0FBQ3ZFLE1BQU0sbUJBQW1CLEdBQUcsSUFBSSxLQUFLLENBQUMsTUFBTSxDQUFDLG1CQUFtQixDQUFDLENBQUE7QUFFakUsTUFBTSxDQUFDLE1BQU0sV0FBVyxHQUFHLEtBQUssRUFDOUIsTUFBaUIsRUFDakIsUUFBc0IsRUFDdEIsRUFBRTtJQUNGLE1BQU0sT0FBTyxHQUFHLE1BQU0sUUFBUSxDQUFDLFVBQVUsRUFBRSxDQUFBO0lBQzNDLE1BQU0sWUFBWSxHQUFHLFdBQVcsQ0FBQyxJQUFJLEVBQUUsUUFBUSxFQUFFLE9BQU8sQ0FBQyxDQUFBO0lBQ3pELElBQUksQ0FBQyxZQUFZLEVBQUU7UUFDakIsT0FBTyxPQUFPLENBQUMsTUFBTSxDQUFDLGNBQWMsQ0FBQyxDQUFBO0tBQ3RDO0lBRUQsT0FBTyxZQUFZLENBQUMsT0FBTyxDQUN6QixTQUFTLENBQUMsc0JBQXNCLENBQUMsQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLEVBQ2xELE1BQU0sQ0FDUCxDQUFBO0FBQ0gsQ0FBQyxDQUFBO0FBRUQ7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

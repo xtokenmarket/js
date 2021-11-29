@@ -1,0 +1,18 @@
+import { getContract, getLPTokenSymbol } from '../utils'
+export const getXU3LPContracts = async (symbol, provider) => {
+  const assets = getLPTokenSymbol(symbol, provider)
+  const network = await provider.getNetwork()
+  const xu3lpContract = getContract(symbol, provider, network)
+  const token0Contract = getContract(assets[0], provider, network)
+  const token1Contract = getContract(assets[1], provider, network)
+  if (!xu3lpContract || !token0Contract || !token1Contract) {
+    return Promise.reject(new Error('Unknown error'))
+  }
+  return {
+    network,
+    token0Contract,
+    token1Contract,
+    xu3lpContract,
+  }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVscGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4veHUzbHAvaGVscGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUtBLE9BQU8sRUFBRSxXQUFXLEVBQUUsZ0JBQWdCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFeEQsTUFBTSxDQUFDLE1BQU0saUJBQWlCLEdBQUcsS0FBSyxFQUNwQyxNQUF1QixFQUN2QixRQUFzQixFQUN0QixFQUFFO0lBQ0YsTUFBTSxNQUFNLEdBQUcsZ0JBQWdCLENBQUMsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBQ2pELE1BQU0sT0FBTyxHQUFHLE1BQU0sUUFBUSxDQUFDLFVBQVUsRUFBRSxDQUFBO0lBRTNDLE1BQU0sYUFBYSxHQUFHLFdBQVcsQ0FBQyxNQUFNLEVBQUUsUUFBUSxFQUFFLE9BQU8sQ0FBVSxDQUFBO0lBQ3JFLE1BQU0sY0FBYyxHQUFHLFdBQVcsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsUUFBUSxFQUFFLE9BQU8sQ0FBYSxDQUFBO0lBQzVFLE1BQU0sY0FBYyxHQUFHLFdBQVcsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsUUFBUSxFQUFFLE9BQU8sQ0FBYSxDQUFBO0lBRTVFLElBQUksQ0FBQyxhQUFhLElBQUksQ0FBQyxjQUFjLElBQUksQ0FBQyxjQUFjLEVBQUU7UUFDeEQsT0FBTyxPQUFPLENBQUMsTUFBTSxDQUFDLElBQUksS0FBSyxDQUFDLGVBQWUsQ0FBQyxDQUFDLENBQUE7S0FDbEQ7SUFFRCxPQUFPO1FBQ0wsT0FBTztRQUNQLGNBQWM7UUFDZCxjQUFjO1FBQ2QsYUFBYTtLQUNkLENBQUE7QUFDSCxDQUFDLENBQUEifQ==
