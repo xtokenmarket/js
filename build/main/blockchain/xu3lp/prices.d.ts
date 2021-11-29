@@ -1,5 +1,6 @@
+import { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
-import { KyberProxy, XU3LP } from '../../types'
+import { XU3LP } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 /**
  * @example
@@ -25,7 +26,7 @@ import { ITokenPrices } from '../../types/xToken'
  */
 export declare const getXU3LPPrices: (
   xu3lpContract: XU3LP,
-  kyberProxyContract: KyberProxy
+  provider: BaseProvider
 ) => Promise<ITokenPrices>
 export declare const getXU3LPTokenPrices: (
   xu3lpContract: XU3LP

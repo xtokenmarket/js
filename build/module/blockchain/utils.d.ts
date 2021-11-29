@@ -67,7 +67,10 @@ export declare const getKyberPoolContract: (
 export declare const getTokenSymbol: (
   symbol: ITokenSymbols
 ) => 'aave' | 'alpha' | 'bnt' | 'inch' | 'knc' | 'snx'
-export declare const getLPTokenSymbol: (symbol: ILPTokenSymbols) => IU3LPToken
+export declare const getLPTokenSymbol: (
+  symbol: ILPTokenSymbols,
+  provider: BaseProvider
+) => IU3LPToken
 export declare const getXAssetCLRSymbol: (symbol: ITokenSymbols) => IXAssetCLR
 export declare const getXAssetCLRTokenSymbol: (symbol: IXAssetCLR) => ICLRToken
 export declare const getXAssetPrices: (

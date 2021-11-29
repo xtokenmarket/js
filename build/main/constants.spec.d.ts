@@ -6,3 +6,4 @@ export declare const arbitrumRinkebyProvider: ethers.providers.JsonRpcProvider
 export declare const kovanProvider: ethers.providers.InfuraProvider
 export declare const provider: ethers.providers.InfuraProvider
 export declare const ropstenProvider: ethers.providers.InfuraProvider
+export declare const arbitrumProvider: ethers.providers.JsonRpcProvider

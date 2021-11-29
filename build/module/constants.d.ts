@@ -4,6 +4,11 @@ export declare const GAS_LIMIT_PERCENTAGE_DEFAULT = 110
 export declare const GAS_LIMIT_PERCENTAGE_ETH = 120
 export declare const MAX_UINT: BigNumber
 export declare const ZERO_NUMBER: BigNumber
+export declare enum ChainId {
+  Mainnet = 1,
+  Arbitrum = 42161,
+  ArbitrumTestnet = 421611,
+}
 export declare enum Exchange {
   BALANCER = 'Balancer',
   BANCOR = 'Bancor',

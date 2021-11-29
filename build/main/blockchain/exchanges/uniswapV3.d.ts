@@ -10,3 +10,6 @@ export declare const getUniswapV3EstimatedQty: (
   fees: BigNumber | undefined,
   provider: BaseProvider
 ) => Promise<string>
+export declare const getEthUsdcPriceUniswapV3: (
+  provider: BaseProvider
+) => Promise<string>
