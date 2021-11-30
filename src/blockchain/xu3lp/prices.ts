@@ -53,7 +53,8 @@ export const getXU3LPPrices = async (
       getEthUsdcPrice(provider),
     ])
 
-    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols, provider)
+    const { chainId } = await provider.getNetwork()
+    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols, chainId)
 
     const token0Balance = stakedTokenBalances.amount0.add(
       bufferTokenBalances.amount0

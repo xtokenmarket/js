@@ -20,7 +20,8 @@ export const getXU3LPAsset = async (
   symbol: ILPTokenSymbols,
   provider: BaseProvider
 ): Promise<ILPAsset> => {
-  const tokens = getLPTokenSymbol(symbol, provider)
+  const { chainId } = await provider.getNetwork()
+  const tokens = getLPTokenSymbol(symbol, chainId)
   const assets = `${capitalizeToken(tokens[0])}-${capitalizeToken(tokens[1])}`
 
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)

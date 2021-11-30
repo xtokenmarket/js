@@ -415,14 +415,13 @@ export const getTokenSymbol = (symbol: ITokenSymbols) => {
 
 export const getLPTokenSymbol = (
   symbol: ILPTokenSymbols,
-  provider: BaseProvider
+  chainId = 1
 ): IU3LPToken => {
-  if (!provider) console.warn('getLPTokenSymbol called with no provider')
   switch (symbol) {
     case X_U3LP_A:
       return { 0: DAI, 1: USDC }
     case X_U3LP_B:
-      if (provider.network.chainId === ChainId.Arbitrum) {
+      if (chainId === ChainId.Arbitrum) {
         return { 0: USDT, 1: USDC }
       } else {
         return { 0: USDC, 1: USDT }

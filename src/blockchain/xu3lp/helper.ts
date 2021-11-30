@@ -9,7 +9,8 @@ export const getXU3LPContracts = async (
   symbol: ILPTokenSymbols,
   provider: BaseProvider
 ) => {
-  const assets = getLPTokenSymbol(symbol, provider)
+  const { chainId } = await provider.getNetwork()
+  const assets = getLPTokenSymbol(symbol, chainId)
   const network = await provider.getNetwork()
 
   const xu3lpContract = getContract(symbol, provider, network) as XU3LP
