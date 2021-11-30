@@ -69,7 +69,7 @@ export declare const getTokenSymbol: (
 ) => 'aave' | 'alpha' | 'bnt' | 'inch' | 'knc' | 'snx'
 export declare const getLPTokenSymbol: (
   symbol: ILPTokenSymbols,
-  provider: BaseProvider
+  chainId?: number
 ) => IU3LPToken
 export declare const getXAssetCLRSymbol: (symbol: ITokenSymbols) => IXAssetCLR
 export declare const getXAssetCLRTokenSymbol: (symbol: IXAssetCLR) => ICLRToken
