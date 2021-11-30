@@ -1,38 +1,22 @@
-import {
-  ADDRESSES,
-  ETH,
-  X_AAVE_A,
-  X_AAVE_A_BALANCER_POOL,
-  X_KNC_A,
-} from '@xtoken/abis'
-import test from 'ava'
-import { BigNumber } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
-import { provider } from '../constants.spec'
-import { getBalancerPoolAddress, getExpectedRate } from './utils'
-import { getXAaveContracts } from './xaave/helper'
+import { ADDRESSES, ETH, X_AAVE_A, X_AAVE_A_BALANCER_POOL, X_KNC_A, } from '@xtoken/abis';
+import test from 'ava';
+import { BigNumber } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
+import { provider } from '../constants.spec';
+import { getBalancerPoolAddress, getExpectedRate } from './utils';
+import { getXAaveContracts } from './xaave/helper';
 test('Get BalancerPool address for xAAVEa', (t) => {
-  const balancerPoolAddress = getBalancerPoolAddress(X_AAVE_A, 1)
-  t.is(balancerPoolAddress, ADDRESSES[X_AAVE_A_BALANCER_POOL][1])
-})
+    const balancerPoolAddress = getBalancerPoolAddress(X_AAVE_A, 1);
+    t.is(balancerPoolAddress, ADDRESSES[X_AAVE_A_BALANCER_POOL][1]);
+});
 test('Get BalancerPool address for xKNCa', (t) => {
-  const balancerPoolAddress = getBalancerPoolAddress(X_KNC_A, 1)
-  t.is(balancerPoolAddress, null)
-})
+    const balancerPoolAddress = getBalancerPoolAddress(X_KNC_A, 1);
+    t.is(balancerPoolAddress, null);
+});
 test('Expected rate for xAAVEa', async (t) => {
-  const { kyberProxyContract, tokenContract } = await getXAaveContracts(
-    X_AAVE_A,
-    provider
-  )
-  const expectedRate = formatEther(
-    await getExpectedRate(
-      kyberProxyContract,
-      tokenContract.address,
-      ADDRESSES[ETH],
-      BigNumber.from('1000')
-    )
-  )
-  console.log('Expected rate for xAAVEa:', expectedRate)
-  t.true(Number(expectedRate) > 0)
-})
+    const { kyberProxyContract, tokenContract } = await getXAaveContracts(X_AAVE_A, provider);
+    const expectedRate = formatEther(await getExpectedRate(kyberProxyContract, tokenContract.address, ADDRESSES[ETH], BigNumber.from('1000')));
+    console.log('Expected rate for xAAVEa:', expectedRate);
+    t.true(Number(expectedRate) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXRpbHMuc3BlYy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3V0aWxzLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUNMLFNBQVMsRUFDVCxHQUFHLEVBQ0gsUUFBUSxFQUNSLHNCQUFzQixFQUN0QixPQUFPLEdBQ1IsTUFBTSxjQUFjLENBQUE7QUFDckIsT0FBTyxJQUFJLE1BQU0sS0FBSyxDQUFBO0FBQ3RCLE9BQU8sRUFBRSxTQUFTLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFDbEMsT0FBTyxFQUFFLFdBQVcsRUFBRSxNQUFNLGtCQUFrQixDQUFBO0FBRTlDLE9BQU8sRUFBRSxRQUFRLEVBQUUsTUFBTSxtQkFBbUIsQ0FBQTtBQUU1QyxPQUFPLEVBQUUsc0JBQXNCLEVBQUUsZUFBZSxFQUFFLE1BQU0sU0FBUyxDQUFBO0FBQ2pFLE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxNQUFNLGdCQUFnQixDQUFBO0FBRWxELElBQUksQ0FBQyxxQ0FBcUMsRUFBRSxDQUFDLENBQUMsRUFBRSxFQUFFO0lBQ2hELE1BQU0sbUJBQW1CLEdBQUcsc0JBQXNCLENBQUMsUUFBUSxFQUFFLENBQUMsQ0FBQyxDQUFBO0lBQy9ELENBQUMsQ0FBQyxFQUFFLENBQUMsbUJBQW1CLEVBQUUsU0FBUyxDQUFDLHNCQUFzQixDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQTtBQUNqRSxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyxvQ0FBb0MsRUFBRSxDQUFDLENBQUMsRUFBRSxFQUFFO0lBQy9DLE1BQU0sbUJBQW1CLEdBQUcsc0JBQXNCLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQyxDQUFBO0lBQzlELENBQUMsQ0FBQyxFQUFFLENBQUMsbUJBQW1CLEVBQUUsSUFBSSxDQUFDLENBQUE7QUFDakMsQ0FBQyxDQUFDLENBQUE7QUFFRixJQUFJLENBQUMsMEJBQTBCLEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQzNDLE1BQU0sRUFBRSxrQkFBa0IsRUFBRSxhQUFhLEVBQUUsR0FBRyxNQUFNLGlCQUFpQixDQUNuRSxRQUFRLEVBQ1IsUUFBUSxDQUNULENBQUE7SUFDRCxNQUFNLFlBQVksR0FBRyxXQUFXLENBQzlCLE1BQU0sZUFBZSxDQUNuQixrQkFBa0IsRUFDbEIsYUFBYSxDQUFDLE9BQU8sRUFDckIsU0FBUyxDQUFDLEdBQUcsQ0FBVyxFQUN4QixTQUFTLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUN2QixDQUNGLENBQUE7SUFFRCxPQUFPLENBQUMsR0FBRyxDQUFDLDJCQUEyQixFQUFFLFlBQVksQ0FBQyxDQUFBO0lBQ3RELENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFlBQVksQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ2xDLENBQUMsQ0FBQyxDQUFBIn0=

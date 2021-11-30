@@ -1,5 +1,5 @@
-import { XBNT } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { XBNT } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -16,6 +16,4 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XBNT} xbntContract xBNTa token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXBntPrices: (
-  xbntContract: XBNT
-) => Promise<ITokenPrices>
+export declare const getXBntPrices: (xbntContract: XBNT) => Promise<ITokenPrices>;

@@ -1,79 +1,59 @@
-import { REN_BTC, USDC, USDT, WBTC } from '@xtoken/abis'
-import { ethers } from 'ethers'
-import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
-import { getPercentage } from '../../utils'
-import { getLPTokenSymbol, getSignerAddress, parseFees } from '../utils'
-import { getXU3LPContracts } from './helper'
-const { formatEther, parseEther } = ethers.utils
+import { REN_BTC, USDC, USDT, WBTC } from '@xtoken/abis';
+import { ethers } from 'ethers';
+import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants';
+import { getPercentage } from '../../utils';
+import { getLPTokenSymbol, getSignerAddress, parseFees } from '../utils';
+import { getXU3LPContracts } from './helper';
+const { formatEther, parseEther } = ethers.utils;
 export const approveXU3LP = async (symbol, amount, inputAsset, provider) => {
-  const {
-    token0Contract,
-    token1Contract,
-    xu3lpContract,
-  } = await getXU3LPContracts(symbol, provider)
-  const tokenContract = inputAsset === 0 ? token0Contract : token1Contract
-  // Estimate `gasLimit`
-  const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(xu3lpContract.address, amount),
-    GAS_LIMIT_PERCENTAGE_DEFAULT
-  )
-  return tokenContract.approve(xu3lpContract.address, amount, { gasLimit })
-}
-export const getExpectedQuantityOnMintXU3LP = async (
-  symbol,
-  inputAsset,
-  amount,
-  provider
-) => {
-  const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
-  const [nav, totalSupply, { mintFee }] = await Promise.all([
-    xu3lpContract.getNav(),
-    xu3lpContract.totalSupply(),
-    xu3lpContract.feeDivisors(),
-  ])
-  const MINT_FEE = parseFees(mintFee)
-  let expectedQty = parseEther(amount).mul(totalSupply).div(nav)
-  // Get amount in `asset1` terms for token 0
-  if (!inputAsset) {
-    expectedQty = await xu3lpContract.getAmountInAsset1Terms(expectedQty)
-  }
-  return formatEther(expectedQty.mul(MINT_FEE).div(DEC_18))
-}
+    const { token0Contract, token1Contract, xu3lpContract, } = await getXU3LPContracts(symbol, provider);
+    const tokenContract = inputAsset === 0 ? token0Contract : token1Contract;
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(await tokenContract.estimateGas.approve(xu3lpContract.address, amount), GAS_LIMIT_PERCENTAGE_DEFAULT);
+    return tokenContract.approve(xu3lpContract.address, amount, { gasLimit });
+};
+export const getExpectedQuantityOnMintXU3LP = async (symbol, inputAsset, amount, provider) => {
+    const { xu3lpContract } = await getXU3LPContracts(symbol, provider);
+    const [nav, totalSupply, { mintFee }] = await Promise.all([
+        xu3lpContract.getNav(),
+        xu3lpContract.totalSupply(),
+        xu3lpContract.feeDivisors(),
+    ]);
+    const MINT_FEE = parseFees(mintFee);
+    let expectedQty = parseEther(amount)
+        .mul(totalSupply)
+        .div(nav);
+    // Get amount in `asset1` terms for token 0
+    if (!inputAsset) {
+        expectedQty = await xu3lpContract.getAmountInAsset1Terms(expectedQty);
+    }
+    return formatEther(expectedQty.mul(MINT_FEE).div(DEC_18));
+};
 export const mintXU3LP = async (symbol, inputAsset, amount, provider) => {
-  const {
-    token0Contract,
-    token1Contract,
-    xu3lpContract,
-  } = await getXU3LPContracts(symbol, provider)
-  const { chainId } = await provider.getNetwork()
-  const assets = getLPTokenSymbol(symbol, chainId)
-  const tokenContract = inputAsset === 0 ? token0Contract : token1Contract
-  const address = await getSignerAddress(provider)
-  const approvedAmount = await _getApprovedAmount(
-    tokenContract,
-    xu3lpContract,
-    address
-  )
-  if ([USDC, USDT].includes(assets[inputAsset])) {
-    // Parse 18 decimals `amount` to 6 decimals
-    amount = amount.div('1000000000000')
-  } else if ([REN_BTC, WBTC].includes(assets[inputAsset])) {
-    // Parse 18 decimals `amount` to 8 decimals
-    amount = amount.div('10000000000')
-  }
-  if (approvedAmount.lt(amount)) {
-    return Promise.reject(new Error('Please approve the tokens before minting'))
-  }
-  // Estimate `gasLimit`
-  const gasLimit = getPercentage(
-    await xu3lpContract.estimateGas.mintWithToken(inputAsset, amount),
-    GAS_LIMIT_PERCENTAGE_DEFAULT
-  )
-  return xu3lpContract.mintWithToken(inputAsset, amount, {
-    gasLimit,
-  })
-}
+    const { token0Contract, token1Contract, xu3lpContract, } = await getXU3LPContracts(symbol, provider);
+    const { chainId } = await provider.getNetwork();
+    const assets = getLPTokenSymbol(symbol, chainId);
+    const tokenContract = inputAsset === 0 ? token0Contract : token1Contract;
+    const address = await getSignerAddress(provider);
+    const approvedAmount = await _getApprovedAmount(tokenContract, xu3lpContract, address);
+    if ([USDC, USDT].includes(assets[inputAsset])) {
+        // Parse 18 decimals `amount` to 6 decimals
+        amount = amount.div('1000000000000');
+    }
+    else if ([REN_BTC, WBTC].includes(assets[inputAsset])) {
+        // Parse 18 decimals `amount` to 8 decimals
+        amount = amount.div('10000000000');
+    }
+    if (approvedAmount.lt(amount)) {
+        return Promise.reject(new Error('Please approve the tokens before minting'));
+    }
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(await xu3lpContract.estimateGas.mintWithToken(inputAsset, amount), GAS_LIMIT_PERCENTAGE_DEFAULT);
+    return xu3lpContract.mintWithToken(inputAsset, amount, {
+        gasLimit,
+    });
+};
 const _getApprovedAmount = async (tokenContract, xu3lpContract, address) => {
-  return tokenContract.allowance(address, xu3lpContract.address)
-}
+    return tokenContract.allowance(address, xu3lpContract.address);
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWludC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3h1M2xwL21pbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0EsT0FBTyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxNQUFNLGNBQWMsQ0FBQTtBQUN4RCxPQUFPLEVBQWdCLE1BQU0sRUFBRSxNQUFNLFFBQVEsQ0FBQTtBQUU3QyxPQUFPLEVBQUUsTUFBTSxFQUFFLDRCQUE0QixFQUFFLE1BQU0saUJBQWlCLENBQUE7QUFHdEUsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGFBQWEsQ0FBQTtBQUMzQyxPQUFPLEVBQUUsZ0JBQWdCLEVBQUUsZ0JBQWdCLEVBQUUsU0FBUyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXhFLE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUU1QyxNQUFNLEVBQUUsV0FBVyxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUE7QUFFaEQsTUFBTSxDQUFDLE1BQU0sWUFBWSxHQUFHLEtBQUssRUFDL0IsTUFBdUIsRUFDdkIsTUFBaUIsRUFDakIsVUFBb0IsRUFDcEIsUUFBc0IsRUFDUSxFQUFFO0lBQ2hDLE1BQU0sRUFDSixjQUFjLEVBQ2QsY0FBYyxFQUNkLGFBQWEsR0FDZCxHQUFHLE1BQU0saUJBQWlCLENBQUMsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBRTdDLE1BQU0sYUFBYSxHQUFHLFVBQVUsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUMsY0FBYyxDQUFBO0lBRXhFLHNCQUFzQjtJQUN0QixNQUFNLFFBQVEsR0FBRyxhQUFhLENBQzVCLE1BQU0sYUFBYSxDQUFDLFdBQVcsQ0FBQyxPQUFPLENBQUMsYUFBYSxDQUFDLE9BQU8sRUFBRSxNQUFNLENBQUMsRUFDdEUsNEJBQTRCLENBQzdCLENB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

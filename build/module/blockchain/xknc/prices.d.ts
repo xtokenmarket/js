@@ -1,5 +1,5 @@
-import { XKNC } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { XKNC } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -16,6 +16,4 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XKNC} xkncContract xKNCa/xKNCb token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXKncPrices: (
-  xkncContract: XKNC
-) => Promise<ITokenPrices>
+export declare const getXKncPrices: (xkncContract: XKNC) => Promise<ITokenPrices>;

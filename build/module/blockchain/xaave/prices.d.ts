@@ -1,5 +1,5 @@
-import { XAAVE } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { XAAVE } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -16,6 +16,4 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XAAVE} xaaveContract xAAVEa/xAAVEb token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXAavePrices: (
-  xaaveContract: XAAVE
-) => Promise<ITokenPrices>
+export declare const getXAavePrices: (xaaveContract: XAAVE) => Promise<ITokenPrices>;

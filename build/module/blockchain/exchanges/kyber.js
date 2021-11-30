@@ -1,124 +1,78 @@
-import {
-  ChainId,
-  Fetcher,
-  Percent,
-  Route,
-  Token,
-  TokenAmount,
-  Trade,
-  TradeType,
-  WETH,
-} from '@dynamic-amm/sdk'
-import { BigNumber } from '@ethersproject/bignumber'
-import {
-  ADDRESSES,
-  BUY,
-  DMM_FACTORY,
-  ETH,
-  WETH as WETH_SYMBOL,
-} from '@xtoken/abis'
-import { ethers } from 'ethers'
-import { DEC_18 } from '../../constants'
-import {
-  getKyberPoolAddress,
-  getKyberPoolContract,
-  getTokenSymbol,
-} from '../utils'
-import { getXKncPrices } from '../xknc'
-import { getXKncContracts } from '../xknc/helper'
-import { getBalances } from './helper'
-const { formatEther, parseEther } = ethers.utils
-export const getKyberEstimatedQuantity = async (
-  tokenIn,
-  symbol,
-  amount,
-  tradeType,
-  provider
-) => {
-  const network = await provider.getNetwork()
-  const { chainId } = network
-  const inputAmount = parseEther(amount)
-  const slippageTolerance = new Percent('50', '10000')
-  const token = getTokenSymbol(symbol)
-  // Addresses
-  const dmmFactoryAddress = ADDRESSES[DMM_FACTORY][chainId]
-  const kncAddress = ADDRESSES[token][chainId]
-  const xkncAddress = ADDRESSES[symbol][chainId]
-  let tokenInAddress
-  if (tradeType === BUY) {
-    tokenInAddress =
-      tokenIn === ETH ? ADDRESSES[WETH_SYMBOL][chainId] : kncAddress
-  } else {
-    tokenInAddress = xkncAddress
-  }
-  const inputToken = new Token(chainId, tokenInAddress, 18)
-  const kncToken = new Token(chainId, kncAddress, 18)
-  const xKNCToken = new Token(chainId, xkncAddress, 18)
-  const ethXKncPair = await Fetcher.fetchPairData(
-    WETH[ChainId.MAINNET],
-    xKNCToken,
-    dmmFactoryAddress,
-    provider
-  )
-  const kncEthPair = await Fetcher.fetchPairData(
-    kncToken,
-    WETH[ChainId.MAINNET],
-    dmmFactoryAddress,
-    provider
-  )
-  let pairs = [...ethXKncPair]
-  if (tokenIn !== ETH) {
-    pairs =
-      tradeType === BUY
-        ? [...kncEthPair, ...ethXKncPair]
-        : [...ethXKncPair, ...kncEthPair]
-  }
-  const route = new Route(pairs, inputToken)
-  const trade = new Trade(
-    route,
-    new TokenAmount(inputToken, inputAmount.toString()),
-    TradeType.EXACT_INPUT
-  )
-  const amountOutMin = trade.minimumAmountOut(slippageTolerance)
-  return amountOutMin.toSignificant(6)
-}
+import { ChainId, Fetcher, Percent, Route, Token, TokenAmount, Trade, TradeType, WETH, } from '@dynamic-amm/sdk';
+import { BigNumber } from '@ethersproject/bignumber';
+import { ADDRESSES, BUY, DMM_FACTORY, ETH, WETH as WETH_SYMBOL, } from '@xtoken/abis';
+import { ethers } from 'ethers';
+import { DEC_18 } from '../../constants';
+import { getKyberPoolAddress, getKyberPoolContract, getTokenSymbol, } from '../utils';
+import { getXKncPrices } from '../xknc';
+import { getXKncContracts } from '../xknc/helper';
+import { getBalances } from './helper';
+const { formatEther, parseEther } = ethers.utils;
+export const getKyberEstimatedQuantity = async (tokenIn, symbol, amount, tradeType, provider) => {
+    const network = await provider.getNetwork();
+    const { chainId } = network;
+    const inputAmount = parseEther(amount);
+    const slippageTolerance = new Percent('50', '10000');
+    const token = getTokenSymbol(symbol);
+    // Addresses
+    const dmmFactoryAddress = ADDRESSES[DMM_FACTORY][chainId];
+    const kncAddress = ADDRESSES[token][chainId];
+    const xkncAddress = ADDRESSES[symbol][chainId];
+    let tokenInAddress;
+    if (tradeType === BUY) {
+        tokenInAddress =
+            tokenIn === ETH ? ADDRESSES[WETH_SYMBOL][chainId] : kncAddress;
+    }
+    else {
+        tokenInAddress = xkncAddress;
+    }
+    const inputToken = new Token(chainId, tokenInAddress, 18);
+    const kncToken = new Token(chainId, kncAddress, 18);
+    const xKNCToken = new Token(chainId, xkncAddress, 18);
+    const ethXKncPair = await Fetcher.fetchPairData(WETH[ChainId.MAINNET], xKNCToken, dmmFactoryAddress, provider);
+    const kncEthPair = await Fetcher.fetchPairData(kncToken, WETH[ChainId.MAINNET], dmmFactoryAddress, provider);
+    let pairs = [...ethXKncPair];
+    if (tokenIn !== ETH) {
+        pairs =
+            tradeType === BUY
+                ? [...kncEthPair, ...ethXKncPair]
+                : [...ethXKncPair, ...kncEthPair];
+    }
+    const route = new Route(pairs, inputToken);
+    const trade = new Trade(route, new TokenAmount(inputToken, inputAmount.toString()), TradeType.EXACT_INPUT);
+    const amountOutMin = trade.minimumAmountOut(slippageTolerance);
+    return amountOutMin.toSignificant(6);
+};
 export const getKyberPortfolioItem = async (symbol, address, provider) => {
-  const { network, xkncContract } = await getXKncContracts(symbol, provider)
-  const { chainId } = network
-  // Addresses
-  const asset = `${symbol}<>${ETH.toUpperCase()}`
-  const kyberPoolAddress = getKyberPoolAddress(symbol, chainId)
-  // Contracts
-  const kyberPoolContract = getKyberPoolContract(symbol, provider, chainId)
-  let userBalance = BigNumber.from('0')
-  try {
-    userBalance = await kyberPoolContract.balanceOf(address)
-  } catch (e) {
-    console.error('Error while fetching user balance:', e)
-  }
-  const { priceUsd } = await getXKncPrices(xkncContract)
-  const kyberPoolBalances = await getBalances(
-    symbol,
-    kyberPoolAddress,
-    priceUsd,
-    provider,
-    chainId,
-    undefined,
-    true
-  )
-  const xkncEthPoolSupply = await kyberPoolContract.totalSupply()
-  const poolPrice = parseEther(kyberPoolBalances.eth.val)
-    .mul(2)
-    .mul(DEC_18)
-    .div(xkncEthPoolSupply)
-  const value = poolPrice.mul(userBalance).div(DEC_18)
-  return {
-    asset,
-    balances: kyberPoolBalances,
-    poolPrice: formatEther(poolPrice),
-    quantity: formatEther(userBalance),
-    tokenPrice: priceUsd,
-    value: formatEther(value),
-  }
-}
+    const { network, xkncContract } = await getXKncContracts(symbol, provider);
+    const { chainId } = network;
+    // Addresses
+    const asset = `${symbol}<>${ETH.toUpperCase()}`;
+    const kyberPoolAddress = getKyberPoolAddress(symbol, chainId);
+    // Contracts
+    const kyberPoolContract = getKyberPoolContract(symbol, provider, chainId);
+    let userBalance = BigNumber.from('0');
+    try {
+        userBalance = await kyberPoolContract.balanceOf(address);
+    }
+    catch (e) {
+        console.error('Error while fetching user balance:', e);
+    }
+    const { priceUsd } = await getXKncPrices(xkncContract);
+    const kyberPoolBalances = await getBalances(symbol, kyberPoolAddress, priceUsd, provider, chainId, undefined, true);
+    const xkncEthPoolSupply = await kyberPoolContract.totalSupply();
+    const poolPrice = parseEther(kyberPoolBalances.eth.val)
+        .mul(2)
+        .mul(DEC_18)
+        .div(xkncEthPoolSupply);
+    const value = poolPrice.mul(userBalance).div(DEC_18);
+    return {
+        asset,
+        balances: kyberPoolBalances,
+        poolPrice: formatEther(poolPrice),
+        quantity: formatEther(userBalance),
+        tokenPrice: priceUsd,
+        value: formatEther(value),
+    };
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoia3liZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9leGNoYW5nZXMva3liZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUNMLE9BQU8sRUFDUCxPQUFPLEVBQ1AsT0FBTyxFQUNQLEtBQUssRUFDTCxLQUFLLEVBQ0wsV0FBVyxFQUNYLEtBQUssRUFDTCxTQUFTLEVBQ1QsSUFBSSxHQUNMLE1BQU0sa0JBQWtCLENBQUE7QUFDekIsT0FBTyxFQUFFLFNBQVMsRUFBRSxNQUFNLDBCQUEwQixDQUFBO0FBRXBELE9BQU8sRUFDTCxTQUFTLEVBQ1QsR0FBRyxFQUNILFdBQVcsRUFDWCxHQUFHLEVBQ0gsSUFBSSxJQUFJLFdBQVcsR0FFcEIsTUFBTSxjQUFjLENBQUE7QUFDckIsT0FBTyxFQUFFLE1BQU0sRUFBRSxNQUFNLFFBQVEsQ0FBQTtBQUUvQixPQUFPLEVBQUUsTUFBTSxFQUFFLE1BQU0saUJBQWlCLENBQUE7QUFHeEMsT0FBTyxFQUNMLG1CQUFtQixFQUNuQixvQkFBb0IsRUFDcEIsY0FBYyxHQUNmLE1BQU0sVUFBVSxDQUFBO0FBQ2pCLE9BQU8sRUFBRSxhQUFhLEVBQUUsTUFBTSxTQUFTLENBQUE7QUFDdkMsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0sZ0JBQWdCLENBQUE7QUFFakQsT0FBTyxFQUFFLFdBQVcsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUV0QyxNQUFNLEVBQUUsV0FBVyxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUE7QUFFaEQsTUFBTSxDQUFDLE1BQU0seUJBQXlCLEdBQUcsS0FBSyxFQUM1QyxPQUFvQyxFQUNwQyxNQUFzQixFQUN0QixNQUFjLEVBQ2QsU0FBcUIsRUFDckIsUUFBc0IsRUFDTCxFQUFFO0lBQ25CLE1BQU0sT0FBTyxHQUFHLE1BQU0sUUFBUSxDQUFDLFVBQVUsRUFBRSxDQUFBO0lBQzNDLE1BQU0sRUFBRSxP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

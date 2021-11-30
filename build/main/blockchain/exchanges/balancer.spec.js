@@ -1,14 +1,12 @@
-'use strict'
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod }
-  }
-Object.defineProperty(exports, '__esModule', { value: true })
-const abis_1 = require('@xtoken/abis')
-const ava_1 = __importDefault(require('ava'))
-const constants_spec_1 = require('../../constants.spec')
-const balancer_1 = require('./balancer')
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const abis_1 = require("@xtoken/abis");
+const ava_1 = __importDefault(require("ava"));
+const constants_spec_1 = require("../../constants.spec");
+const balancer_1 = require("./balancer");
 /*test('Calculate expected quantity on burn of xAAVEa on Balancer', async (t) => {
   const expectedQty = await getBalancerEstimatedQuantity(
     X_AAVE_A,
@@ -32,34 +30,16 @@ test('Calculate expected quantity on mint of xAAVEa on Balancer', async (t) => {
   console.log('[Balancer] Expected xAAVEa qty for 1 ETH:', expectedQty)
   t.true(Number(expectedQty) > 0)
 })*/
-ava_1.default(
-  'Calculate expected quantity on burn of xAAVEb on Balancer',
-  async (t) => {
-    const expectedQty = await balancer_1.getBalancerEstimatedQuantity(
-      abis_1.X_AAVE_B,
-      abis_1.X_AAVE_B,
-      '1000',
-      abis_1.SELL,
-      constants_spec_1.provider
-    )
-    console.log('[Balancer] Expected AAVE qty for 1000 xAAVEb:', expectedQty)
-    t.true(Number(expectedQty) > 0)
-  }
-)
-ava_1.default(
-  'Calculate expected quantity on mint of xAAVEb on Balancer',
-  async (t) => {
-    const expectedQty = await balancer_1.getBalancerEstimatedQuantity(
-      abis_1.ETH,
-      abis_1.X_AAVE_B,
-      '1',
-      abis_1.BUY,
-      constants_spec_1.provider
-    )
-    console.log('[Balancer] Expected xAAVEb qty for 1 ETH:', expectedQty)
-    t.true(Number(expectedQty) > 0)
-  }
-)
+ava_1.default('Calculate expected quantity on burn of xAAVEb on Balancer', async (t) => {
+    const expectedQty = await balancer_1.getBalancerEstimatedQuantity(abis_1.X_AAVE_B, abis_1.X_AAVE_B, '1000', abis_1.SELL, constants_spec_1.provider);
+    console.log('[Balancer] Expected AAVE qty for 1000 xAAVEb:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
+ava_1.default('Calculate expected quantity on mint of xAAVEb on Balancer', async (t) => {
+    const expectedQty = await balancer_1.getBalancerEstimatedQuantity(abis_1.ETH, abis_1.X_AAVE_B, '1', abis_1.BUY, constants_spec_1.provider);
+    console.log('[Balancer] Expected xAAVEb qty for 1 ETH:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 /*test('Calculate expected quantity on burn of xSNXa on Balancer', async (t) => {
   const expectedQty = await getBalancerEstimatedQuantity(
     X_SNX_A,
@@ -84,35 +64,13 @@ test('Calculate expected quantity on mint of xSNXa on Balancer', async (t) => {
   t.true(Number(expectedQty) > 0)
 })*/
 ava_1.default('Get Balancer Portfolio of xAAVEa', async (t) => {
-  const portfolio = await balancer_1.getBalancerPortfolioItem(
-    abis_1.X_AAVE_A,
-    constants_spec_1.testAddress,
-    constants_spec_1.provider
-  )
-  console.log(
-    '[Balancer] Portfolio value of xAAVEa:',
-    portfolio === null || portfolio === void 0 ? void 0 : portfolio.value
-  )
-  t.true(
-    Number(
-      portfolio === null || portfolio === void 0 ? void 0 : portfolio.value
-    ) > 0
-  )
-})
+    const portfolio = await balancer_1.getBalancerPortfolioItem(abis_1.X_AAVE_A, constants_spec_1.testAddress, constants_spec_1.provider);
+    console.log('[Balancer] Portfolio value of xAAVEa:', portfolio === null || portfolio === void 0 ? void 0 : portfolio.value);
+    t.true(Number(portfolio === null || portfolio === void 0 ? void 0 : portfolio.value) > 0);
+});
 ava_1.default('Get Balancer Portfolio of xAAVEb', async (t) => {
-  const portfolio = await balancer_1.getBalancerPortfolioItem(
-    abis_1.X_AAVE_B,
-    constants_spec_1.testAddress,
-    constants_spec_1.provider
-  )
-  console.log(
-    '[Balancer] Portfolio value of xAAVEb:',
-    portfolio === null || portfolio === void 0 ? void 0 : portfolio.value
-  )
-  t.true(
-    Number(
-      portfolio === null || portfolio === void 0 ? void 0 : portfolio.value
-    ) > 0
-  )
-})
+    const portfolio = await balancer_1.getBalancerPortfolioItem(abis_1.X_AAVE_B, constants_spec_1.testAddress, constants_spec_1.provider);
+    console.log('[Balancer] Portfolio value of xAAVEb:', portfolio === null || portfolio === void 0 ? void 0 : portfolio.value);
+    t.true(Number(portfolio === null || portfolio === void 0 ? void 0 : portfolio.value) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFsYW5jZXIuc3BlYy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL2V4Y2hhbmdlcy9iYWxhbmNlci5zcGVjLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsdUNBQWlFO0FBQ2pFLDhDQUFzQjtBQUV0Qix5REFBNEQ7QUFFNUQseUNBR21CO0FBRW5COzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBc0JJO0FBRUosYUFBSSxDQUFDLDJEQUEyRCxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUM1RSxNQUFNLFdBQVcsR0FBRyxNQUFNLHVDQUE0QixDQUNwRCxlQUFRLEVBQ1IsZUFBUSxFQUNSLE1BQU0sRUFDTixXQUFJLEVBQ0oseUJBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQywrQ0FBK0MsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUN6RSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLGFBQUksQ0FBQywyREFBMkQsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDNUUsTUFBTSxXQUFXLEdBQUcsTUFBTSx1Q0FBNEIsQ0FDcEQsVUFBRyxFQUNILGVBQVEsRUFDUixHQUFHLEVBQ0gsVUFBRyxFQUNILHlCQUFRLENBQ1QsQ0FBQTtJQUNELE9BQU8sQ0FBQyxHQUFHLENBQUMsMkNBQTJDLEVBQUUsV0FBVyxDQUFDLENBQUE7SUFDckUsQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsV0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUE7QUFDakMsQ0FBQyxDQUFDLENBQUE7QUFFRjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQXNCSTtBQUVKLGFBQUksQ0FBQyxrQ0FBa0MsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDbkQsTUFBTSxTQUFTLEdBQUcsTUFBTSxtQ0FBd0IsQ0FDOUMsZUFBUSxFQUNSLDRCQUFXLEVBQ1gseUJBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyx1Q0FBdUMsRUFBRSxTQUFTLGFBQVQsU0FBUyx1QkFBVCxTQUFTLENBQUUsS0FBSyxDQUFDLENBQUE7SUFDdEUsQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsU0FBUyxhQUFULFNBQVMsdUJBQVQsU0FBUyxDQUFFLEtBQUssQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ3RDLENBQUMsQ0FBQyxDQUFBO0FBRUYsYUFBSSxDQUFDLGtDQUFrQyxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUNuRCxNQUFNLFNBQVMsR0FBRyxNQUFNLG1DQUF3QixDQUM5QyxlQUFRLEVBQ1IsNEJBQVcsRUFDWCx5QkFBUSxDQUNULENBQUE7SUFDRCxPQUFPLENBQUMsR0FBRyxDQUFDLHVDQUF1QyxFQUFFLFNBQVMsYUFBVCxTQUFTLHVCQUFULFNBQVMsQ0FBRSxLQUFLLENBQUMsQ0FBQTtJQUN0RSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLGFBQVQsU0FBUyx1QkFBVCxTQUFTLENBQUUsS0FBSyxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUE7QUFDdEMsQ0FBQyxDQUFDLENBQUEifQ==

@@ -1,46 +1,50 @@
-import { BUY, X_AAVE_A, X_ALPHA_A } from '@xtoken/abis'
-import test from 'ava'
-import { provider, ropstenProvider } from './constants.spec'
-import { XToken } from './xToken'
-const xToken = new XToken(provider)
+import { BUY, X_AAVE_A, X_ALPHA_A } from '@xtoken/abis';
+import test from 'ava';
+import { provider, ropstenProvider } from './constants.spec';
+import { XToken } from './xToken';
+const xToken = new XToken(provider);
 test('Initialize xToken with wrong network', async (t) => {
-  const xTokenRopsten = new XToken(ropstenProvider)
-  try {
-    // xAAVEa contract doesn't exist for Ropsten
-    await xTokenRopsten.getExpectedQuantityOnBurn(X_AAVE_A, true, '1')
-  } catch (e) {
-    t.is(e.message, 'Unknown error')
-  }
-})
+    const xTokenRopsten = new XToken(ropstenProvider);
+    try {
+        // xAAVEa contract doesn't exist for Ropsten
+        await xTokenRopsten.getExpectedQuantityOnBurn(X_AAVE_A, true, '1');
+    }
+    catch (e) {
+        t.is(e.message, 'Unknown error');
+    }
+});
 test('Burn throws exceeded maximum redeemable error for huge amount', async (t) => {
-  try {
-    await xToken.burn(X_AAVE_A, true, '1000000')
-  } catch (e) {
-    t.is(e.message, 'Specified amount exceeds maximum redeemable tokens')
-  }
-})
+    try {
+        await xToken.burn(X_AAVE_A, true, '1000000');
+    }
+    catch (e) {
+        t.is(e.message, 'Specified amount exceeds maximum redeemable tokens');
+    }
+});
 test('Expected quantity on burn throws error for invalid amount', async (t) => {
-  try {
-    await xToken.getExpectedQuantityOnBurn(X_AAVE_A, true, '0')
-  } catch (e) {
-    t.is(e.message, 'Invalid value for amount')
-  }
-})
+    try {
+        await xToken.getExpectedQuantityOnBurn(X_AAVE_A, true, '0');
+    }
+    catch (e) {
+        t.is(e.message, 'Invalid value for amount');
+    }
+});
 test('Expected quantity on mint throws error for invalid amount', async (t) => {
-  try {
-    await xToken.getExpectedQuantityOnMint(X_AAVE_A, true, '0')
-  } catch (e) {
-    t.is(e.message, 'Invalid value for amount')
-  }
-})
+    try {
+        await xToken.getExpectedQuantityOnMint(X_AAVE_A, true, '0');
+    }
+    catch (e) {
+        t.is(e.message, 'Invalid value for amount');
+    }
+});
 test('Best return on mint xAAVEa', async (t) => {
-  const bestReturn = await xToken.getBestReturn(X_AAVE_A, false, '1', BUY)
-  console.log(JSON.stringify(bestReturn))
-  t.true(Number(bestReturn.best.expectedQuantity) > 0)
-})
+    const bestReturn = await xToken.getBestReturn(X_AAVE_A, false, '1', BUY);
+    console.log(JSON.stringify(bestReturn));
+    t.true(Number(bestReturn.best.expectedQuantity) > 0);
+});
 test('Best return on mint xALPHAa', async (t) => {
-  const bestReturn = await xToken.getBestReturn(X_ALPHA_A, false, '1', BUY)
-  console.log(JSON.stringify(bestReturn))
-  t.true(Number(bestReturn.best.expectedQuantity) > 0)
-})
+    const bestReturn = await xToken.getBestReturn(X_ALPHA_A, false, '1', BUY);
+    console.log(JSON.stringify(bestReturn));
+    t.true(Number(bestReturn.best.expectedQuantity) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoieFRva2VuLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMveFRva2VuLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLEdBQUcsRUFBRSxRQUFRLEVBQUUsU0FBUyxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQ3ZELE9BQU8sSUFBSSxNQUFNLEtBQUssQ0FBQTtBQUV0QixPQUFPLEVBQUUsUUFBUSxFQUFFLGVBQWUsRUFBRSxNQUFNLGtCQUFrQixDQUFBO0FBQzVELE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFakMsTUFBTSxNQUFNLEdBQUcsSUFBSSxNQUFNLENBQUMsUUFBUSxDQUFDLENBQUE7QUFFbkMsSUFBSSxDQUFDLHNDQUFzQyxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUN2RCxNQUFNLGFBQWEsR0FBRyxJQUFJLE1BQU0sQ0FBQyxlQUFlLENBQUMsQ0FBQTtJQUVqRCxJQUFJO1FBQ0YsNENBQTRDO1FBQzVDLE1BQU0sYUFBYSxDQUFDLHlCQUF5QixDQUFDLFFBQVEsRUFBRSxJQUFJLEVBQUUsR0FBRyxDQUFDLENBQUE7S0FDbkU7SUFBQyxPQUFPLENBQUMsRUFBRTtRQUNWLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLE9BQU8sRUFBRSxlQUFlLENBQUMsQ0FBQTtLQUNqQztBQUNILENBQUMsQ0FBQyxDQUFBO0FBRUYsSUFBSSxDQUFDLCtEQUErRCxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUNoRixJQUFJO1FBQ0YsTUFBTSxNQUFNLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRSxJQUFJLEVBQUUsU0FBUyxDQUFDLENBQUE7S0FDN0M7SUFBQyxPQUFPLENBQUMsRUFBRTtRQUNWLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLE9BQU8sRUFBRSxvREFBb0QsQ0FBQyxDQUFBO0tBQ3RFO0FBQ0gsQ0FBQyxDQUFDLENBQUE7QUFFRixJQUFJLENBQUMsMkRBQTJELEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQzVFLElBQUk7UUFDRixNQUFNLE1BQU0sQ0FBQyx5QkFBeUIsQ0FBQyxRQUFRLEVBQUUsSUFBSSxFQUFFLEdBQUcsQ0FBQyxDQUFBO0tBQzVEO0lBQUMsT0FBTyxDQUFDLEVBQUU7UUFDVixDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxPQUFPLEVBQUUsMEJBQTBCLENBQUMsQ0FBQTtLQUM1QztBQUNILENBQUMsQ0FBQyxDQUFBO0FBRUYsSUFBSSxDQUFDLDJEQUEyRCxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUM1RSxJQUFJO1FBQ0YsTUFBTSxNQUFNLENBQUMseUJBQXlCLENBQUMsUUFBUSxFQUFFLElBQUksRUFBRSxHQUFHLENBQUMsQ0FBQTtLQUM1RDtJQUFDLE9BQU8sQ0FBQyxFQUFFO1FBQ1YsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsT0FBTyxFQUFFLDBCQUEwQixDQUFDLENBQUE7S0FDNUM7QUFDSCxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyw0QkFBNEIsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDN0MsTUFBTSxVQUFVLEdBQUcsTUFBTSxNQUFNLENBQUMsYUFBYSxDQUFDLFFBQVEsRUFBRSxLQUFLLEVBQUUsR0FBRyxFQUFFLEdBQUcsQ0FBQyxDQUFBO0lBQ3hFLE9BQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFBO0lBQ3ZDLENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUN0RCxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyw2QkFBNkIsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDOUMsTUFBTSxVQUFVLEdBQUcsTUFBTSxNQUFNLENBQUMsYUFBYSxDQUFDLFNBQVMsRUFBRSxLQUFLLEVBQUUsR0FBRyxFQUFFLEdBQUcsQ0FBQyxDQUFBO0lBQ3pFLE9BQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFBO0lBQ3ZDLENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUN0RCxDQUFDLENBQUMsQ0FBQSJ9

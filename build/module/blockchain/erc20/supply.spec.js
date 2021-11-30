@@ -1,10 +1,10 @@
-import { X_AAVE_A } from '@xtoken/abis'
-import test from 'ava'
-import { provider } from '../../constants.spec'
-import { getTokenSupply } from './supply'
+import { X_AAVE_A } from '@xtoken/abis';
+import test from 'ava';
+import { provider } from '../../constants.spec';
+import { getTokenSupply } from './supply';
 test('Get token supply of xAAVEa', async (t) => {
-  const tokenSupply = await getTokenSupply(X_AAVE_A, provider)
-  console.log('Token supply of xAAVEa:', tokenSupply)
-  t.true(Number(tokenSupply) > 0)
-})
+    const tokenSupply = await getTokenSupply(X_AAVE_A, provider);
+    console.log('Token supply of xAAVEa:', tokenSupply);
+    t.true(Number(tokenSupply) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3VwcGx5LnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9lcmMyMC9zdXBwbHkuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQ3ZDLE9BQU8sSUFBSSxNQUFNLEtBQUssQ0FBQTtBQUV0QixPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sc0JBQXNCLENBQUE7QUFFL0MsT0FBTyxFQUFFLGNBQWMsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUV6QyxJQUFJLENBQUMsNEJBQTRCLEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQzdDLE1BQU0sV0FBVyxHQUFHLE1BQU0sY0FBYyxDQUFDLFFBQVEsRUFBRSxRQUFRLENBQUMsQ0FBQTtJQUM1RCxPQUFPLENBQUMsR0FBRyxDQUFDLHlCQUF5QixFQUFFLFdBQVcsQ0FBQyxDQUFBO0lBQ25ELENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ2pDLENBQUMsQ0FBQyxDQUFBIn0=

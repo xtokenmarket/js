@@ -1,105 +1,67 @@
-import { ADDRESSES, BNT, ETH, KYBER_PROXY } from '@xtoken/abis'
-import { ethers } from 'ethers'
-import {
-  DEC_18,
-  GAS_LIMIT_PERCENTAGE_DEFAULT,
-  GAS_LIMIT_PERCENTAGE_ETH,
-} from '../../constants'
-import { getPercentage } from '../../utils'
-import {
-  getContract,
-  getExpectedRate,
-  getSignerAddress,
-  parseFees,
-} from '../utils'
-import { getXBntContracts } from './helper'
-const { formatEther, parseEther } = ethers.utils
+import { ADDRESSES, BNT, ETH, KYBER_PROXY } from '@xtoken/abis';
+import { ethers } from 'ethers';
+import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT, GAS_LIMIT_PERCENTAGE_ETH, } from '../../constants';
+import { getPercentage } from '../../utils';
+import { getContract, getExpectedRate, getSignerAddress, parseFees, } from '../utils';
+import { getXBntContracts } from './helper';
+const { formatEther, parseEther } = ethers.utils;
 export const approveXBnt = async (symbol, amount, provider, spenderAddress) => {
-  const { tokenContract, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
-  const address = spenderAddress || xbntContract.address
-  const contract = spenderAddress ? xbntContract : tokenContract
-  // Estimate `gasLimit`
-  const gasLimit = getPercentage(
-    await contract.estimateGas.approve(address, amount),
-    GAS_LIMIT_PERCENTAGE_DEFAULT
-  )
-  return contract.approve(address, amount, { gasLimit })
-}
-export const getExpectedQuantityOnMintXBnt = async (
-  symbol,
-  tradeWithEth,
-  amount,
-  provider
-) => {
-  const inputAmount = parseEther(amount)
-  const { network, xbntContract } = await getXBntContracts(symbol, provider)
-  const { chainId } = network
-  const kyberProxyContract = getContract(KYBER_PROXY, provider, network)
-  const [bntHoldings, xbntSupply, { mintFee }] = await Promise.all([
-    xbntContract.getNav(),
-    xbntContract.totalSupply(),
-    xbntContract.feeDivisors(),
-  ])
-  const MINT_FEE = parseFees(mintFee)
-  const ethToTrade = inputAmount.mul(MINT_FEE)
-  const ethAddress = ADDRESSES[ETH]
-  const bntAddress = ADDRESSES[BNT][chainId]
-  let bntExpected
-  if (tradeWithEth) {
-    const expectedRate = await getExpectedRate(
-      kyberProxyContract,
-      ethAddress,
-      bntAddress,
-      inputAmount
-    )
-    bntExpected = ethToTrade.mul(expectedRate).div(DEC_18)
-  } else {
-    bntExpected = ethToTrade
-  }
-  const xbntExpected = bntExpected.mul(xbntSupply).div(bntHoldings).div(DEC_18)
-  return formatEther(xbntExpected)
-}
-export const mintXBnt = async (symbol, tradeWithEth, amount, provider) => {
-  const { tokenContract, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
-  if (tradeWithEth) {
+    const { tokenContract, xbntContract } = await getXBntContracts(symbol, provider);
+    const address = spenderAddress || xbntContract.address;
+    const contract = spenderAddress ? xbntContract : tokenContract;
     // Estimate `gasLimit`
-    const gasLimit = getPercentage(
-      await xbntContract.estimateGas.mint('1', {
-        value: amount,
-      }),
-      GAS_LIMIT_PERCENTAGE_ETH
-    )
-    return xbntContract.mint('1', {
-      gasLimit,
-      value: amount,
-    })
-  } else {
-    const address = await getSignerAddress(provider)
-    const approvedAmount = await _getApprovedAmount(
-      tokenContract,
-      xbntContract,
-      address
-    )
-    if (approvedAmount.lt(amount)) {
-      return Promise.reject(
-        new Error('Please approve the tokens before minting')
-      )
+    const gasLimit = getPercentage(await contract.estimateGas.approve(address, amount), GAS_LIMIT_PERCENTAGE_DEFAULT);
+    return contract.approve(address, amount, { gasLimit });
+};
+export const getExpectedQuantityOnMintXBnt = async (symbol, tradeWithEth, amount, provider) => {
+    const inputAmount = parseEther(amount);
+    const { network, xbntContract } = await getXBntContracts(symbol, provider);
+    const { chainId } = network;
+    const kyberProxyContract = getContract(KYBER_PROXY, provider, network);
+    const [bntHoldings, xbntSupply, { mintFee }] = await Promise.all([
+        xbntContract.getNav(),
+        xbntContract.totalSupply(),
+        xbntContract.feeDivisors(),
+    ]);
+    const MINT_FEE = parseFees(mintFee);
+    const ethToTrade = inputAmount.mul(MINT_FEE);
+    const ethAddress = ADDRESSES[ETH];
+    const bntAddress = ADDRESSES[BNT][chainId];
+    let bntExpected;
+    if (tradeWithEth) {
+        const expectedRate = await getExpectedRate(kyberProxyContract, ethAddress, bntAddress, inputAmount);
+        bntExpected = ethToTrade.mul(expectedRate).div(DEC_18);
     }
-    // Estimate `gasLimit`
-    const gasLimit = getPercentage(
-      await xbntContract.estimateGas.mintWithToken(amount),
-      GAS_LIMIT_PERCENTAGE_DEFAULT
-    )
-    return xbntContract.mintWithToken(amount, { gasLimit })
-  }
-}
+    else {
+        bntExpected = ethToTrade;
+    }
+    const xbntExpected = bntExpected.mul(xbntSupply).div(bntHoldings).div(DEC_18);
+    return formatEther(xbntExpected);
+};
+export const mintXBnt = async (symbol, tradeWithEth, amount, provider) => {
+    const { tokenContract, xbntContract } = await getXBntContracts(symbol, provider);
+    if (tradeWithEth) {
+        // Estimate `gasLimit`
+        const gasLimit = getPercentage(await xbntContract.estimateGas.mint('1', {
+            value: amount,
+        }), GAS_LIMIT_PERCENTAGE_ETH);
+        return xbntContract.mint('1', {
+            gasLimit,
+            value: amount,
+        });
+    }
+    else {
+        const address = await getSignerAddress(provider);
+        const approvedAmount = await _getApprovedAmount(tokenContract, xbntContract, address);
+        if (approvedAmount.lt(amount)) {
+            return Promise.reject(new Error('Please approve the tokens before minting'));
+        }
+        // Estimate `gasLimit`
+        const gasLimit = getPercentage(await xbntContract.estimateGas.mintWithToken(amount), GAS_LIMIT_PERCENTAGE_DEFAULT);
+        return xbntContract.mintWithToken(amount, { gasLimit });
+    }
+};
 const _getApprovedAmount = async (tokenContract, xbntContract, address) => {
-  return tokenContract.allowance(address, xbntContract.address)
-}
+    return tokenContract.allowance(address, xbntContract.address);
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWludC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3hibnQvbWludC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSxPQUFPLEVBQUUsU0FBUyxFQUFFLEdBQUcsRUFBRSxHQUFHLEVBQUUsV0FBVyxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBQy9ELE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFFL0IsT0FBTyxFQUNMLE1BQU0sRUFDTiw0QkFBNEIsRUFDNUIsd0JBQXdCLEdBQ3pCLE1BQU0saUJBQWlCLENBQUE7QUFHeEIsT0FBTyxFQUFFLGFBQWEsRUFBRSxNQUFNLGFBQWEsQ0FBQTtBQUMzQyxPQUFPLEVBQ0wsV0FBVyxFQUNYLGVBQWUsRUFDZixnQkFBZ0IsRUFDaEIsU0FBUyxHQUNWLE1BQU0sVUFBVSxDQUFBO0FBRWpCLE9BQU8sRUFBRSxnQkFBZ0IsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUUzQyxNQUFNLEVBQUUsV0FBVyxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUE7QUFFaEQsTUFBTSxDQUFDLE1BQU0sV0FBVyxHQUFHLEtBQUssRUFDOUIsTUFBcUIsRUFDckIsTUFBaUIsRUFDakIsUUFBc0IsRUFDdEIsY0FBdUIsRUFDTyxFQUFFO0lBQ2hDLE1BQU0sRUFBRSxhQUFhLEVBQUUsWUFBWSxFQUFFLEdBQUcsTUFBTSxnQkFBZ0IsQ0FDNUQsTUFBTSxFQUNOLFFBQVEsQ0FDVCxDQUFBO0lBRUQsTUFBTSxPQUFPLEdBQUcsY0FBYyxJQUFJLFlBQVksQ0FBQyxPQUFPLENBQUE7SUFDdEQsTUFBTSxRQUFRLEdBQUcsY0FBYyxDQUFDLENBQUMsQ0FBQyxZQUFZLENBQUMsQ0FBQyxDQUFDLGFBQWEsQ0FBQTtJQUU5RCxzQkFBc0I7SUFDdEIsTUFBTSxRQUFRLEdBQUcsYUFBYSxDQUM1QixNQUFNLFFBQVEsQ0FBQyxXQUFXLENBQUMsT0FBTyxDQUFD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

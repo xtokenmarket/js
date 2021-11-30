@@ -1,23 +1,22 @@
 // import { BUY, ETH, SELL, X_BNT_A } from '@xtoken/abis'
-import test from 'ava'
-import { isAddress } from 'ethers/lib/utils'
-import { provider } from '../../constants.spec'
-import {
-  // getBancorEstimatedQuantity,
-  getBancorNetworkAddress,
-  // getBancorPortfolioItem,
-  getBntEthPrice,
-} from './bancor'
+import test from 'ava';
+import { isAddress } from 'ethers/lib/utils';
+import { provider } from '../../constants.spec';
+import { 
+// getBancorEstimatedQuantity,
+getBancorNetworkAddress, 
+// getBancorPortfolioItem,
+getBntEthPrice, } from './bancor';
 test('Get Bancor Network address', async (t) => {
-  const bancorNetworkAddress = await getBancorNetworkAddress(provider)
-  console.log('[Bancor] Bancor Network address:', bancorNetworkAddress)
-  t.true(isAddress(bancorNetworkAddress))
-})
+    const bancorNetworkAddress = await getBancorNetworkAddress(provider);
+    console.log('[Bancor] Bancor Network address:', bancorNetworkAddress);
+    t.true(isAddress(bancorNetworkAddress));
+});
 test('Get BNT ETH price', async (t) => {
-  const minReturn = await getBntEthPrice(provider)
-  console.log('[Bancor] minReturn:', minReturn)
-  t.true(Number(minReturn) > 0)
-})
+    const minReturn = await getBntEthPrice(provider);
+    console.log('[Bancor] minReturn:', minReturn);
+    t.true(Number(minReturn) > 0);
+});
 /*test('Calculate expected quantity on burn of xBNTa with ETH on Bancor', async (t) => {
   const expectedQty = await getBancorEstimatedQuantity(
     ETH,

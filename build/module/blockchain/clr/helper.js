@@ -1,21 +1,21 @@
-import { UNISWAP_LIBRARY } from '@xtoken/abis'
-import { getContract, getXAssetCLRTokenSymbol } from '../utils'
+import { UNISWAP_LIBRARY } from '@xtoken/abis';
+import { getContract, getXAssetCLRTokenSymbol } from '../utils';
 export const getXAssetCLRContracts = async (symbol, provider) => {
-  const assets = getXAssetCLRTokenSymbol(symbol)
-  const network = await provider.getNetwork()
-  const xAssetCLRContract = getContract(symbol, provider, network)
-  const token0Contract = getContract(assets[0], provider, network)
-  const token1Contract = getContract(assets[1], provider, network)
-  const uniswapLibraryContract = getContract(UNISWAP_LIBRARY, provider, network)
-  if (!xAssetCLRContract || !token0Contract || !token1Contract) {
-    return Promise.reject(new Error('Unknown error'))
-  }
-  return {
-    network,
-    token0Contract,
-    token1Contract,
-    uniswapLibraryContract,
-    xAssetCLRContract,
-  }
-}
+    const assets = getXAssetCLRTokenSymbol(symbol);
+    const network = await provider.getNetwork();
+    const xAssetCLRContract = getContract(symbol, provider, network);
+    const token0Contract = getContract(assets[0], provider, network);
+    const token1Contract = getContract(assets[1], provider, network);
+    const uniswapLibraryContract = getContract(UNISWAP_LIBRARY, provider, network);
+    if (!xAssetCLRContract || !token0Contract || !token1Contract) {
+        return Promise.reject(new Error('Unknown error'));
+    }
+    return {
+        network,
+        token0Contract,
+        token1Contract,
+        uniswapLibraryContract,
+        xAssetCLRContract,
+    };
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVscGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4vY2xyL2hlbHBlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQSxPQUFPLEVBQUUsZUFBZSxFQUFFLE1BQU0sY0FBYyxDQUFBO0FBSTlDLE9BQU8sRUFBRSxXQUFXLEVBQUUsdUJBQXVCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFL0QsTUFBTSxDQUFDLE1BQU0scUJBQXFCLEdBQUcsS0FBSyxFQUN4QyxNQUFrQixFQUNsQixRQUFzQixFQUN0QixFQUFFO0lBQ0YsTUFBTSxNQUFNLEdBQUcsdUJBQXVCLENBQUMsTUFBTSxDQUFDLENBQUE7SUFDOUMsTUFBTSxPQUFPLEdBQUcsTUFBTSxRQUFRLENBQUMsVUFBVSxFQUFFLENBQUE7SUFFM0MsTUFBTSxpQkFBaUIsR0FBRyxXQUFXLENBQUMsTUFBTSxFQUFFLFFBQVEsRUFBRSxPQUFPLENBQWMsQ0FBQTtJQUM3RSxNQUFNLGNBQWMsR0FBRyxXQUFXLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxPQUFPLENBQWEsQ0FBQTtJQUM1RSxNQUFNLGNBQWMsR0FBRyxXQUFXLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxPQUFPLENBQWEsQ0FBQTtJQUM1RSxNQUFNLHNCQUFzQixHQUFHLFdBQVcsQ0FDeEMsZUFBZSxFQUNmLFFBQVEsRUFDUixPQUFPLENBQ1UsQ0FBQTtJQUVuQixJQUFJLENBQUMsaUJBQWlCLElBQUksQ0FBQyxjQUFjLElBQUksQ0FBQyxjQUFjLEVBQUU7UUFDNUQsT0FBTyxPQUFPLENBQUMsTUFBTSxDQUFDLElBQUksS0FBSyxDQUFDLGVBQWUsQ0FBQyxDQUFDLENBQUE7S0FDbEQ7SUFFRCxPQUFPO1FBQ0wsT0FBTztRQUNQLGNBQWM7UUFDZCxjQUFjO1FBQ2Qsc0JBQXNCO1FBQ3RCLGlCQUFpQjtLQUNsQixDQUFBO0FBQ0gsQ0FBQyxDQUFBIn0=

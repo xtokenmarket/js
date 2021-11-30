@@ -1,7 +1,7 @@
-import { parseEther } from 'ethers/lib/utils'
-import { getXtkStakingContract } from './helper'
+import { parseEther } from 'ethers/lib/utils';
+import { getXtkStakingContract } from './helper';
 export const unstakeXXtkA = async (amount, provider) => {
-  const stakingContract = await getXtkStakingContract(provider)
-  return stakingContract.unstake(parseEther(amount))
-}
+    const stakingContract = await getXtkStakingContract(provider);
+    return stakingContract.unstake(parseEther(amount));
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidW5zdGFrZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3N0YWtpbmcvdW5zdGFrZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQSxPQUFPLEVBQUUsVUFBVSxFQUFFLE1BQU0sa0JBQWtCLENBQUE7QUFFN0MsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRWhELE1BQU0sQ0FBQyxNQUFNLFlBQVksR0FBRyxLQUFLLEVBQUUsTUFBYyxFQUFFLFFBQXNCLEVBQUUsRUFBRTtJQUMzRSxNQUFNLGVBQWUsR0FBRyxNQUFNLHFCQUFxQixDQUFDLFFBQVEsQ0FBQyxDQUFBO0lBQzdELE9BQU8sZUFBZSxDQUFDLE9BQU8sQ0FBQyxVQUFVLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQTtBQUNwRCxDQUFDLENBQUEifQ==

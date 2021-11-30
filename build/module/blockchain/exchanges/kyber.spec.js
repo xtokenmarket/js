@@ -1,54 +1,30 @@
-import { BUY, ETH, SELL, X_KNC_A } from '@xtoken/abis'
-import test from 'ava'
-import { provider, testAddress } from '../../constants.spec'
-import { getKyberEstimatedQuantity, getKyberPortfolioItem } from './kyber'
+import { BUY, ETH, SELL, X_KNC_A } from '@xtoken/abis';
+import test from 'ava';
+import { provider, testAddress } from '../../constants.spec';
+import { getKyberEstimatedQuantity, getKyberPortfolioItem } from './kyber';
 test('Calculate expected quantity on burn of xKNCa on Kyber', async (t) => {
-  const expectedQty = await getKyberEstimatedQuantity(
-    ETH,
-    X_KNC_A,
-    '1000',
-    SELL,
-    provider
-  )
-  console.log('[Kyber] Expected ETH qty for 1000 xKNCa:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getKyberEstimatedQuantity(ETH, X_KNC_A, '1000', SELL, provider);
+    console.log('[Kyber] Expected ETH qty for 1000 xKNCa:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 test('Calculate expected quantity on burn of xKNCa with KNC on Kyber', async (t) => {
-  const expectedQty = await getKyberEstimatedQuantity(
-    X_KNC_A,
-    X_KNC_A,
-    '1000',
-    SELL,
-    provider
-  )
-  console.log('[Kyber] Expected KNC qty for 1000 xKNCa:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getKyberEstimatedQuantity(X_KNC_A, X_KNC_A, '1000', SELL, provider);
+    console.log('[Kyber] Expected KNC qty for 1000 xKNCa:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 test('Calculate expected quantity on mint of xKNCa on Kyber', async (t) => {
-  const expectedQty = await getKyberEstimatedQuantity(
-    ETH,
-    X_KNC_A,
-    '1',
-    BUY,
-    provider
-  )
-  console.log('[Kyber] Expected xKNCa qty for 1 ETH:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getKyberEstimatedQuantity(ETH, X_KNC_A, '1', BUY, provider);
+    console.log('[Kyber] Expected xKNCa qty for 1 ETH:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 test('Calculate expected quantity on mint of xKNCa with KNC on Kyber', async (t) => {
-  const expectedQty = await getKyberEstimatedQuantity(
-    X_KNC_A,
-    X_KNC_A,
-    '100',
-    BUY,
-    provider
-  )
-  console.log('[Kyber] Expected xKNCa qty for 100 KNC:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getKyberEstimatedQuantity(X_KNC_A, X_KNC_A, '100', BUY, provider);
+    console.log('[Kyber] Expected xKNCa qty for 100 KNC:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 test('Get Kyber Portfolio of xKNCa', async (t) => {
-  const portfolio = await getKyberPortfolioItem(X_KNC_A, testAddress, provider)
-  console.log('[Kyber] Portfolio value of xKNCa:', portfolio?.value)
-  t.true(Number(portfolio?.value) > 0)
-})
+    const portfolio = await getKyberPortfolioItem(X_KNC_A, testAddress, provider);
+    console.log('[Kyber] Portfolio value of xKNCa:', portfolio?.value);
+    t.true(Number(portfolio?.value) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoia3liZXIuc3BlYy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL2V4Y2hhbmdlcy9reWJlci5zcGVjLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxHQUFHLEVBQUUsR0FBRyxFQUFFLElBQUksRUFBRSxPQUFPLEVBQUUsTUFBTSxjQUFjLENBQUE7QUFDdEQsT0FBTyxJQUFJLE1BQU0sS0FBSyxDQUFBO0FBRXRCLE9BQU8sRUFBRSxRQUFRLEVBQUUsV0FBVyxFQUFFLE1BQU0sc0JBQXNCLENBQUE7QUFFNUQsT0FBTyxFQUFFLHlCQUF5QixFQUFFLHFCQUFxQixFQUFFLE1BQU0sU0FBUyxDQUFBO0FBRTFFLElBQUksQ0FBQyx1REFBdUQsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDeEUsTUFBTSxXQUFXLEdBQUcsTUFBTSx5QkFBeUIsQ0FDakQsR0FBRyxFQUNILE9BQU8sRUFDUCxNQUFNLEVBQ04sSUFBSSxFQUNKLFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQywwQ0FBMEMsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUNwRSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyxnRUFBZ0UsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDakYsTUFBTSxXQUFXLEdBQUcsTUFBTSx5QkFBeUIsQ0FDakQsT0FBTyxFQUNQLE9BQU8sRUFDUCxNQUFNLEVBQ04sSUFBSSxFQUNKLFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQywwQ0FBMEMsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUNwRSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyx1REFBdUQsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDeEUsTUFBTSxXQUFXLEdBQUcsTUFBTSx5QkFBeUIsQ0FDakQsR0FBRyxFQUNILE9BQU8sRUFDUCxHQUFHLEVBQ0gsR0FBRyxFQUNILFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyx1Q0FBdUMsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUNqRSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyxnRUFBZ0UsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDakYsTUFBTSxXQUFXLEdBQUcsTUFBTSx5QkFBeUIsQ0FDakQsT0FBTyxFQUNQLE9BQU8sRUFDUCxLQUFLLEVBQ0wsR0FBRyxFQUNILFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyx5Q0FBeUMsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUNuRSxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyw4QkFBOEIsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDL0MsTUFBTSxTQUFTLEdBQUcsTUFBTSxxQkFBcUIsQ0FBQyxPQUFPLEVBQUUsV0FBVyxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBQzdFLE9BQU8sQ0FBQyxHQUFHLENBQUMsbUNBQW1DLEVBQUUsU0FBUyxFQUFFLEtBQUssQ0FBQyxDQUFBO0lBQ2xFLENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFNBQVMsRUFBRSxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUN0QyxDQUFDLENBQUMsQ0FBQSJ9

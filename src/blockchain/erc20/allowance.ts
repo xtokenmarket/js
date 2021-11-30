@@ -23,7 +23,7 @@ export const getTokenAllowance = async (
   provider: BaseProvider
 ) => {
   const network = await provider.getNetwork()
-  const tokenContract = (await getContract(symbol, provider, network)) as ERC20
+  const tokenContract = getContract(symbol, provider, network) as ERC20
   const [tokenAllowance, decimals] = await Promise.all([
     tokenContract.allowance(address, spenderAddress),
     tokenContract.decimals(),
