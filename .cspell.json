@@ -57,7 +57,8 @@
     "xu3lp",
     "unstake",
     "unstaked",
-    "unstaking"
+    "unstaking",
+    "Wagmi"
   ],
   "flagWords": [],
   "ignorePaths": [

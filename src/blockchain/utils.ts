@@ -10,6 +10,7 @@ import {
   Abi,
   ADDRESSES,
   ALPHA,
+  ARBITRUM_NFT_CORE,
   BNT,
   BNT_X_BNT_A_CLR,
   BUSD,
@@ -17,12 +18,16 @@ import {
   ETH,
   EXCHANGE_RATES,
   FRAX,
+  GA,
+  GM,
+  GN,
   INCH,
   INCH_LIQUIDITY_PROTOCOL,
   INCH_X_INCH_A_CLR,
   INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
+  L2_NFT,
   LENDING_COMPTROLLER,
   LENDING_LINK_MARKET,
   LENDING_LINK_PRICE,
@@ -45,6 +50,7 @@ import {
   LENDING_X_KNC_B_MARKET,
   LENDING_X_KNC_B_PRICE,*/
   LINK,
+  LIQUIDITY_POOL,
   REN_BTC,
   S_ETH,
   S_USD,
@@ -56,6 +62,7 @@ import {
   USDC,
   USDT,
   UST,
+  WAGMI,
   WBTC,
   WETH,
   X_AAVE_A,
@@ -65,6 +72,9 @@ import {
   X_AAVE_B_BALANCER_POOL,
   X_ALPHA_A,
   X_ALPHA_A_ALPHA_CLR,
+  X_ASSET_LEV,
+  X_ASSET_LEV_2X,
+  X_ASSET_LEV_3X,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
   X_INCH_A,
@@ -233,6 +243,23 @@ export const getAbi = (contractName: IContracts) => {
     case LENDING_WETH_PRICE:
     case LENDING_LINK_PRICE:
       return Abi.NativePrice as ContractInterface
+    case ARBITRUM_NFT_CORE:
+      return Abi.NativePrice as ContractInterface
+    case L2_NFT:
+      return Abi.NativePrice as ContractInterface
+    case GM:
+    case GA:
+    case GN:
+    case WAGMI:
+      return Abi.GM as ContractInterface
+    case LIQUIDITY_POOL:
+      return Abi.liquidityPool as ContractInterface
+    case X_ASSET_LEV:
+      return Abi.xAssetLev as ContractInterface
+    case X_ASSET_LEV_2X:
+      return Abi.xAssetLev2x as ContractInterface
+    case X_ASSET_LEV_3X:
+      return Abi.xAssetLev3x as ContractInterface
   }
 }
 
