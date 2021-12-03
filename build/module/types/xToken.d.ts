@@ -85,6 +85,16 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
+  LIQUIDITY_POOL,
+  X_ASSET_LEV,
+  X_ASSET_LEV_2X,
+  X_ASSET_LEV_3X,
+  GM,
+  GA,
+  GN,
+  WAGMI,
+  ARBITRUM_NFT_CORE,
+  L2_NFT,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
@@ -104,6 +114,16 @@ export type IContracts =
   | IStableAssets
   | IXAssetCLR
   | ILendingContracts
+  | typeof LIQUIDITY_POOL
+  | typeof X_ASSET_LEV
+  | typeof X_ASSET_LEV_2X
+  | typeof X_ASSET_LEV_3X
+  | typeof GM
+  | typeof GN
+  | typeof GA
+  | typeof WAGMI
+  | typeof ARBITRUM_NFT_CORE
+  | typeof L2_NFT
 
 export type INativeAssets =
   | typeof AAVE

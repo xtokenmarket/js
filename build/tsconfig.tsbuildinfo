@@ -757,8 +757,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/abi/index.d.ts": {
-        "version": "c923d20966da2bc55e32d7ada013e5f72f00b72853c2523d88a261312c1cf9ce",
-        "signature": "c923d20966da2bc55e32d7ada013e5f72f00b72853c2523d88a261312c1cf9ce",
+        "version": "b0907616366b58292dee6a8d3cf186a8d2476adc8e6f454ff8b4f3a59ed74532",
+        "signature": "b0907616366b58292dee6a8d3cf186a8d2476adc8e6f454ff8b4f3a59ed74532",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/addresses.d.ts": {
@@ -767,8 +767,8 @@
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/constants.d.ts": {
-        "version": "a9618ce0a97161e7deee5c77fbcfaf9f1756bcb5a627a50b3a476e32479041d6",
-        "signature": "a9618ce0a97161e7deee5c77fbcfaf9f1756bcb5a627a50b3a476e32479041d6",
+        "version": "c96847f485eb67fbf4ba2b333c905ba231806abe2c7f50dedae885a41e10e944",
+        "signature": "c96847f485eb67fbf4ba2b333c905ba231806abe2c7f50dedae885a41e10e944",
         "affectsGlobalScope": false
       },
       "../node_modules/@xtoken/abis/build/main/index.d.ts": {
@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "ff00f0c0df37fdfed40e76f262217d137d453e1c84ac4d3d7cff05dd28aab163",
-        "signature": "ff00f0c0df37fdfed40e76f262217d137d453e1c84ac4d3d7cff05dd28aab163",
+        "version": "d279fba72a439cdae2bd1452434b0e4d1fb5c702167c2ed09556f762e6650abd",
+        "signature": "d279fba72a439cdae2bd1452434b0e4d1fb5c702167c2ed09556f762e6650abd",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1586,7 +1586,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "d2894dcc780a3e909c5453d71d8b8939323f2c8cd4624827944354a9dac3463c",
+        "version": "246727e8000436d6cebe45b85e70c9babaca2b0a9d7b099267ef67052656c971",
         "signature": "c78282bab461f8cdb81fab44eaec204db273f1c2bda0432c752507678729fa72",
         "affectsGlobalScope": false
       },
@@ -1826,7 +1826,7 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "1ba01451a4beaccc0fb31c7a0ee219dcbc5a87e297ffa21b9dd5a57015fa8da1",
+        "version": "e8780890ea20b7adfac98b086700b0da2ae5b8150a7c7aed0bafb27ab5bdcd67",
         "signature": "fa470167871e06b432a77fc580ebdf80f367e3ecff9bd1a2563382ba2c6e429b",
         "affectsGlobalScope": false
       },
