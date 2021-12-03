@@ -66,6 +66,16 @@ export const getCollateral = async (
   return formatEther(collateral)
 }
 
+export const getCollateralCap = async (
+  marketName: ILendingMarket,
+  provider: BaseProvider
+) => {
+  const marketContracts = await getMarketContracts(provider)
+  const marketContract = marketContracts[marketName]
+  const collateralCap = await marketContract.getCollateralCap()
+  return formatEther(collateralCap)
+}
+
 export const getLendingMarkets = async (
   address: string,
   provider: BaseProvider
@@ -81,6 +91,26 @@ export const getLendingMarkets = async (
       getCollateral(LENDING_WBTC_MARKET, address, provider),
       getCollateral(LENDING_WETH_MARKET, address, provider),
       getCollateral(LENDING_LINK_MARKET, address, provider),
+    ])
+
+    const [
+      wbtcLendingCollateralCap,
+      wethLendingCollateralCap,
+      linkLendingCollateralCap,
+    ] = await Promise.all([
+      getCollateralCap(LENDING_WBTC_MARKET, provider),
+      getCollateralCap(LENDING_WETH_MARKET, provider),
+      getCollateralCap(LENDING_LINK_MARKET, provider),
+    ])
+
+    const [
+      wbtcLendingCollateralDeposited,
+      wethLendingCollateralDeposited,
+      linkLendingCollateralDeposited,
+    ] = await Promise.all([
+      _getCollateralDeposited(LENDING_WBTC_MARKET, provider),
+      _getCollateralDeposited(LENDING_WETH_MARKET, provider),
+      _getCollateralDeposited(LENDING_LINK_MARKET, provider),
     ])
 
     const [
@@ -128,6 +158,8 @@ export const getLendingMarkets = async (
         tokenAllowance: wbtcAllowance,
         tokenBalance: wbtcBalance,
         value: wbtcBorrowingLimit,
+        collateralDeposited: wbtcLendingCollateralDeposited,
+        collateralCap: wbtcLendingCollateralCap,
       },
       {
         asset: WETH,
@@ -136,6 +168,8 @@ export const getLendingMarkets = async (
         tokenAllowance: wethAllowance,
         tokenBalance: wethBalance,
         value: wethBorrowingLimit,
+        collateralDeposited: wethLendingCollateralDeposited,
+        collateralCap: wethLendingCollateralCap,
       },
       {
         asset: LINK,
@@ -144,6 +178,8 @@ export const getLendingMarkets = async (
         tokenAllowance: linkAllowance,
         tokenBalance: linkBalance,
         value: linkBorrowingLimit,
+        collateralDeposited: linkLendingCollateralDeposited,
+        collateralCap: linkLendingCollateralCap,
       },
     ]
   } catch (e) {
@@ -195,6 +231,32 @@ export const withdrawCollateral = async (
   return marketContract.withdraw(amount)
 }
 
+const _getCollateralDeposited = async (
+  marketName: ILendingMarket,
+  provider: BaseProvider
+) => {
+  const network = await provider.getNetwork()
+  let tokenContract
+
+  switch (marketName) {
+    case LENDING_WBTC_MARKET:
+      tokenContract = getContract(WBTC, provider, network)
+      break
+    case LENDING_WETH_MARKET:
+      tokenContract = getContract(WETH, provider, network)
+      break
+    case LENDING_LINK_MARKET:
+      tokenContract = getContract(LINK, provider, network)
+      break
+  }
+
+  if (!tokenContract) {
+    return Promise.reject(new Error(Errors.CONTRACT_INITIALIZATION_FAILED))
+  }
+
+  return tokenContract.balanceOf(ADDRESSES[marketName][network.chainId])
+}
+
 const _getApprovedAmount = async (
   marketName: ILendingMarket,
   address: string,
@@ -226,6 +288,9 @@ const _getApprovedAmount = async (
       break
     case LENDING_WETH_MARKET:
       tokenContract = getContract(WETH, provider, network)
+      break
+    case LENDING_LINK_MARKET:
+      tokenContract = getContract(LINK, provider, network)
       break
   }
 

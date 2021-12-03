@@ -302,4 +302,6 @@ export type ILendingMarketInfo = {
   readonly tokenAllowance: string
   readonly tokenBalance: string
   readonly value: string
+  readonly collateralCap: string
+  readonly collateralDeposited: string
 }

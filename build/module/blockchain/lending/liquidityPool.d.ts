@@ -24,6 +24,12 @@ export declare const getLPTValue: (provider: BaseProvider) => Promise<string>
 export declare const getOptimalUtilizationRate: (
   provider: BaseProvider
 ) => Promise<string>
+export declare const getReserveFactor: (
+  provider: BaseProvider
+) => Promise<string>
+export declare const getXtkFeeFactor: (
+  provider: BaseProvider
+) => Promise<string>
 export declare const getUpdatedBorrowBy: (
   address: string,
   provider: BaseProvider

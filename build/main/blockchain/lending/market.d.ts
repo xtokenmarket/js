@@ -25,6 +25,10 @@ export declare const getCollateral: (
   address: string,
   provider: BaseProvider
 ) => Promise<string>
+export declare const getCollateralCap: (
+  marketName: ILendingMarket,
+  provider: BaseProvider
+) => Promise<string>
 export declare const getLendingMarkets: (
   address: string,
   provider: BaseProvider

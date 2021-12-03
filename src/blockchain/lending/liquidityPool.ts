@@ -65,6 +65,18 @@ export const getOptimalUtilizationRate = async (provider: BaseProvider) => {
   return optimalUtilizationRate.toString()
 }
 
+export const getReserveFactor = async (provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const reserveFactor = await liquidityPoolContract.getReserveFactor()
+  return formatEther(reserveFactor)
+}
+
+export const getXtkFeeFactor = async (provider: BaseProvider) => {
+  const liquidityPoolContract = await getLiquidityPoolContract(provider)
+  const xtkFeeFactor = await liquidityPoolContract.getXtkFeeFactor()
+  return formatEther(xtkFeeFactor)
+}
+
 export const getUpdatedBorrowBy = async (
   address: string,
   provider: BaseProvider
