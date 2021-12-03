@@ -114,8 +114,6 @@ export type IContracts =
   | IStableAssets
   | IXAssetCLR
   | ILendingContracts
-  | typeof X_U3LP_A
-  | typeof X_U3LP_B
   | typeof LIQUIDITY_POOL
   | typeof X_ASSET_LEV
   | typeof X_ASSET_LEV_2X
