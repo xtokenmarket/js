@@ -92,6 +92,16 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
+  ARBITRUM_NFT_CORE,
+  L2_NFT,
+  GM,
+  GA,
+  GN,
+  WAGMI,
+  LIQUIDITY_POOL,
+  X_ASSET_LEV,
+  X_ASSET_LEV_2X,
+  X_ASSET_LEV_3X,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
@@ -233,6 +243,23 @@ export const getAbi = (contractName: IContracts) => {
     case LENDING_WETH_PRICE:
     case LENDING_LINK_PRICE:
       return Abi.NativePrice as ContractInterface
+    case ARBITRUM_NFT_CORE:
+      return Abi.NativePrice as ContractInterface
+    case L2_NFT:
+      return Abi.NativePrice as ContractInterface
+    case GM:
+    case GA:
+    case GN:
+    case WAGMI:
+      return Abi.GM as ContractInterface
+    case LIQUIDITY_POOL:
+      return Abi.liquidityPool as ContractInterface
+    case X_ASSET_LEV:
+      return Abi.xAssetLev as ContractInterface
+    case X_ASSET_LEV_2X:
+      return Abi.xAssetLev2x as ContractInterface
+    case X_ASSET_LEV_3X:
+      return Abi.xAssetLev3x as ContractInterface
   }
 }
 
