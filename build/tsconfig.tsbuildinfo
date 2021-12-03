@@ -1746,7 +1746,7 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/lending/market.ts": {
-        "version": "cba71467642646d60a058a76b02f97d0dba477530b36f66f260d27addcca3796",
+        "version": "c4cbdda99fd0ff6b95d646180cd40ee6a445ffbf87e21f079d71de7433b15e6b",
         "signature": "add45fbe850fdf3cf804b051edc60609ff385ea1b882ff0b0439ad39ff726cd2",
         "affectsGlobalScope": false
       },
@@ -1826,8 +1826,8 @@
         "affectsGlobalScope": false
       },
       "../src/xtoken.ts": {
-        "version": "b747314c37ace075074729d4c4a66be81f5610a4652596f3fa3a7f60f0d857c4",
-        "signature": "9ef29f8dd22e5295b3f295725934bf8966e1d0bb1376e7f2e929bb331ca2b854",
+        "version": "1ba01451a4beaccc0fb31c7a0ee219dcbc5a87e297ffa21b9dd5a57015fa8da1",
+        "signature": "fa470167871e06b432a77fc580ebdf80f367e3ecff9bd1a2563382ba2c6e429b",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {

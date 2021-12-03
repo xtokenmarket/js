@@ -108,9 +108,9 @@ export const getLendingMarkets = async (
       wethLendingCollateralDeposited,
       linkLendingCollateralDeposited,
     ] = await Promise.all([
-      _getCollateralDeposited(LENDING_WBTC_MARKET, provider),
-      _getCollateralDeposited(LENDING_WETH_MARKET, provider),
-      _getCollateralDeposited(LENDING_LINK_MARKET, provider),
+      getTokenBalance(WBTC, ADDRESSES[LENDING_WBTC_MARKET][chainId], provider),
+      getTokenBalance(WETH, ADDRESSES[LENDING_WETH_MARKET][chainId], provider),
+      getTokenBalance(LINK, ADDRESSES[LENDING_LINK_MARKET][chainId], provider),
     ])
 
     const [
@@ -229,32 +229,6 @@ export const withdrawCollateral = async (
   const marketContracts = await getMarketContracts(provider)
   const marketContract = marketContracts[marketName]
   return marketContract.withdraw(amount)
-}
-
-const _getCollateralDeposited = async (
-  marketName: ILendingMarket,
-  provider: BaseProvider
-) => {
-  const network = await provider.getNetwork()
-  let tokenContract
-
-  switch (marketName) {
-    case LENDING_WBTC_MARKET:
-      tokenContract = getContract(WBTC, provider, network)
-      break
-    case LENDING_WETH_MARKET:
-      tokenContract = getContract(WETH, provider, network)
-      break
-    case LENDING_LINK_MARKET:
-      tokenContract = getContract(LINK, provider, network)
-      break
-  }
-
-  if (!tokenContract) {
-    return Promise.reject(new Error(Errors.CONTRACT_INITIALIZATION_FAILED))
-  }
-
-  return tokenContract.balanceOf(ADDRESSES[marketName][network.chainId])
 }
 
 const _getApprovedAmount = async (

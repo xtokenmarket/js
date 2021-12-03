@@ -84,6 +84,8 @@ import {
   getOptimalUtilizationRate,
   getUpdatedBorrowBy,
   getUtilizationRate,
+  getReserveFactor,
+  getXtkFeeFactor,
   repayLiquidity,
   supplyCollateral,
   supplyLiquidity,
@@ -1378,6 +1380,22 @@ export class XToken {
     return {
       optimalUtilizationRate,
       utilizationRate,
+    }
+  }
+
+  /**
+   * Get Lending reserveFee and xtkFee factors
+   * @returns
+   */
+  public async getFeeFactors() {
+    const [reserveFactor, xtkFeeFactor] = await Promise.all([
+      getReserveFactor(this.provider),
+      getXtkFeeFactor(this.provider),
+    ])
+
+    return {
+      reserveFactor,
+      xtkFeeFactor,
     }
   }
 }

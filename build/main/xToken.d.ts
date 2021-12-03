@@ -545,4 +545,12 @@ export declare class XToken {
     optimalUtilizationRate: string
     utilizationRate: string
   }>
+  /**
+   * Get Lending reserveFee and xtkFee factors
+   * @returns
+   */
+  getFeeFactors(): Promise<{
+    reserveFactor: string
+    xtkFeeFactor: string
+  }>
 }
