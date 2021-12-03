@@ -102,16 +102,6 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
-  ARBITRUM_NFT_CORE,
-  L2_NFT,
-  GM,
-  GA,
-  GN,
-  WAGMI,
-  LIQUIDITY_POOL,
-  X_ASSET_LEV,
-  X_ASSET_LEV_2X,
-  X_ASSET_LEV_3X,
 } from '@xtoken/abis'
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
