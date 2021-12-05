@@ -244,9 +244,9 @@ export const getAbi = (contractName: IContracts) => {
     case LENDING_LINK_PRICE:
       return Abi.NativePrice as ContractInterface
     case ARBITRUM_NFT_CORE:
-      return Abi.NativePrice as ContractInterface
+      return Abi.ArbitrumNFTCore as ContractInterface
     case L2_NFT:
-      return Abi.NativePrice as ContractInterface
+      return Abi.L2_NFT as ContractInterface
     case GM:
     case GA:
     case GN:
