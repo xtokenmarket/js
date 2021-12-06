@@ -114,12 +114,6 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
-  | typeof GM
-  | typeof GN
-  | typeof GA
-  | typeof WAGMI
-  | typeof ARBITRUM_NFT_CORE
-  | typeof L2_NFT
 
 export type INativeAssets =
   | typeof AAVE
@@ -184,6 +178,14 @@ export type ILendingContracts =
   | typeof LENDING_LPT
   | ILendingMarket
   | ILendingPricing
+
+export type INFTContracts =
+  | typeof GM
+  | typeof GN
+  | typeof GA
+  | typeof WAGMI
+  | typeof ARBITRUM_NFT_CORE
+  | typeof L2_NFT
 
 export type ILendingMarket =
   | typeof LENDING_WBTC_MARKET

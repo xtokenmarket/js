@@ -105,6 +105,7 @@ import {
   IContracts,
   ILevToken,
   ILPTokenSymbols,
+  INFTContracts,
   IStableAssets,
   ITokenSymbols,
   IU3LPToken,
@@ -134,7 +135,7 @@ export const capitalizeToken = (symbol: IStableAssets) => {
   return symbol
 }
 
-export const getAbi = (contractName: IContracts) => {
+export const getAbi = (contractName: IContracts | INFTContracts) => {
   switch (contractName) {
     case AAVE:
     case ALPHA:

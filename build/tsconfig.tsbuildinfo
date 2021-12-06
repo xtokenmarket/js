@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "f5a535dcee4af2b9e47535a2a9aa9df3e06051014003af03130d008359a6c58d",
-        "signature": "f5a535dcee4af2b9e47535a2a9aa9df3e06051014003af03130d008359a6c58d",
+        "version": "6253cbcc35b950bf392f13d023402c655a07fee7f500b2e8e19fcb18aa1bfb18",
+        "signature": "6253cbcc35b950bf392f13d023402c655a07fee7f500b2e8e19fcb18aa1bfb18",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1596,8 +1596,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "ea1dd1d7347112850e7b7b4ef61a04b50704569aaa164c20dc64e412f5962bee",
-        "signature": "0a581578b212b28ab66246bea669be8b0c3a76027c2664e06e4c41a2f002325f",
+        "version": "ba0257a5c907890f828b1d5b5083b33ed4e80396645e4745fc6401d4a574adf8",
+        "signature": "b8b5af2afdfa5329bbe9de26ebf1a015976cc69f11cad95ba387507fc312f14f",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/helper.ts": {
