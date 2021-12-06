@@ -114,12 +114,6 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
-  | typeof GM
-  | typeof GN
-  | typeof GA
-  | typeof WAGMI
-  | typeof ARBITRUM_NFT_CORE
-  | typeof L2_NFT
 
 export type INativeAssets =
   | typeof AAVE
@@ -208,6 +202,14 @@ export type ILendingPricing =
 // | typeof LENDING_X_KNC_B_PRICE
 
 export type ITradeType = typeof BUY | typeof SELL
+
+export type INFTContracts =
+  | typeof GM
+  | typeof GN
+  | typeof GA
+  | typeof WAGMI
+  | typeof ARBITRUM_NFT_CORE
+  | typeof L2_NFT
 
 interface IAsset {
   aum: number
