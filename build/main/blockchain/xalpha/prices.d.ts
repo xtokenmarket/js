@@ -1,5 +1,5 @@
-import { XALPHA } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { XALPHA } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -16,6 +16,4 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XALPHA} xalphaContract xALPHAa token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXAlphaPrices: (
-  xalphaContract: XALPHA
-) => Promise<ITokenPrices>
+export declare const getXAlphaPrices: (xalphaContract: XALPHA) => Promise<ITokenPrices>;

@@ -1,68 +1,39 @@
-import { ADDRESSES, ETH, KNC } from '@xtoken/abis'
-import { ethers } from 'ethers'
-import {
-  DEC_18,
-  GAS_LIMIT_PERCENTAGE_DEFAULT,
-  GAS_LIMIT_PERCENTAGE_ETH,
-} from '../../constants'
-import { getPercentage } from '../../utils'
-import { getExpectedRate, parseFees } from '../utils'
-import { getXKncContracts } from './helper'
-const { formatEther, parseEther } = ethers.utils
+import { ADDRESSES, ETH, KNC } from '@xtoken/abis';
+import { ethers } from 'ethers';
+import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT, GAS_LIMIT_PERCENTAGE_ETH, } from '../../constants';
+import { getPercentage } from '../../utils';
+import { getExpectedRate, parseFees } from '../utils';
+import { getXKncContracts } from './helper';
+const { formatEther, parseEther } = ethers.utils;
 export const burnXKnc = async (symbol, sellForEth, amount, provider) => {
-  const {
-    kyberProxyContract,
-    tokenContract,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
-  const minRate = await getExpectedRate(
-    kyberProxyContract,
-    tokenContract.address,
-    ADDRESSES[ETH],
-    amount,
-    true
-  )
-  // Estimate `gasLimit`
-  const gasLimit = getPercentage(
-    await xkncContract.estimateGas.burn(amount, !sellForEth, minRate),
-    sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT
-  )
-  // `xKNC` contract has `redeemForKnc` instead of `sellForEth` bool
-  return xkncContract.burn(amount, !sellForEth, minRate, { gasLimit })
-}
-export const getExpectedQuantityOnBurnXKnc = async (
-  symbol,
-  sellForEth,
-  amount,
-  provider
-) => {
-  const inputAmount = parseEther(amount)
-  const { kyberProxyContract, network, xkncContract } = await getXKncContracts(
-    symbol,
-    provider
-  )
-  const { chainId } = network
-  const [kncFundBal, totalSupply, { burnFee }] = await Promise.all([
-    xkncContract.getFundKncBalanceTwei(),
-    xkncContract.totalSupply(),
-    xkncContract.feeDivisors(),
-  ])
-  const BURN_FEE = parseFees(burnFee)
-  const proRataKnc = kncFundBal.mul(inputAmount).div(totalSupply)
-  let expectedQty
-  if (!sellForEth) {
-    expectedQty = proRataKnc
-  } else {
-    const ethAddress = ADDRESSES[ETH]
-    const kncAddress = ADDRESSES[KNC][chainId]
-    const expectedRate = await getExpectedRate(
-      kyberProxyContract,
-      kncAddress,
-      ethAddress,
-      proRataKnc
-    )
-    expectedQty = proRataKnc.mul(expectedRate).div(DEC_18)
-  }
-  return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
-}
+    const { kyberProxyContract, tokenContract, xkncContract, } = await getXKncContracts(symbol, provider);
+    const minRate = await getExpectedRate(kyberProxyContract, tokenContract.address, ADDRESSES[ETH], amount, true);
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(await xkncContract.estimateGas.burn(amount, !sellForEth, minRate), sellForEth ? GAS_LIMIT_PERCENTAGE_ETH : GAS_LIMIT_PERCENTAGE_DEFAULT);
+    // `xKNC` contract has `redeemForKnc` instead of `sellForEth` bool
+    return xkncContract.burn(amount, !sellForEth, minRate, { gasLimit });
+};
+export const getExpectedQuantityOnBurnXKnc = async (symbol, sellForEth, amount, provider) => {
+    const inputAmount = parseEther(amount);
+    const { kyberProxyContract, network, xkncContract } = await getXKncContracts(symbol, provider);
+    const { chainId } = network;
+    const [kncFundBal, totalSupply, { burnFee }] = await Promise.all([
+        xkncContract.getFundKncBalanceTwei(),
+        xkncContract.totalSupply(),
+        xkncContract.feeDivisors(),
+    ]);
+    const BURN_FEE = parseFees(burnFee);
+    const proRataKnc = kncFundBal.mul(inputAmount).div(totalSupply);
+    let expectedQty;
+    if (!sellForEth) {
+        expectedQty = proRataKnc;
+    }
+    else {
+        const ethAddress = ADDRESSES[ETH];
+        const kncAddress = ADDRESSES[KNC][chainId];
+        const expectedRate = await getExpectedRate(kyberProxyContract, kncAddress, ethAddress, proRataKnc);
+        expectedQty = proRataKnc.mul(expectedRate).div(DEC_18);
+    }
+    return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18));
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnVybi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3hrbmMvYnVybi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSxPQUFPLEVBQUUsU0FBUyxFQUFFLEdBQUcsRUFBRSxHQUFHLEVBQUUsTUFBTSxjQUFjLENBQUE7QUFDbEQsT0FBTyxFQUFFLE1BQU0sRUFBRSxNQUFNLFFBQVEsQ0FBQTtBQUUvQixPQUFPLEVBQ0wsTUFBTSxFQUNOLDRCQUE0QixFQUM1Qix3QkFBd0IsR0FDekIsTUFBTSxpQkFBaUIsQ0FBQTtBQUV4QixPQUFPLEVBQUUsYUFBYSxFQUFFLE1BQU0sYUFBYSxDQUFBO0FBQzNDLE9BQU8sRUFBRSxlQUFlLEVBQUUsU0FBUyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXJELE9BQU8sRUFBRSxnQkFBZ0IsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUUzQyxNQUFNLEVBQUUsV0FBVyxFQUFFLFVBQVUsRUFBRSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUE7QUFFaEQsTUFBTSxDQUFDLE1BQU0sUUFBUSxHQUFHLEtBQUssRUFDM0IsTUFBcUIsRUFDckIsVUFBbUIsRUFDbkIsTUFBaUIsRUFDakIsUUFBc0IsRUFDUSxFQUFFO0lBQ2hDLE1BQU0sRUFDSixrQkFBa0IsRUFDbEIsYUFBYSxFQUNiLFlBQVksR0FDYixHQUFHLE1BQU0sZ0JBQWdCLENBQUMsTUFBTSxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBRTVDLE1BQU0sT0FBTyxHQUFHLE1BQU0sZUFBZSxDQUNuQyxrQkFBa0IsRUFDbEIsYUFBYSxDQUFDLE9BQU8sRUFDckIsU0FBUyxDQUFDLEdBQUcsQ0FBVyxFQUN4QixNQUFNLEVBQ04sSUFBSSxDQUNMLENBQUE7SUFFRCxzQkFBc0I7SUFDdEIsTUFBTSxRQUFRLEdBQUcsYUFBYSxDQUM1QixNQUFNLFlBQVksQ0FBQyxXQUFXLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDLFVBQVUsRUFBRSxPQUFPLENBQUMsRUFDakUsVUFBVSxDQUFDLENBQUMsQ0FBQyx3QkFBd0IsQ0FBQyxDQUFDLENBQUMsNEJBQTRCLENBQ3JFLENBQUE7SUFFRCxrRUFBa0U7SUFDbEUsT0FBTyxZQUFZLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDLFVBQVUsRUFBRSxPQUFPLEVBQUUsRUFBRSxRQUFRLEVBQUUsQ0FBQyxDQUFBO0FBQ3RFLENBQUMsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLDZCQUE2QixHQUFHLEtBQUssRUFDaEQsTUFBcUIsRUFDckIsVUFBbUIsRUFDbkIsTUFBYyxFQUNkLFFBQXNCLEVBQ3RCLEVBQUU7SUFDRixNQUFNLFdBQVcsR0FBRyxVQUFVLENBQUMsTUFBTSxDQUFDLENBQUE7SUFDdEMsTUFBTSxFQUFFLGtCQUFrQixFQUFFLE9BQU8sRUFBRSxZQUFZLEVBQUUsR0FBRyxNQUFNLGdCQUFnQixDQUMxRSxNQUFNLEVBQ04sUUFBUSxDQUNULENBQUE7SUFDRCxNQUFNLEVBQUUsT0FBTyxFQUFFLEdBQUcsT0FBTyxDQUFBO0lBRTNCLE1BQU0sQ0FBQyxVQUFVLEVBQUUsV0FBVyxFQUFFLEVBQUUsT0FBTyxFQUFFLENBQUMsR0FBRyxNQUFNLE9BQU8sQ0FBQyxHQUFHLENBQUM7UUFDL0QsWUFBWSxDQUFDLHFCQUFxQixFQUFFO1FBQ3BDLFlBQVksQ0FBQyxXQUFXLEVBQUU7UUFDMUIsWUFBWSxDQUFDLFdBQVcsRUFBRTtLQUMzQixDQUFDLENBQUE7SUFFRixNQUFNLFFBQVEsR0FBRyxTQUFTLENBQUMsT0FBTyxDQUFDLENBQUE7SUFDbkMsTUFBTSxVQUFVLEdBQUcsVUFBVSxDQUFDLEdBQUcsQ0FBQyxXQUFXLENBQUMsQ0FBQyxHQUFHLENBQUMsV0FBVyxDQUFDLENBQUE7SUFDL0QsSUFBSSxXQUFzQixDQUFBO0lBRTFCLElBQUksQ0FBQyxVQUFVLEVBQUU7UUFDZixXQUFXLEdBQUcsVUFBVSxDQUFBO0tBQ3pCO1NBQU07UUFDTCxNQUFNLFVBQVUsR0FBRyxTQUFTLENBQUMsR0FBRyxDQUFXLENBQUE7UUFDM0MsTUFBTSxVQUFVLEdBQUcsU0FBUyxDQUFDLEdBQUcsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxDQUFBO1FBRTFDLE1BQU0sWUFBWSxHQUFHLE1BQU0sZUFBZSxDQUN4QyxrQkFBa0IsRUFDbEIsVUFBVSxFQUNWLFVBQVUsRUFDVixVQUFVLENBQ1gsQ0FBQTtRQUVELFdBQVcsR0FBRyxVQUFVLENBQUMsR0FBRyxDQUFDLFlBQVksQ0FBQyxDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsQ0FBQTtLQUN2RDtJQUVELE9BQU8sV0FBVyxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUE7QUFDM0QsQ0FBQyxDQUFBIn0=

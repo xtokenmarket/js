@@ -1,6 +1,6 @@
-import { BigNumber } from 'ethers'
-import { XAssetCLR } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { BigNumber } from 'ethers';
+import { XAssetCLR } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -17,12 +17,8 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XAssetCLR} xAssetCLRContract xAssetCLR token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXAssetCLRPrices: (
-  xAssetCLRContract: XAssetCLR
-) => Promise<ITokenPrices>
-export declare const getXAssetCLRTokenPrices: (
-  XAssetCLR: XAssetCLR
-) => Promise<{
-  readonly token0Price: BigNumber
-  readonly token1Price: BigNumber
-}>
+export declare const getXAssetCLRPrices: (xAssetCLRContract: XAssetCLR) => Promise<ITokenPrices>;
+export declare const getXAssetCLRTokenPrices: (XAssetCLR: XAssetCLR) => Promise<{
+    readonly token0Price: BigNumber;
+    readonly token1Price: BigNumber;
+}>;

@@ -1,26 +1,26 @@
-import { X_AAVE_A, X_AAVE_B } from '@xtoken/abis'
-import test from 'ava'
-import { provider } from '../../constants.spec'
-import { getXAaveContracts } from './helper'
-import { getXAavePrices } from './prices'
+import { X_AAVE_A, X_AAVE_B } from '@xtoken/abis';
+import test from 'ava';
+import { provider } from '../../constants.spec';
+import { getXAaveContracts } from './helper';
+import { getXAavePrices } from './prices';
 test('Get xAAVEa prices', async (t) => {
-  const { xaaveContract } = await getXAaveContracts(X_AAVE_A, provider)
-  const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract)
-  console.log('xAAVEa aum:', aum)
-  console.log('xAAVEa priceEth:', priceEth)
-  console.log('xAAVEa priceUsd:', priceUsd)
-  t.true(aum > 0)
-  t.true(priceEth > 0)
-  t.true(priceUsd > 0)
-})
+    const { xaaveContract } = await getXAaveContracts(X_AAVE_A, provider);
+    const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract);
+    console.log('xAAVEa aum:', aum);
+    console.log('xAAVEa priceEth:', priceEth);
+    console.log('xAAVEa priceUsd:', priceUsd);
+    t.true(aum > 0);
+    t.true(priceEth > 0);
+    t.true(priceUsd > 0);
+});
 test('Get xAAVEb prices', async (t) => {
-  const { xaaveContract } = await getXAaveContracts(X_AAVE_B, provider)
-  const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract)
-  console.log('xAAVEb aum:', aum)
-  console.log('xAAVEb priceEth:', priceEth)
-  console.log('xAAVEb priceUsd:', priceUsd)
-  t.true(aum > 0)
-  t.true(priceEth > 0)
-  t.true(priceUsd > 0)
-})
+    const { xaaveContract } = await getXAaveContracts(X_AAVE_B, provider);
+    const { aum, priceEth, priceUsd } = await getXAavePrices(xaaveContract);
+    console.log('xAAVEb aum:', aum);
+    console.log('xAAVEb priceEth:', priceEth);
+    console.log('xAAVEb priceUsd:', priceUsd);
+    t.true(aum > 0);
+    t.true(priceEth > 0);
+    t.true(priceUsd > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJpY2VzLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi94YWF2ZS9wcmljZXMuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsUUFBUSxFQUFFLFFBQVEsRUFBRSxNQUFNLGNBQWMsQ0FBQTtBQUNqRCxPQUFPLElBQUksTUFBTSxLQUFLLENBQUE7QUFFdEIsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLHNCQUFzQixDQUFBO0FBRS9DLE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUM1QyxPQUFPLEVBQUUsY0FBYyxFQUFFLE1BQU0sVUFBVSxDQUFBO0FBRXpDLElBQUksQ0FBQyxtQkFBbUIsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDcEMsTUFBTSxFQUFFLGFBQWEsRUFBRSxHQUFHLE1BQU0saUJBQWlCLENBQUMsUUFBUSxFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBRXJFLE1BQU0sRUFBRSxHQUFHLEVBQUUsUUFBUSxFQUFFLFFBQVEsRUFBRSxHQUFHLE1BQU0sY0FBYyxDQUFDLGFBQWEsQ0FBQyxDQUFBO0lBRXZFLE9BQU8sQ0FBQyxHQUFHLENBQUMsYUFBYSxFQUFFLEdBQUcsQ0FBQyxDQUFBO0lBQy9CLE9BQU8sQ0FBQyxHQUFHLENBQUMsa0JBQWtCLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFDekMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxrQkFBa0IsRUFBRSxRQUFRLENBQUMsQ0FBQTtJQUN6QyxDQUFDLENBQUMsSUFBSSxDQUFDLEdBQUcsR0FBRyxDQUFDLENBQUMsQ0FBQTtJQUNmLENBQUMsQ0FBQyxJQUFJLENBQUMsUUFBUSxHQUFHLENBQUMsQ0FBQyxDQUFBO0lBQ3BCLENBQUMsQ0FBQyxJQUFJLENBQUMsUUFBUSxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ3RCLENBQUMsQ0FBQyxDQUFBO0FBRUYsSUFBSSxDQUFDLG1CQUFtQixFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRTtJQUNwQyxNQUFNLEVBQUUsYUFBYSxFQUFFLEdBQUcsTUFBTSxpQkFBaUIsQ0FBQyxRQUFRLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFFckUsTUFBTSxFQUFFLEdBQUcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLEdBQUcsTUFBTSxjQUFjLENBQUMsYUFBYSxDQUFDLENBQUE7SUFFdkUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxhQUFhLEVBQUUsR0FBRyxDQUFDLENBQUE7SUFDL0IsT0FBTyxDQUFDLEdBQUcsQ0FBQyxrQkFBa0IsRUFBRSxRQUFRLENBQUMsQ0FBQTtJQUN6QyxPQUFPLENBQUMsR0FBRyxDQUFDLGtCQUFrQixFQUFFLFFBQVEsQ0FBQyxDQUFBO0lBQ3pDLENBQUMsQ0FBQyxJQUFJLENBQUMsR0FBRyxHQUFHLENBQUMsQ0FBQyxDQUFBO0lBQ2YsQ0FBQyxDQUFDLElBQUksQ0FBQyxRQUFRLEdBQUcsQ0FBQyxDQUFDLENBQUE7SUFDcEIsQ0FBQyxDQUFDLElBQUksQ0FBQyxRQUFRLEdBQUcsQ0FBQyxDQUFDLENBQUE7QUFDdEIsQ0FBQyxDQUFDLENBQUEifQ==

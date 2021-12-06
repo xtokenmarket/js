@@ -1,176 +1,130 @@
-import { BigNumber } from '@ethersproject/bignumber'
-import { AddressZero, HashZero, One, Two, Zero } from '@ethersproject/constants'
-import {
-  Abi,
-  ADDRESSES,
-  BALANCER_V2_VAULT,
-  BUY,
-  ETH,
-  SNX,
-  WETH,
-  X_SNX_A,
-} from '@xtoken/abis'
-import { ethers } from 'ethers'
-import {
-  DEC_18,
-  SNX_BALANCER_V2_POOL_ID,
-  X_SNX_A_BALANCER_V2_POOL_ID,
-} from '../../constants'
-import { formatNumber } from '../../utils'
-import { getBalancerPoolContract, getSigner, getTokenSymbol } from '../utils'
-import { getXSnxPrices } from '../xsnx'
-import { getBalances } from './helper'
-const { formatEther, parseEther } = ethers.utils
-export const getBalancerV2EstimatedQuantity = async (
-  tokenIn,
-  symbol,
-  amount,
-  tradeType,
-  provider
-) => {
-  try {
-    const network = await provider.getNetwork()
-    const { chainId } = network
-    const isEth = tokenIn === ETH
-    const isBuy = tradeType === BUY
-    // Addresses
-    const snxAddress = ADDRESSES[SNX][chainId]
-    const wethAddress = ADDRESSES[WETH][chainId]
-    const xsnxAddress = ADDRESSES[symbol][chainId]
-    const tokenInAddress = isBuy ? wethAddress : xsnxAddress
-    const tokenOutAddress = isBuy ? xsnxAddress : wethAddress
-    const balancerV2VaultContract = getBalancerV2VaultContract(
-      provider,
-      chainId
-    )
-    const funds = {
-      sender: AddressZero,
-      fromInternalBalance: false,
-      recipient: AddressZero,
-      toInternalBalance: false,
+import { BigNumber } from '@ethersproject/bignumber';
+import { AddressZero, HashZero, One, Two, Zero } from '@ethersproject/constants';
+import { Abi, ADDRESSES, BALANCER_V2_VAULT, BUY, ETH, SNX, WETH, X_SNX_A, } from '@xtoken/abis';
+import { ethers } from 'ethers';
+import { DEC_18, SNX_BALANCER_V2_POOL_ID, X_SNX_A_BALANCER_V2_POOL_ID, } from '../../constants';
+import { formatNumber } from '../../utils';
+import { getBalancerPoolContract, getSigner, getTokenSymbol } from '../utils';
+import { getXSnxPrices } from '../xsnx';
+import { getBalances } from './helper';
+const { formatEther, parseEther } = ethers.utils;
+export const getBalancerV2EstimatedQuantity = async (tokenIn, symbol, amount, tradeType, provider) => {
+    try {
+        const network = await provider.getNetwork();
+        const { chainId } = network;
+        const isEth = tokenIn === ETH;
+        const isBuy = tradeType === BUY;
+        // Addresses
+        const snxAddress = ADDRESSES[SNX][chainId];
+        const wethAddress = ADDRESSES[WETH][chainId];
+        const xsnxAddress = ADDRESSES[symbol][chainId];
+        const tokenInAddress = isBuy ? wethAddress : xsnxAddress;
+        const tokenOutAddress = isBuy ? xsnxAddress : wethAddress;
+        const balancerV2VaultContract = getBalancerV2VaultContract(provider, chainId);
+        const funds = {
+            sender: AddressZero,
+            fromInternalBalance: false,
+            recipient: AddressZero,
+            toInternalBalance: false,
+        };
+        const swap = {
+            poolId: X_SNX_A_BALANCER_V2_POOL_ID,
+            kind: 0,
+            amount: parseEther(amount),
+            userData: HashZero,
+        };
+        let assets = [tokenInAddress, tokenOutAddress];
+        if (!isEth) {
+            assets = [...assets, snxAddress];
+        }
+        const batchSwapStep = {
+            poolId: swap.poolId,
+            kind: swap.kind,
+            assetInIndex: Zero,
+            assetOutIndex: One,
+            amount: !isEth && isBuy ? Zero : swap.amount,
+            userData: swap.userData,
+        };
+        let batchSwapStep2;
+        if (!isEth) {
+            batchSwapStep2 = {
+                poolId: SNX_BALANCER_V2_POOL_ID,
+                kind: 0,
+                assetInIndex: isBuy ? Two : One,
+                assetOutIndex: isBuy ? Zero : Two,
+                amount: isBuy ? swap.amount : Zero,
+                userData: swap.userData,
+            };
+        }
+        const batchSwapSteps = !isEth
+            ? isBuy
+                ? [batchSwapStep2, batchSwapStep]
+                : [batchSwapStep, batchSwapStep2]
+            : [batchSwapStep];
+        const result = await balancerV2VaultContract.callStatic.queryBatchSwap(swap.kind, 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        batchSwapSteps, assets, funds);
+        return formatNumber(formatEther(result[!isEth && !isBuy ? 2 : 1]).replace('-', ''), 4).toString();
     }
-    const swap = {
-      poolId: X_SNX_A_BALANCER_V2_POOL_ID,
-      kind: 0,
-      amount: parseEther(amount),
-      userData: HashZero,
+    catch (e) {
+        console.error('Error while fetching Balancer V2 estimate:', e);
+        return '0';
     }
-    let assets = [tokenInAddress, tokenOutAddress]
-    if (!isEth) {
-      assets = [...assets, snxAddress]
-    }
-    const batchSwapStep = {
-      poolId: swap.poolId,
-      kind: swap.kind,
-      assetInIndex: Zero,
-      assetOutIndex: One,
-      amount: !isEth && isBuy ? Zero : swap.amount,
-      userData: swap.userData,
-    }
-    let batchSwapStep2
-    if (!isEth) {
-      batchSwapStep2 = {
-        poolId: SNX_BALANCER_V2_POOL_ID,
-        kind: 0,
-        assetInIndex: isBuy ? Two : One,
-        assetOutIndex: isBuy ? Zero : Two,
-        amount: isBuy ? swap.amount : Zero,
-        userData: swap.userData,
-      }
-    }
-    const batchSwapSteps = !isEth
-      ? isBuy
-        ? [batchSwapStep2, batchSwapStep]
-        : [batchSwapStep, batchSwapStep2]
-      : [batchSwapStep]
-    const result = await balancerV2VaultContract.callStatic.queryBatchSwap(
-      swap.kind,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      batchSwapSteps,
-      assets,
-      funds
-    )
-    return formatNumber(
-      formatEther(result[!isEth && !isBuy ? 2 : 1]).replace('-', ''),
-      4
-    ).toString()
-  } catch (e) {
-    console.error('Error while fetching Balancer V2 estimate:', e)
-    return '0'
-  }
-}
+};
 export const getBalancerV2PortfolioItem = async (symbol, address, provider) => {
-  const network = await provider.getNetwork()
-  const { chainId } = network
-  const tokenSymbol = getTokenSymbol(symbol)
-  const underlying = tokenSymbol.toUpperCase()
-  // Addresses
-  const asset = `${symbol} - ${ETH.toUpperCase()} - ${underlying}`
-  const balancerPoolAddress = '0xBA12222222228d8Ba445958a75a0704d566BF2C8' // Balancer V2 Vault address
-  const xTokenAddress = ADDRESSES[symbol][chainId]
-  // Contracts
-  const balancerPoolContract = getBalancerPoolContract(
-    symbol,
-    provider,
-    chainId
-  )
-  const balancerV2VaultContract = getBalancerV2VaultContract(provider, chainId)
-  const xtokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider)
-  let userBalance = BigNumber.from('0')
-  try {
-    userBalance = await balancerPoolContract.balanceOf(address)
-  } catch (e) {
-    console.error('Error while fetching user balance:', e)
-  }
-  const {
-    balances: [xTokenBalance, ethBalance],
-  } = await balancerV2VaultContract.getPoolTokens(X_SNX_A_BALANCER_V2_POOL_ID)
-  let tokenPrice = 0
-  try {
-    switch (symbol) {
-      case X_SNX_A: {
-        const { priceUsd } = await getXSnxPrices(xtokenContract)
-        tokenPrice = priceUsd
-        break
-      }
+    const network = await provider.getNetwork();
+    const { chainId } = network;
+    const tokenSymbol = getTokenSymbol(symbol);
+    const underlying = tokenSymbol.toUpperCase();
+    // Addresses
+    const asset = `${symbol} - ${ETH.toUpperCase()} - ${underlying}`;
+    const balancerPoolAddress = '0xBA12222222228d8Ba445958a75a0704d566BF2C8'; // Balancer V2 Vault address
+    const xTokenAddress = ADDRESSES[symbol][chainId];
+    // Contracts
+    const balancerPoolContract = getBalancerPoolContract(symbol, provider, chainId);
+    const balancerV2VaultContract = getBalancerV2VaultContract(provider, chainId);
+    const xtokenContract = new ethers.Contract(xTokenAddress, Abi.ERC20, provider);
+    let userBalance = BigNumber.from('0');
+    try {
+        userBalance = await balancerPoolContract.balanceOf(address);
     }
-  } catch (e) {
-    console.error(e)
-  }
-  const balancerContractBalances = await getBalances(
-    symbol,
-    balancerPoolAddress,
-    tokenPrice,
-    provider,
-    chainId,
-    undefined,
-    true,
-    xTokenBalance,
-    ethBalance
-  )
-  const bptTokenSupply = await balancerPoolContract.totalSupply()
-  const poolPrice = parseEther(balancerContractBalances.eth.val)
-    .mul(4)
-    .mul(DEC_18)
-    .div(bptTokenSupply)
-  const value = poolPrice.mul(userBalance).div(DEC_18)
-  return {
-    asset,
-    balances: balancerContractBalances,
-    poolPrice: formatEther(poolPrice),
-    quantity: formatEther(userBalance),
-    tokenPrice,
-    value: formatEther(value),
-  }
-}
+    catch (e) {
+        console.error('Error while fetching user balance:', e);
+    }
+    const { balances: [xTokenBalance, ethBalance], } = await balancerV2VaultContract.getPoolTokens(X_SNX_A_BALANCER_V2_POOL_ID);
+    let tokenPrice = 0;
+    try {
+        switch (symbol) {
+            case X_SNX_A: {
+                const { priceUsd } = await getXSnxPrices(xtokenContract);
+                tokenPrice = priceUsd;
+                break;
+            }
+        }
+    }
+    catch (e) {
+        console.error(e);
+    }
+    const balancerContractBalances = await getBalances(symbol, balancerPoolAddress, tokenPrice, provider, chainId, undefined, true, xTokenBalance, ethBalance);
+    const bptTokenSupply = await balancerPoolContract.totalSupply();
+    const poolPrice = parseEther(balancerContractBalances.eth.val)
+        .mul(4)
+        .mul(DEC_18)
+        .div(bptTokenSupply);
+    const value = poolPrice.mul(userBalance).div(DEC_18);
+    return {
+        asset,
+        balances: balancerContractBalances,
+        poolPrice: formatEther(poolPrice),
+        quantity: formatEther(userBalance),
+        tokenPrice,
+        value: formatEther(value),
+    };
+};
 const getBalancerV2VaultContract = (provider, chainId) => {
-  const signer = getSigner(provider)
-  const balancerV2VaultAddress = ADDRESSES[BALANCER_V2_VAULT][chainId]
-  return new ethers.Contract(
-    balancerV2VaultAddress,
-    Abi.BalancerV2Vault,
-    signer
-  )
-}
+    const signer = getSigner(provider);
+    const balancerV2VaultAddress = ADDRESSES[BALANCER_V2_VAULT][chainId];
+    return new ethers.Contract(balancerV2VaultAddress, Abi.BalancerV2Vault, signer);
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFsYW5jZXJWMi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL2V4Y2hhbmdlcy9iYWxhbmNlclYyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxTQUFTLEVBQUUsTUFBTSwwQkFBMEIsQ0FBQTtBQUNwRCxPQUFPLEVBQUUsV0FBVyxFQUFFLFFBQVEsRUFBRSxHQUFHLEVBQUUsR0FBRyxFQUFFLElBQUksRUFBRSxNQUFNLDBCQUEwQixDQUFBO0FBRWhGLE9BQU8sRUFDTCxHQUFHLEVBQ0gsU0FBUyxFQUNULGlCQUFpQixFQUNqQixHQUFHLEVBQ0gsR0FBRyxFQUNILEdBQUcsRUFDSCxJQUFJLEVBQ0osT0FBTyxHQUNSLE1BQU0sY0FBYyxDQUFBO0FBQ3JCLE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFFL0IsT0FBTyxFQUNMLE1BQU0sRUFDTix1QkFBdUIsRUFDdkIsMkJBQTJCLEdBQzVCLE1BQU0saUJBQWlCLENBQUE7QUFPeEIsT0FBTyxFQUFFLFlBQVksRUFBRSxNQUFNLGFBQWEsQ0FBQTtBQUMxQyxPQUFPLEVBQUUsdUJBQXVCLEVBQUUsU0FBUyxFQUFFLGNBQWMsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUM3RSxPQUFPLEVBQUUsYUFBYSxFQUFFLE1BQU0sU0FBUyxDQUFBO0FBRXZDLE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFdEMsTUFBTSxFQUFFLFdBQVcsRUFBRSxVQUFVLEVBQUUsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFBO0FBRWhELE1BQU0sQ0FBQyxNQUFNLDhCQUE4QixHQUFHLEtBQUssRUFDakQsT0FBb0MsRUFDcEMsTUFBc0IsRUFDdEIsTUFBYyxFQUNkLFNBQXFCLEVBQ3JCLFFBQXNCLEVBQ3RCLEVBQUU7SUFDRixJQUFJO1FBQ0YsTUFBTSxPQUFPLEdBQUcsTUFBTSxRQUFRLENBQUMsVUFBVSxFQUFFLENB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

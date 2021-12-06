@@ -1,24 +1,15 @@
-import { AAVE_X_AAVE_A_CLR, XTK_ETH_CLR } from '@xtoken/abis'
-import test from 'ava'
-import { provider } from '../../constants.spec'
-import { getMaximumRedeemableXAssetCLR } from './redeem'
+import { AAVE_X_AAVE_A_CLR, XTK_ETH_CLR } from '@xtoken/abis';
+import test from 'ava';
+import { provider } from '../../constants.spec';
+import { getMaximumRedeemableXAssetCLR } from './redeem';
 test(`Get maximum redeemable ${AAVE_X_AAVE_A_CLR} when burning`, async (t) => {
-  const maxRedeemable = await getMaximumRedeemableXAssetCLR(
-    AAVE_X_AAVE_A_CLR,
-    provider
-  )
-  console.log(
-    `Maximum redeemable ${AAVE_X_AAVE_A_CLR} when burning:`,
-    maxRedeemable
-  )
-  t.true(Number(maxRedeemable) > 0)
-})
+    const maxRedeemable = await getMaximumRedeemableXAssetCLR(AAVE_X_AAVE_A_CLR, provider);
+    console.log(`Maximum redeemable ${AAVE_X_AAVE_A_CLR} when burning:`, maxRedeemable);
+    t.true(Number(maxRedeemable) > 0);
+});
 test(`Get maximum redeemable ${XTK_ETH_CLR} when burning`, async (t) => {
-  const maxRedeemable = await getMaximumRedeemableXAssetCLR(
-    XTK_ETH_CLR,
-    provider
-  )
-  console.log(`Maximum redeemable ${XTK_ETH_CLR} when burning:`, maxRedeemable)
-  t.true(Number(maxRedeemable) > 0)
-})
+    const maxRedeemable = await getMaximumRedeemableXAssetCLR(XTK_ETH_CLR, provider);
+    console.log(`Maximum redeemable ${XTK_ETH_CLR} when burning:`, maxRedeemable);
+    t.true(Number(maxRedeemable) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVkZWVtLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9jbHIvcmVkZWVtLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLGlCQUFpQixFQUFFLFdBQVcsRUFBRSxNQUFNLGNBQWMsQ0FBQTtBQUM3RCxPQUFPLElBQUksTUFBTSxLQUFLLENBQUE7QUFFdEIsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLHNCQUFzQixDQUFBO0FBRS9DLE9BQU8sRUFBRSw2QkFBNkIsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUV4RCxJQUFJLENBQUMsMEJBQTBCLGlCQUFpQixlQUFlLEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQzNFLE1BQU0sYUFBYSxHQUFHLE1BQU0sNkJBQTZCLENBQ3ZELGlCQUFpQixFQUNqQixRQUFRLENBQ1QsQ0FBQTtJQUNELE9BQU8sQ0FBQyxHQUFHLENBQ1Qsc0JBQXNCLGlCQUFpQixnQkFBZ0IsRUFDdkQsYUFBYSxDQUNkLENBQUE7SUFDRCxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxhQUFhLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNuQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQywwQkFBMEIsV0FBVyxlQUFlLEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQ3JFLE1BQU0sYUFBYSxHQUFHLE1BQU0sNkJBQTZCLENBQ3ZELFdBQVcsRUFDWCxRQUFRLENBQ1QsQ0FBQTtJQUNELE9BQU8sQ0FBQyxHQUFHLENBQUMsc0JBQXNCLFdBQVcsZ0JBQWdCLEVBQUUsYUFBYSxDQUFDLENBQUE7SUFDN0UsQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsYUFBYSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUE7QUFDbkMsQ0FBQyxDQUFDLENBQUEifQ==

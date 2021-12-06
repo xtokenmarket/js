@@ -17,7 +17,7 @@ export const getPortfolioItemXU3LP = async (
 
     const xu3lpBal = await getUserAvailableTokenBalance(xu3lpContract, address)
 
-    const { priceUsd } = await getXU3LPPrices(xu3lpContract, provider)
+    const { priceUsd } = await getXU3LPPrices(xu3lpContract)
     const xu3lpValue = (xu3lpBal * priceUsd).toFixed(2).toString()
 
     return {

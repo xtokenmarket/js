@@ -1,9 +1,6 @@
-import { Signer } from 'ethers'
-import { Provider } from '@ethersproject/providers'
-import type { InchLiquidityProtocol } from '../InchLiquidityProtocol'
+import { Signer } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { InchLiquidityProtocol } from '../InchLiquidityProtocol';
 export declare class InchLiquidityProtocol__factory {
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): InchLiquidityProtocol
+    static connect(address: string, signerOrProvider: Signer | Provider): InchLiquidityProtocol;
 }

@@ -27,8 +27,7 @@ export const getXU3LPAsset = async (
   const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
   const { aum, priceBtc, priceEth, priceUsd } = await getXU3LPPrices(
-    xu3lpContract,
-    provider
+    xu3lpContract
   )
 
   let order = -1

@@ -7,6 +7,7 @@ export { XToken } from './xToken'
 
 // Helper methods
 export { getXAssetCLRPrices } from './blockchain/clr'
+export { getXAssetLevPrices } from './blockchain/lev'
 export { getXAavePrices } from './blockchain/xaave'
 export { getXAlphaPrices } from './blockchain/xalpha'
 export { getXBntPrices } from './blockchain/xbnt'

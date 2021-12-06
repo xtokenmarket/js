@@ -73,4 +73,9 @@ export const Errors = Object.freeze({
   INVALID_AMOUNT_VALUE: 'Invalid value for amount',
   INVALID_USER_ADDRESS: 'Invalid user address',
   TOKENS_NOT_APPROVED: 'Please approve the tokens before proceeding',
+  UNSUPPORTED_NETWORK: 'Please switch to Mainnet/Arbitrum One network',
 })
+
+// RPC URL
+export const ARBITRUM_URL = 'https://arb1.arbitrum.io/rpc'
+export const ARBITRUM_RINKEBY_URL = 'https://rinkeby.arbitrum.io/rpc'

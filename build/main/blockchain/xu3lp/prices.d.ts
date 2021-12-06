@@ -1,7 +1,6 @@
-import { BaseProvider } from '@ethersproject/providers'
-import { BigNumber } from 'ethers'
-import { XU3LP } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { BigNumber } from 'ethers';
+import { XU3LP } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -21,16 +20,10 @@ import { ITokenPrices } from '../../types/xToken'
  * ```
  *
  * @param {XU3LP} xu3lpContract xU3LPa token contract
- * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXU3LPPrices: (
-  xu3lpContract: XU3LP,
-  provider: BaseProvider
-) => Promise<ITokenPrices>
-export declare const getXU3LPTokenPrices: (
-  xu3lpContract: XU3LP
-) => Promise<{
-  readonly token0Price: BigNumber
-  readonly token1Price: BigNumber
-}>
+export declare const getXU3LPPrices: (xu3lpContract: XU3LP) => Promise<ITokenPrices>;
+export declare const getXU3LPTokenPrices: (xu3lpContract: XU3LP) => Promise<{
+    readonly token0Price: BigNumber;
+    readonly token1Price: BigNumber;
+}>;

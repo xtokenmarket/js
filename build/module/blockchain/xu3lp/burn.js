@@ -1,38 +1,32 @@
-import { ethers } from 'ethers'
-import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants'
-import { getPercentage } from '../../utils'
-import { parseFees } from '../utils'
-import { getXU3LPContracts } from './helper'
-const { formatEther, parseEther } = ethers.utils
+import { ethers } from 'ethers';
+import { DEC_18, GAS_LIMIT_PERCENTAGE_DEFAULT } from '../../constants';
+import { getPercentage } from '../../utils';
+import { parseFees } from '../utils';
+import { getXU3LPContracts } from './helper';
+const { formatEther, parseEther } = ethers.utils;
 export const burnXU3LP = async (symbol, outputAsset, amount, provider) => {
-  const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
-  // Estimate `gasLimit`
-  const gasLimit = getPercentage(
-    await xu3lpContract.estimateGas.burn(outputAsset, amount),
-    GAS_LIMIT_PERCENTAGE_DEFAULT
-  )
-  return xu3lpContract.burn(outputAsset, amount, {
-    gasLimit,
-  })
-}
-export const getExpectedQuantityOnBurnXU3LP = async (
-  symbol,
-  outputAsset,
-  amount,
-  provider
-) => {
-  const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
-  const [nav, totalSupply, { burnFee }] = await Promise.all([
-    xu3lpContract.getNav(),
-    xu3lpContract.totalSupply(),
-    xu3lpContract.feeDivisors(),
-  ])
-  const BURN_FEE = parseFees(burnFee)
-  let expectedQty = parseEther(amount).mul(nav).div(totalSupply)
-  // Get amount in `asset0` terms for token 0
-  if (!outputAsset) {
-    expectedQty = await xu3lpContract.getAmountInAsset0Terms(expectedQty)
-  }
-  return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18))
-}
+    const { xu3lpContract } = await getXU3LPContracts(symbol, provider);
+    // Estimate `gasLimit`
+    const gasLimit = getPercentage(await xu3lpContract.estimateGas.burn(outputAsset, amount), GAS_LIMIT_PERCENTAGE_DEFAULT);
+    return xu3lpContract.burn(outputAsset, amount, {
+        gasLimit,
+    });
+};
+export const getExpectedQuantityOnBurnXU3LP = async (symbol, outputAsset, amount, provider) => {
+    const { xu3lpContract } = await getXU3LPContracts(symbol, provider);
+    const [nav, totalSupply, { burnFee }] = await Promise.all([
+        xu3lpContract.getNav(),
+        xu3lpContract.totalSupply(),
+        xu3lpContract.feeDivisors(),
+    ]);
+    const BURN_FEE = parseFees(burnFee);
+    let expectedQty = parseEther(amount)
+        .mul(nav)
+        .div(totalSupply);
+    // Get amount in `asset0` terms for token 0
+    if (!outputAsset) {
+        expectedQty = await xu3lpContract.getAmountInAsset0Terms(expectedQty);
+    }
+    return formatEther(expectedQty.mul(BURN_FEE).div(DEC_18));
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnVybi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9ibG9ja2NoYWluL3h1M2xwL2J1cm4udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0EsT0FBTyxFQUFnQixNQUFNLEVBQUUsTUFBTSxRQUFRLENBQUE7QUFFN0MsT0FBTyxFQUFFLE1BQU0sRUFBRSw0QkFBNEIsRUFBRSxNQUFNLGlCQUFpQixDQUFBO0FBRXRFLE9BQU8sRUFBRSxhQUFhLEVBQUUsTUFBTSxhQUFhLENBQUE7QUFDM0MsT0FBTyxFQUFFLFNBQVMsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUVwQyxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFNUMsTUFBTSxFQUFFLFdBQVcsRUFBRSxVQUFVLEVBQUUsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFBO0FBRWhELE1BQU0sQ0FBQyxNQUFNLFNBQVMsR0FBRyxLQUFLLEVBQzVCLE1BQXVCLEVBQ3ZCLFdBQXFCLEVBQ3JCLE1BQWlCLEVBQ2pCLFFBQXNCLEVBQ1EsRUFBRTtJQUNoQyxNQUFNLEVBQUUsYUFBYSxFQUFFLEdBQUcsTUFBTSxpQkFBaUIsQ0FBQyxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFFbkUsc0JBQXNCO0lBQ3RCLE1BQU0sUUFBUSxHQUFHLGFBQWEsQ0FDNUIsTUFBTSxhQUFhLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxXQUFXLEVBQUUsTUFBTSxDQUFDLEVBQ3pELDRCQUE0QixDQUM3QixDQUFBO0lBRUQsT0FBTyxhQUFhLENBQUMsSUFBSSxDQUFDLFdBQVcsRUFBRSxNQUFNLEVBQUU7UUFDN0MsUUFBUTtLQUNULENBQUMsQ0FBQTtBQUNKLENBQUMsQ0FBQTtBQUVELE1BQU0sQ0FBQyxNQUFNLDhCQUE4QixHQUFHLEtBQUssRUFDakQsTUFBdUIsRUFDdkIsV0FBcUIsRUFDckIsTUFBYyxFQUNkLFFBQXNCLEVBQ3RCLEVBQUU7SUFDRixNQUFNLEVBQUUsYUFBYSxFQUFFLEdBQUcsTUFBTSxpQkFBaUIsQ0FBQyxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFFbkUsTUFBTSxDQUFDLEdBQUcsRUFBRSxXQUFXLEVBQUUsRUFBRSxPQUFPLEVBQUUsQ0FBQyxHQUFHLE1BQU0sT0FBTyxDQUFDLEdBQUcsQ0FBQztRQUN4RCxhQUFhLENBQUMsTUFBTSxFQUFFO1FBQ3RCLGFBQWEsQ0FBQyxXQUFXLEVBQUU7UUFDM0IsYUFBYSxDQUFDLFdBQVcsRUFBRTtLQUM1QixDQUFDLENBQUE7SUFFRixNQUFNLFFBQVEsR0FBRyxTQUFTLENBQUMsT0FBTyxDQUFDLENBQUE7SUFDbkMsSUFBSSxXQUFXLEdBQUcsVUFBVSxDQUFDLE1BQU0sQ0FBQztTQUNqQyxHQUFHLENBQUMsR0FBbUIsQ0FBQztTQUN4QixHQUFHLENBQUMsV0FBMkIsQ0FBQyxDQUFBO0lBRW5DLDJDQUEyQztJQUMzQyxJQUFJLENBQUMsV0FBVyxFQUFFO1FBQ2hCLFdBQVcsR0FBRyxNQUFNLGFBQWEsQ0FBQyxzQkFBc0IsQ0FBQyxXQUFXLENBQUMsQ0FBQTtLQUN0RTtJQUVELE9BQU8sV0FBVyxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUE7QUFDM0QsQ0FBQyxDQUFBIn0=

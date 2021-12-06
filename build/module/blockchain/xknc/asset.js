@@ -1,18 +1,16 @@
-import { X_KNC_A } from '@xtoken/abis'
-import { getXKncContracts } from './helper'
-import { getXKncPrices } from './prices'
+import { X_KNC_A } from '@xtoken/abis';
+import { getXKncContracts } from './helper';
+import { getXKncPrices } from './prices';
 export const getXKncAsset = async (symbol, provider) => {
-  const { xkncContract } = await getXKncContracts(symbol, provider)
-  const { aum, priceEth, priceUsd } = await getXKncPrices(xkncContract)
-  return {
-    aum,
-    mandate: `Votes to maximize ${
-      symbol === X_KNC_A ? 'staker rewards' : 'reserve rebates'
-    }`,
-    order: symbol === X_KNC_A ? 2 : 1,
-    price: priceUsd,
-    priceEth,
-    symbol,
-  }
-}
+    const { xkncContract } = await getXKncContracts(symbol, provider);
+    const { aum, priceEth, priceUsd } = await getXKncPrices(xkncContract);
+    return {
+        aum,
+        mandate: `Votes to maximize ${symbol === X_KNC_A ? 'staker rewards' : 'reserve rebates'}`,
+        order: symbol === X_KNC_A ? 2 : 1,
+        price: priceUsd,
+        priceEth,
+        symbol,
+    };
+};
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXNzZXQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi94a25jL2Fzc2V0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBLE9BQU8sRUFBRSxPQUFPLEVBQVcsTUFBTSxjQUFjLENBQUE7QUFJL0MsT0FBTyxFQUFFLGdCQUFnQixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBQzNDLE9BQU8sRUFBRSxhQUFhLEVBQUUsTUFBTSxVQUFVLENBQUE7QUFFeEMsTUFBTSxDQUFDLE1BQU0sWUFBWSxHQUFHLEtBQUssRUFDL0IsTUFBdUMsRUFDdkMsUUFBc0IsRUFDTCxFQUFFO0lBQ25CLE1BQU0sRUFBRSxZQUFZLEVBQUUsR0FBRyxNQUFNLGdCQUFnQixDQUFDLE1BQU0sRUFBRSxRQUFRLENBQUMsQ0FBQTtJQUVqRSxNQUFNLEVBQUUsR0FBRyxFQUFFLFFBQVEsRUFBRSxRQUFRLEVBQUUsR0FBRyxNQUFNLGFBQWEsQ0FBQyxZQUFZLENBQUMsQ0FBQTtJQUVyRSxPQUFPO1FBQ0wsR0FBRztRQUNILE9BQU8sRUFBRSxxQkFDUCxNQUFNLEtBQUssT0FBTyxDQUFDLENBQUMsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsaUJBQzFDLEVBQUU7UUFDRixLQUFLLEVBQUUsTUFBTSxLQUFLLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO1FBQ2pDLEtBQUssRUFBRSxRQUFRO1FBQ2YsUUFBUTtRQUNSLE1BQU07S0FDUCxDQUFBO0FBQ0gsQ0FBQyxDQUFBIn0=

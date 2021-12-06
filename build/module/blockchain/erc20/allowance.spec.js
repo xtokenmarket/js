@@ -1,18 +1,10 @@
-import { AAVE, ADDRESSES, X_AAVE_A } from '@xtoken/abis'
-import test from 'ava'
-import { provider, testAddress } from '../../constants.spec'
-import { getTokenAllowance } from './allowance'
+import { AAVE, ADDRESSES, X_AAVE_A } from '@xtoken/abis';
+import test from 'ava';
+import { provider, testAddress } from '../../constants.spec';
+import { getTokenAllowance } from './allowance';
 test('Get AAVE token allowance of xAAVEa for test address', async (t) => {
-  const tokenAllowance = await getTokenAllowance(
-    AAVE,
-    testAddress,
-    ADDRESSES[X_AAVE_A][1],
-    provider
-  )
-  console.log(
-    'AAVE Token allowance of xAAVEa for test address:',
-    tokenAllowance
-  )
-  t.true(Number(tokenAllowance) > 0)
-})
+    const tokenAllowance = await getTokenAllowance(AAVE, testAddress, ADDRESSES[X_AAVE_A][1], provider);
+    console.log('AAVE Token allowance of xAAVEa for test address:', tokenAllowance);
+    t.true(Number(tokenAllowance) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWxsb3dhbmNlLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9lcmMyMC9hbGxvd2FuY2Uuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsSUFBSSxFQUFFLFNBQVMsRUFBRSxRQUFRLEVBQUUsTUFBTSxjQUFjLENBQUE7QUFDeEQsT0FBTyxJQUFJLE1BQU0sS0FBSyxDQUFBO0FBRXRCLE9BQU8sRUFBRSxRQUFRLEVBQUUsV0FBVyxFQUFFLE1BQU0sc0JBQXNCLENBQUE7QUFFNUQsT0FBTyxFQUFFLGlCQUFpQixFQUFFLE1BQU0sYUFBYSxDQUFBO0FBRS9DLElBQUksQ0FBQyxxREFBcUQsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDdEUsTUFBTSxjQUFjLEdBQUcsTUFBTSxpQkFBaUIsQ0FDNUMsSUFBSSxFQUNKLFdBQVcsRUFDWCxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQ3RCLFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FDVCxrREFBa0QsRUFDbEQsY0FBYyxDQUNmLENBQUE7SUFDRCxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxjQUFjLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNwQyxDQUFDLENBQUMsQ0FBQSJ9

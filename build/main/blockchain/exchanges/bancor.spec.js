@@ -1,27 +1,23 @@
-'use strict'
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod }
-  }
-Object.defineProperty(exports, '__esModule', { value: true })
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // import { BUY, ETH, SELL, X_BNT_A } from '@xtoken/abis'
-const ava_1 = __importDefault(require('ava'))
-const utils_1 = require('ethers/lib/utils')
-const constants_spec_1 = require('../../constants.spec')
-const bancor_1 = require('./bancor')
+const ava_1 = __importDefault(require("ava"));
+const utils_1 = require("ethers/lib/utils");
+const constants_spec_1 = require("../../constants.spec");
+const bancor_1 = require("./bancor");
 ava_1.default('Get Bancor Network address', async (t) => {
-  const bancorNetworkAddress = await bancor_1.getBancorNetworkAddress(
-    constants_spec_1.provider
-  )
-  console.log('[Bancor] Bancor Network address:', bancorNetworkAddress)
-  t.true(utils_1.isAddress(bancorNetworkAddress))
-})
+    const bancorNetworkAddress = await bancor_1.getBancorNetworkAddress(constants_spec_1.provider);
+    console.log('[Bancor] Bancor Network address:', bancorNetworkAddress);
+    t.true(utils_1.isAddress(bancorNetworkAddress));
+});
 ava_1.default('Get BNT ETH price', async (t) => {
-  const minReturn = await bancor_1.getBntEthPrice(constants_spec_1.provider)
-  console.log('[Bancor] minReturn:', minReturn)
-  t.true(Number(minReturn) > 0)
-})
+    const minReturn = await bancor_1.getBntEthPrice(constants_spec_1.provider);
+    console.log('[Bancor] minReturn:', minReturn);
+    t.true(Number(minReturn) > 0);
+});
 /*test('Calculate expected quantity on burn of xBNTa with ETH on Bancor', async (t) => {
   const expectedQty = await getBancorEstimatedQuantity(
     ETH,

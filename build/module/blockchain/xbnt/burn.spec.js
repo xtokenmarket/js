@@ -1,25 +1,15 @@
-import { X_BNT_A } from '@xtoken/abis'
-import test from 'ava'
-import { provider } from '../../constants.spec'
-import { getExpectedQuantityOnBurnXBnt } from './burn'
+import { X_BNT_A } from '@xtoken/abis';
+import test from 'ava';
+import { provider } from '../../constants.spec';
+import { getExpectedQuantityOnBurnXBnt } from './burn';
 test('Calculate BNT expected quantity on burn of xBNTa', async (t) => {
-  const expectedQty = await getExpectedQuantityOnBurnXBnt(
-    X_BNT_A,
-    false,
-    '1000',
-    provider
-  )
-  console.log('Expected BNT qty for 1000 xBNTa:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getExpectedQuantityOnBurnXBnt(X_BNT_A, false, '1000', provider);
+    console.log('Expected BNT qty for 1000 xBNTa:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 test('Calculate ETH expected quantity on burn of xBNTa', async (t) => {
-  const expectedQty = await getExpectedQuantityOnBurnXBnt(
-    X_BNT_A,
-    true,
-    '1000',
-    provider
-  )
-  console.log('Expected ETH qty for 1000 xBNTa:', expectedQty)
-  t.true(Number(expectedQty) > 0)
-})
+    const expectedQty = await getExpectedQuantityOnBurnXBnt(X_BNT_A, true, '1000', provider);
+    console.log('Expected ETH qty for 1000 xBNTa:', expectedQty);
+    t.true(Number(expectedQty) > 0);
+});
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnVybi5zcGVjLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vc3JjL2Jsb2NrY2hhaW4veGJudC9idXJuLnNwZWMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLE9BQU8sRUFBRSxNQUFNLGNBQWMsQ0FBQTtBQUN0QyxPQUFPLElBQUksTUFBTSxLQUFLLENBQUE7QUFFdEIsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLHNCQUFzQixDQUFBO0FBRS9DLE9BQU8sRUFBRSw2QkFBNkIsRUFBRSxNQUFNLFFBQVEsQ0FBQTtBQUV0RCxJQUFJLENBQUMsa0RBQWtELEVBQUUsS0FBSyxFQUFFLENBQUMsRUFBRSxFQUFFO0lBQ25FLE1BQU0sV0FBVyxHQUFHLE1BQU0sNkJBQTZCLENBQ3JELE9BQU8sRUFDUCxLQUFLLEVBQ0wsTUFBTSxFQUNOLFFBQVEsQ0FDVCxDQUFBO0lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyxrQ0FBa0MsRUFBRSxXQUFXLENBQUMsQ0FBQTtJQUM1RCxDQUFDLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtBQUNqQyxDQUFDLENBQUMsQ0FBQTtBQUVGLElBQUksQ0FBQyxrREFBa0QsRUFBRSxLQUFLLEVBQUUsQ0FBQyxFQUFFLEVBQUU7SUFDbkUsTUFBTSxXQUFXLEdBQUcsTUFBTSw2QkFBNkIsQ0FDckQsT0FBTyxFQUNQLElBQUksRUFDSixNQUFNLEVBQ04sUUFBUSxDQUNULENBQUE7SUFDRCxPQUFPLENBQUMsR0FBRyxDQUFDLGtDQUFrQyxFQUFFLFdBQVcsQ0FBQyxDQUFBO0lBQzVELENBQUMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0FBQ2pDLENBQUMsQ0FBQyxDQUFBIn0=

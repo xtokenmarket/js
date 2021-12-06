@@ -1,5 +1,5 @@
-import { XINCH } from '../../types'
-import { ITokenPrices } from '../../types/xToken'
+import { XINCH } from '../../types';
+import { ITokenPrices } from '../../types/xToken';
 /**
  * @example
  * ```typescript
@@ -16,6 +16,4 @@ import { ITokenPrices } from '../../types/xToken'
  * @param {XINCH} xinchContract xINCHa/xINCHb token contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
-export declare const getXInchPrices: (
-  xinchContract: XINCH
-) => Promise<ITokenPrices>
+export declare const getXInchPrices: (xinchContract: XINCH) => Promise<ITokenPrices>;

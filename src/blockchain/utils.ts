@@ -37,18 +37,6 @@ import {
   LENDING_WBTC_PRICE,
   LENDING_WETH_MARKET,
   LENDING_WETH_PRICE,
-  /*LENDING_X_AAVE_A_MARKET,
-  LENDING_X_AAVE_A_PRICE,
-  LENDING_X_AAVE_B_MARKET,
-  LENDING_X_AAVE_B_PRICE,
-  LENDING_X_INCH_A_MARKET,
-  LENDING_X_INCH_A_PRICE,
-  LENDING_X_INCH_B_MARKET,
-  LENDING_X_INCH_B_PRICE,
-  LENDING_X_KNC_A_MARKET,
-  LENDING_X_KNC_A_PRICE,
-  LENDING_X_KNC_B_MARKET,
-  LENDING_X_KNC_B_PRICE,*/
   LINK,
   LIQUIDITY_POOL,
   REN_BTC,
@@ -77,6 +65,8 @@ import {
   X_ASSET_LEV_3X,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
+  X_BTC_3X,
+  X_ETH_3X,
   X_INCH_A,
   X_INCH_A_INCH_POOL,
   X_INCH_B,
@@ -88,6 +78,7 @@ import {
   X_KNC_B,
   X_KNC_B_KNC_CLR,
   X_KNC_B_UNISWAP_POOL,
+  // X_LINK_3X,
   X_SNX_A,
   X_SNX_A_BALANCER_POOL_V2,
   X_SNX_A_SNX_CLR,
@@ -106,16 +97,23 @@ import {
 import { BigNumber, ethers } from 'ethers'
 import { ContractInterface } from 'ethers/lib/ethers'
 
-import { ChainId, ZERO_NUMBER } from '../constants'
+import {
+  ARBITRUM_RINKEBY_URL,
+  ARBITRUM_URL,
+  ChainId,
+  ZERO_NUMBER,
+} from '../constants'
 import { KyberProxy } from '../types'
 import {
   ICLRToken,
   IContracts,
+  ILevToken,
   ILPTokenSymbols,
   IStableAssets,
   ITokenSymbols,
   IU3LPToken,
   IXAssetCLR,
+  IXAssetLev,
 } from '../types/xToken'
 
 import { getXAavePrices } from './xaave'
@@ -260,6 +258,10 @@ export const getAbi = (contractName: IContracts) => {
       return Abi.xAssetLev2x as ContractInterface
     case X_ASSET_LEV_3X:
       return Abi.xAssetLev3x as ContractInterface
+    case X_BTC_3X:
+    case X_ETH_3X:
+      // case X_LINK_3X:
+      return Abi.xAssetLev as ContractInterface
   }
 }
 
@@ -516,6 +518,17 @@ export const getXAssetCLRTokenSymbol = (symbol: IXAssetCLR): ICLRToken => {
   }
 }
 
+export const getXAssetLevTokenSymbol = (symbol: IXAssetLev): ILevToken => {
+  switch (symbol) {
+    case X_BTC_3X:
+      return WBTC
+    case X_ETH_3X:
+      return WETH
+    // case X_LINK_3X:
+    //   return LINK
+  }
+}
+
 export const getXAssetPrices = async (
   symbol: ITokenSymbols,
   provider: BaseProvider
@@ -617,6 +630,14 @@ export const getUniswapPoolContract = (
 
 export const getSigner = (provider: BaseProvider) => {
   try {
+    // Arbitrum provider for test cases
+    if (
+      [ARBITRUM_URL, ARBITRUM_RINKEBY_URL].includes(
+        (provider as JsonRpcProvider).connection.url
+      )
+    ) {
+      return provider
+    }
     return (provider as JsonRpcProvider).getSigner()
   } catch (e) {
     return provider

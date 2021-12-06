@@ -95,6 +95,9 @@ import {
   WAGMI,
   ARBITRUM_NFT_CORE,
   L2_NFT,
+  X_ETH_3X,
+  X_BTC_3X,
+  // X_LINK_3X,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
@@ -114,6 +117,7 @@ export type IContracts =
   | IStableAssets
   | IXAssetCLR
   | ILendingContracts
+  | IXAssetLev
   | typeof LIQUIDITY_POOL
   | typeof X_ASSET_LEV
   | typeof X_ASSET_LEV_2X
@@ -180,6 +184,8 @@ export type IXAssetCLR =
   | typeof X_SNX_A_SNX_CLR
   | typeof XTK_ETH_CLR
 
+export type IXAssetLev = typeof X_BTC_3X | typeof X_ETH_3X
+
 export type ILendingContracts =
   | typeof LENDING_COMPTROLLER
   | typeof LENDING_LIQUIDITY_POOL
@@ -226,6 +232,11 @@ interface ILPAsset extends Omit<IAsset, 'symbol'> {
   symbol: ILPTokenSymbols
 }
 
+interface ILevAsset extends Omit<IAsset, 'symbol'> {
+  priceBtc?: number
+  symbol: IXAssetLev
+}
+
 interface ITokenBalance {
   amt: string
   name: string
@@ -250,7 +261,7 @@ export interface ILiquidityPoolItem {
 export interface IPortfolioItem {
   price: string
   quantity: string
-  symbol: ITokenSymbols | ILPTokenSymbols
+  symbol: ITokenSymbols | ILPTokenSymbols | IXAssetLev
   tokenEquivalent?: string
   value: string
 }
@@ -325,3 +336,5 @@ export type ILendingMarketInfo = {
   readonly collateralCap: string
   readonly collateralDeposited: string
 }
+
+export type ILevToken = typeof WETH | typeof WBTC

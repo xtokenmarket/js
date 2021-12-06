@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 /*import {
   LENDING_X_AAVE_A_PRICE,
   LENDING_X_AAVE_B_PRICE,
