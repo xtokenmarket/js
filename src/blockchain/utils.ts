@@ -38,7 +38,6 @@ import {
   LENDING_WETH_MARKET,
   LENDING_WETH_PRICE,
   LINK,
-  LIQUIDITY_POOL,
   REN_BTC,
   S_ETH,
   S_USD,
@@ -60,9 +59,6 @@ import {
   X_AAVE_B_BALANCER_POOL,
   X_ALPHA_A,
   X_ALPHA_A_ALPHA_CLR,
-  X_ASSET_LEV,
-  X_ASSET_LEV_2X,
-  X_ASSET_LEV_3X,
   X_BNT_A,
   X_BNT_A_BANCOR_POOL,
   X_BTC_3X,
@@ -250,14 +246,6 @@ export const getAbi = (contractName: IContracts) => {
     case GN:
     case WAGMI:
       return Abi.GM as ContractInterface
-    case LIQUIDITY_POOL:
-      return Abi.liquidityPool as ContractInterface
-    case X_ASSET_LEV:
-      return Abi.xAssetLev as ContractInterface
-    case X_ASSET_LEV_2X:
-      return Abi.xAssetLev2x as ContractInterface
-    case X_ASSET_LEV_3X:
-      return Abi.xAssetLev3x as ContractInterface
     case X_BTC_3X:
     case X_ETH_3X:
       // case X_LINK_3X:

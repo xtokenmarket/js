@@ -85,10 +85,6 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
-  LIQUIDITY_POOL,
-  X_ASSET_LEV,
-  X_ASSET_LEV_2X,
-  X_ASSET_LEV_3X,
   GM,
   GA,
   GN,
@@ -118,10 +114,6 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
-  | typeof LIQUIDITY_POOL
-  | typeof X_ASSET_LEV
-  | typeof X_ASSET_LEV_2X
-  | typeof X_ASSET_LEV_3X
   | typeof GM
   | typeof GN
   | typeof GA
