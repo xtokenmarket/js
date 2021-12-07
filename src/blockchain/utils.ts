@@ -319,7 +319,7 @@ export const getBancorPoolContract = (
 }
 
 export const getContract = (
-  contractName: IContracts,
+  contractName: IContracts | INFTContracts,
   provider: BaseProvider,
   network: Network
 ) => {

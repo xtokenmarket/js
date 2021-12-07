@@ -38,7 +38,7 @@ export declare const getBancorPoolContract: (
   chainId: number
 ) => Contract | null
 export declare const getContract: (
-  contractName: IContracts,
+  contractName: IContracts | INFTContracts,
   provider: BaseProvider,
   network: Network
 ) => Contract | null
