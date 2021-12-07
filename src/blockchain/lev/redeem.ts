@@ -23,9 +23,14 @@ export const getMaximumRedeemableXAssetLev = async (
     xassetlevContract.getLiquidityBuffer(),
   ])
 
+  if (bufferHoldings.sub(liquidityBuffer).lt('0')) {
+    return '0'
+  }
+
   const redeemable = bufferHoldings
+    .sub(liquidityBuffer)
     .mul(totalSupply)
     .div(bufferBalance.add(marketBalance))
-    .sub(liquidityBuffer)
+
   return formatEther(redeemable)
 }
