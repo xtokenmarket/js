@@ -8,7 +8,6 @@ import {
   IContracts,
   ILevToken,
   ILPTokenSymbols,
-  INFTContracts,
   IStableAssets,
   ITokenSymbols,
   IU3LPToken,
@@ -17,7 +16,7 @@ import {
 } from '../types/xToken'
 export declare const capitalizeToken: (symbol: IStableAssets) => string
 export declare const getAbi: (
-  contractName: IContracts | INFTContracts
+  contractName: IContracts
 ) => ethers.ContractInterface
 export declare const getBalancerPoolAddress: (
   symbol: ITokenSymbols,
@@ -38,7 +37,7 @@ export declare const getBancorPoolContract: (
   chainId: number
 ) => Contract | null
 export declare const getContract: (
-  contractName: IContracts | INFTContracts,
+  contractName: IContracts,
   provider: BaseProvider,
   network: Network
 ) => Contract | null

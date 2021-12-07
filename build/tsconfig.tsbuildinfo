@@ -752,8 +752,8 @@
         "affectsGlobalScope": false
       },
       "../../abis/build/main/abi/index.d.ts": {
-        "version": "f0f626def36b7a1fe601fe58e0c5bf15789570f44c0884a7d869b64650515817",
-        "signature": "f0f626def36b7a1fe601fe58e0c5bf15789570f44c0884a7d869b64650515817",
+        "version": "8a0a16d7b9ffbac7ca584d42aebed74d61fd185a04ed413fff81093e6bb97c39",
+        "signature": "8a0a16d7b9ffbac7ca584d42aebed74d61fd185a04ed413fff81093e6bb97c39",
         "affectsGlobalScope": false
       },
       "../../abis/build/main/addresses.d.ts": {
@@ -762,8 +762,8 @@
         "affectsGlobalScope": false
       },
       "../../abis/build/main/constants.d.ts": {
-        "version": "1271dea2971bdb370cebcd59aca2ade3b633e53cbba6e3c1e8557279970cea01",
-        "signature": "1271dea2971bdb370cebcd59aca2ade3b633e53cbba6e3c1e8557279970cea01",
+        "version": "9fa351ba6f8e088e35b1ff4bf7f8a20ef8e26c74dc2f718f58266e79e9e745a6",
+        "signature": "9fa351ba6f8e088e35b1ff4bf7f8a20ef8e26c74dc2f718f58266e79e9e745a6",
         "affectsGlobalScope": false
       },
       "../../abis/build/main/index.d.ts": {
@@ -782,8 +782,8 @@
         "affectsGlobalScope": false
       },
       "../src/types/xtoken.d.ts": {
-        "version": "6253cbcc35b950bf392f13d023402c655a07fee7f500b2e8e19fcb18aa1bfb18",
-        "signature": "6253cbcc35b950bf392f13d023402c655a07fee7f500b2e8e19fcb18aa1bfb18",
+        "version": "c9e022f01c2f6b4d989b97b7a437e6c542c0c400dcc65744e49cb5c9060544d9",
+        "signature": "c9e022f01c2f6b4d989b97b7a437e6c542c0c400dcc65744e49cb5c9060544d9",
         "affectsGlobalScope": false
       },
       "../src/utils/index.ts": {
@@ -1596,8 +1596,8 @@
         "affectsGlobalScope": false
       },
       "../src/blockchain/utils.ts": {
-        "version": "46e76fdbe6f48a8bf11666468415859471a390a3f7e78bb9ba75464e5f53dc35",
-        "signature": "a81bd7abaafea17c5e25b7cbccdbcc8b2f424d0d3d3e3dd4e8c6b4a5b4738ef7",
+        "version": "b54896239d60a1756afb179eb854c1734b76db532a1d180ac5d82bb289b503f9",
+        "signature": "0a581578b212b28ab66246bea669be8b0c3a76027c2664e06e4c41a2f002325f",
         "affectsGlobalScope": false
       },
       "../src/blockchain/clr/helper.ts": {

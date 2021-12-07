@@ -90,7 +90,6 @@ import {
   GN,
   WAGMI,
   ARBITRUM_NFT_CORE,
-  L2_NFT,
   X_ETH_3X,
   X_BTC_3X,
   // X_LINK_3X,
@@ -114,6 +113,7 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
+  | INFTContracts
 
 export type INativeAssets =
   | typeof AAVE
@@ -185,7 +185,6 @@ export type INFTContracts =
   | typeof GA
   | typeof WAGMI
   | typeof ARBITRUM_NFT_CORE
-  | typeof L2_NFT
 
 export type ILendingMarket =
   | typeof LENDING_WBTC_MARKET
