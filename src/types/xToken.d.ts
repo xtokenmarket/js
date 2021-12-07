@@ -114,6 +114,7 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
+  | INFTContracts
 
 export type INativeAssets =
   | typeof AAVE
