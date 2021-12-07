@@ -85,16 +85,11 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
-  LIQUIDITY_POOL,
-  X_ASSET_LEV,
-  X_ASSET_LEV_2X,
-  X_ASSET_LEV_3X,
   GM,
   GA,
   GN,
   WAGMI,
   ARBITRUM_NFT_CORE,
-  L2_NFT,
   X_ETH_3X,
   X_BTC_3X,
   // X_LINK_3X,
@@ -118,16 +113,7 @@ export type IContracts =
   | IXAssetCLR
   | ILendingContracts
   | IXAssetLev
-  | typeof LIQUIDITY_POOL
-  | typeof X_ASSET_LEV
-  | typeof X_ASSET_LEV_2X
-  | typeof X_ASSET_LEV_3X
-  | typeof GM
-  | typeof GN
-  | typeof GA
-  | typeof WAGMI
-  | typeof ARBITRUM_NFT_CORE
-  | typeof L2_NFT
+  | INFTContracts
 
 export type INativeAssets =
   | typeof AAVE
@@ -192,6 +178,13 @@ export type ILendingContracts =
   | typeof LENDING_LPT
   | ILendingMarket
   | ILendingPricing
+
+export type INFTContracts =
+  | typeof GM
+  | typeof GN
+  | typeof GA
+  | typeof WAGMI
+  | typeof ARBITRUM_NFT_CORE
 
 export type ILendingMarket =
   | typeof LENDING_WBTC_MARKET
