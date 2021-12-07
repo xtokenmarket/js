@@ -1,15 +1,27 @@
-import { getXAssetLevContracts } from './helper';
-import { getXAssetLevPrices } from './prices';
+import { X_BTC_3X, X_ETH_3X } from '@xtoken/abis'
+import { getXAssetLevContracts } from './helper'
+import { getXAssetLevPrices } from './prices'
 export const getXAssetLev = async (symbol, provider) => {
-    const { xassetlevContract } = await getXAssetLevContracts(symbol, provider);
-    const { aum, priceEth, priceUsd } = await getXAssetLevPrices(xassetlevContract);
-    return {
-        aum,
-        mandate: 'Liquid Staker',
-        order: 18,
-        price: priceUsd,
-        priceEth,
-        symbol,
-    };
-};
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXNzZXQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9sZXYvYXNzZXQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBSUEsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBQ2hELE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUU3QyxNQUFNLENBQUMsTUFBTSxZQUFZLEdBQUcsS0FBSyxFQUMvQixNQUFrQixFQUNsQixRQUFzQixFQUNGLEVBQUU7SUFDdEIsTUFBTSxFQUFFLGlCQUFpQixFQUFFLEdBQUcsTUFBTSxxQkFBcUIsQ0FBQyxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFFM0UsTUFBTSxFQUFFLEdBQUcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLEdBQUcsTUFBTSxrQkFBa0IsQ0FDMUQsaUJBQWlCLENBQ2xCLENBQUE7SUFFRCxPQUFPO1FBQ0wsR0FBRztRQUNILE9BQU8sRUFBRSxlQUFlO1FBQ3hCLEtBQUssRUFBRSxFQUFFO1FBQ1QsS0FBSyxFQUFFLFFBQVE7UUFDZixRQUFRO1FBQ1IsTUFBTTtLQUNQLENBQUE7QUFDSCxDQUFDLENBQUEifQ==
+  const { xassetlevContract } = await getXAssetLevContracts(symbol, provider)
+  const { aum, priceEth, priceUsd } = await getXAssetLevPrices(
+    xassetlevContract
+  )
+  let order = -1
+  switch (symbol) {
+    case X_BTC_3X:
+      order = 18
+      break
+    case X_ETH_3X:
+      order = 19
+      break
+  }
+  return {
+    aum,
+    mandate: '3x leverage target',
+    order,
+    price: priceUsd,
+    priceEth,
+    symbol,
+  }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXNzZXQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9zcmMvYmxvY2tjaGFpbi9sZXYvYXNzZXQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLFFBQVEsRUFBRSxRQUFRLEVBQUUsTUFBTSxjQUFjLENBQUE7QUFJakQsT0FBTyxFQUFFLHFCQUFxQixFQUFFLE1BQU0sVUFBVSxDQUFBO0FBQ2hELE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxNQUFNLFVBQVUsQ0FBQTtBQUU3QyxNQUFNLENBQUMsTUFBTSxZQUFZLEdBQUcsS0FBSyxFQUMvQixNQUFrQixFQUNsQixRQUFzQixFQUNGLEVBQUU7SUFDdEIsTUFBTSxFQUFFLGlCQUFpQixFQUFFLEdBQUcsTUFBTSxxQkFBcUIsQ0FBQyxNQUFNLEVBQUUsUUFBUSxDQUFDLENBQUE7SUFFM0UsTUFBTSxFQUFFLEdBQUcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLEdBQUcsTUFBTSxrQkFBa0IsQ0FDMUQsaUJBQWlCLENBQ2xCLENBQUE7SUFFRCxJQUFJLEtBQUssR0FBRyxDQUFDLENBQUMsQ0FBQTtJQUNkLFFBQVEsTUFBTSxFQUFFO1FBQ2QsS0FBSyxRQUFRO1lBQ1gsS0FBSyxHQUFHLEVBQUUsQ0FBQTtZQUNWLE1BQUs7UUFDUCxLQUFLLFFBQVE7WUFDWCxLQUFLLEdBQUcsRUFBRSxDQUFBO1lBQ1YsTUFBSztLQUNSO0lBRUQsT0FBTztRQUNMLEdBQUc7UUFDSCxPQUFPLEVBQUUsb0JBQW9CO1FBQzdCLEtBQUs7UUFDTCxLQUFLLEVBQUUsUUFBUTtRQUNmLFFBQVE7UUFDUixNQUFNO0tBQ1AsQ0FBQTtBQUNILENBQUMsQ0FBQSJ9

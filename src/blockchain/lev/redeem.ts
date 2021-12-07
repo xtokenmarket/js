@@ -15,14 +15,17 @@ export const getMaximumRedeemableXAssetLev = async (
     bufferHoldings,
     { bufferBalance, marketBalance },
     totalSupply,
+    liquidityBuffer,
   ] = await Promise.all([
     xassetlevContract.getBufferBalance(),
     xassetlevContract.getFundBalances(),
     xassetlevContract.totalSupply(),
+    xassetlevContract.getLiquidityBuffer(),
   ])
 
   const redeemable = bufferHoldings
     .mul(totalSupply)
     .div(bufferBalance.add(marketBalance))
+    .sub(liquidityBuffer)
   return formatEther(redeemable)
 }
