@@ -27,7 +27,6 @@ import {
   INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
-  L2_NFT,
   LENDING_COMPTROLLER,
   LENDING_LINK_MARKET,
   LENDING_LINK_PRICE,
@@ -239,8 +238,6 @@ export const getAbi = (contractName: IContracts) => {
       return Abi.NativePrice as ContractInterface
     case ARBITRUM_NFT_CORE:
       return Abi.ArbitrumNFTCore as ContractInterface
-    case L2_NFT:
-      return Abi.L2_NFT as ContractInterface
     case GM:
     case GA:
     case GN:
