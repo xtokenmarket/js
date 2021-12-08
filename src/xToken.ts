@@ -1030,6 +1030,7 @@ export class XToken {
         ])
       case ChainId.Arbitrum:
         return Promise.all([
+          getPortfolioItemXU3LP(X_U3LP_A, address, this.provider),
           getPortfolioItemXU3LP(X_U3LP_B, address, this.provider),
           getPortfolioItemXAssetLev(X_BTC_3X, address, this.provider),
           getPortfolioItemXAssetLev(X_ETH_3X, address, this.provider),
@@ -1189,8 +1190,6 @@ export class XToken {
         ])
       case ChainId.Arbitrum:
         return []
-      case ChainId.ArbitrumTestnet:
-        return []
       default:
         return Promise.reject(new Error(Errors.UNSUPPORTED_NETWORK))
     }
@@ -1213,8 +1212,8 @@ export class XToken {
         return []
       case ChainId.Arbitrum:
         return Promise.all([
-          getXAssetLev(X_BTC_3X, this.provider),
           getXAssetLev(X_ETH_3X, this.provider),
+          getXAssetLev(X_BTC_3X, this.provider),
           // getXAssetLev(X_LINK_3X, this.provider),
         ])
       default:
@@ -1247,9 +1246,10 @@ export class XToken {
           getXU3LPAsset(X_U3LP_A, this.provider),
         ])
       case ChainId.Arbitrum:
-        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
-      case ChainId.ArbitrumTestnet:
-        return Promise.all([getXU3LPAsset(X_U3LP_B, this.provider)])
+        return Promise.all([
+          getXU3LPAsset(X_U3LP_B, this.provider),
+          getXU3LPAsset(X_U3LP_A, this.provider),
+        ])
       default:
         return Promise.reject(new Error(Errors.UNSUPPORTED_NETWORK))
     }

@@ -1,4 +1,5 @@
 import { BaseProvider } from '@ethersproject/providers'
+import { X_BTC_3X, X_ETH_3X } from '@xtoken/abis'
 
 import { ILevAsset, IXAssetLev } from '../../types/xToken'
 
@@ -15,10 +16,20 @@ export const getXAssetLev = async (
     xassetlevContract
   )
 
+  let order = -1
+  switch (symbol) {
+    case X_BTC_3X:
+      order = 18
+      break
+    case X_ETH_3X:
+      order = 19
+      break
+  }
+
   return {
     aum,
-    mandate: 'Liquid Staker',
-    order: 18,
+    mandate: '3x leverage target',
+    order,
     price: priceUsd,
     priceEth,
     symbol,
