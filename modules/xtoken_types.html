@@ -75,6 +75,7 @@
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.iclrmintqty.html" class="tsd-kind-icon">ICLRMint<wbr>Qty</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.iclrtoken.html" class="tsd-kind-icon">ICLRToken</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.ilpasset.html" class="tsd-kind-icon">ILPAsset</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.ilevasset.html" class="tsd-kind-icon">ILev<wbr>Asset</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-kind-icon">ILiquidity<wbr>Pool<wbr>Item</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.iportfolioitem.html" class="tsd-kind-icon">IPortfolio<wbr>Item</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/xtoken_types.ireturn.html" class="tsd-kind-icon">IReturn</a></li>
@@ -88,15 +89,24 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#iassetid" class="tsd-kind-icon">IAsset<wbr>Id</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#icollateraltype" class="tsd-kind-icon">ICollateral<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#icontracts" class="tsd-kind-icon">IContracts</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ihistorytype" class="tsd-kind-icon">IHistory<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilptokensymbols" class="tsd-kind-icon">ILPToken<wbr>Symbols</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilendingcontracts" class="tsd-kind-icon">ILending<wbr>Contracts</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilendingmarket" class="tsd-kind-icon">ILending<wbr>Market</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilendingmarketinfo" class="tsd-kind-icon">ILending<wbr>Market<wbr>Info</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilendingpricing" class="tsd-kind-icon">ILending<wbr>Pricing</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilendingtype" class="tsd-kind-icon">ILending<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ilevtoken" class="tsd-kind-icon">ILev<wbr>Token</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#inftcontracts" class="tsd-kind-icon">INFTContracts</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#inativeassets" class="tsd-kind-icon">INative<wbr>Assets</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#istableassets" class="tsd-kind-icon">IStable<wbr>Assets</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#istakehistory" class="tsd-kind-icon">IStake<wbr>History</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#itokensymbols" class="tsd-kind-icon">IToken<wbr>Symbols</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#itradetype" class="tsd-kind-icon">ITrade<wbr>Type</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ixassetclr" class="tsd-kind-icon">IXAssetCLR</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="xtoken_types.html#ixassetlev" class="tsd-kind-icon">IXAsset<wbr>Lev</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,17 +120,27 @@
 					<div class="tsd-signature tsd-kind-icon">IAsset<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L205">src/types/xToken.d.ts:205</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L293">src/types/xToken.d.ts:293</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="icollateraltype" class="tsd-anchor"></a>
+					<h3>ICollateral<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">ICollateral<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#supply" class="tsd-signature-type" data-tsd-kind="Variable">SUPPLY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#withdraw" class="tsd-signature-type" data-tsd-kind="Variable">WITHDRAW</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L318">src/types/xToken.d.ts:318</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="icontracts" class="tsd-anchor"></a>
 					<h3>IContracts</h3>
-					<div class="tsd-signature tsd-kind-icon">IContracts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#eth" class="tsd-signature-type" data-tsd-kind="Variable">ETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#exchange_rates" class="tsd-signature-type" data-tsd-kind="Variable">EXCHANGE_RATES</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_liquidity_protocol" class="tsd-signature-type" data-tsd-kind="Variable">INCH_LIQUIDITY_PROTOCOL</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#kyber_proxy" class="tsd-signature-type" data-tsd-kind="Variable">KYBER_PROXY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#trade_accounting" class="tsd-signature-type" data-tsd-kind="Variable">TRADE_ACCOUNTING</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#uniswap_library" class="tsd-signature-type" data-tsd-kind="Variable">UNISWAP_LIBRARY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#uniswap_v2_pair" class="tsd-signature-type" data-tsd-kind="Variable">UNISWAP_V2_PAIR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk" class="tsd-signature-type" data-tsd-kind="Variable">XTK</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk_management_staking_module" class="tsd-signature-type" data-tsd-kind="Variable">XTK_MANAGEMENT_STAKING_MODULE</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#inativeassets" class="tsd-signature-type" data-tsd-kind="Type alias">INativeAssets</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ilptokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ILPTokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#istableassets" class="tsd-signature-type" data-tsd-kind="Type alias">IStableAssets</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ixassetclr" class="tsd-signature-type" data-tsd-kind="Type alias">IXAssetCLR</a></div>
+					<div class="tsd-signature tsd-kind-icon">IContracts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#eth" class="tsd-signature-type" data-tsd-kind="Variable">ETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#exchange_rates" class="tsd-signature-type" data-tsd-kind="Variable">EXCHANGE_RATES</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_liquidity_protocol" class="tsd-signature-type" data-tsd-kind="Variable">INCH_LIQUIDITY_PROTOCOL</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#kyber_proxy" class="tsd-signature-type" data-tsd-kind="Variable">KYBER_PROXY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#trade_accounting" class="tsd-signature-type" data-tsd-kind="Variable">TRADE_ACCOUNTING</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#uniswap_library" class="tsd-signature-type" data-tsd-kind="Variable">UNISWAP_LIBRARY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#uniswap_v2_pair" class="tsd-signature-type" data-tsd-kind="Variable">UNISWAP_V2_PAIR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk" class="tsd-signature-type" data-tsd-kind="Variable">XTK</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk_management_staking_module" class="tsd-signature-type" data-tsd-kind="Variable">XTK_MANAGEMENT_STAKING_MODULE</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#inativeassets" class="tsd-signature-type" data-tsd-kind="Type alias">INativeAssets</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ilptokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ILPTokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#istableassets" class="tsd-signature-type" data-tsd-kind="Type alias">IStableAssets</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ixassetclr" class="tsd-signature-type" data-tsd-kind="Type alias">IXAssetCLR</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ilendingcontracts" class="tsd-signature-type" data-tsd-kind="Type alias">ILendingContracts</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ixassetlev" class="tsd-signature-type" data-tsd-kind="Type alias">IXAssetLev</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#inftcontracts" class="tsd-signature-type" data-tsd-kind="Type alias">INFTContracts</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L62">src/types/xToken.d.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L99">src/types/xToken.d.ts:99</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -130,7 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">IHistory<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">STAKE</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">UNSTAKE</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L214">src/types/xToken.d.ts:214</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L302">src/types/xToken.d.ts:302</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -140,27 +160,126 @@
 					<div class="tsd-signature tsd-kind-icon">ILPToken<wbr>Symbols<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_a" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_b" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_c" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_C</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_d" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_D</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_e" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_E</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_f" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_F</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_g" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_G</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_u3lp_h" class="tsd-signature-type" data-tsd-kind="Variable">X_U3LP_H</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L95">src/types/xToken.d.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L137">src/types/xToken.d.ts:137</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilendingcontracts" class="tsd-anchor"></a>
+					<h3>ILending<wbr>Contracts</h3>
+					<div class="tsd-signature tsd-kind-icon">ILending<wbr>Contracts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_comptroller" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_COMPTROLLER</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_liquidity_pool" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_LIQUIDITY_POOL</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_lpt" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_LPT</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ilendingmarket" class="tsd-signature-type" data-tsd-kind="Type alias">ILendingMarket</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#ilendingpricing" class="tsd-signature-type" data-tsd-kind="Type alias">ILendingPricing</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L175">src/types/xToken.d.ts:175</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilendingmarket" class="tsd-anchor"></a>
+					<h3>ILending<wbr>Market</h3>
+					<div class="tsd-signature tsd-kind-icon">ILending<wbr>Market<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_wbtc_market" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_WBTC_MARKET</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_weth_market" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_WETH_MARKET</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_link_market" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_LINK_MARKET</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L189">src/types/xToken.d.ts:189</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilendingmarketinfo" class="tsd-anchor"></a>
+					<h3>ILending<wbr>Market<wbr>Info</h3>
+					<div class="tsd-signature tsd-kind-icon">ILending<wbr>Market<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>asset<span class="tsd-signature-symbol">: </span><a href="xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#istableassets" class="tsd-signature-type" data-tsd-kind="Type alias">IStableAssets</a><span class="tsd-signature-symbol">; </span>collateral<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>collateralCap<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>collateralDeposited<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><a href="xtoken_types.html#ilendingmarket" class="tsd-signature-type" data-tsd-kind="Type alias">ILendingMarket</a><span class="tsd-signature-symbol">; </span>tokenAllowance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>tokenBalance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L322">src/types/xToken.d.ts:322</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> asset<span class="tsd-signature-symbol">: </span><a href="xtoken_types.html#itokensymbols" class="tsd-signature-type" data-tsd-kind="Type alias">ITokenSymbols</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#istableassets" class="tsd-signature-type" data-tsd-kind="Type alias">IStableAssets</a></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> collateral<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> collateral<wbr>Cap<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> collateral<wbr>Deposited<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> name<span class="tsd-signature-symbol">: </span><a href="xtoken_types.html#ilendingmarket" class="tsd-signature-type" data-tsd-kind="Type alias">ILendingMarket</a></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> token<wbr>Allowance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> token<wbr>Balance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilendingpricing" class="tsd-anchor"></a>
+					<h3>ILending<wbr>Pricing</h3>
+					<div class="tsd-signature tsd-kind-icon">ILending<wbr>Pricing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_wbtc_price" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_WBTC_PRICE</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_weth_price" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_WETH_PRICE</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#lending_link_price" class="tsd-signature-type" data-tsd-kind="Variable">LENDING_LINK_PRICE</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L200">src/types/xToken.d.ts:200</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilendingtype" class="tsd-anchor"></a>
+					<h3>ILending<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">ILending<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#borrow" class="tsd-signature-type" data-tsd-kind="Variable">BORROW</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#repay" class="tsd-signature-type" data-tsd-kind="Variable">REPAY</a><span class="tsd-signature-symbol"> | </span><a href="xtoken_types.html#icollateraltype" class="tsd-signature-type" data-tsd-kind="Type alias">ICollateralType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L320">src/types/xToken.d.ts:320</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ilevtoken" class="tsd-anchor"></a>
+					<h3>ILev<wbr>Token</h3>
+					<div class="tsd-signature tsd-kind-icon">ILev<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#weth" class="tsd-signature-type" data-tsd-kind="Variable">WETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#wbtc" class="tsd-signature-type" data-tsd-kind="Variable">WBTC</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L333">src/types/xToken.d.ts:333</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="inftcontracts" class="tsd-anchor"></a>
+					<h3>INFTContracts</h3>
+					<div class="tsd-signature tsd-kind-icon">INFTContracts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#gm" class="tsd-signature-type" data-tsd-kind="Variable">GM</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#gn" class="tsd-signature-type" data-tsd-kind="Variable">GN</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#ga" class="tsd-signature-type" data-tsd-kind="Variable">GA</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#wagmi" class="tsd-signature-type" data-tsd-kind="Variable">WAGMI</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#arbitrum_nft_core" class="tsd-signature-type" data-tsd-kind="Variable">ARBITRUM_NFT_CORE</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L182">src/types/xToken.d.ts:182</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="inativeassets" class="tsd-anchor"></a>
 					<h3>INative<wbr>Assets</h3>
-					<div class="tsd-signature tsd-kind-icon">INative<wbr>Assets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#aave" class="tsd-signature-type" data-tsd-kind="Variable">AAVE</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#bnt" class="tsd-signature-type" data-tsd-kind="Variable">BNT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch" class="tsd-signature-type" data-tsd-kind="Variable">INCH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#knc" class="tsd-signature-type" data-tsd-kind="Variable">KNC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#snx" class="tsd-signature-type" data-tsd-kind="Variable">SNX</a></div>
+					<div class="tsd-signature tsd-kind-icon">INative<wbr>Assets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#aave" class="tsd-signature-type" data-tsd-kind="Variable">AAVE</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#alpha" class="tsd-signature-type" data-tsd-kind="Variable">ALPHA</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#bnt" class="tsd-signature-type" data-tsd-kind="Variable">BNT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch" class="tsd-signature-type" data-tsd-kind="Variable">INCH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#knc" class="tsd-signature-type" data-tsd-kind="Variable">KNC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#snx" class="tsd-signature-type" data-tsd-kind="Variable">SNX</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L78">src/types/xToken.d.ts:78</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L118">src/types/xToken.d.ts:118</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="istableassets" class="tsd-anchor"></a>
 					<h3>IStable<wbr>Assets</h3>
-					<div class="tsd-signature tsd-kind-icon">IStable<wbr>Assets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#busd" class="tsd-signature-type" data-tsd-kind="Variable">BUSD</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#dai" class="tsd-signature-type" data-tsd-kind="Variable">DAI</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#frax" class="tsd-signature-type" data-tsd-kind="Variable">FRAX</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#ren_btc" class="tsd-signature-type" data-tsd-kind="Variable">REN_BTC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#s_eth" class="tsd-signature-type" data-tsd-kind="Variable">S_ETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#s_usd" class="tsd-signature-type" data-tsd-kind="Variable">S_USD</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#usdc" class="tsd-signature-type" data-tsd-kind="Variable">USDC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#usdt" class="tsd-signature-type" data-tsd-kind="Variable">USDT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#ust" class="tsd-signature-type" data-tsd-kind="Variable">UST</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#wbtc" class="tsd-signature-type" data-tsd-kind="Variable">WBTC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#weth" class="tsd-signature-type" data-tsd-kind="Variable">WETH</a></div>
+					<div class="tsd-signature tsd-kind-icon">IStable<wbr>Assets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#busd" class="tsd-signature-type" data-tsd-kind="Variable">BUSD</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#dai" class="tsd-signature-type" data-tsd-kind="Variable">DAI</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#frax" class="tsd-signature-type" data-tsd-kind="Variable">FRAX</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#ren_btc" class="tsd-signature-type" data-tsd-kind="Variable">REN_BTC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#s_eth" class="tsd-signature-type" data-tsd-kind="Variable">S_ETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#s_usd" class="tsd-signature-type" data-tsd-kind="Variable">S_USD</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#usdc" class="tsd-signature-type" data-tsd-kind="Variable">USDC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#usdt" class="tsd-signature-type" data-tsd-kind="Variable">USDT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#ust" class="tsd-signature-type" data-tsd-kind="Variable">UST</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#wbtc" class="tsd-signature-type" data-tsd-kind="Variable">WBTC</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#weth" class="tsd-signature-type" data-tsd-kind="Variable">WETH</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#link" class="tsd-signature-type" data-tsd-kind="Variable">LINK</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L105">src/types/xToken.d.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L147">src/types/xToken.d.ts:147</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,7 +289,7 @@
 					<div class="tsd-signature tsd-kind-icon">IStake<wbr>History<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>txHash<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L207">src/types/xToken.d.ts:207</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L295">src/types/xToken.d.ts:295</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -194,10 +313,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="itokensymbols" class="tsd-anchor"></a>
 					<h3>IToken<wbr>Symbols</h3>
-					<div class="tsd-signature tsd-kind-icon">IToken<wbr>Symbols<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_a" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_b" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_bnt_a" class="tsd-signature-type" data-tsd-kind="Variable">X_BNT_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_inch_a" class="tsd-signature-type" data-tsd-kind="Variable">X_INCH_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_inch_b" class="tsd-signature-type" data-tsd-kind="Variable">X_INCH_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_a" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_b" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_snx_a" class="tsd-signature-type" data-tsd-kind="Variable">X_SNX_A</a></div>
+					<div class="tsd-signature tsd-kind-icon">IToken<wbr>Symbols<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_a" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_b" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_alpha_a" class="tsd-signature-type" data-tsd-kind="Variable">X_ALPHA_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_bnt_a" class="tsd-signature-type" data-tsd-kind="Variable">X_BNT_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_inch_a" class="tsd-signature-type" data-tsd-kind="Variable">X_INCH_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_inch_b" class="tsd-signature-type" data-tsd-kind="Variable">X_INCH_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_a" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_A</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_b" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_B</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_snx_a" class="tsd-signature-type" data-tsd-kind="Variable">X_SNX_A</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L85">src/types/xToken.d.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L126">src/types/xToken.d.ts:126</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -207,17 +326,27 @@
 					<div class="tsd-signature tsd-kind-icon">ITrade<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#buy" class="tsd-signature-type" data-tsd-kind="Variable">BUY</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#sell" class="tsd-signature-type" data-tsd-kind="Variable">SELL</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L129">src/types/xToken.d.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L211">src/types/xToken.d.ts:211</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="ixassetclr" class="tsd-anchor"></a>
 					<h3>IXAssetCLR</h3>
-					<div class="tsd-signature tsd-kind-icon">IXAssetCLR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#aave_x_aave_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">AAVE_X_AAVE_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#bnt_x_bnt_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">BNT_X_BNT_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_x_inch_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">INCH_X_INCH_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_x_inch_b_clr" class="tsd-signature-type" data-tsd-kind="Variable">INCH_X_INCH_B_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_b_aave_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_B_AAVE_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_a_knc_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_A_KNC_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_b_knc_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_B_KNC_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_snx_a_snx_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_SNX_A_SNX_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk_eth_clr" class="tsd-signature-type" data-tsd-kind="Variable">XTK_ETH_CLR</a></div>
+					<div class="tsd-signature tsd-kind-icon">IXAssetCLR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#aave_x_aave_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">AAVE_X_AAVE_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#bnt_x_bnt_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">BNT_X_BNT_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_x_inch_a_clr" class="tsd-signature-type" data-tsd-kind="Variable">INCH_X_INCH_A_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#inch_x_inch_b_clr" class="tsd-signature-type" data-tsd-kind="Variable">INCH_X_INCH_B_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_aave_b_aave_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_AAVE_B_AAVE_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_alpha_a_alpha_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_ALPHA_A_ALPHA_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_a_knc_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_A_KNC_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_knc_b_knc_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_KNC_B_KNC_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_snx_a_snx_clr" class="tsd-signature-type" data-tsd-kind="Variable">X_SNX_A_SNX_CLR</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#xtk_eth_clr" class="tsd-signature-type" data-tsd-kind="Variable">XTK_ETH_CLR</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/063820f/src/types/xToken.d.ts#L118">src/types/xToken.d.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L161">src/types/xToken.d.ts:161</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="ixassetlev" class="tsd-anchor"></a>
+					<h3>IXAsset<wbr>Lev</h3>
+					<div class="tsd-signature tsd-kind-icon">IXAsset<wbr>Lev<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_btc_3x" class="tsd-signature-type" data-tsd-kind="Variable">X_BTC_3X</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">typeof </span><a href="xtoken_constants.html#x_eth_3x" class="tsd-signature-type" data-tsd-kind="Variable">X_ETH_3X</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/xtokenmarket/js/blob/99fd0a5/src/types/xToken.d.ts#L173">src/types/xToken.d.ts:173</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,6 +387,9 @@
 						<a href="../interfaces/xtoken_types.ilpasset.html" class="tsd-kind-icon">ILPAsset</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/xtoken_types.ilevasset.html" class="tsd-kind-icon">ILev<wbr>Asset</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/xtoken_types.iliquiditypoolitem.html" class="tsd-kind-icon">ILiquidity<wbr>Pool<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
@@ -282,6 +414,9 @@
 						<a href="xtoken_types.html#iassetid" class="tsd-kind-icon">IAsset<wbr>Id</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#icollateraltype" class="tsd-kind-icon">ICollateral<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="xtoken_types.html#icontracts" class="tsd-kind-icon">IContracts</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
@@ -289,6 +424,27 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="xtoken_types.html#ilptokensymbols" class="tsd-kind-icon">ILPToken<wbr>Symbols</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilendingcontracts" class="tsd-kind-icon">ILending<wbr>Contracts</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilendingmarket" class="tsd-kind-icon">ILending<wbr>Market</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilendingmarketinfo" class="tsd-kind-icon">ILending<wbr>Market<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilendingpricing" class="tsd-kind-icon">ILending<wbr>Pricing</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilendingtype" class="tsd-kind-icon">ILending<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ilevtoken" class="tsd-kind-icon">ILev<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#inftcontracts" class="tsd-kind-icon">INFTContracts</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="xtoken_types.html#inativeassets" class="tsd-kind-icon">INative<wbr>Assets</a>
@@ -307,6 +463,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="xtoken_types.html#ixassetclr" class="tsd-kind-icon">IXAssetCLR</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="xtoken_types.html#ixassetlev" class="tsd-kind-icon">IXAsset<wbr>Lev</a>
 					</li>
 				</ul>
 			</nav>
