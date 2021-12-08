@@ -1,5 +1,4 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { Contract } from 'ethers'
 import { formatEther } from 'ethers/lib/utils'
 
 import { DEFAULT_PORTFOLIO_ITEM } from '../../constants'
@@ -16,24 +15,15 @@ export const getPortfolioItemXKnc = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const {
-      kncContract,
-      kyberProxyContract,
-      xkncContract,
-    } = await getXKncContracts(symbol, provider)
+    const { xkncContract } = await getXKncContracts(symbol, provider)
 
-    const xkncBal = await getUserAvailableTokenBalance(xkncContract, address)
+    const [xkncBal, { priceUsd }, tokenEquivalent] = await Promise.all([
+      getUserAvailableTokenBalance(xkncContract, address),
+      getXKncPrices(xkncContract),
+      getUnderlyingTokenEquivalent(xkncContract, address),
+    ])
 
-    const { priceUsd } = await getXKncPrices(
-      xkncContract,
-      kncContract as Contract,
-      kyberProxyContract
-    )
     const xkncValue = (xkncBal * priceUsd).toFixed(2)
-    const tokenEquivalent = await getUnderlyingTokenEquivalent(
-      xkncContract,
-      address
-    )
 
     return {
       symbol,

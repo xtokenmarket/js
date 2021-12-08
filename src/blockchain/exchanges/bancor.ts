@@ -104,10 +104,7 @@ export const getBancorPortfolioItem = async (
   address: string,
   provider: BaseProvider
 ): Promise<ILiquidityPoolItem> => {
-  const { kyberProxyContract, network, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
+  const { network, xbntContract } = await getXBntContracts(symbol, provider)
   const { chainId } = network
 
   const asset = `${symbol} - ${BNT.toUpperCase()}`
@@ -137,7 +134,7 @@ export const getBancorPortfolioItem = async (
     .mul(parseEther(ethUsdcPrice))
     .div(DEC_18)
 
-  const { priceUsd } = await getXBntPrices(xbntContract, kyberProxyContract)
+  const { priceUsd } = await getXBntPrices(xbntContract)
 
   const bancorPoolBalances = await getBalances(
     symbol,

@@ -38,7 +38,7 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx -e .idea -e .env && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test doc:html version doc:publish",
-    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/*.json'",
+    "typechain": "typechain --target=ethers-v5 --outDir ./src/types './node_modules/@xtoken/abis/build/main/abi/**/*.json'",
     "postbuild": "copyfiles -u 1 \"src/types/*.d.ts\" build/main/ && copyfiles -u 1 \"src/types/*.d.ts\" build/module/",
     "prepare": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -64,7 +64,7 @@
     "@types/node": "^14.14.27",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "@xtoken/abis": "0.1.20",
+    "@xtoken/abis": "0.1.21",
     "ava": "^3.15.0",
     "codecov": "^3.8.1",
     "copyfiles": "^2.4.1",
@@ -93,7 +93,7 @@
     "typescript": "^4.1.5"
   },
   "peerDependencies": {
-    "@xtoken/abis": "0.1.20",
+    "@xtoken/abis": "0.1.21",
     "ethers": "5.0.30"
   },
   "resolutions": {
@@ -157,7 +157,10 @@
     },
     "files": [
       "!build/module/**",
-      "!src/constants.spec.ts"
+      "!src/blockchain/xsnx/**",
+      "!src/constants.spec.ts",
+      "!src/blockchain/lending/market.spec.ts",
+      "!src/blockchain/lending/price.spec.ts"
     ]
   },
   "config": {

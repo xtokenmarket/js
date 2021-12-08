@@ -21,20 +21,24 @@ const { formatEther, parseEther } = ethers.utils
 export const approveXAave = async (
   symbol: ITokenSymbols,
   amount: BigNumber,
-  provider: BaseProvider
+  provider: BaseProvider,
+  spenderAddress?: string
 ): Promise<ContractTransaction> => {
   const { tokenContract, xaaveContract } = await getXAaveContracts(
     symbol,
     provider
   )
 
+  const address = spenderAddress || xaaveContract.address
+  const contract = spenderAddress ? xaaveContract : tokenContract
+
   // Estimate `gasLimit`
   const gasLimit = getPercentage(
-    await tokenContract.estimateGas.approve(xaaveContract.address, amount),
+    await contract.estimateGas.approve(address, amount),
     GAS_LIMIT_PERCENTAGE_DEFAULT
   )
 
-  return tokenContract.approve(xaaveContract.address, amount, { gasLimit })
+  return contract.approve(address, amount, { gasLimit })
 }
 
 export const getExpectedQuantityOnMintXAave = async (

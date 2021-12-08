@@ -1,9 +1,9 @@
 import { Contract } from '@ethersproject/contracts'
 import { BaseProvider } from '@ethersproject/providers'
-import { INCH_LIQUIDITY_PROTOCOL, KYBER_PROXY } from '@xtoken/abis'
+import { INCH_LIQUIDITY_PROTOCOL } from '@xtoken/abis'
 import { BigNumber } from 'ethers'
 
-import { InchLiquidityProtocol, KyberProxy, XINCH } from '../../types'
+import { InchLiquidityProtocol, XINCH } from '../../types'
 import { ITokenSymbols } from '../../types/xToken'
 import { getContract, getTokenSymbol } from '../utils'
 
@@ -34,11 +34,6 @@ export const getXInchContracts = async (
     provider,
     network
   ) as InchLiquidityProtocol
-  const kyberProxyContract = getContract(
-    KYBER_PROXY,
-    provider,
-    network
-  ) as KyberProxy
   const tokenContract = getContract(
     getTokenSymbol(symbol),
     provider,
@@ -47,8 +42,7 @@ export const getXInchContracts = async (
 
   if (
     !xinchContract ||
-    !inchLiquidityProtocolContract ||
-    !kyberProxyContract ||
+    // !inchLiquidityProtocolContract ||
     !tokenContract
   ) {
     return Promise.reject(new Error('Unknown error'))
@@ -56,7 +50,6 @@ export const getXInchContracts = async (
 
   return {
     inchLiquidityProtocolContract,
-    kyberProxyContract,
     network,
     tokenContract,
     xinchContract,

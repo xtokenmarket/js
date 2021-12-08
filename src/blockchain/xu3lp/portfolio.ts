@@ -13,14 +13,11 @@ export const getPortfolioItemXU3LP = async (
   provider: BaseProvider
 ): Promise<IPortfolioItem> => {
   try {
-    const { kyberProxyContract, xu3lpContract } = await getXU3LPContracts(
-      symbol,
-      provider
-    )
+    const { xu3lpContract } = await getXU3LPContracts(symbol, provider)
 
     const xu3lpBal = await getUserAvailableTokenBalance(xu3lpContract, address)
 
-    const { priceUsd } = await getXU3LPPrices(xu3lpContract, kyberProxyContract)
+    const { priceUsd } = await getXU3LPPrices(xu3lpContract)
     const xu3lpValue = (xu3lpBal * priceUsd).toFixed(2).toString()
 
     return {

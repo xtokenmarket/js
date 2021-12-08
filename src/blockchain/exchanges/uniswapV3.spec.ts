@@ -1,9 +1,13 @@
-import { BUY, SELL, X_AAVE_A } from '@xtoken/abis'
+import { BUY, SELL, WBTC, X_AAVE_A } from '@xtoken/abis'
 import test from 'ava'
 
-import { provider } from '../../constants.spec'
+import { arbitrumProvider, provider } from '../../constants.spec'
 
-import { getUniswapV3EstimatedQty } from './uniswapV3'
+import {
+  getEthUsdcPriceUniswapV3,
+  getTokenEthPriceUniswapV3,
+  getUniswapV3EstimatedQty,
+} from './uniswapV3'
 
 test('Calculate expected quantity on mint of xAAVEa on UniswapV3', async (t) => {
   const expectedQty = await getUniswapV3EstimatedQty(
@@ -29,4 +33,22 @@ test('Calculate expected quantity on burn of xAAVEa on UniswapV3', async (t) => 
   )
   console.log('[UniswapV3] Expected AAVE qty for 100 xAAVEa:', expectedQty)
   t.true(Number(expectedQty) > 0)
+})
+
+test('Get ETH price in USDC on UniswapV3', async (t) => {
+  const expectedQtyMainnet = await getEthUsdcPriceUniswapV3(provider)
+  console.log('[Mainnet/UniswapV3] 1 ETH price in USDC:', expectedQtyMainnet)
+  t.true(Number(expectedQtyMainnet) > 0)
+
+  const expectedQtyArbitrum = await getEthUsdcPriceUniswapV3(arbitrumProvider)
+  console.log('[Arbitrum/UniswapV3] 1 ETH price in USDC:', expectedQtyArbitrum)
+  t.true(Number(expectedQtyArbitrum) > 0)
+})
+
+test('Get WBTC price in USDC on UniswapV3', async (t) => {
+  const wbtcEthPrice = await getTokenEthPriceUniswapV3(WBTC, arbitrumProvider)
+  const ethUsdcPrice = await getEthUsdcPriceUniswapV3(arbitrumProvider)
+  const wbtcUsdcPrice = Number(wbtcEthPrice) * Number(ethUsdcPrice)
+  console.log('[Arbitrum] WBTC price in USDC on UniswapV3', wbtcUsdcPrice)
+  t.true(Number(wbtcUsdcPrice) > 0)
 })

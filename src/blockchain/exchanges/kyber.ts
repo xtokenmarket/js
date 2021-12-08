@@ -19,7 +19,7 @@ import {
   WETH as WETH_SYMBOL,
   X_KNC_A,
 } from '@xtoken/abis'
-import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
 
 import { DEC_18 } from '../../constants'
 import { DMMPool } from '../../types'
@@ -104,12 +104,7 @@ export const getKyberPortfolioItem = async (
   address: string,
   provider: BaseProvider
 ): Promise<ILiquidityPoolItem> => {
-  const {
-    kncContract,
-    kyberProxyContract,
-    network,
-    xkncContract,
-  } = await getXKncContracts(symbol, provider)
+  const { network, xkncContract } = await getXKncContracts(symbol, provider)
   const { chainId } = network
 
   // Addresses
@@ -130,11 +125,7 @@ export const getKyberPortfolioItem = async (
     console.error('Error while fetching user balance:', e)
   }
 
-  const { priceUsd } = await getXKncPrices(
-    xkncContract,
-    kncContract as Contract,
-    kyberProxyContract
-  )
+  const { priceUsd } = await getXKncPrices(xkncContract)
 
   const kyberPoolBalances = await getBalances(
     symbol,

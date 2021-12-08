@@ -2,7 +2,7 @@ import { BaseProvider } from '@ethersproject/providers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES } from '../../constants'
-import { KyberProxy, XBNT } from '../../types'
+import { XBNT } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import { getBntEthPrice } from '../exchanges/bancor'
@@ -12,31 +12,24 @@ import { getEthUsdcPrice } from '../exchanges/uniswap'
  * @example
  * ```typescript
  * import { ethers } from 'ethers'
- * import { Abi, ADDRESSES, KYBER_PROXY, X_BNT_A } from '@xtoken/abis'
+ * import { Abi, ADDRESSES, X_BNT_A } from '@xtoken/abis'
  * import { getXBntPrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
- * const network = await provider.getNetwork()
- * const { chainId } = network
- *
  * const xbntContract = new ethers.Contract(ADDRESSES[X_BNT_A][chainId], Abi.xBNT, provider)
- * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], Abi.KyberProxy, provider)
  *
- * const { priceEth, priceUsd } = await getXBntPrices(
- *   xbntContract,
- *   kyberProxyContract,
- * )
+ * const { priceEth, priceUsd } = await getXBntPrices(xbntContract)
  * ```
  *
  * @param {XBNT} xbntContract xBNTa token contract
- * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXBntPrices = async (
-  xbntContract: XBNT,
-  kyberProxyContract: KyberProxy
+  xbntContract: XBNT
 ): Promise<ITokenPrices> => {
   try {
+    const { provider } = xbntContract
+
     const [
       xbntTotalSupply,
       xbntBntBal,
@@ -45,8 +38,8 @@ export const getXBntPrices = async (
     ] = await Promise.all([
       xbntContract.totalSupply(),
       xbntContract.getNav(),
-      getBntEthPrice(kyberProxyContract.provider as BaseProvider),
-      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
+      getBntEthPrice(provider as BaseProvider),
+      getEthUsdcPrice(provider as BaseProvider),
     ])
 
     const bntUsdPrice = parseEther(bntEthPrice)

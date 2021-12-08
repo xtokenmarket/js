@@ -9,6 +9,11 @@ export const GAS_LIMIT_PERCENTAGE_ETH = 120
 export const MAX_UINT = MaxUint256
 export const ZERO_NUMBER = BigNumber.from('0')
 
+export enum ChainId {
+  Mainnet = 1,
+  Arbitrum = 42161,
+}
+
 // DEX
 export enum Exchange {
   BALANCER = 'Balancer',
@@ -62,5 +67,14 @@ export const SNX_BALANCER_V2_POOL_ID =
 export const STAKE = 'Stake'
 export const UNSTAKE = 'UnStake'
 
-// TODO: Create error constants for invalid inputs
-// For example: `Invalid user address` / `Invalid value for amount`
+export const Errors = Object.freeze({
+  CONTRACT_INITIALIZATION_FAILED: 'Error while initializing the contract',
+  INVALID_AMOUNT_VALUE: 'Invalid value for amount',
+  INVALID_USER_ADDRESS: 'Invalid user address',
+  TOKENS_NOT_APPROVED: 'Please approve the tokens before proceeding',
+  UNSUPPORTED_NETWORK: 'Please switch to Mainnet/Arbitrum One network',
+})
+
+// RPC URL
+export const ARBITRUM_URL = 'https://arb1.arbitrum.io/rpc'
+export const ARBITRUM_RINKEBY_URL = 'https://rinkeby.arbitrum.io/rpc'

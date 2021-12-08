@@ -4,10 +4,11 @@ import { BigNumber, BigNumberish } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
-import { KyberProxy, XU3LP } from '../../types'
+import { XU3LP } from '../../types'
 import { ILPTokenSymbols, ITokenPrices } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
-import { getBtcUsdcPrice, getEthUsdcPrice } from '../exchanges/uniswap'
+import { getBtcUsdcPrice } from '../exchanges/uniswap'
+import { getEthUsdcPriceUniswapV3 } from '../exchanges/uniswapV3'
 import { getLPTokenSymbol } from '../utils'
 
 /**
@@ -29,14 +30,13 @@ import { getLPTokenSymbol } from '../utils'
  * ```
  *
  * @param {XU3LP} xu3lpContract xU3LPa token contract
- * @param {KyberProxy} kyberProxyContract Kyber Proxy contract
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXU3LPPrices = async (
-  xu3lpContract: XU3LP,
-  kyberProxyContract: KyberProxy
+  xu3lpContract: XU3LP
 ): Promise<ITokenPrices> => {
   try {
+    const { provider } = xu3lpContract
     const [
       symbol,
       { token0Price, token1Price },
@@ -50,10 +50,11 @@ export const getXU3LPPrices = async (
       xu3lpContract.getStakedTokenBalance(),
       xu3lpContract.getBufferTokenBalance(),
       xu3lpContract.totalSupply(),
-      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
+      getEthUsdcPriceUniswapV3(provider as BaseProvider),
     ])
 
-    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols)
+    const { chainId } = await provider.getNetwork()
+    const assets = getLPTokenSymbol(symbol as ILPTokenSymbols, chainId)
 
     const token0Balance = stakedTokenBalances.amount0.add(
       bufferTokenBalances.amount0
@@ -82,9 +83,9 @@ export const getXU3LPPrices = async (
       // Convert AUM to USD from ETH
       aum = aum.mul(parseEther(ethUsdcPrice)).div(DEC_18)
     } else if (symbol === X_U3LP_E) {
-      const btcUsdcPrice = await getBtcUsdcPrice(
-        kyberProxyContract.provider as BaseProvider
-      )
+      // TODO: Migrate to Uniswap V3 to fetch BTC price in USDC
+      const btcUsdcPrice = await getBtcUsdcPrice(provider as BaseProvider)
+
       priceBtc = aum.div(xu3lpTotalSupply as BigNumberish)
       priceUsd = priceBtc.mul(parseEther(btcUsdcPrice)).div(DEC_18)
 

@@ -10,15 +10,9 @@ export const getXBntAsset = async (
   symbol: typeof X_BNT_A,
   provider: BaseProvider
 ): Promise<IAsset> => {
-  const { kyberProxyContract, xbntContract } = await getXBntContracts(
-    symbol,
-    provider
-  )
+  const { xbntContract } = await getXBntContracts(symbol, provider)
 
-  const { aum, priceEth, priceUsd } = await getXBntPrices(
-    xbntContract,
-    kyberProxyContract
-  )
+  const { aum, priceEth, priceUsd } = await getXBntPrices(xbntContract)
 
   return {
     aum,

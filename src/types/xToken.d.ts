@@ -9,6 +9,7 @@ import {
   ALPHA,
   BNT,
   BNT_X_BNT_A_CLR,
+  BORROW,
   BUSD,
   BUY,
   DAI,
@@ -21,11 +22,34 @@ import {
   INCH_X_INCH_B_CLR,
   KNC,
   KYBER_PROXY,
+  LENDING_COMPTROLLER,
+  LENDING_LIQUIDITY_POOL,
+  LENDING_LPT,
+  LENDING_WBTC_MARKET,
+  LENDING_WBTC_PRICE,
+  LENDING_WETH_MARKET,
+  LENDING_WETH_PRICE,
+  LENDING_LINK_MARKET,
+  LENDING_LINK_PRICE,
+  /*LENDING_X_AAVE_A_MARKET,
+  LENDING_X_AAVE_A_PRICE,
+  LENDING_X_AAVE_B_MARKET,
+  LENDING_X_AAVE_B_PRICE,
+  LENDING_X_INCH_A_MARKET,
+  LENDING_X_INCH_A_PRICE,
+  LENDING_X_INCH_B_MARKET,
+  LENDING_X_INCH_B_PRICE,
+  LENDING_X_KNC_A_MARKET,
+  LENDING_X_KNC_A_PRICE,
+  LENDING_X_KNC_B_MARKET,
+  LENDING_X_KNC_B_PRICE,*/
   REN_BTC,
+  REPAY,
   S_ETH,
   S_USD,
   SELL,
   SNX,
+  SUPPLY,
   TRADE_ACCOUNTING,
   UNISWAP_LIBRARY,
   UNISWAP_V2_PAIR,
@@ -34,6 +58,8 @@ import {
   UST,
   WBTC,
   WETH,
+  LINK,
+  WITHDRAW,
   X_AAVE_A,
   X_AAVE_B,
   X_AAVE_B_AAVE_CLR,
@@ -59,6 +85,14 @@ import {
   XTK,
   XTK_ETH_CLR,
   XTK_MANAGEMENT_STAKING_MODULE,
+  GM,
+  GA,
+  GN,
+  WAGMI,
+  ARBITRUM_NFT_CORE,
+  X_ETH_3X,
+  X_BTC_3X,
+  // X_LINK_3X,
 } from '@xtoken/abis'
 import { Exchange, STAKE, UNSTAKE } from '../constants'
 
@@ -77,6 +111,9 @@ export type IContracts =
   | ILPTokenSymbols
   | IStableAssets
   | IXAssetCLR
+  | ILendingContracts
+  | IXAssetLev
+  | INFTContracts
 
 export type INativeAssets =
   | typeof AAVE
@@ -119,6 +156,7 @@ export type IStableAssets =
   | typeof UST
   | typeof WBTC
   | typeof WETH
+  | typeof LINK
 
 export type IXAssetCLR =
   | typeof AAVE_X_AAVE_A_CLR
@@ -131,6 +169,44 @@ export type IXAssetCLR =
   | typeof X_KNC_B_KNC_CLR
   | typeof X_SNX_A_SNX_CLR
   | typeof XTK_ETH_CLR
+
+export type IXAssetLev = typeof X_BTC_3X | typeof X_ETH_3X
+
+export type ILendingContracts =
+  | typeof LENDING_COMPTROLLER
+  | typeof LENDING_LIQUIDITY_POOL
+  | typeof LENDING_LPT
+  | ILendingMarket
+  | ILendingPricing
+
+export type INFTContracts =
+  | typeof GM
+  | typeof GN
+  | typeof GA
+  | typeof WAGMI
+  | typeof ARBITRUM_NFT_CORE
+
+export type ILendingMarket =
+  | typeof LENDING_WBTC_MARKET
+  | typeof LENDING_WETH_MARKET
+  | typeof LENDING_LINK_MARKET
+// | typeof LENDING_X_AAVE_A_MARKET
+// | typeof LENDING_X_AAVE_B_MARKET
+// | typeof LENDING_X_INCH_A_MARKET
+// | typeof LENDING_X_INCH_B_MARKET
+// | typeof LENDING_X_KNC_A_MARKET
+// | typeof LENDING_X_KNC_B_MARKET
+
+export type ILendingPricing =
+  | typeof LENDING_WBTC_PRICE
+  | typeof LENDING_WETH_PRICE
+  | typeof LENDING_LINK_PRICE
+// | typeof LENDING_X_AAVE_A_PRICE
+// | typeof LENDING_X_AAVE_B_PRICE
+// | typeof LENDING_X_INCH_A_PRICE
+// | typeof LENDING_X_INCH_B_PRICE
+// | typeof LENDING_X_KNC_A_PRICE
+// | typeof LENDING_X_KNC_B_PRICE
 
 export type ITradeType = typeof BUY | typeof SELL
 
@@ -147,6 +223,11 @@ interface ILPAsset extends Omit<IAsset, 'symbol'> {
   assets: string
   priceBtc?: number
   symbol: ILPTokenSymbols
+}
+
+interface ILevAsset extends Omit<IAsset, 'symbol'> {
+  priceBtc?: number
+  symbol: IXAssetLev
 }
 
 interface ITokenBalance {
@@ -173,7 +254,7 @@ export interface ILiquidityPoolItem {
 export interface IPortfolioItem {
   price: string
   quantity: string
-  symbol: ITokenSymbols | ILPTokenSymbols
+  symbol: ITokenSymbols | ILPTokenSymbols | IXAssetLev
   tokenEquivalent?: string
   value: string
 }
@@ -233,3 +314,20 @@ export interface ICLRBurnQty {
 export interface ICLRMintQty extends ICLRBurnQty {
   expectedQty: string
 }
+
+export type ICollateralType = typeof SUPPLY | typeof WITHDRAW
+
+export type ILendingType = typeof BORROW | typeof REPAY | ICollateralType
+
+export type ILendingMarketInfo = {
+  readonly asset: ITokenSymbols | IStableAssets
+  readonly name: ILendingMarket
+  readonly collateral: string
+  readonly tokenAllowance: string
+  readonly tokenBalance: string
+  readonly value: string
+  readonly collateralCap: string
+  readonly collateralDeposited: string
+}
+
+export type ILevToken = typeof WETH | typeof WBTC

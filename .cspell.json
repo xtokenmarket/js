@@ -7,6 +7,7 @@
     "ABDK",
     "ALPH",
     "alpha",
+    "arbitrum",
     "bignumber",
     "bignumberish",
     "bitjson",
@@ -42,9 +43,12 @@
     "xaavea",
     "xaaveb",
     "xalpha",
+    "xassetlev",
     "xbnt",
     "xbnta",
     "xinch",
+    "xincha",
+    "xinchb",
     "xknc",
     "xknca",
     "xkncb",
@@ -54,7 +58,8 @@
     "xu3lp",
     "unstake",
     "unstaked",
-    "unstaking"
+    "unstaking",
+    "Wagmi"
   ],
   "flagWords": [],
   "ignorePaths": [

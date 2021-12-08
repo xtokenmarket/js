@@ -3,7 +3,7 @@ import { ADDRESSES, INCH } from '@xtoken/abis'
 import { formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18, DEFAULT_PRICES } from '../../constants'
-import { KyberProxy, XINCH } from '../../types'
+import { XINCH } from '../../types'
 import { ITokenPrices } from '../../types/xToken'
 import { formatNumber } from '../../utils'
 import { getEthTokenPrice, getEthUsdcPrice } from '../exchanges/uniswap'
@@ -16,30 +16,20 @@ import { getEthTokenPrice, getEthUsdcPrice } from '../exchanges/uniswap'
  * import { getXInchPrices } from '@xtoken/js'
  *
  * const provider = new ethers.providers.InfuraProvider('homestead', <INFURA_API_KEY>)
- * const network = await provider.getNetwork()
- * const { chainId } = network
- *
  * const xinchContract = new ethers.Contract(ADDRESSES[X_INCH_A][chainId], Abi.xINCH, provider)
- * const kyberProxyContract = new ethers.Contract(ADDRESSES[KYBER_PROXY][chainId], Abi.KyberProxy, provider)
  *
- * const { priceEth, priceUsd } = await getXInchPrices(
- *   xinchContract,
- *   kyberProxyContract,
- *   chainId
- * )
+ * const { priceEth, priceUsd } = await getXInchPrices(xinchContract)
  * ```
  *
  * @param {XINCH} xinchContract xINCHa/xINCHb token contract
- * @param {KyberProxy} kyberProxyContract Kyber proxy contract
- * @param {number} chainId Connected network's ID, 1 for Mainnet
  * @returns A promise of the token prices in ETH/USD along with AUM
  */
 export const getXInchPrices = async (
-  xinchContract: XINCH,
-  kyberProxyContract: KyberProxy,
-  chainId: number
+  xinchContract: XINCH
 ): Promise<ITokenPrices> => {
   try {
+    const { provider } = xinchContract
+    const { chainId } = await provider.getNetwork()
     const inchAddress = ADDRESSES[INCH][chainId]
 
     const [
@@ -50,12 +40,8 @@ export const getXInchPrices = async (
     ] = await Promise.all([
       xinchContract.totalSupply(),
       xinchContract.getNav(),
-      getEthTokenPrice(
-        inchAddress,
-        true,
-        kyberProxyContract.provider as BaseProvider
-      ),
-      getEthUsdcPrice(kyberProxyContract.provider as BaseProvider),
+      getEthTokenPrice(inchAddress, true, provider as BaseProvider),
+      getEthUsdcPrice(provider as BaseProvider),
     ])
 
     const inchUsdPrice = parseEther(inchEthPrice)
