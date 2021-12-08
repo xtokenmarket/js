@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.56](https://github.com/xtokenmarket/js/compare/v0.1.54...v0.1.56) (2021-12-08)
+
+### Features
+
+- add nft contracts / type ([#59](https://github.com/xtokenmarket/js/issues/59)) ([d3eaee1](https://github.com/xtokenmarket/js/commit/d3eaee17224cb184b911c16d0e875f0639a57639))
+
 ### [0.1.55](https://github.com/xtokenmarket/js/compare/v0.1.54...v0.1.55) (2021-10-13)
 
 ### [0.1.54](https://github.com/xtokenmarket/js/compare/v0.1.52...v0.1.54) (2021-09-30)
