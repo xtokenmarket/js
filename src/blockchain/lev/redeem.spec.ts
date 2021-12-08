@@ -11,7 +11,7 @@ test('Get maximum redeemable xBTC3x', async (t) => {
     arbitrumProvider
   )
   console.log('Maximum redeemable xBTC3x: ', maxRedeemable)
-  t.true(Number(maxRedeemable) > 0)
+  t.true(Number(maxRedeemable) >= 0)
 })
 
 test('Get maximum redeemable xETH3x', async (t) => {
@@ -20,7 +20,7 @@ test('Get maximum redeemable xETH3x', async (t) => {
     arbitrumProvider
   )
   console.log('Maximum redeemable xETH3x: ', maxRedeemable)
-  t.true(Number(maxRedeemable) > 0)
+  t.true(Number(maxRedeemable) >= 0)
 })
 
 /*test('Get maximum redeemable xLINK3x', async (t) => {
