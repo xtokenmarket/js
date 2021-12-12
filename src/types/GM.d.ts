@@ -22,25 +22,74 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
 
 interface GMInterface extends ethers.utils.Interface {
   functions: {
+    'adminMint(address)': FunctionFragment
     'approve(address,uint256)': FunctionFragment
-    'mint(address,uint256)': FunctionFragment
+    'balanceOf(address)': FunctionFragment
+    'baseURI()': FunctionFragment
+    'coreMinter()': FunctionFragment
+    'getApproved(uint256)': FunctionFragment
+    'initialize(address,uint256,uint256,string,string)': FunctionFragment
+    'isApprovedForAll(address,address)': FunctionFragment
+    'maxAdminMints()': FunctionFragment
+    'maxSupply()': FunctionFragment
+    'mint(address)': FunctionFragment
+    'name()': FunctionFragment
+    'nextTokenId()': FunctionFragment
+    'owner()': FunctionFragment
+    'ownerOf(uint256)': FunctionFragment
+    'renounceOwnership()': FunctionFragment
     'safeTransferFrom(address,address,uint256)': FunctionFragment
     'setApprovalForAll(address,bool)': FunctionFragment
-    'transferFrom(address,address,uint256)': FunctionFragment
-    'balanceOf(address)': FunctionFragment
-    'getApproved(uint256)': FunctionFragment
-    'isApprovedForAll(address,address)': FunctionFragment
-    'ownerOf(uint256)': FunctionFragment
+    'setBaseURI(string)': FunctionFragment
     'supportsInterface(bytes4)': FunctionFragment
+    'symbol()': FunctionFragment
+    'tokenByIndex(uint256)': FunctionFragment
+    'tokenOfOwnerByIndex(address,uint256)': FunctionFragment
+    'tokenURI(uint256)': FunctionFragment
+    'totalSupply()': FunctionFragment
+    'transferFrom(address,address,uint256)': FunctionFragment
+    'transferOwnership(address)': FunctionFragment
   }
 
+  encodeFunctionData(functionFragment: 'adminMint', values: [string]): string
   encodeFunctionData(
     functionFragment: 'approve',
     values: [string, BigNumberish]
   ): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
+  encodeFunctionData(functionFragment: 'baseURI', values?: undefined): string
+  encodeFunctionData(functionFragment: 'coreMinter', values?: undefined): string
   encodeFunctionData(
-    functionFragment: 'mint',
-    values: [string, BigNumberish]
+    functionFragment: 'getApproved',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'initialize',
+    values: [string, BigNumberish, BigNumberish, string, string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'isApprovedForAll',
+    values: [string, string]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'maxAdminMints',
+    values?: undefined
+  ): string
+  encodeFunctionData(functionFragment: 'maxSupply', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mint', values: [string]): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'nextTokenId',
+    values?: undefined
+  ): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'ownerOf',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'renounceOwnership',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'safeTransferFrom',
@@ -50,30 +99,62 @@ interface GMInterface extends ethers.utils.Interface {
     functionFragment: 'setApprovalForAll',
     values: [string, boolean]
   ): string
-  encodeFunctionData(
-    functionFragment: 'transferFrom',
-    values: [string, string, BigNumberish]
-  ): string
-  encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
-  encodeFunctionData(
-    functionFragment: 'getApproved',
-    values: [BigNumberish]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'isApprovedForAll',
-    values: [string, string]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'ownerOf',
-    values: [BigNumberish]
-  ): string
+  encodeFunctionData(functionFragment: 'setBaseURI', values: [string]): string
   encodeFunctionData(
     functionFragment: 'supportsInterface',
     values: [BytesLike]
   ): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'tokenByIndex',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'tokenOfOwnerByIndex',
+    values: [string, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'tokenURI',
+    values: [BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'totalSupply',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: 'transferFrom',
+    values: [string, string, BigNumberish]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'transferOwnership',
+    values: [string]
+  ): string
 
+  decodeFunctionResult(functionFragment: 'adminMint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'baseURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'coreMinter', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'isApprovedForAll',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'maxAdminMints',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'maxSupply', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nextTokenId', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'renounceOwnership',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'safeTransferFrom',
     data: BytesLike
@@ -82,31 +163,42 @@ interface GMInterface extends ethers.utils.Interface {
     functionFragment: 'setApprovalForAll',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'transferFrom',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'isApprovedForAll',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setBaseURI', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'supportsInterface',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'tokenByIndex',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'tokenOfOwnerByIndex',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'transferFrom',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: 'transferOwnership',
+    data: BytesLike
+  ): Result
 
   events: {
-    'Transfer(address,address,uint256)': EventFragment
     'Approval(address,address,uint256)': EventFragment
     'ApprovalForAll(address,address,bool)': EventFragment
+    'OwnershipTransferred(address,address)': EventFragment
+    'Transfer(address,address,uint256)': EventFragment
   }
 
-  getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
 }
 
 export class GM extends Contract {
@@ -123,6 +215,13 @@ export class GM extends Contract {
   interface: GMInterface
 
   functions: {
+    adminMint(to: string, overrides?: Overrides): Promise<ContractTransaction>
+
+    'adminMint(address)'(
+      to: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -135,17 +234,98 @@ export class GM extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    mint(
-      to: string,
+    balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'balanceOf(address)'(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    baseURI(overrides?: CallOverrides): Promise<[string]>
+
+    'baseURI()'(overrides?: CallOverrides): Promise<[string]>
+
+    coreMinter(overrides?: CallOverrides): Promise<[string]>
+
+    'coreMinter()'(overrides?: CallOverrides): Promise<[string]>
+
+    getApproved(
       tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    'getApproved(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    initialize(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    'mint(address,uint256)'(
-      to: string,
-      tokenId: BigNumberish,
+    'initialize(address,uint256,uint256,string,string)'(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    isApprovedForAll(
+      owner: string,
+      operator: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    'isApprovedForAll(address,address)'(
+      owner: string,
+      operator: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    maxAdminMints(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'maxAdminMints()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'maxSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    mint(to: string, overrides?: Overrides): Promise<ContractTransaction>
+
+    'mint(address)'(
+      to: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    name(overrides?: CallOverrides): Promise<[string]>
+
+    'name()'(overrides?: CallOverrides): Promise<[string]>
+
+    nextTokenId(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'nextTokenId()'(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    owner(overrides?: CallOverrides): Promise<[string]>
+
+    'owner()'(overrides?: CallOverrides): Promise<[string]>
+
+    ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>
+
+    'ownerOf(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
+
+    'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -163,16 +343,76 @@ export class GM extends Contract {
     ): Promise<ContractTransaction>
 
     setApprovalForAll(
-      to: string,
+      operator: string,
       approved: boolean,
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
     'setApprovalForAll(address,bool)'(
-      to: string,
+      operator: string,
       approved: boolean,
       overrides?: Overrides
     ): Promise<ContractTransaction>
+
+    setBaseURI(
+      _newBaseURI: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    'setBaseURI(string)'(
+      _newBaseURI: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
+
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    'supportsInterface(bytes4)'(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>
+
+    symbol(overrides?: CallOverrides): Promise<[string]>
+
+    'symbol()'(overrides?: CallOverrides): Promise<[string]>
+
+    tokenByIndex(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'tokenByIndex(uint256)'(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    tokenOfOwnerByIndex(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    'tokenOfOwnerByIndex(address,uint256)'(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>
+
+    tokenURI(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    'tokenURI(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>
+
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transferFrom(
       from: string,
@@ -188,52 +428,23 @@ export class GM extends Contract {
       overrides?: Overrides
     ): Promise<ContractTransaction>
 
-    balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
 
-    'balanceOf(address)'(
-      owner: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
-
-    getApproved(
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>
-
-    'getApproved(uint256)'(
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>
-
-    isApprovedForAll(
-      owner: string,
-      operator: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    'isApprovedForAll(address,address)'(
-      owner: string,
-      operator: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>
-
-    'ownerOf(uint256)'(
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
-
-    'supportsInterface(bytes4)'(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>
+    'transferOwnership(address)'(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<ContractTransaction>
   }
+
+  adminMint(to: string, overrides?: Overrides): Promise<ContractTransaction>
+
+  'adminMint(address)'(
+    to: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   approve(
     to: string,
@@ -247,17 +458,95 @@ export class GM extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  mint(
-    to: string,
+  balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>
+
+  'balanceOf(address)'(
+    owner: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  baseURI(overrides?: CallOverrides): Promise<string>
+
+  'baseURI()'(overrides?: CallOverrides): Promise<string>
+
+  coreMinter(overrides?: CallOverrides): Promise<string>
+
+  'coreMinter()'(overrides?: CallOverrides): Promise<string>
+
+  getApproved(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
+
+  'getApproved(uint256)'(
     tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>
+
+  initialize(
+    _coreMinter: string,
+    _maxSupply: BigNumberish,
+    _maxAdminMints: BigNumberish,
+    _name: string,
+    _symbol: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  'mint(address,uint256)'(
-    to: string,
-    tokenId: BigNumberish,
+  'initialize(address,uint256,uint256,string,string)'(
+    _coreMinter: string,
+    _maxSupply: BigNumberish,
+    _maxAdminMints: BigNumberish,
+    _name: string,
+    _symbol: string,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  isApprovedForAll(
+    owner: string,
+    operator: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  'isApprovedForAll(address,address)'(
+    owner: string,
+    operator: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  maxAdminMints(overrides?: CallOverrides): Promise<BigNumber>
+
+  'maxAdminMints()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  maxSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+  'maxSupply()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  mint(to: string, overrides?: Overrides): Promise<ContractTransaction>
+
+  'mint(address)'(
+    to: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  name(overrides?: CallOverrides): Promise<string>
+
+  'name()'(overrides?: CallOverrides): Promise<string>
+
+  nextTokenId(overrides?: CallOverrides): Promise<BigNumber>
+
+  'nextTokenId()'(overrides?: CallOverrides): Promise<BigNumber>
+
+  owner(overrides?: CallOverrides): Promise<string>
+
+  'owner()'(overrides?: CallOverrides): Promise<string>
+
+  ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
+
+  'ownerOf(uint256)'(
+    tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>
+
+  renounceOwnership(overrides?: Overrides): Promise<ContractTransaction>
+
+  'renounceOwnership()'(overrides?: Overrides): Promise<ContractTransaction>
 
   'safeTransferFrom(address,address,uint256)'(
     from: string,
@@ -275,16 +564,73 @@ export class GM extends Contract {
   ): Promise<ContractTransaction>
 
   setApprovalForAll(
-    to: string,
+    operator: string,
     approved: boolean,
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
   'setApprovalForAll(address,bool)'(
-    to: string,
+    operator: string,
     approved: boolean,
     overrides?: Overrides
   ): Promise<ContractTransaction>
+
+  setBaseURI(
+    _newBaseURI: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  'setBaseURI(string)'(
+    _newBaseURI: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
+
+  supportsInterface(
+    interfaceId: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  'supportsInterface(bytes4)'(
+    interfaceId: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>
+
+  symbol(overrides?: CallOverrides): Promise<string>
+
+  'symbol()'(overrides?: CallOverrides): Promise<string>
+
+  tokenByIndex(
+    index: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  'tokenByIndex(uint256)'(
+    index: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  tokenOfOwnerByIndex(
+    owner: string,
+    index: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  'tokenOfOwnerByIndex(address,uint256)'(
+    owner: string,
+    index: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>
+
+  tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
+
+  'tokenURI(uint256)'(
+    tokenId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>
+
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+  'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
 
   transferFrom(
     from: string,
@@ -300,50 +646,21 @@ export class GM extends Contract {
     overrides?: Overrides
   ): Promise<ContractTransaction>
 
-  balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>
+  transferOwnership(
+    newOwner: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
-  'balanceOf(address)'(
-    owner: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
-
-  getApproved(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
-
-  'getApproved(uint256)'(
-    tokenId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>
-
-  isApprovedForAll(
-    owner: string,
-    operator: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>
-
-  'isApprovedForAll(address,address)'(
-    owner: string,
-    operator: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>
-
-  ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
-
-  'ownerOf(uint256)'(
-    tokenId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>
-
-  supportsInterface(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>
-
-  'supportsInterface(bytes4)'(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>
+  'transferOwnership(address)'(
+    newOwner: string,
+    overrides?: Overrides
+  ): Promise<ContractTransaction>
 
   callStatic: {
+    adminMint(to: string, overrides?: CallOverrides): Promise<void>
+
+    'adminMint(address)'(to: string, overrides?: CallOverrides): Promise<void>
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -356,17 +673,95 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    mint(
-      to: string,
+    balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>
+
+    'balanceOf(address)'(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    baseURI(overrides?: CallOverrides): Promise<string>
+
+    'baseURI()'(overrides?: CallOverrides): Promise<string>
+
+    coreMinter(overrides?: CallOverrides): Promise<string>
+
+    'coreMinter()'(overrides?: CallOverrides): Promise<string>
+
+    getApproved(
       tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
+
+    'getApproved(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
+
+    initialize(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
       overrides?: CallOverrides
     ): Promise<void>
 
-    'mint(address,uint256)'(
-      to: string,
-      tokenId: BigNumberish,
+    'initialize(address,uint256,uint256,string,string)'(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
       overrides?: CallOverrides
     ): Promise<void>
+
+    isApprovedForAll(
+      owner: string,
+      operator: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    'isApprovedForAll(address,address)'(
+      owner: string,
+      operator: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    maxAdminMints(overrides?: CallOverrides): Promise<BigNumber>
+
+    'maxAdminMints()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    maxSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'maxSupply()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    mint(to: string, overrides?: CallOverrides): Promise<void>
+
+    'mint(address)'(to: string, overrides?: CallOverrides): Promise<void>
+
+    name(overrides?: CallOverrides): Promise<string>
+
+    'name()'(overrides?: CallOverrides): Promise<string>
+
+    nextTokenId(overrides?: CallOverrides): Promise<BigNumber>
+
+    'nextTokenId()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    owner(overrides?: CallOverrides): Promise<string>
+
+    'owner()'(overrides?: CallOverrides): Promise<string>
+
+    ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
+
+    'ownerOf(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
+
+    renounceOwnership(overrides?: CallOverrides): Promise<void>
+
+    'renounceOwnership()'(overrides?: CallOverrides): Promise<void>
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -384,16 +779,70 @@ export class GM extends Contract {
     ): Promise<void>
 
     setApprovalForAll(
-      to: string,
+      operator: string,
       approved: boolean,
       overrides?: CallOverrides
     ): Promise<void>
 
     'setApprovalForAll(address,bool)'(
-      to: string,
+      operator: string,
       approved: boolean,
       overrides?: CallOverrides
     ): Promise<void>
+
+    setBaseURI(_newBaseURI: string, overrides?: CallOverrides): Promise<void>
+
+    'setBaseURI(string)'(
+      _newBaseURI: string,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    'supportsInterface(bytes4)'(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>
+
+    symbol(overrides?: CallOverrides): Promise<string>
+
+    'symbol()'(overrides?: CallOverrides): Promise<string>
+
+    tokenByIndex(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'tokenByIndex(uint256)'(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    tokenOfOwnerByIndex(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'tokenOfOwnerByIndex(address,uint256)'(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
+
+    'tokenURI(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
 
     transferFrom(
       from: string,
@@ -409,60 +858,18 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>
-
-    'balanceOf(address)'(
-      owner: string,
+    transferOwnership(
+      newOwner: string,
       overrides?: CallOverrides
-    ): Promise<BigNumber>
+    ): Promise<void>
 
-    getApproved(
-      tokenId: BigNumberish,
+    'transferOwnership(address)'(
+      newOwner: string,
       overrides?: CallOverrides
-    ): Promise<string>
-
-    'getApproved(uint256)'(
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>
-
-    isApprovedForAll(
-      owner: string,
-      operator: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>
-
-    'isApprovedForAll(address,address)'(
-      owner: string,
-      operator: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>
-
-    ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>
-
-    'ownerOf(uint256)'(
-      tokenId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>
-
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>
-
-    'supportsInterface(bytes4)'(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<void>
   }
 
   filters: {
-    Transfer(
-      from: string | null,
-      to: string | null,
-      tokenId: BigNumberish | null
-    ): EventFilter
-
     Approval(
       owner: string | null,
       approved: string | null,
@@ -474,9 +881,24 @@ export class GM extends Contract {
       operator: string | null,
       approved: null
     ): EventFilter
+
+    OwnershipTransferred(
+      previousOwner: string | null,
+      newOwner: string | null
+    ): EventFilter
+
+    Transfer(
+      from: string | null,
+      to: string | null,
+      tokenId: BigNumberish | null
+    ): EventFilter
   }
 
   estimateGas: {
+    adminMint(to: string, overrides?: Overrides): Promise<BigNumber>
+
+    'adminMint(address)'(to: string, overrides?: Overrides): Promise<BigNumber>
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -489,65 +911,20 @@ export class GM extends Contract {
       overrides?: Overrides
     ): Promise<BigNumber>
 
-    mint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'mint(address,uint256)'(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'safeTransferFrom(address,address,uint256)'(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'safeTransferFrom(address,address,uint256,bytes)'(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      _data: BytesLike,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    setApprovalForAll(
-      to: string,
-      approved: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'setApprovalForAll(address,bool)'(
-      to: string,
-      approved: boolean,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    transferFrom(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
-    'transferFrom(address,address,uint256)'(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<BigNumber>
-
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>
 
     'balanceOf(address)'(
       owner: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    baseURI(overrides?: CallOverrides): Promise<BigNumber>
+
+    'baseURI()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    coreMinter(overrides?: CallOverrides): Promise<BigNumber>
+
+    'coreMinter()'(overrides?: CallOverrides): Promise<BigNumber>
 
     getApproved(
       tokenId: BigNumberish,
@@ -557,6 +934,24 @@ export class GM extends Contract {
     'getApproved(uint256)'(
       tokenId: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    initialize(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'initialize(address,uint256,uint256,string,string)'(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides
     ): Promise<BigNumber>
 
     isApprovedForAll(
@@ -571,6 +966,30 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    maxAdminMints(overrides?: CallOverrides): Promise<BigNumber>
+
+    'maxAdminMints()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    maxSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'maxSupply()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    mint(to: string, overrides?: Overrides): Promise<BigNumber>
+
+    'mint(address)'(to: string, overrides?: Overrides): Promise<BigNumber>
+
+    name(overrides?: CallOverrides): Promise<BigNumber>
+
+    'name()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    nextTokenId(overrides?: CallOverrides): Promise<BigNumber>
+
+    'nextTokenId()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>
+
+    'owner()'(overrides?: CallOverrides): Promise<BigNumber>
+
     ownerOf(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -579,6 +998,44 @@ export class GM extends Contract {
     'ownerOf(uint256)'(
       tokenId: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    renounceOwnership(overrides?: Overrides): Promise<BigNumber>
+
+    'renounceOwnership()'(overrides?: Overrides): Promise<BigNumber>
+
+    'safeTransferFrom(address,address,uint256)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'safeTransferFrom(address,address,uint256,bytes)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      _data: BytesLike,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setApprovalForAll(
+      operator: string,
+      approved: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'setApprovalForAll(address,bool)'(
+      operator: string,
+      approved: boolean,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    setBaseURI(_newBaseURI: string, overrides?: Overrides): Promise<BigNumber>
+
+    'setBaseURI(string)'(
+      _newBaseURI: string,
+      overrides?: Overrides
     ): Promise<BigNumber>
 
     supportsInterface(
@@ -590,9 +1047,80 @@ export class GM extends Contract {
       interfaceId: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    symbol(overrides?: CallOverrides): Promise<BigNumber>
+
+    'symbol()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    tokenByIndex(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'tokenByIndex(uint256)'(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    tokenOfOwnerByIndex(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'tokenOfOwnerByIndex(address,uint256)'(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    tokenURI(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    'tokenURI(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<BigNumber>
+
+    transferFrom(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'transferFrom(address,address,uint256)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
+
+    'transferOwnership(address)'(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<BigNumber>
   }
 
   populateTransaction: {
+    adminMint(to: string, overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'adminMint(address)'(
+      to: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -600,59 +1128,6 @@ export class GM extends Contract {
     ): Promise<PopulatedTransaction>
 
     'approve(address,uint256)'(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    mint(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'mint(address,uint256)'(
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'safeTransferFrom(address,address,uint256)'(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'safeTransferFrom(address,address,uint256,bytes)'(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      _data: BytesLike,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    setApprovalForAll(
-      to: string,
-      approved: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'setApprovalForAll(address,bool)'(
-      to: string,
-      approved: boolean,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    transferFrom(
-      from: string,
-      to: string,
-      tokenId: BigNumberish,
-      overrides?: Overrides
-    ): Promise<PopulatedTransaction>
-
-    'transferFrom(address,address,uint256)'(
-      from: string,
       to: string,
       tokenId: BigNumberish,
       overrides?: Overrides
@@ -668,6 +1143,14 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    baseURI(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'baseURI()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    coreMinter(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'coreMinter()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -676,6 +1159,24 @@ export class GM extends Contract {
     'getApproved(uint256)'(
       tokenId: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    initialize(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'initialize(address,uint256,uint256,string,string)'(
+      _coreMinter: string,
+      _maxSupply: BigNumberish,
+      _maxAdminMints: BigNumberish,
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
 
     isApprovedForAll(
@@ -690,6 +1191,33 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    maxAdminMints(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'maxAdminMints()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    maxSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'maxSupply()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    mint(to: string, overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'mint(address)'(
+      to: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    name(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'name()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    nextTokenId(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'nextTokenId()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'owner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     ownerOf(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -700,6 +1228,47 @@ export class GM extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    renounceOwnership(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'renounceOwnership()'(overrides?: Overrides): Promise<PopulatedTransaction>
+
+    'safeTransferFrom(address,address,uint256)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'safeTransferFrom(address,address,uint256,bytes)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      _data: BytesLike,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setApprovalForAll(
+      operator: string,
+      approved: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setApprovalForAll(address,bool)'(
+      operator: string,
+      approved: boolean,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    setBaseURI(
+      _newBaseURI: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'setBaseURI(string)'(
+      _newBaseURI: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -708,6 +1277,70 @@ export class GM extends Contract {
     'supportsInterface(bytes4)'(
       interfaceId: BytesLike,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'symbol()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    tokenByIndex(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'tokenByIndex(uint256)'(
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    tokenOfOwnerByIndex(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'tokenOfOwnerByIndex(address,uint256)'(
+      owner: string,
+      index: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    tokenURI(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    'tokenURI(uint256)'(
+      tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    'totalSupply()'(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    transferFrom(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'transferFrom(address,address,uint256)'(
+      from: string,
+      to: string,
+      tokenId: BigNumberish,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    transferOwnership(
+      newOwner: string,
+      overrides?: Overrides
+    ): Promise<PopulatedTransaction>
+
+    'transferOwnership(address)'(
+      newOwner: string,
+      overrides?: Overrides
     ): Promise<PopulatedTransaction>
   }
 }

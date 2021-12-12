@@ -1,6 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { ADDRESSES, SNX, X_SNX_ADMIN } from '@xtoken/abis'
-import { formatBytes32String, formatEther } from 'ethers/lib/utils'
+import { formatBytes32String, formatEther, parseEther } from 'ethers/lib/utils'
 
 import { DEC_18 } from '../../constants'
 import { ERC20 } from '../../types'
@@ -36,7 +36,7 @@ export const getMaximumRedeemableXSnx = async (provider: BaseProvider) => {
 
   const redeemTokenPrice = await tradeAccountingContract.calculateRedeemTokenPrice(
     totalSupply,
-    snxBalanceOwned,
+    parseEther(snxBalanceOwned),
     debtValue
   )
 
