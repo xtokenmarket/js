@@ -127,6 +127,7 @@
     "@ethersproject/wallet": "5.0.11",
     "@ethersproject/web": "5.0.13",
     "@ethersproject/wordlists": "5.0.9",
+    "ansi-regex": "5.0.1",
     "glob-parent": "5.1.2",
     "handlebars": "4.7.7",
     "hosted-git-info": "3.0.8",
