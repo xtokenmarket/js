@@ -18,7 +18,7 @@ import { DEC_18, DEFAULT_PRICES, DEFAULT_TOKEN_PRICES } from '../../constants'
 import { XAssetCLR } from '../../types'
 import { ITokenPrices, ITokenSymbols, IXAssetCLR } from '../../types/xToken'
 import { formatNumber, getTWAP } from '../../utils'
-import { getEthUsdcPrice } from '../exchanges/uniswap'
+import { getEthUsdcPriceUniswapV3 } from '../exchanges/uniswapV3'
 import { getXAssetCLRTokenSymbol, getXAssetPrices } from '../utils'
 
 /**
@@ -54,7 +54,7 @@ export const getXAssetCLRPrices = async (
       xAssetCLRContract.getStakedTokenBalance(),
       xAssetCLRContract.getBufferTokenBalance(),
       xAssetCLRContract.totalSupply(),
-      getEthUsdcPrice(xAssetCLRContract.provider as BaseProvider),
+      getEthUsdcPriceUniswapV3(xAssetCLRContract.provider as BaseProvider),
     ])
 
     const assets = getXAssetCLRTokenSymbol(symbol as IXAssetCLR)
