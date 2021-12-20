@@ -71,13 +71,13 @@ export const getKyberEstimatedQuantity = async (
     WETH[ChainId.MAINNET],
     xKNCToken,
     dmmFactoryAddress,
-    provider
+    provider as never
   )
   const kncEthPair = await Fetcher.fetchPairData(
     kncToken,
     WETH[ChainId.MAINNET],
     dmmFactoryAddress,
-    provider
+    provider as never
   )
   let pairs = [...ethXKncPair]
 
