@@ -16,5 +16,5 @@ export const getPercentage = (amount: BigNumber, percent: number) => {
  */
 export const getTWAP = (twap: BigNumber) => {
   twap = twap.mul(1e8).div(BigNumber.from(2).pow(64))
-  return parseEther((twap.toNumber() / 1e8).toString())
+  return parseEther(twap.div(1e8).toString())
 }

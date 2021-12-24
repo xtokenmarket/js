@@ -105,10 +105,6 @@ export const mintXAssetLev = async (
     provider
   )
 
-  if (symbol === X_BTC_3X) {
-    amount = amount.div('10000000000')
-  }
-
   if (tradeWithEth) {
     // estimate gasLimit
     const gasLimit = getPercentage(
@@ -123,6 +119,10 @@ export const mintXAssetLev = async (
       value: amount,
     })
   } else {
+    if (symbol === X_BTC_3X) {
+      amount = amount.div('10000000000')
+    }
+
     const address = await getSignerAddress(provider)
     const approvedAmount = await _getApprovedAmount(
       tokenContract,
