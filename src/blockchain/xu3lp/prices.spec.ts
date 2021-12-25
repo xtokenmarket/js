@@ -28,6 +28,19 @@ test('[Mainnet] Get xU3LPa prices', async (t) => {
   t.true(priceUsd > 0)
 })
 
+test('[Arbitrum] Get xU3LPa prices', async (t) => {
+  const { xu3lpContract } = await getXU3LPContracts(X_U3LP_A, arbitrumProvider)
+
+  const { aum, priceEth, priceUsd } = await getXU3LPPrices(xu3lpContract)
+
+  console.log('[Arbitrum] xU3LPa aum:', aum)
+  console.log('[Arbitrum] xU3LPa priceEth:', priceEth)
+  console.log('[Arbitrum] xU3LPa priceUsd:', priceUsd)
+  t.true(aum > 0)
+  t.true(priceEth > 0)
+  t.true(priceUsd > 0)
+})
+
 test('[Mainnet] Get xU3LPb prices', async (t) => {
   const { xu3lpContract } = await getXU3LPContracts(X_U3LP_B, provider)
 

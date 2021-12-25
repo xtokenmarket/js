@@ -28,10 +28,6 @@ export const burnXAssetLev = async (
 ): Promise<ContractTransaction> => {
   const { xassetlevContract } = await getXAssetLevContracts(symbol, provider)
 
-  if (symbol === X_BTC_3X) {
-    amount = amount.div('10000000000')
-  }
-
   // estimate gasLimit
   const gasLimit = getPercentage(
     await xassetlevContract.estimateGas.burn(amount, sellForEth, '1'),
